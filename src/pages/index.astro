@@ -2,90 +2,122 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const metrics = [
-  { value: '4+', label: 'Years Experience' },
+  { value: '4+', label: 'Years Shipping AI' },
   { value: '300+', label: 'Certifications' },
-  { value: '500+', label: 'Incidents Resolved' },
-  { value: '98%', label: 'Service Reliability' },
+  { value: '92%', label: 'RAG Accuracy' },
+  { value: '25+', label: 'Tech Events' },
 ];
 
 const featuredProjects = [
   {
     title: 'AgenticAI Workshop',
-    description: 'Multi-agent AI orchestration framework with Google ADK, MCP protocol integration, tool-use patterns & autonomous workflows.',
-    tags: ['Google ADK', 'LangChain', 'Agentic AI', 'MCP'],
+    description: 'Multi-agent AI orchestration framework with Google ADK, MCP protocol integration, tool-use patterns & autonomous workflows. Used in INCEPT\'26 speaker session.',
+    tags: ['Google ADK', 'LangChain', 'MCP', 'Agents'],
     href: 'https://github.com/akanksha-dot-dev/AgenticAI-Workshop',
     icon: '🤖',
+    highlight: 'Speaker workshop materials',
+  },
+  {
+    title: 'Multilingual Mandi',
+    description: 'AI-powered voice-first web app for India\'s local markets — multilingual translation (Hindi/Bhojpuri/Tamil), price discovery & smart negotiation using AWS Bedrock.',
+    tags: ['AWS Bedrock', 'FastAPI', 'GenAI', 'Voice AI'],
+    href: 'https://github.com/akanksha-dot-dev/multilingual_mandi',
+    icon: '🌐',
+    highlight: 'Built at PromptWars (1st Runner-Up)',
   },
   {
     title: 'Multi-Agent Research System',
-    description: 'Production-grade multi-agent research framework with guardrails, evaluation harness & async pipelines for machine-generated text.',
-    tags: ['Python', 'FastAPI', 'Multi-Agent', 'Guardrails'],
+    description: 'Production-grade multi-agent framework with guardrails, evaluation harness & async pipelines for machine-generated text detection.',
+    tags: ['Python', 'FastAPI', 'Multi-Agent', 'Eval'],
     href: 'https://github.com/akanksha-dot-dev/Multi-Agent-For-MGT',
     icon: '🧠',
-  },
-  {
-    title: 'Near Miss Incident Analysis',
-    description: 'Predictive knowledge graph web app leveraging NLP for near-miss incident analysis & prevention in industrial settings.',
-    tags: ['NLP', 'Knowledge Graph', 'Python', 'Dashboard'],
-    href: 'https://github.com/akanksha-dot-dev/Urban-Intelligence-Dashboard-Final',
-    icon: '🔬',
+    highlight: 'Guardrails + eval pipeline',
   },
 ];
 
-const techStack = [
-  { name: 'Python', icon: '🐍' },
-  { name: 'Google ADK', icon: '🤖' },
-  { name: 'LangChain', icon: '🔗' },
-  { name: 'FastAPI', icon: '⚡' },
-  { name: 'RAG', icon: '🔍' },
-  { name: 'LLMs', icon: '🧠' },
-  { name: 'Docker', icon: '🐳' },
-  { name: 'AWS', icon: '☁️' },
+const speakingEvents = [
+  {
+    title: 'AI Mobile Hackathon — Deep Dive Session',
+    role: 'Session Leader',
+    date: 'Jun 2026',
+    topics: 'Transformers, RAG, Fine-tuning, Live Demo',
+    hasVideo: true,
+    videoUrl: 'https://www.youtube.com/watch?v=-8xTRNfq-DE',
+  },
+  {
+    title: 'INCEPT\'26 at GLA University',
+    role: 'Speaker',
+    date: 'Apr 2026',
+    topics: 'AI career growth, production engineering',
+    hasVideo: false,
+  },
 ];
+
+const communityHighlights = [
+  'Google Cloud Summit India 2026',
+  'India AI Impact Summit (Bharat Mandapam)',
+  'US Embassy — Cloud/AI/Data Security',
+  'SheLeadsAI Symposium',
+  'Google Cloud Builder Day',
+  'DevFest Noida',
+];
+
+const techStack = {
+  'AI & Agents': ['Google ADK', 'LangChain', 'LangGraph', 'CrewAI', 'MCP'],
+  'RAG & LLMs': ['Graph RAG', 'FAISS', 'Chroma', 'GPT-4', 'Llama', 'Mistral'],
+  'Backend': ['Python', 'FastAPI', 'Django', 'PostgreSQL', 'Docker'],
+  'Cloud': ['AWS Bedrock', 'Azure ML', 'Kubernetes'],
+};
 ---
 
 <BaseLayout title="Akanksha — Production AI Engineer | RAG · Agents · LLMs">
   
-  <!-- ═══ HERO SECTION ═══ -->
-  <section class="relative min-h-[90vh] flex items-center overflow-hidden">
-    <!-- Background Orbs -->
+  <!-- ═══ HERO ═══ -->
+  <section class="relative min-h-[92vh] flex items-center overflow-hidden">
     <div class="orb orb-teal" style="top: -200px; right: -100px;"></div>
-    <div class="orb orb-amber" style="bottom: -150px; left: -100px;"></div>
+    <div class="orb orb-amber" style="bottom: -150px; left: -200px;"></div>
+    <div class="orb orb-purple" style="top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
     
     <div class="max-w-6xl mx-auto px-6 py-20 relative z-10">
       <div class="max-w-3xl">
-        <!-- Badge -->
+        <!-- Status Badge -->
         <div class="fade-in mb-6">
-          <span class="badge">
-            <span class="w-2 h-2 rounded-full bg-(--color-teal) animate-pulse"></span>
-            Currently building AI at Samsung SDS
+          <span class="badge py-1.5 px-4 text-[0.78rem]">
+            <span class="pulse-dot"></span>
+            Building AI at Samsung SDS, Gurugram
           </span>
         </div>
         
-        <!-- Heading -->
-        <h1 class="fade-in font-(--font-heading) text-5xl md:text-7xl font-800 leading-[1.1] mb-6">
+        <!-- Name -->
+        <h1 class="fade-in font-(--font-heading) text-5xl md:text-[4.5rem] font-800 leading-[1.05] mb-5 tracking-tight">
           Hey, I'm <span class="gradient-text">Akanksha</span>
         </h1>
         
-        <p class="fade-in text-xl md:text-2xl text-(--color-text-secondary) mb-4 font-(--font-heading) font-500">
+        <!-- Role -->
+        <p class="fade-in text-xl md:text-2xl text-(--color-text-secondary) mb-3 font-(--font-heading) font-600">
           Production AI Engineer
         </p>
         
-        <p class="fade-in text-lg text-(--color-text-secondary) mb-8 max-w-2xl leading-relaxed">
-          I build AI systems that enterprises actually rely on — not just proof-of-concepts that impress in demos. 
-          <span class="text-(--color-teal)">RAG pipelines</span>, 
-          <span class="text-(--color-amber)">autonomous agents</span>, and 
-          <span class="text-(--color-teal)">LLM infrastructure</span> at scale.
+        <!-- Tagline -->
+        <p class="fade-in text-base md:text-lg text-(--color-text-secondary) mb-4 max-w-2xl leading-relaxed">
+          I build AI systems that enterprises actually rely on — not just proof-of-concepts that impress in demos.
         </p>
+        
+        <!-- What I build -->
+        <div class="fade-in flex flex-wrap gap-x-6 gap-y-1 text-sm text-(--color-text-muted) mb-8 font-(--font-mono)">
+          <span>→ <span class="text-(--color-teal)">RAG pipelines</span> at 92% accuracy</span>
+          <span>→ <span class="text-(--color-amber)">Autonomous agents</span> with Google ADK</span>
+          <span>→ <span class="text-(--color-teal)">LLM infrastructure</span> at enterprise scale</span>
+        </div>
         
         <!-- CTAs -->
         <div class="fade-in flex flex-wrap gap-4">
           <a href="/projects" class="btn-primary">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
             View Projects
           </a>
           <a href="/contact" class="btn-outline">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
             Get in Touch
           </a>
         </div>
@@ -94,9 +126,9 @@ const techStack = [
   </section>
   
   <!-- ═══ METRICS BAR ═══ -->
-  <section class="relative z-10 -mt-8 mb-20">
+  <section class="relative z-10 -mt-10 mb-16">
     <div class="max-w-4xl mx-auto px-6">
-      <div class="glass p-2 grid grid-cols-2 md:grid-cols-4">
+      <div class="glass-static p-1.5 grid grid-cols-2 md:grid-cols-4 rounded-xl">
         {metrics.map(m => (
           <div class="metric">
             <div class="metric-value">{m.value}</div>
@@ -107,14 +139,19 @@ const techStack = [
     </div>
   </section>
   
-  <!-- ═══ TECH STACK MARQUEE ═══ -->
-  <section class="mb-20 overflow-hidden">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="flex gap-4 flex-wrap justify-center">
-        {techStack.map(tech => (
-          <span class="badge text-sm px-4 py-2">
-            <span>{tech.icon}</span> {tech.name}
-          </span>
+  <!-- ═══ TECH STACK ═══ -->
+  <section class="mb-20">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="flex flex-wrap gap-6 justify-center">
+        {Object.entries(techStack).map(([category, tools]) => (
+          <div class="flex items-center gap-2">
+            <span class="text-[0.65rem] font-(--font-mono) text-(--color-text-muted) uppercase tracking-wider">{category}:</span>
+            <div class="flex gap-1.5 flex-wrap">
+              {tools.map(t => (
+                <span class="badge text-[0.65rem] py-1">{t}</span>
+              ))}
+            </div>
+          </div>
         ))}
       </div>
     </div>
@@ -122,24 +159,32 @@ const techStack = [
   
   <!-- ═══ FEATURED PROJECTS ═══ -->
   <section class="max-w-6xl mx-auto px-6 mb-24">
-    <div class="fade-in text-center mb-12">
-      <h2 class="section-title gradient-text">Featured Projects</h2>
-      <p class="section-subtitle">Production-grade AI systems, not tutorial clones</p>
+    <div class="fade-in text-center mb-10">
+      <h2 class="section-title">Featured <span class="gradient-text">Projects</span></h2>
+      <p class="section-subtitle mb-8">Production-grade AI systems, not tutorial clones</p>
     </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 stagger">
       {featuredProjects.map(project => (
-        <a href={project.href} target="_blank" rel="noopener" class="glass p-6 flex flex-col gap-4 group cursor-pointer">
-          <div class="text-3xl">{project.icon}</div>
+        <a href={project.href} target="_blank" rel="noopener" class="glass p-6 flex flex-col gap-4 group cursor-pointer fade-in">
+          <div class="flex items-start justify-between">
+            <span class="text-3xl">{project.icon}</span>
+            <svg class="w-4 h-4 text-(--color-text-muted) group-hover:text-(--color-teal) transition-colors transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </div>
           <h3 class="font-(--font-heading) font-700 text-lg group-hover:text-(--color-teal) transition-colors">
             {project.title}
           </h3>
           <p class="text-(--color-text-secondary) text-sm leading-relaxed flex-1">
             {project.description}
           </p>
-          <div class="flex flex-wrap gap-2">
+          <p class="text-(--color-amber) text-xs font-(--font-mono)">
+            ⚡ {project.highlight}
+          </p>
+          <div class="flex flex-wrap gap-1.5 pt-3 border-t border-(--color-border)">
             {project.tags.map(tag => (
-              <span class="badge text-[0.65rem]">{tag}</span>
+              <span class="badge text-[0.6rem]">{tag}</span>
             ))}
           </div>
         </a>
@@ -147,43 +192,115 @@ const techStack = [
     </div>
     
     <div class="text-center mt-8">
-      <a href="/projects" class="btn-outline text-sm">
-        View All Projects →
-      </a>
+      <a href="/projects" class="btn-outline text-sm">View All 8 Projects →</a>
+    </div>
+  </section>
+  
+  <!-- ═══ SPEAKING & COMMUNITY ═══ -->
+  <section class="max-w-6xl mx-auto px-6 mb-24">
+    <div class="fade-in text-center mb-10">
+      <h2 class="section-title">Speaking & <span class="gradient-text">Community</span></h2>
+      <p class="section-subtitle mb-8">Active across 12+ Delhi NCR AI communities · 8,800+ LinkedIn reactions</p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <!-- Speaking Engagements -->
+      {speakingEvents.map(event => (
+        <div class="glass p-6 fade-in">
+          <div class="flex items-start gap-4">
+            <span class="text-3xl">🎤</span>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="badge-amber badge text-[0.6rem]">{event.role}</span>
+                <span class="text-(--color-text-muted) text-xs font-(--font-mono)">{event.date}</span>
+              </div>
+              <h3 class="font-(--font-heading) font-600 text-sm mb-1">{event.title}</h3>
+              <p class="text-(--color-text-muted) text-xs">{event.topics}</p>
+              {event.hasVideo && (
+                <a href={event.videoUrl} target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-(--color-teal) text-xs mt-2 hover:underline font-(--font-mono)">
+                  ▶ Watch Recording
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+    
+    <!-- Community Events Marquee -->
+    <div class="fade-in glass-static p-5 rounded-xl">
+      <p class="text-xs text-(--color-text-muted) font-(--font-mono) uppercase tracking-wider mb-3">Recent Events Attended</p>
+      <div class="flex flex-wrap gap-2">
+        {communityHighlights.map(e => (
+          <span class="badge-ghost badge text-[0.65rem]">{e}</span>
+        ))}
+        <span class="badge-ghost badge text-[0.65rem]">+19 more</span>
+      </div>
     </div>
   </section>
   
   <!-- ═══ ABOUT PREVIEW ═══ -->
   <section class="max-w-6xl mx-auto px-6 mb-24">
-    <div class="glass p-8 md:p-12 relative overflow-hidden">
-      <div class="orb orb-teal" style="top: -200px; right: -200px; width: 300px; height: 300px; opacity: 0.1;"></div>
+    <div class="glass p-8 md:p-12 relative overflow-hidden fade-in">
+      <div class="orb orb-teal" style="top: -200px; right: -200px; width: 250px; height: 250px; opacity: 0.08;"></div>
       
-      <div class="relative z-10 max-w-3xl">
-        <div class="fade-in">
-          <h2 class="section-title">The Short Version</h2>
-          <p class="text-(--color-text-secondary) leading-relaxed mb-6">
-            I'm a Production AI Engineer at Samsung SDS, Gurugram. I architect the full GenAI stack: 
-            autonomous AI agents with Google ADK, enterprise RAG pipelines processing financial documents, 
-            and LLM infrastructure serving 500+ daily queries at 92% accuracy.
-          </p>
-          <p class="text-(--color-text-secondary) leading-relaxed mb-6">
-            My journey is unconventional — I studied Electrical Engineering in Darbhanga, Bihar, taught 
-            myself to code through hackathons, and built my way to leading AI projects at a global company. 
-            I've earned <span class="text-(--color-amber) font-semibold">300+ certifications</span> and 
-            <span class="text-(--color-teal) font-semibold">won national hackathons</span> along the way.
-          </p>
-          <a href="/about" class="btn-primary inline-flex">
-            Read My Full Story →
-          </a>
+      <div class="relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8 items-start">
+          <div>
+            <h2 class="section-title mb-4">The Short Version</h2>
+            <p class="text-(--color-text-secondary) leading-relaxed mb-4">
+              I'm a Production AI Engineer at <span class="text-(--color-text-primary) font-semibold">Samsung SDS</span>, Gurugram. 
+              I architect the full GenAI stack: autonomous AI agents with Google ADK, enterprise RAG pipelines 
+              processing financial documents, and LLM infrastructure serving 
+              <span class="text-(--color-teal) font-semibold">500+ daily queries at 92% accuracy</span>.
+            </p>
+            <p class="text-(--color-text-secondary) leading-relaxed mb-6">
+              My journey is unconventional — I studied Electrical Engineering in Darbhanga, Bihar, taught 
+              myself to code through hackathons, and built my way to leading AI projects at a global company. 
+              Along the way: <span class="text-(--color-amber) font-semibold">300+ certifications</span>, 
+              <span class="text-(--color-teal) font-semibold">national hackathon wins</span>, and speaking at 
+              events alongside founders of CampusX.
+            </p>
+            
+            <blockquote class="border-l-2 border-(--color-teal) pl-4 mb-6">
+              <p class="text-(--color-text-primary) italic font-(--font-heading) font-500">
+                "I care about AI that ships, not just AI that demos."
+              </p>
+            </blockquote>
+            
+            <a href="/about" class="btn-primary inline-flex text-sm">
+              Read My Full Story →
+            </a>
+          </div>
+          
+          <!-- Quick stats sidebar -->
+          <div class="hidden md:flex flex-col gap-3 min-w-[180px]">
+            <div class="glass-static p-3 rounded-lg text-center">
+              <p class="text-lg font-800 font-(--font-heading) text-(--color-teal)">🏆 4</p>
+              <p class="text-[0.65rem] text-(--color-text-muted) font-(--font-mono)">HACKATHON WINS</p>
+            </div>
+            <div class="glass-static p-3 rounded-lg text-center">
+              <p class="text-lg font-800 font-(--font-heading) text-(--color-amber)">🎤 2</p>
+              <p class="text-[0.65rem] text-(--color-text-muted) font-(--font-mono)">SPEAKER TALKS</p>
+            </div>
+            <div class="glass-static p-3 rounded-lg text-center">
+              <p class="text-lg font-800 font-(--font-heading) text-(--color-teal)">🌐 12+</p>
+              <p class="text-[0.65rem] text-(--color-text-muted) font-(--font-mono)">AI COMMUNITIES</p>
+            </div>
+            <div class="glass-static p-3 rounded-lg text-center">
+              <p class="text-lg font-800 font-(--font-heading) text-(--color-amber)">⭐ Top 5%</p>
+              <p class="text-[0.65rem] text-(--color-text-muted) font-(--font-mono)">LINKEDIN MEMBER</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
   
-  <!-- ═══ CTA SECTION ═══ -->
+  <!-- ═══ CTA ═══ -->
   <section class="max-w-6xl mx-auto px-6 mb-12">
     <div class="fade-in text-center py-16">
-      <h2 class="font-(--font-heading) text-3xl md:text-4xl font-800 mb-4">
+      <h2 class="font-(--font-heading) text-3xl md:text-4xl font-800 mb-4 tracking-tight">
         Let's build the future of AI <span class="gradient-text">together</span>
       </h2>
       <p class="text-(--color-text-secondary) mb-8 max-w-lg mx-auto">
@@ -191,8 +308,8 @@ const techStack = [
       </p>
       <div class="flex flex-wrap gap-4 justify-center">
         <a href="mailto:me@akanksha.dev" class="btn-primary">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-          Email Me
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          me@akanksha.dev
         </a>
         <a href="https://linkedin.com/in/akankshadev" target="_blank" rel="noopener" class="btn-outline">
           Connect on LinkedIn

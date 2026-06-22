@@ -5,34 +5,83 @@ const experience = [
   {
     company: 'Samsung SDS',
     title: 'Production AI Engineer',
-    subtitle: 'Senior Executive Engineer',
+    subtitle: 'Senior Executive Engineer (SDE equivalent)',
     period: 'Oct 2024 – Present',
     location: 'Gurugram, India',
     color: 'teal',
-    bullets: [
-      { icon: '🤖', text: 'Architect autonomous AI agents using Google ADK for content generation and QA automation — 60% reduction in manual effort' },
-      { icon: '🔍', text: 'Built end-to-end RAG pipeline for financial document processing with Graph RAG, achieving 92% accuracy on 500+ daily queries' },
-      { icon: '🧠', text: 'Deploy and optimize LLM infrastructure (GPT-4, Llama, Mistral) with token-optimized divide-and-conquer strategies' },
-      { icon: '👥', text: 'Lead team of 3 developers, collaborate across India & Korea teams at enterprise scale' },
-      { icon: '🏗️', text: 'Developed QPORT Card System using Agentic AI for automated quality reporting across Samsung manufacturing' },
+    projects: [
+      {
+        name: 'Agentic AI Content Generation & Evaluation',
+        bullets: [
+          'Architect autonomous AI agents using Google ADK for content generation and QA automation — 60% reduction in manual effort',
+          'Lead team of 3 developers on GenAI projects, mentoring on RAG architecture and prompt engineering',
+          'Collaborate across India & Korea teams on enterprise AI solution delivery',
+        ],
+      },
+      {
+        name: 'Graph RAG for Financial Services',
+        bullets: [
+          'Built end-to-end Graph RAG pipeline processing annual reports with advanced PDF extraction (GMFT, Partition PDF)',
+          'Achieved 92% accuracy on 500+ daily queries with 40% improvement in document retrieval over baseline',
+          'Deployed GPT-4 and Llama-2 with token-optimized divide-and-conquer strategies',
+        ],
+      },
+      {
+        name: 'Agentic RAG Chatbot & Automated Reporting',
+        bullets: [
+          'Implemented Agentic RAG chatbot with SMTP integration for automated email reporting workflows',
+          'Designed vector DB architecture using FAISS & Chroma for efficient LLM context retrieval',
+        ],
+      },
+      {
+        name: 'QA Automation & Productivity Analyzer',
+        bullets: [
+          'Built QA Automation Engine with structured JSON comparison across o9 tenants',
+          'Developed RAG-based productivity analyzer processing JIRA stories and Confluence documents',
+        ],
+      },
     ],
-    tech: ['Google ADK', 'LangGraph', 'Graph RAG', 'FastAPI', 'GPT-4', 'Docker'],
+    tech: ['Google ADK', 'LangGraph', 'Graph RAG', 'FastAPI', 'GPT-4', 'Llama', 'FAISS', 'Chroma', 'Docker'],
   },
   {
     company: 'HCLTech',
     title: 'Software Engineer',
-    subtitle: 'iTAP Platform Team',
-    period: 'Sep 2022 – Sep 2024',
+    subtitle: 'iTAP & Edge Platform Team',
+    period: 'Sep 2023 – Sep 2024',
     location: 'Noida, India',
     color: 'amber',
-    bullets: [
-      { icon: '🤖', text: 'Deployed ML algorithms for 10+ features: CV parsing, profile matching, content tagging, smart search' },
-      { icon: '🛠️', text: 'Resolved 500+ production incidents, achieving 30% reduction in system downtime' },
-      { icon: '☁️', text: 'Deployed web services on AWS & Azure, maintaining 98% service reliability' },
-      { icon: '📈', text: 'Built automated dashboards using Power BI for scheduler monitoring across 3+ applications' },
-      { icon: '🏆', text: 'Promoted from Graduate Engineer Trainee to Software Engineer within first year' },
+    projects: [
+      {
+        name: 'iTAP & Edge — Enterprise Recruitment Platform',
+        bullets: [
+          'Deployed ML algorithms for 10+ features: CV parsing, profile matching, content tagging, smart search — 95% user satisfaction',
+          'Resolved 500+ production incidents, achieving 30% reduction in system downtime',
+          'Deployed web services on AWS & Azure, maintaining 98% service reliability',
+          'Built automated Power BI dashboards for scheduler monitoring across 3+ applications',
+          'Implemented Text Analytics and NLP pipelines for intelligent job recommendations',
+        ],
+      },
     ],
-    tech: ['Python', 'Django', 'SQL Server', 'Azure', 'AWS', 'Power BI'],
+    tech: ['Python', 'Django', 'SQL Server', 'Azure', 'AWS', 'Power BI', 'NLP', 'ML'],
+  },
+  {
+    company: 'HCLTech',
+    title: 'Graduate Engineer Trainee',
+    subtitle: 'Training & Foundation Phase',
+    period: 'Sep 2022 – Sep 2023',
+    location: 'Noida, India',
+    color: 'amber',
+    projects: [
+      {
+        name: 'Technical Training & First Projects',
+        bullets: [
+          'Completed 70+ hours technical training in Python, SQL, C#, Golang, ASP.NET MVC',
+          'Built full-stack web applications during training phase',
+          'Promoted to Software Engineer within first year based on performance',
+        ],
+      },
+    ],
+    tech: ['Python', 'C#', 'Golang', 'SQL', 'ASP.NET', 'Git'],
   },
   {
     company: 'Collegedunia',
@@ -40,83 +89,116 @@ const experience = [
     subtitle: 'Concurrent with primary roles',
     period: 'May 2021 – Mar 2024',
     location: 'Remote',
-    color: 'teal',
-    bullets: [
-      { icon: '✍️', text: 'SEO content writing, proofreading, and editing for education platform' },
-      { icon: '📊', text: 'Built discipline in professional delivery while maintaining full-time engineering career' },
+    color: 'muted',
+    projects: [
+      {
+        name: 'SEO Content & Technical Writing',
+        bullets: [
+          'SEO content writing, proofreading, and editing for education platform',
+          'Built discipline in professional delivery while maintaining full-time engineering career',
+        ],
+      },
     ],
     tech: ['SEO', 'Content Strategy', 'Technical Writing'],
+  },
+  {
+    company: 'TRTC Patna',
+    title: 'Intern',
+    subtitle: 'Hardware & Networking (pre-software career)',
+    period: 'Feb 2020 – May 2021',
+    location: 'Patna, Bihar',
+    color: 'muted',
+    projects: [
+      {
+        name: 'Telecom Infrastructure',
+        bullets: [
+          'Hands-on training in telecom infrastructure, networking, and hardware systems',
+          'Foundation experience that built systematic problem-solving skills',
+        ],
+      },
+    ],
+    tech: ['Networking', 'Hardware', 'Telecom'],
   },
 ];
 
 const certifications = [
-  { name: 'AI Programming with Python', org: 'Udacity', icon: '🧠' },
-  { name: '5-Day AI Agents Intensive', org: 'Google × Kaggle', icon: '🤖' },
-  { name: 'Claude Code + MCP (5 certs)', org: 'Anthropic', icon: '🔗' },
-  { name: 'Full Stack Development', org: 'IIT Kanpur', icon: '🎓' },
-  { name: 'Remote Sensing (3 certs)', org: 'ISRO/IIRS', icon: '🛰️' },
-  { name: '150+ Coursera Certifications', org: 'Coursera', icon: '📜' },
-  { name: '89 LinkedIn Learning Courses', org: 'LinkedIn', icon: '💼' },
-  { name: '40+ Skillsoft Badges', org: 'Skillsoft', icon: '🏅' },
+  { name: 'AI Programming with Python Nanodegree', org: 'Udacity', icon: '🧠', tier: 'flagship' },
+  { name: '5-Day AI Agents Intensive', org: 'Google × Kaggle', icon: '🤖', tier: 'flagship' },
+  { name: 'Claude Code + MCP (5 certs)', org: 'Anthropic', icon: '🔗', tier: 'flagship' },
+  { name: 'Full Stack Development', org: 'ICT Academy, IIT Kanpur', icon: '🎓', tier: 'flagship' },
+  { name: 'Remote Sensing (3 certs)', org: 'ISRO/IIRS', icon: '🛰️', tier: 'flagship' },
+  { name: '150+ Coursera Certifications', org: 'Coursera (Google, IBM, Meta, etc.)', icon: '📜', tier: 'platform' },
+  { name: '89 LinkedIn Learning Courses', org: 'LinkedIn Learning', icon: '💼', tier: 'platform' },
+  { name: '40+ Skillsoft Badges', org: 'Skillsoft / HCLTech', icon: '🏅', tier: 'platform' },
+  { name: 'Cisco Certifications', org: 'Cisco Networking Academy', icon: '🌐', tier: 'platform' },
+  { name: 'NPTEL Star + Domain Scholar', org: 'NPTEL (IIT/IISC)', icon: '⭐', tier: 'academic' },
 ];
 
 const awards = [
-  { title: '1st Runner-Up — PromptWars Noida', org: 'Hack2skill × Google for Developers', year: '2026' },
-  { title: '1st Place — AI & ML Training', org: 'EdgeFX × DCE', year: '2021' },
-  { title: '1st Place — TEQIP-III Hackathon', org: 'Emerging Technologies', year: '2019' },
-  { title: '2nd Place — SPIU Bihar STEM', org: 'Robotics Hackathon', year: '2020' },
+  { title: '1st Runner-Up — PromptWars Noida', org: 'Hack2skill × Google for Developers', year: '2026', icon: '🥈' },
+  { title: '1st Place — AI & ML Training Program', org: 'EdgeFX × DCE', year: '2021', icon: '🥇' },
+  { title: '1st Place — TEQIP-III Hackathon', org: 'Emerging Technologies', year: '2019', icon: '🥇' },
+  { title: '2nd Place — SPIU Bihar STEM & Robotics', org: 'SPIU Bihar', year: '2020', icon: '🥈' },
+  { title: 'AICTE Vishwakarma Awards — Regional', org: 'AICTE (Swayam Setu project)', year: '2020', icon: '🏆' },
+  { title: 'MIT COVID-19 Challenge — Team Lead', org: 'MIT', year: '2020', icon: '🌍' },
 ];
 ---
 
-<BaseLayout title="Experience — Akanksha | Production AI Engineer" description="Professional journey: Samsung SDS (Production AI Engineer) → HCLTech (Software Engineer). 4+ years shipping AI to production with 300+ certifications.">
+<BaseLayout title="Experience — Akanksha | Production AI Engineer" description="Professional journey: Samsung SDS (Production AI Engineer) → HCLTech (Software Engineer). 4+ years, 6 Samsung SDS projects, 300+ certifications, 6 hackathon awards.">
   
   <section class="relative overflow-hidden">
     <div class="orb orb-teal" style="top: 200px; right: -200px;"></div>
+    <div class="orb orb-amber" style="bottom: 400px; left: -200px;"></div>
     
     <div class="max-w-4xl mx-auto px-6 py-16">
       <div class="fade-in mb-12">
         <span class="badge mb-4">Career</span>
-        <h1 class="font-(--font-heading) text-4xl md:text-5xl font-800 mb-4">
+        <h1 class="font-(--font-heading) text-4xl md:text-5xl font-800 mb-4 tracking-tight">
           Professional <span class="gradient-text">Journey</span>
         </h1>
         <p class="text-(--color-text-secondary) text-lg">
-          From resolving production incidents to architecting autonomous AI agents.
+          From Darbhanga to Samsung SDS — from resolving production incidents to architecting autonomous AI agents.
         </p>
       </div>
       
-      <!-- Timeline -->
-      <div class="relative pl-12 space-y-12 mb-20">
+      <!-- ─── Timeline ─── -->
+      <div class="relative pl-12 space-y-10 mb-20">
         <div class="timeline-line"></div>
         
-        {experience.map((exp, i) => (
+        {experience.map((exp) => (
           <div class="fade-in relative">
-            <div class="timeline-dot" style={`top: 1.5rem; ${exp.color === 'amber' ? 'background: var(--color-amber); box-shadow: 0 0 12px rgba(245, 163, 0, 0.4);' : ''}`}></div>
+            <div class="timeline-dot" style={`top: 1.75rem; ${exp.color === 'amber' ? 'background: var(--color-amber); box-shadow: 0 0 12px rgba(245, 163, 0, 0.4);' : exp.color === 'muted' ? 'background: var(--color-text-muted); box-shadow: none;' : ''}`}></div>
             
-            <div class="glass p-6 md:p-8">
-              <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-4">
+            <div class="glass p-6 md:p-7">
+              <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-2 mb-4">
                 <div>
-                  <h3 class="font-(--font-heading) font-700 text-xl text-(--color-text-primary)">{exp.title}</h3>
-                  <p class="text-(--color-teal) font-semibold">{exp.company}</p>
-                  <p class="text-(--color-text-muted) text-sm">{exp.subtitle}</p>
+                  <h3 class="font-(--font-heading) font-700 text-lg text-(--color-text-primary)">{exp.title}</h3>
+                  <p class={`font-semibold ${exp.color === 'teal' ? 'text-(--color-teal)' : exp.color === 'amber' ? 'text-(--color-amber)' : 'text-(--color-text-muted)'}`}>{exp.company}</p>
+                  <p class="text-(--color-text-muted) text-xs font-(--font-mono)">{exp.subtitle}</p>
                 </div>
-                <div class="text-right">
-                  <p class="font-(--font-mono) text-sm text-(--color-text-secondary)">{exp.period}</p>
-                  <p class="text-(--color-text-muted) text-sm">{exp.location}</p>
+                <div class="md:text-right flex-shrink-0">
+                  <p class="font-(--font-mono) text-xs text-(--color-text-secondary)">{exp.period}</p>
+                  <p class="text-(--color-text-muted) text-xs">{exp.location}</p>
                 </div>
               </div>
               
-              <ul class="space-y-3 mb-4">
-                {exp.bullets.map(b => (
-                  <li class="flex items-start gap-3">
-                    <span class="text-lg flex-shrink-0 mt-0.5">{b.icon}</span>
-                    <span class="text-(--color-text-secondary) text-sm leading-relaxed">{b.text}</span>
-                  </li>
-                ))}
-              </ul>
+              {exp.projects.map(project => (
+                <div class="mb-4 last:mb-0">
+                  <p class="text-(--color-text-primary) text-sm font-600 mb-2 font-(--font-heading)">{project.name}</p>
+                  <ul class="space-y-1.5">
+                    {project.bullets.map(b => (
+                      <li class="flex items-start gap-2">
+                        <span class="text-(--color-teal) mt-1.5 text-[0.5rem]">●</span>
+                        <span class="text-(--color-text-secondary) text-sm leading-relaxed">{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
               
-              <div class="flex flex-wrap gap-2 pt-4 border-t border-(--color-border)">
+              <div class="flex flex-wrap gap-1.5 pt-3 border-t border-(--color-border) mt-3">
                 {exp.tech.map(t => (
-                  <span class="badge text-[0.65rem]">{t}</span>
+                  <span class="badge text-[0.6rem]">{t}</span>
                 ))}
               </div>
             </div>
@@ -124,30 +206,45 @@ const awards = [
         ))}
       </div>
       
-      <!-- Awards -->
+      <!-- ─── Awards ─── -->
       <div class="fade-in mb-16">
-        <h2 class="section-title mb-8">🏆 Awards & Hackathons</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <h2 class="section-title mb-6">🏆 Awards & Hackathons</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
           {awards.map(a => (
-            <div class="glass p-4 flex items-center gap-4">
-              <span class="text-2xl">🏅</span>
-              <div>
+            <div class="glass p-4 flex items-center gap-3">
+              <span class="text-xl">{a.icon}</span>
+              <div class="flex-1">
                 <p class="text-(--color-text-primary) text-sm font-semibold">{a.title}</p>
-                <p class="text-(--color-text-muted) text-xs">{a.org} · {a.year}</p>
+                <p class="text-(--color-text-muted) text-xs font-(--font-mono)">{a.org} · {a.year}</p>
               </div>
             </div>
           ))}
         </div>
       </div>
       
-      <!-- Certifications -->
+      <!-- ─── Certifications ─── -->
       <div class="fade-in mb-16">
         <h2 class="section-title mb-2">📜 Certifications</h2>
-        <p class="section-subtitle">300+ across 8+ learning platforms</p>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {certifications.map(cert => (
-            <div class="glass p-4 flex items-center gap-4">
-              <span class="text-2xl">{cert.icon}</span>
+        <p class="section-subtitle">300+ across 8+ platforms — Coursera, LinkedIn Learning, Anthropic, ISRO, Udacity, Skillsoft, Cisco, NPTEL</p>
+        
+        <h3 class="text-xs font-(--font-mono) text-(--color-teal) uppercase tracking-wider mb-3">Flagship Certifications</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+          {certifications.filter(c => c.tier === 'flagship').map(cert => (
+            <div class="glass p-4 flex items-center gap-3">
+              <span class="text-xl">{cert.icon}</span>
+              <div>
+                <p class="text-(--color-text-primary) text-sm font-semibold">{cert.name}</p>
+                <p class="text-(--color-text-muted) text-xs">{cert.org}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        <h3 class="text-xs font-(--font-mono) text-(--color-amber) uppercase tracking-wider mb-3">Platform Totals</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+          {certifications.filter(c => c.tier === 'platform').map(cert => (
+            <div class="glass p-4 flex items-center gap-3">
+              <span class="text-xl">{cert.icon}</span>
               <div>
                 <p class="text-(--color-text-primary) text-sm font-semibold">{cert.name}</p>
                 <p class="text-(--color-text-muted) text-xs">{cert.org}</p>
@@ -157,16 +254,19 @@ const awards = [
         </div>
       </div>
       
-      <!-- Education -->
+      <!-- ─── Education ─── -->
       <div class="fade-in">
-        <h2 class="section-title mb-8">🎓 Education</h2>
+        <h2 class="section-title mb-6">🎓 Education</h2>
         <div class="glass p-6">
           <div class="flex items-start gap-4">
             <span class="text-3xl">🏛️</span>
             <div>
               <h3 class="font-(--font-heading) font-700 text-lg">B.Tech in Electrical & Electronics Engineering</h3>
               <p class="text-(--color-teal)">Darbhanga College of Engineering</p>
-              <p class="text-(--color-text-muted) text-sm">Aryabhatta Knowledge University · 2018–2022 · 8.8 CGPA</p>
+              <p class="text-(--color-text-muted) text-sm font-(--font-mono)">Aryabhatta Knowledge University · 2018–2022 · 8.8 CGPA</p>
+              <p class="text-(--color-text-secondary) text-sm mt-2">
+                Self-taught CS/coding alongside EEE coursework. Active in hackathons, startup cell, and won multiple national competitions during college.
+              </p>
             </div>
           </div>
         </div>

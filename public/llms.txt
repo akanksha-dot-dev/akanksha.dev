@@ -1,37 +1,84 @@
 # Akanksha
 
-> Production AI Engineer at Samsung SDS. Specializes in Agentic RAG systems,
+> Production AI Engineer at Samsung SDS, Gurugram. Specializes in Agentic RAG systems,
 > autonomous agents (Google ADK), and LLM infrastructure at enterprise scale.
-> 4+ years of production engineering experience. 300+ certifications.
+> 4+ years of production engineering experience. 300+ certifications. National hackathon winner.
+> Active speaker and community leader across 12+ Delhi NCR AI communities.
 
 ## About
-- [About Akanksha](https://akanksha.dev/about): Professional background, tech stack, career journey
+- Name: Akanksha
+- Title: Production AI Engineer (Senior Executive Engineer at Samsung SDS)
+- Brand: "I care about AI that ships, not just AI that demos."
+- Location: Gurugram, India
+- Education: B.Tech EEE, Darbhanga College of Engineering (8.8 CGPA, 2018-2022)
+
+## Current Work (Samsung SDS, Oct 2024–Present)
+- Agentic AI solutions with Google ADK for automated content generation (60% reduction in manual effort)
+- Graph RAG pipeline for financial document processing (92% accuracy on 500+ daily queries)
+- LLM infrastructure with GPT-4, Llama-2/3, Mistral with token optimization
+- Team lead for 3 developers, India-Korea cross-border collaboration
+
+## Previous (HCLTech, Sep 2022–Sep 2024)
+- Deployed ML for 10+ features on iTAP recruitment platform
+- Resolved 500+ production incidents, 98% service reliability
+- Promoted from Graduate Engineer Trainee to Software Engineer in 1 year
 
 ## Projects
-- [AgenticAI Workshop](https://github.com/akanksha-dot-dev/AgenticAI-Workshop): Multi-agent AI orchestration with Google ADK + MCP
-- [Multi-Agent Research System](https://github.com/akanksha-dot-dev/Multi-Agent-For-MGT): Production-grade multi-agent framework with guardrails
-- [o9 Optimizer Agent](https://github.com/akanksha-dot-dev/o9OptimizerAgent): AI-powered report optimization for enterprise supply chain
-- [Near Miss Incident Analysis](https://github.com/akanksha-dot-dev/Urban-Intelligence-Dashboard-Final): NLP + Knowledge Graph for incident prevention
-- [Multilingual Mandi](https://github.com/akanksha-dot-dev/multilingual_mandi): AI voice-first web app for Indian markets (AWS Bedrock)
-- [gitsetu](https://github.com/akanksha-dot-dev/gitsetu): Zero-dependency CLI for Git multi-identity management
+- [AgenticAI Workshop](https://github.com/akanksha-dot-dev/AgenticAI-Workshop): Multi-agent orchestration with Google ADK + MCP
+- [Multi-Agent Research System](https://github.com/akanksha-dot-dev/Multi-Agent-For-MGT): Production multi-agent framework with guardrails
+- [o9 Optimizer Agent](https://github.com/akanksha-dot-dev/o9OptimizerAgent): Enterprise AI optimizer for supply chain
+- [Multilingual Mandi](https://github.com/akanksha-dot-dev/multilingual_mandi): Voice-first AI web app (PromptWars 1st Runner-Up)
+- [Productivity Analyzer](https://github.com/akanksha-dot-dev/ProductivityAnalyzer): RAG system for JIRA + Confluence
+- [Near Miss Incident Analysis](https://github.com/akanksha-dot-dev/Urban-Intelligence-Dashboard-Final): NLP + Knowledge Graph
+- [ATS Resume Optimizer](https://github.com/akanksha-dot-dev/ATS-Master-Resume-Optimizer): NLP-based ATS scoring
+- [gitsetu](https://github.com/akanksha-dot-dev/gitsetu): Zero-dependency CLI for Git multi-identity
+- [QPORT Card](https://github.com/akanksha-dot-dev/QPORT-Feed): Smart health card with RFID + IoT + Blockchain
 
-## Writing
-- [Blog](https://akanksha.dev/blog): Technical articles on production AI engineering
+## Speaking & Community
+- Session Leader: AI Mobile Hackathon (Jun 2026) — YouTube: https://www.youtube.com/watch?v=-8xTRNfq-DE
+- Speaker: INCEPT'26 at GLA University (Apr 2026) alongside CampusX founder
+- 25+ tech events attended in 2025-2026 including Google Cloud Summit, India AI Impact Summit, US Embassy event
+- Active in 12+ Delhi NCR AI communities (GDG Noida, GDG Cloud, AWS UG, Microsoft UG, Redis, ServiceNow)
 
-## Experience
-- Production AI Engineer (Senior Executive Engineer) at Samsung SDS, Gurugram (Oct 2024–present)
-- Software Engineer at HCLTech, Noida (Sep 2022–Sep 2024)
-- B.Tech EEE, Darbhanga College of Engineering (2018–2022)
+## Hackathons & Awards
+- 1st Runner-Up: PromptWars Noida (Hack2skill × Google for Developers, 2026)
+- 1st Place: AI & ML Training (EdgeFX × DCE, 2021)
+- 1st Place: TEQIP-III Hackathon (Emerging Technologies, 2019)
+- 2nd Place: SPIU Bihar STEM & Robotics (2020)
+- AICTE Vishwakarma Awards Regional Shortlist (Swayam Setu project, 2020)
+- MIT COVID-19 Challenge Team Lead (2020)
 
-## Speaking
-- Speaker at INCEPT'26 (GLA University) and AI Mobile Hackathon
-- 1st Runner-Up at PromptWars Noida (Hack2skill × Google for Developers)
-- Active in 12+ Delhi NCR AI communities (GDG, AWS UG, Microsoft UG)
+## Certifications (300+ total)
+- Udacity: AI Programming with Python Nanodegree
+- Google × Kaggle: 5-Day AI Agents Intensive
+- Anthropic: Claude Code + MCP (5 certifications)
+- IIT Kanpur: Full Stack Development
+- ISRO/IIRS: Remote Sensing (3 certifications)
+- Coursera: 150+ certifications (Google, IBM, Meta, University courses)
+- LinkedIn Learning: 89 courses
+- Skillsoft: 40+ badges (via HCLTech)
+- NPTEL Star + Domain Scholar + Discipline Star
+
+## Tech Stack
+- AI Agents: Google ADK, LangChain, LangGraph, CrewAI, MCP, A2A
+- RAG: Graph RAG, FAISS, Chroma, Pinecone, RAGAS
+- LLMs: GPT-4, Llama-2/3, Mistral, Gemini, BERT, Transformers
+- Backend: Python, FastAPI, Django, Flask, PostgreSQL, SQL Server
+- Cloud: AWS (Bedrock, Lambda, SageMaker), Azure (ML, Cognitive), Docker, K8s
+- NLP: SpaCy, Hugging Face, Scikit-Learn, PyTorch
+
+## LinkedIn Metrics (2025)
+- Top 5% of LinkedIn members
+- 8,839 reactions received
+- 2,304 new connections
+- 334 days active, 34 original posts
 
 ## Contact
+- Website: https://akanksha.dev
 - Email: me@akanksha.dev
 - LinkedIn: https://linkedin.com/in/akankshadev
 - GitHub: https://github.com/akanksha-dot-dev
 - Twitter: https://x.com/akankshadotdev
 - Dev.to: https://dev.to/akanksha-dev
 - HuggingFace: https://huggingface.co/akanksha-dev
+- Kaggle: https://kaggle.com/akankshadotdev

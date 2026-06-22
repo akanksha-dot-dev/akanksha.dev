@@ -197,13 +197,13 @@ const navLinks = [
 
   <!-- ═══ SCRIPTS ═══ -->
   <script>
-    // Nav background on scroll
+    // Nav background on scroll — uses CSS class defined in global.css
     const nav = document.getElementById('main-nav');
     window.addEventListener('scroll', () => {
       if (window.scrollY > 20) {
-        nav?.classList.add('bg-(--color-space)/90', 'backdrop-blur-xl', 'border-b', 'border-(--color-border)');
+        nav?.classList.add('nav-scrolled');
       } else {
-        nav?.classList.remove('bg-(--color-space)/90', 'backdrop-blur-xl', 'border-b', 'border-(--color-border)');
+        nav?.classList.remove('nav-scrolled');
       }
     });
 

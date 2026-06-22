@@ -2,134 +2,194 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const projects = [
+  // ─── Flagship: Agentic AI ───
   {
     title: 'AgenticAI Workshop',
-    description: 'Multi-agent AI orchestration framework with Google ADK, MCP protocol integration, tool-use patterns & autonomous workflows. Includes hands-on workshop materials for building production-grade AI agents.',
+    description: 'Multi-agent AI orchestration framework with Google ADK, MCP protocol integration, tool-use patterns & autonomous workflows. Includes hands-on workshop materials used at INCEPT\'26.',
     tags: ['Google ADK', 'LangChain', 'Agentic AI', 'MCP', 'Python'],
     href: 'https://github.com/akanksha-dot-dev/AgenticAI-Workshop',
     icon: '🤖',
     category: 'Agentic AI',
-    impact: 'Workshop materials used in INCEPT\'26 speaker session',
+    impact: 'Speaker workshop materials at INCEPT\'26',
+    status: 'active',
   },
   {
     title: 'Multi-Agent Research System',
-    description: 'Production-grade multi-agent research framework with guardrails, evaluation harness & async pipelines for detecting machine-generated text. Built with safety-first architecture.',
+    description: 'Production-grade multi-agent research framework with guardrails, evaluation harness & async pipelines for detecting machine-generated text. Safety-first architecture.',
     tags: ['Python', 'FastAPI', 'Multi-Agent', 'Guardrails', 'Eval'],
     href: 'https://github.com/akanksha-dot-dev/Multi-Agent-For-MGT',
     icon: '🧠',
     category: 'Agentic AI',
-    impact: 'Production-grade guardrails & evaluation pipeline',
+    impact: 'Guardrails + eval pipeline for production safety',
+    status: 'active',
   },
   {
     title: 'o9 Optimizer Agent',
-    description: 'AI-powered report optimization & diagnostic advisory suite for enterprise supply chain platform. Intelligent analysis of complex business data with actionable recommendations.',
-    tags: ['Python', 'AI Agent', 'Enterprise', 'Analytics'],
+    description: 'AI-powered report optimization & diagnostic advisory suite for o9 enterprise supply chain platform. Intelligent analysis of complex business data.',
+    tags: ['Python', 'AI Agent', 'Enterprise', 'o9 Solutions'],
     href: 'https://github.com/akanksha-dot-dev/o9OptimizerAgent',
     icon: '⚙️',
     category: 'Agentic AI',
     impact: 'Enterprise supply chain optimization at scale',
+    status: 'active',
   },
-  {
-    title: 'Near Miss Incident Analysis',
-    description: 'Predictive knowledge graph web app leveraging NLP for near-miss incident analysis & prevention. Combines text mining, graph databases, and interactive dashboards.',
-    tags: ['NLP', 'Knowledge Graph', 'Python', 'Dashboard', 'Predictive'],
-    href: 'https://github.com/akanksha-dot-dev/Urban-Intelligence-Dashboard-Final',
-    icon: '🔬',
-    category: 'NLP',
-    impact: 'Published research on industrial safety prediction',
-  },
+  // ─── Flagship: RAG ───
   {
     title: 'Multilingual Mandi',
-    description: 'AI-powered voice-first web app for India\'s local markets — multilingual translation, price discovery & negotiation using AWS Bedrock, Transcribe, and Translate.',
-    tags: ['AWS Bedrock', 'FastAPI', 'GenAI', 'Multilingual', 'Voice'],
+    description: 'AI-powered voice-first web app for India\'s local markets — multilingual translation (Hindi/Bhojpuri/Tamil/Telugu/Bengali), price discovery & smart negotiation using AWS Bedrock.',
+    tags: ['AWS Bedrock', 'FastAPI', 'GenAI', 'Multilingual', 'Voice AI'],
     href: 'https://github.com/akanksha-dot-dev/multilingual_mandi',
     icon: '🌐',
     category: 'RAG',
-    impact: 'Built at PromptWars Noida (1st Runner-Up)',
-  },
-  {
-    title: 'gitsetu',
-    description: 'Zero-dependency CLI tool for Git multi-identity & SSH key setup. Switch between personal, work & open-source Git identities in seconds. Pure shell, no runtime needed.',
-    tags: ['Shell', 'Git', 'CLI', 'DevTools', 'Zero-dependency'],
-    href: 'https://github.com/akanksha-dot-dev/gitsetu',
-    icon: '🔧',
-    category: 'DevTools',
-    impact: 'Open-source CLI used by developers daily',
+    impact: 'Built at PromptWars Noida (🥈 1st Runner-Up)',
+    status: 'completed',
   },
   {
     title: 'Productivity Analyzer',
-    description: 'RAG-powered AI assistant that analyzes documents, generates insights, and answers complex queries about productivity patterns using vector search.',
-    tags: ['RAG', 'Python', 'FAISS', 'LLM', 'Analytics'],
+    description: 'End-to-end RAG system for processing JIRA stories, Confluence documents, and annual reports to deliver automated weekly team productivity reports.',
+    tags: ['RAG', 'Python', 'FAISS', 'LLM', 'JIRA API'],
     href: 'https://github.com/akanksha-dot-dev/ProductivityAnalyzer',
     icon: '📊',
     category: 'RAG',
-    impact: 'Full RAG pipeline with vector search & evaluation',
+    impact: 'Full RAG pipeline with vector search — used at Samsung SDS',
+    status: 'active',
+  },
+  // ─── NLP ───
+  {
+    title: 'Near Miss Incident Analysis',
+    description: 'Predictive knowledge graph web app leveraging NLP for near-miss incident analysis & prevention. Text mining + graph databases + interactive dashboards.',
+    tags: ['NLP', 'Knowledge Graph', 'Python', 'Dashboard', 'ML'],
+    href: 'https://github.com/akanksha-dot-dev/Urban-Intelligence-Dashboard-Final',
+    icon: '🔬',
+    category: 'NLP',
+    impact: 'NLP + Knowledge Graph for industrial safety prediction',
+    status: 'completed',
   },
   {
     title: 'ATS Resume Optimizer',
-    description: 'AI-powered resume optimization tool that analyzes job descriptions and optimizes resumes for Applicant Tracking Systems using NLP and keyword matching.',
+    description: 'AI-powered resume optimization engine that analyzes job descriptions and scores resumes for ATS compatibility using NLP and keyword matching.',
     tags: ['NLP', 'Python', 'ATS', 'Resume', 'AI'],
     href: 'https://github.com/akanksha-dot-dev/ATS-Master-Resume-Optimizer',
     icon: '📄',
     category: 'NLP',
-    impact: 'Practical AI tool solving real hiring pain point',
+    impact: 'Practical AI tool solving real hiring problem',
+    status: 'completed',
+  },
+  // ─── DevTools ───
+  {
+    title: 'gitsetu',
+    description: 'Zero-dependency CLI tool for Git multi-identity & SSH key setup. Switch between personal, work & open-source Git identities in seconds. Clone, run, done.',
+    tags: ['Shell', 'Git', 'CLI', 'DevTools', 'Zero-dep'],
+    href: 'https://github.com/akanksha-dot-dev/gitsetu',
+    icon: '🔧',
+    category: 'DevTools',
+    impact: 'Open-source CLI — zero dependencies, pure shell',
+    status: 'completed',
+  },
+  // ─── Data Engineering ───
+  {
+    title: 'Enterprise ETL Pipeline',
+    description: 'Multi-source business data ETL pipeline with bad data trapping, ForEach Loop Container for folder automation, and data conversion transformations.',
+    tags: ['ETL', 'Data Pipeline', 'Python', 'Data Engineering'],
+    href: 'https://github.com/akanksha-dot-dev/Enterprise-Customer-Data-Warehouse-ETL-Pipeline.',
+    icon: '🔄',
+    category: 'Data',
+    impact: 'Bad Data Trap pattern for enterprise reliability',
+    status: 'completed',
+  },
+  // ─── College/Hackathon (IoT origin story) ───
+  {
+    title: 'QPORT Card — Smart Health Card',
+    description: 'Unified medical records health card with RFID + IoT + Blockchain security. Emergency QR code access for critical patient data. Won hackathon prizes, continued as research proposal.',
+    tags: ['IoT', 'RFID', 'Blockchain', 'Raspberry Pi', 'Firebase'],
+    href: 'https://github.com/akanksha-dot-dev/QPORT-Feed',
+    icon: '💳',
+    category: 'IoT',
+    impact: 'B.Tech major project → hackathon winner → research proposal',
+    status: 'completed',
+  },
+  {
+    title: 'ACOTMOS — COVID-19 Testing System',
+    description: 'Dual-model automated COVID testing: community IoT kit + individual ML-based screening. Built for MIT COVID-19 Challenge hackathon (Beat the Pandemic II).',
+    tags: ['IoT', 'ML', 'Mobile', 'APIs', 'Sensors'],
+    href: '#',
+    icon: '🦠',
+    category: 'IoT',
+    impact: 'MIT COVID-19 Challenge — Team Lead',
+    status: 'completed',
   },
 ];
 
 const categories = ['All', ...new Set(projects.map(p => p.category))];
 ---
 
-<BaseLayout title="Projects — Akanksha | Production AI Engineer" description="Production-grade AI projects: agentic systems, RAG pipelines, NLP tools, and developer utilities. Built by Akanksha at Samsung SDS.">
+<BaseLayout title="Projects — Akanksha | Production AI Engineer" description="11 production-grade projects across Agentic AI, RAG, NLP, DevTools and IoT. Built by Akanksha at Samsung SDS, HCLTech, and hackathons.">
   
   <section class="relative overflow-hidden">
     <div class="orb orb-amber" style="top: -200px; left: -200px;"></div>
+    <div class="orb orb-purple" style="bottom: 200px; right: -200px;"></div>
     
     <div class="max-w-6xl mx-auto px-6 py-16">
       <div class="fade-in mb-12">
         <span class="badge mb-4">Portfolio</span>
-        <h1 class="font-(--font-heading) text-4xl md:text-5xl font-800 mb-4">
+        <h1 class="font-(--font-heading) text-4xl md:text-5xl font-800 mb-4 tracking-tight">
           Things I've <span class="gradient-text">Built</span>
         </h1>
         <p class="text-(--color-text-secondary) text-lg max-w-2xl">
           Production-grade AI systems, not tutorial clones. Each project solves a real problem 
           with real engineering — evaluation pipelines, guardrails, and monitoring included.
         </p>
+        <p class="text-(--color-text-muted) text-sm mt-2 font-(--font-mono)">
+          {projects.length} projects · {projects.filter(p => p.status === 'active').length} actively maintained
+        </p>
       </div>
       
       <!-- Category Filters -->
       <div class="fade-in flex flex-wrap gap-2 mb-10" id="project-filters">
-        {categories.map(cat => (
+        {categories.map((cat, i) => (
           <button 
-            class="filter-btn badge cursor-pointer transition-all hover:bg-(--color-teal-glow)" 
+            class:list={['filter-btn badge cursor-pointer transition-all hover:bg-(--color-teal-glow)', i === 0 ? 'active-filter' : '']} 
             data-category={cat}
           >
             {cat}
+            {cat !== 'All' && <span class="text-[0.55rem] opacity-60">({projects.filter(p => p.category === cat).length})</span>}
           </button>
         ))}
       </div>
       
       <!-- Project Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="project-grid">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5" id="project-grid">
         {projects.map(project => (
           <a 
             href={project.href} 
-            target="_blank" 
-            rel="noopener" 
-            class="glass p-6 flex flex-col gap-4 group project-card fade-in"
+            target={project.href !== '#' ? '_blank' : undefined} 
+            rel={project.href !== '#' ? 'noopener' : undefined}
+            class="glass p-5 flex flex-col gap-3 group project-card fade-in"
             data-category={project.category}
           >
             <div class="flex items-start justify-between">
-              <span class="text-3xl">{project.icon}</span>
-              <svg class="w-5 h-5 text-(--color-text-muted) group-hover:text-(--color-teal) transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
-            </div>
-            
-            <div>
-              <span class="badge-amber badge text-[0.6rem] mb-2">{project.category}</span>
-              <h3 class="font-(--font-heading) font-700 text-lg group-hover:text-(--color-teal) transition-colors mt-1">
-                {project.title}
-              </h3>
+              <div class="flex items-center gap-3">
+                <span class="text-2xl">{project.icon}</span>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="badge-amber badge text-[0.55rem]">{project.category}</span>
+                    {project.status === 'active' && (
+                      <span class="badge text-[0.55rem]">
+                        <span class="pulse-dot" style="width:0.35rem;height:0.35rem;"></span>
+                        Active
+                      </span>
+                    )}
+                  </div>
+                  <h3 class="font-(--font-heading) font-700 text-base group-hover:text-(--color-teal) transition-colors mt-1">
+                    {project.title}
+                  </h3>
+                </div>
+              </div>
+              {project.href !== '#' && (
+                <svg class="w-4 h-4 text-(--color-text-muted) group-hover:text-(--color-teal) transition-all transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              )}
             </div>
             
             <p class="text-(--color-text-secondary) text-sm leading-relaxed flex-1">
@@ -140,7 +200,7 @@ const categories = ['All', ...new Set(projects.map(p => p.category))];
               ⚡ {project.impact}
             </p>
             
-            <div class="flex flex-wrap gap-2 pt-2 border-t border-(--color-border)">
+            <div class="flex flex-wrap gap-1.5 pt-3 border-t border-(--color-border)">
               {project.tags.map(tag => (
                 <span class="badge text-[0.6rem]">{tag}</span>
               ))}
@@ -148,11 +208,26 @@ const categories = ['All', ...new Set(projects.map(p => p.category))];
           </a>
         ))}
       </div>
+      
+      <!-- GitHub CTA -->
+      <div class="fade-in text-center mt-10">
+        <a href="https://github.com/akanksha-dot-dev" target="_blank" rel="noopener" class="btn-outline text-sm">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          View All on GitHub →
+        </a>
+      </div>
     </div>
   </section>
   
+  <style>
+    .active-filter {
+      background: var(--color-teal) !important;
+      color: var(--color-space) !important;
+      border-color: var(--color-teal) !important;
+    }
+  </style>
+  
   <script>
-    // Category filter
     const buttons = document.querySelectorAll('.filter-btn');
     const cards = document.querySelectorAll('.project-card');
     
@@ -160,20 +235,18 @@ const categories = ['All', ...new Set(projects.map(p => p.category))];
       btn.addEventListener('click', () => {
         const category = btn.getAttribute('data-category');
         
-        buttons.forEach(b => b.classList.remove('!bg-(--color-teal)', '!text-(--color-space)', '!border-(--color-teal)'));
-        btn.classList.add('!bg-(--color-teal)', '!text-(--color-space)', '!border-(--color-teal)');
+        buttons.forEach(b => b.classList.remove('active-filter'));
+        btn.classList.add('active-filter');
         
         cards.forEach(card => {
+          const el = card as HTMLElement;
           if (category === 'All' || card.getAttribute('data-category') === category) {
-            (card as HTMLElement).style.display = '';
+            el.style.display = '';
           } else {
-            (card as HTMLElement).style.display = 'none';
+            el.style.display = 'none';
           }
         });
       });
     });
-    
-    // Set "All" as active by default
-    buttons[0]?.classList.add('!bg-(--color-teal)', '!text-(--color-space)', '!border-(--color-teal)');
   </script>
 </BaseLayout>
