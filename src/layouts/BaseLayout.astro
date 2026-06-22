@@ -65,9 +65,13 @@ const breadcrumbs = [
   <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
   
   <!-- Fonts -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=JetBrains+Mono:wght@400;500;600&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  
+  <!-- Theme Color for mobile browsers -->
+  <meta name="theme-color" content="#05070F" />
   
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -239,33 +243,40 @@ const breadcrumbs = [
 
   <!-- ═══ SCRIPTS ═══ -->
   <script>
-    // Nav background on scroll — uses CSS class defined in global.css
-    const nav = document.getElementById('main-nav');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 20) {
-        nav?.classList.add('nav-scrolled');
-      } else {
-        nav?.classList.remove('nav-scrolled');
-      }
-    });
-
-    // Mobile menu toggle
-    const menuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    menuBtn?.addEventListener('click', () => {
-      mobileMenu?.classList.toggle('hidden');
-    });
-
-    // Scroll fade-in
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+    function initPage() {
+      // Nav background on scroll — uses CSS class defined in global.css
+      const nav = document.getElementById('main-nav');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 20) {
+          nav?.classList.add('nav-scrolled');
+        } else {
+          nav?.classList.remove('nav-scrolled');
         }
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+      // Mobile menu toggle
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      menuBtn?.addEventListener('click', () => {
+        mobileMenu?.classList.toggle('hidden');
+      });
+
+      // Scroll fade-in
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    }
+
+    // Run on initial load
+    initPage();
+    // Re-run after View Transition navigation
+    document.addEventListener('astro:page-load', initPage);
   </script>
 </body>
 </html>

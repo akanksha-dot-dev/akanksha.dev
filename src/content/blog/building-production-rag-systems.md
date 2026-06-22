@@ -7,8 +7,6 @@ featured: true
 readTime: "10 min"
 ---
 
-# Building Production RAG Systems: What Nobody Tells You
-
 Every tutorial shows you how to build a RAG system in 50 lines of code. `load documents → chunk → embed → query`. Done, right?
 
 **No.** That's where the real work *starts*.
