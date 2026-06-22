@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
 
 interface Props {
   title: string;
@@ -21,8 +22,19 @@ const navLinks = [
   { href: '/about', label: 'About' },
   { href: '/projects', label: 'Projects' },
   { href: '/experience', label: 'Experience' },
+  { href: '/speaking', label: 'Speaking' },
   { href: '/blog', label: 'Blog' },
   { href: '/contact', label: 'Contact' },
+];
+
+// Build breadcrumb for current page
+const pathSegments = Astro.url.pathname.split('/').filter(Boolean);
+const breadcrumbs = [
+  { name: 'Home', url: 'https://akanksha.dev/' },
+  ...pathSegments.map((seg, i) => ({
+    name: seg.charAt(0).toUpperCase() + seg.slice(1),
+    url: `https://akanksha.dev/${pathSegments.slice(0, i + 1).join('/')}/`,
+  })),
 ];
 ---
 
@@ -60,6 +72,9 @@ const navLinks = [
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   
+  <!-- View Transitions -->
+  <ClientRouter />
+  
   <!-- JSON-LD Person Schema -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
@@ -93,6 +108,33 @@ const navLinks = [
       "name": "Darbhanga College of Engineering"
     }
   })} />
+  
+  <!-- JSON-LD WebSite Schema -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "akanksha.dev",
+    "url": "https://akanksha.dev",
+    "description": "Portfolio and blog of Akanksha — Production AI Engineer at Samsung SDS.",
+    "author": { "@id": "https://akanksha.dev/#person" }
+  })} />
+  
+  <!-- JSON-LD BreadcrumbList -->
+  {breadcrumbs.length > 1 && (
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": breadcrumbs.map((bc, i) => ({
+        "@type": "ListItem",
+        "position": i + 1,
+        "name": bc.name,
+        "item": bc.url
+      }))
+    })} />
+  )}
+  
+  <!-- Cloudflare Web Analytics -->
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "REPLACE_WITH_CF_TOKEN"}'></script>
 </head>
 
 <body class="bg-(--color-space) text-(--color-text-primary) font-(--font-body) antialiased">

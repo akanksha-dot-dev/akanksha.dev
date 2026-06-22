@@ -1,0 +1,97 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import { render } from 'astro:content';
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+---
+
+<BaseLayout 
+  title={`${post.data.title} — Akanksha`}
+  description={post.data.description}
+>
+  <article class="relative overflow-hidden">
+    <div class="orb orb-teal" style="top: -100px; left: -200px;"></div>
+    
+    <div class="max-w-3xl mx-auto px-6 py-16">
+      <!-- Header -->
+      <div class="fade-in mb-10">
+        <a href="/blog" class="text-(--color-teal) text-sm hover:underline font-(--font-mono) mb-4 inline-block">← Back to Blog</a>
+        
+        <div class="flex flex-wrap items-center gap-3 mb-4">
+          <span class="font-(--font-mono) text-xs text-(--color-text-muted)">{formatDate(post.data.date)}</span>
+          {post.data.readTime && (
+            <>
+              <span class="text-(--color-text-muted)">·</span>
+              <span class="font-(--font-mono) text-xs text-(--color-text-muted)">{post.data.readTime} read</span>
+            </>
+          )}
+          {post.data.featured && <span class="badge-amber badge text-[0.6rem]">Featured</span>}
+        </div>
+        
+        <h1 class="font-(--font-heading) text-3xl md:text-4xl font-800 mb-4 leading-tight tracking-tight">
+          {post.data.title}
+        </h1>
+        
+        <p class="text-(--color-text-secondary) text-lg leading-relaxed mb-6">
+          {post.data.description}
+        </p>
+        
+        <div class="flex flex-wrap gap-2">
+          {post.data.tags.map(tag => (
+            <span class="badge text-[0.65rem]">{tag}</span>
+          ))}
+        </div>
+      </div>
+      
+      <div class="divider"></div>
+      
+      <!-- Content -->
+      <div class="prose prose-invert max-w-none fade-in">
+        <Content />
+      </div>
+      
+      <div class="divider"></div>
+      
+      <!-- Author -->
+      <div class="fade-in glass p-6 flex items-start gap-4">
+        <div class="w-12 h-12 rounded-full bg-(--color-teal-glow) flex items-center justify-center text-xl font-(--font-heading) font-800 text-(--color-teal) glow-ring flex-shrink-0">A</div>
+        <div>
+          <p class="font-(--font-heading) font-700">Akanksha</p>
+          <p class="text-(--color-text-secondary) text-sm">Production AI Engineer at Samsung SDS. Building enterprise RAG, autonomous agents, and LLM infrastructure.</p>
+          <div class="flex gap-3 mt-2">
+            <a href="https://linkedin.com/in/akankshadev" target="_blank" rel="noopener" class="text-(--color-teal) text-xs hover:underline">LinkedIn</a>
+            <a href="https://github.com/akanksha-dot-dev" target="_blank" rel="noopener" class="text-(--color-teal) text-xs hover:underline">GitHub</a>
+            <a href="https://x.com/akankshadotdev" target="_blank" rel="noopener" class="text-(--color-teal) text-xs hover:underline">Twitter</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style is:global>
+  /* Blog prose styling */
+  .prose h1 { font-family: var(--font-heading); font-size: 2rem; font-weight: 700; margin-top: 2.5rem; margin-bottom: 1rem; color: var(--color-text-primary); }
+  .prose h2 { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; margin-top: 2rem; margin-bottom: 0.75rem; color: var(--color-text-primary); }
+  .prose h3 { font-family: var(--font-heading); font-size: 1.2rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem; color: var(--color-text-primary); }
+  .prose p { color: var(--color-text-secondary); line-height: 1.8; margin-bottom: 1.25rem; }
+  .prose strong { color: var(--color-text-primary); font-weight: 600; }
+  .prose a { color: var(--color-teal); text-decoration: underline; text-underline-offset: 2px; }
+  .prose a:hover { color: var(--color-teal-dim); }
+  .prose ul, .prose ol { color: var(--color-text-secondary); padding-left: 1.5rem; margin-bottom: 1.25rem; }
+  .prose li { margin-bottom: 0.35rem; line-height: 1.7; }
+  .prose blockquote { border-left: 2px solid var(--color-teal); padding-left: 1rem; font-style: italic; color: var(--color-text-primary); margin: 1.5rem 0; }
+  .prose code { font-family: var(--font-mono); font-size: 0.85em; background: var(--color-surface); padding: 0.15rem 0.4rem; border-radius: 0.25rem; color: var(--color-teal); }
+  .prose pre { background: var(--color-surface) !important; border: 1px solid var(--color-border); border-radius: 0.75rem; padding: 1.25rem; overflow-x: auto; margin: 1.5rem 0; }
+  .prose pre code { background: none; padding: 0; color: var(--color-text-secondary); }
+  .prose hr { border-color: var(--color-border); margin: 2rem 0; }
+  .prose table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+  .prose th { font-family: var(--font-heading); font-weight: 600; text-align: left; padding: 0.75rem; border-bottom: 2px solid var(--color-border); color: var(--color-text-primary); font-size: 0.85rem; }
+  .prose td { padding: 0.75rem; border-bottom: 1px solid var(--color-border); color: var(--color-text-secondary); font-size: 0.85rem; }
+  .prose em { color: var(--color-text-primary); }
+</style>

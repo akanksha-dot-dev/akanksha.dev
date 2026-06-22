@@ -1,19 +1,7 @@
 User-agent: *
 Allow: /
 
-User-agent: GPTBot
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: Google-Extended
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: Amazonbot
-Allow: /
-
 Sitemap: https://akanksha.dev/sitemap-index.xml
+
+# AI Discovery
+# See /llms.txt for AI-readable profile

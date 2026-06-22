@@ -1,123 +1,102 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
 
-// Seed blog posts — these will become Astro Content Collections later
-const posts = [
-  {
-    title: 'Building Production RAG Systems: Beyond the Tutorial',
-    description: 'What nobody tells you about deploying RAG at scale — evaluation pipelines, chunking strategies, and the 92% accuracy journey at Samsung SDS.',
-    date: '2026-06-25',
-    readTime: '12 min',
-    tags: ['RAG', 'Production AI', 'LLMs'],
-    slug: '#',
-    featured: true,
-  },
-  {
-    title: 'Google ADK for Agentic AI: A Practical Guide',
-    description: 'How I use Google ADK to build autonomous multi-agent systems at Samsung SDS. Architecture patterns, tool-calling, and MCP integration.',
-    date: '2026-07-02',
-    readTime: '10 min',
-    tags: ['Google ADK', 'Agentic AI', 'Tutorial'],
-    slug: '#',
-    featured: true,
-  },
-  {
-    title: 'From Darbhanga to Samsung SDS: My Unconventional Path',
-    description: 'An Electrical Engineering student from Bihar who taught herself AI through hackathons, 300+ certifications, and relentless building. This is my story.',
-    date: '2026-07-10',
-    readTime: '8 min',
-    tags: ['Career', 'Personal', 'Journey'],
-    slug: '#',
-    featured: false,
-  },
-];
+const posts = (await getCollection('blog'))
+  .filter(p => !p.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
-function formatDate(dateStr: string) {
-  return new Date(dateStr).toLocaleDateString('en-US', { 
-    year: 'numeric', month: 'long', day: 'numeric' 
-  });
+const featured = posts.find(p => p.data.featured);
+const rest = posts.filter(p => p !== featured);
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 }
 ---
 
-<BaseLayout title="Blog — Akanksha | Production AI Engineer" description="Technical articles on production AI engineering: RAG systems, agentic AI, LLM deployment, and career insights from a Production AI Engineer at Samsung SDS.">
+<BaseLayout title="Blog — Akanksha | Production AI Engineer" description="Writing about production AI systems, RAG architecture, agentic AI, and the journey from EEE to AI Engineer.">
   
   <section class="relative overflow-hidden">
-    <div class="orb orb-teal" style="top: -100px; left: -200px;"></div>
+    <div class="orb orb-purple" style="top: -100px; right: -200px;"></div>
     
     <div class="max-w-4xl mx-auto px-6 py-16">
       <div class="fade-in mb-12">
-        <span class="badge mb-4">Writing</span>
-        <h1 class="font-(--font-heading) text-4xl md:text-5xl font-800 mb-4">
-          Technical <span class="gradient-text">Blog</span>
+        <span class="badge mb-4">Blog</span>
+        <h1 class="font-(--font-heading) text-4xl md:text-5xl font-800 mb-4 tracking-tight">
+          Thoughts & <span class="gradient-text">Insights</span>
         </h1>
         <p class="text-(--color-text-secondary) text-lg max-w-2xl">
-          Thoughts on production AI engineering — from RAG pipelines to career lessons.
-          Practical insights, not hype.
+          Writing about production AI, RAG architecture, agentic systems, and lessons 
+          from building enterprise AI at scale.
         </p>
       </div>
       
-      <!-- Coming Soon Banner -->
-      <div class="fade-in glass p-6 mb-10 border border-dashed border-(--color-amber)/30">
-        <div class="flex items-center gap-3">
-          <span class="text-2xl">🚀</span>
-          <div>
-            <p class="text-(--color-amber) font-semibold text-sm">Blog launching soon</p>
-            <p class="text-(--color-text-muted) text-sm">
-              First articles are being written. Follow me on 
-              <a href="https://dev.to/akanksha-dev" target="_blank" rel="noopener" class="text-(--color-teal) hover:underline">Dev.to</a> 
-              or <a href="https://linkedin.com/in/akankshadev" target="_blank" rel="noopener" class="text-(--color-teal) hover:underline">LinkedIn</a> 
-              for updates.
+      {/* Featured Post */}
+      {featured && (
+        <a href={`/blog/${featured.id}`} class="glass p-6 md:p-8 block group mb-10 fade-in relative overflow-hidden">
+          <div class="orb orb-teal" style="top: -150px; right: -150px; width: 200px; height: 200px; opacity: 0.06;"></div>
+          <div class="relative z-10">
+            <span class="badge-amber badge text-[0.6rem] mb-3">Featured</span>
+            <h2 class="font-(--font-heading) font-700 text-xl md:text-2xl mb-3 group-hover:text-(--color-teal) transition-colors">
+              {featured.data.title}
+            </h2>
+            <p class="text-(--color-text-secondary) text-sm leading-relaxed mb-4">
+              {featured.data.description}
             </p>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Post List -->
-      <div class="space-y-6">
-        {posts.map(post => (
-          <article class="fade-in glass p-6 md:p-8 group">
-            <div class="flex flex-col md:flex-row md:items-start gap-4">
-              <div class="flex-1">
-                <div class="flex items-center gap-3 mb-2">
-                  <span class="font-(--font-mono) text-xs text-(--color-text-muted)">{formatDate(post.date)}</span>
+            <div class="flex flex-wrap items-center gap-3">
+              <span class="font-(--font-mono) text-xs text-(--color-text-muted)">{formatDate(featured.data.date)}</span>
+              {featured.data.readTime && (
+                <>
                   <span class="text-(--color-text-muted)">·</span>
-                  <span class="font-(--font-mono) text-xs text-(--color-text-muted)">{post.readTime} read</span>
-                  {post.featured && <span class="badge-amber badge text-[0.6rem]">Featured</span>}
-                </div>
-                
-                <h2 class="font-(--font-heading) font-700 text-xl mb-2 group-hover:text-(--color-teal) transition-colors">
-                  {post.title}
-                </h2>
-                
-                <p class="text-(--color-text-secondary) text-sm leading-relaxed mb-4">
-                  {post.description}
-                </p>
-                
-                <div class="flex flex-wrap gap-2">
-                  {post.tags.map(tag => (
-                    <span class="badge text-[0.65rem]">{tag}</span>
-                  ))}
-                </div>
+                  <span class="font-(--font-mono) text-xs text-(--color-text-muted)">{featured.data.readTime} read</span>
+                </>
+              )}
+              <div class="flex gap-1.5 ml-auto">
+                {featured.data.tags.map(t => <span class="badge text-[0.55rem]">{t}</span>)}
               </div>
             </div>
-          </article>
-        ))}
-      </div>
+          </div>
+        </a>
+      )}
       
-      <!-- Subscribe/Follow CTA -->
-      <div class="fade-in text-center mt-16">
-        <h3 class="font-(--font-heading) font-700 text-xl mb-4">Don't miss an article</h3>
-        <p class="text-(--color-text-secondary) text-sm mb-6 max-w-md mx-auto">
-          I write about production AI engineering — practical insights from building RAG, agents, and LLM systems at enterprise scale.
-        </p>
-        <div class="flex flex-wrap gap-4 justify-center">
-          <a href="https://dev.to/akanksha-dev" target="_blank" rel="noopener" class="btn-primary text-sm">
-            Follow on Dev.to
-          </a>
-          <a href="https://linkedin.com/in/akankshadev" target="_blank" rel="noopener" class="btn-outline text-sm">
-            Connect on LinkedIn
-          </a>
+      {/* Other Posts */}
+      {rest.length > 0 ? (
+        <div class="space-y-4 stagger">
+          {rest.map(post => (
+            <a href={`/blog/${post.id}`} class="glass p-5 flex flex-col md:flex-row md:items-center gap-3 group fade-in">
+              <div class="flex-1">
+                <h3 class="font-(--font-heading) font-600 text-base group-hover:text-(--color-teal) transition-colors mb-1">
+                  {post.data.title}
+                </h3>
+                <p class="text-(--color-text-secondary) text-sm leading-relaxed line-clamp-2">
+                  {post.data.description}
+                </p>
+              </div>
+              <div class="flex items-center gap-3 flex-shrink-0">
+                <span class="font-(--font-mono) text-xs text-(--color-text-muted)">{formatDate(post.data.date)}</span>
+                <svg class="w-4 h-4 text-(--color-text-muted) group-hover:text-(--color-teal) transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </a>
+          ))}
         </div>
+      ) : !featured && (
+        <div class="text-center py-20 glass p-8 fade-in">
+          <p class="text-4xl mb-4">📝</p>
+          <p class="text-(--color-text-secondary) text-lg font-(--font-heading) font-600 mb-2">Coming Soon</p>
+          <p class="text-(--color-text-muted) text-sm">First post dropping soon. Follow on LinkedIn for updates.</p>
+        </div>
+      )}
+      
+      <!-- Cross-post notice -->
+      <div class="fade-in mt-10 glass-static p-5 text-center rounded-xl">
+        <p class="text-(--color-text-secondary) text-sm">
+          Posts are also published on 
+          <a href="https://dev.to/akanksha-dev" target="_blank" rel="noopener" class="text-(--color-teal) hover:underline">Dev.to</a>, 
+          <a href="https://linkedin.com/in/akankshadev" target="_blank" rel="noopener" class="text-(--color-teal) hover:underline">LinkedIn</a>, and 
+          <a href="https://medium.com/@akankshadev" target="_blank" rel="noopener" class="text-(--color-teal) hover:underline">Medium</a>.
+        </p>
       </div>
     </div>
   </section>
