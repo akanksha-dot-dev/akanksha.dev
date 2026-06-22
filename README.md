@@ -1,43 +1,57 @@
-# Astro Starter Kit: Minimal
+# akanksha.dev
 
-```sh
-npm create astro@latest -- --template minimal
+Personal portfolio website for [Akanksha](https://akanksha.dev) — Production AI Engineer at Samsung SDS.
+
+Built with [Astro 7](https://astro.build) + [Tailwind CSS 4](https://tailwindcss.com).
+
+## Features
+
+- ⚡ Static site generation with Astro 7
+- 🎨 Custom design system (glassmorphism, gradients, animations)
+- 📝 Blog with Content Collections (Markdown)
+- 🔄 View Transitions (smooth page navigation)
+- 🔍 SEO: JSON-LD schemas, Open Graph, sitemap, robots.txt
+- 🤖 AI discovery via [llms.txt](https://llmstxt.org)
+- 📊 Cloudflare Web Analytics
+- 🚀 Deployed on Cloudflare Pages with auto-deploy from GitHub
+
+## Local Development
+
+```bash
+# Install dependencies
+npm install
+
+# Start dev server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Environment Variables
 
-## 🚀 Project Structure
+Copy `.env.example` to `.env` and fill in:
 
-Inside of your Astro project, you'll see the following folders and files:
+| Variable | Description |
+|----------|-------------|
+| `PUBLIC_CF_ANALYTICS_TOKEN` | Cloudflare Web Analytics token (optional for local dev) |
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+## Deployment
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+This site auto-deploys to Cloudflare Pages on push to `main`. See [DEPLOY.md](./DEPLOY.md) for setup instructions.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Tech Stack
 
-Any static assets, like images, can be placed in the `public/` directory.
+- **Framework:** Astro 7
+- **Styling:** Tailwind CSS 4
+- **Fonts:** Syne, DM Sans, JetBrains Mono (Google Fonts)
+- **Hosting:** Cloudflare Pages
+- **Analytics:** Cloudflare Web Analytics
+- **Domain:** akanksha.dev
 
-## 🧞 Commands
+## License
 
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Content © Akanksha. Code is open-source under [MIT License](./LICENSE).

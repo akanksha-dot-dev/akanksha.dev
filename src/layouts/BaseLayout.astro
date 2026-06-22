@@ -15,6 +15,7 @@ const {
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const cfAnalyticsToken = import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN;
 const currentPath = Astro.url.pathname;
 
 const navLinks = [
@@ -137,8 +138,10 @@ const breadcrumbs = [
     })} />
   )}
   
-  <!-- Cloudflare Web Analytics -->
-  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "REPLACE_WITH_CF_TOKEN"}'></script>
+  <!-- Cloudflare Web Analytics (token injected via PUBLIC_CF_ANALYTICS_TOKEN env var) -->
+  {cfAnalyticsToken && (
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon={`{"token": "${cfAnalyticsToken}"}`}></script>
+  )}
 </head>
 
 <body class="bg-(--color-space) text-(--color-text-primary) font-(--font-body) antialiased">
