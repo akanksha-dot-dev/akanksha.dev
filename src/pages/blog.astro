@@ -1,0 +1,124 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Seed blog posts — these will become Astro Content Collections later
+const posts = [
+  {
+    title: 'Building Production RAG Systems: Beyond the Tutorial',
+    description: 'What nobody tells you about deploying RAG at scale — evaluation pipelines, chunking strategies, and the 92% accuracy journey at Samsung SDS.',
+    date: '2026-06-25',
+    readTime: '12 min',
+    tags: ['RAG', 'Production AI', 'LLMs'],
+    slug: '#',
+    featured: true,
+  },
+  {
+    title: 'Google ADK for Agentic AI: A Practical Guide',
+    description: 'How I use Google ADK to build autonomous multi-agent systems at Samsung SDS. Architecture patterns, tool-calling, and MCP integration.',
+    date: '2026-07-02',
+    readTime: '10 min',
+    tags: ['Google ADK', 'Agentic AI', 'Tutorial'],
+    slug: '#',
+    featured: true,
+  },
+  {
+    title: 'From Darbhanga to Samsung SDS: My Unconventional Path',
+    description: 'An Electrical Engineering student from Bihar who taught herself AI through hackathons, 300+ certifications, and relentless building. This is my story.',
+    date: '2026-07-10',
+    readTime: '8 min',
+    tags: ['Career', 'Personal', 'Journey'],
+    slug: '#',
+    featured: false,
+  },
+];
+
+function formatDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString('en-US', { 
+    year: 'numeric', month: 'long', day: 'numeric' 
+  });
+}
+---
+
+<BaseLayout title="Blog — Akanksha | Production AI Engineer" description="Technical articles on production AI engineering: RAG systems, agentic AI, LLM deployment, and career insights from a Production AI Engineer at Samsung SDS.">
+  
+  <section class="relative overflow-hidden">
+    <div class="orb orb-teal" style="top: -100px; left: -200px;"></div>
+    
+    <div class="max-w-4xl mx-auto px-6 py-16">
+      <div class="fade-in mb-12">
+        <span class="badge mb-4">Writing</span>
+        <h1 class="font-(--font-heading) text-4xl md:text-5xl font-800 mb-4">
+          Technical <span class="gradient-text">Blog</span>
+        </h1>
+        <p class="text-(--color-text-secondary) text-lg max-w-2xl">
+          Thoughts on production AI engineering — from RAG pipelines to career lessons.
+          Practical insights, not hype.
+        </p>
+      </div>
+      
+      <!-- Coming Soon Banner -->
+      <div class="fade-in glass p-6 mb-10 border border-dashed border-(--color-amber)/30">
+        <div class="flex items-center gap-3">
+          <span class="text-2xl">🚀</span>
+          <div>
+            <p class="text-(--color-amber) font-semibold text-sm">Blog launching soon</p>
+            <p class="text-(--color-text-muted) text-sm">
+              First articles are being written. Follow me on 
+              <a href="https://dev.to/akanksha-dev" target="_blank" rel="noopener" class="text-(--color-teal) hover:underline">Dev.to</a> 
+              or <a href="https://linkedin.com/in/akankshadev" target="_blank" rel="noopener" class="text-(--color-teal) hover:underline">LinkedIn</a> 
+              for updates.
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Post List -->
+      <div class="space-y-6">
+        {posts.map(post => (
+          <article class="fade-in glass p-6 md:p-8 group">
+            <div class="flex flex-col md:flex-row md:items-start gap-4">
+              <div class="flex-1">
+                <div class="flex items-center gap-3 mb-2">
+                  <span class="font-(--font-mono) text-xs text-(--color-text-muted)">{formatDate(post.date)}</span>
+                  <span class="text-(--color-text-muted)">·</span>
+                  <span class="font-(--font-mono) text-xs text-(--color-text-muted)">{post.readTime} read</span>
+                  {post.featured && <span class="badge-amber badge text-[0.6rem]">Featured</span>}
+                </div>
+                
+                <h2 class="font-(--font-heading) font-700 text-xl mb-2 group-hover:text-(--color-teal) transition-colors">
+                  {post.title}
+                </h2>
+                
+                <p class="text-(--color-text-secondary) text-sm leading-relaxed mb-4">
+                  {post.description}
+                </p>
+                
+                <div class="flex flex-wrap gap-2">
+                  {post.tags.map(tag => (
+                    <span class="badge text-[0.65rem]">{tag}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+      
+      <!-- Subscribe/Follow CTA -->
+      <div class="fade-in text-center mt-16">
+        <h3 class="font-(--font-heading) font-700 text-xl mb-4">Don't miss an article</h3>
+        <p class="text-(--color-text-secondary) text-sm mb-6 max-w-md mx-auto">
+          I write about production AI engineering — practical insights from building RAG, agents, and LLM systems at enterprise scale.
+        </p>
+        <div class="flex flex-wrap gap-4 justify-center">
+          <a href="https://dev.to/akanksha-dev" target="_blank" rel="noopener" class="btn-primary text-sm">
+            Follow on Dev.to
+          </a>
+          <a href="https://linkedin.com/in/akankshadev" target="_blank" rel="noopener" class="btn-outline text-sm">
+            Connect on LinkedIn
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

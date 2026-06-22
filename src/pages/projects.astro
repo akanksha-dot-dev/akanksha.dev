@@ -1,0 +1,179 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const projects = [
+  {
+    title: 'AgenticAI Workshop',
+    description: 'Multi-agent AI orchestration framework with Google ADK, MCP protocol integration, tool-use patterns & autonomous workflows. Includes hands-on workshop materials for building production-grade AI agents.',
+    tags: ['Google ADK', 'LangChain', 'Agentic AI', 'MCP', 'Python'],
+    href: 'https://github.com/akanksha-dot-dev/AgenticAI-Workshop',
+    icon: '🤖',
+    category: 'Agentic AI',
+    impact: 'Workshop materials used in INCEPT\'26 speaker session',
+  },
+  {
+    title: 'Multi-Agent Research System',
+    description: 'Production-grade multi-agent research framework with guardrails, evaluation harness & async pipelines for detecting machine-generated text. Built with safety-first architecture.',
+    tags: ['Python', 'FastAPI', 'Multi-Agent', 'Guardrails', 'Eval'],
+    href: 'https://github.com/akanksha-dot-dev/Multi-Agent-For-MGT',
+    icon: '🧠',
+    category: 'Agentic AI',
+    impact: 'Production-grade guardrails & evaluation pipeline',
+  },
+  {
+    title: 'o9 Optimizer Agent',
+    description: 'AI-powered report optimization & diagnostic advisory suite for enterprise supply chain platform. Intelligent analysis of complex business data with actionable recommendations.',
+    tags: ['Python', 'AI Agent', 'Enterprise', 'Analytics'],
+    href: 'https://github.com/akanksha-dot-dev/o9OptimizerAgent',
+    icon: '⚙️',
+    category: 'Agentic AI',
+    impact: 'Enterprise supply chain optimization at scale',
+  },
+  {
+    title: 'Near Miss Incident Analysis',
+    description: 'Predictive knowledge graph web app leveraging NLP for near-miss incident analysis & prevention. Combines text mining, graph databases, and interactive dashboards.',
+    tags: ['NLP', 'Knowledge Graph', 'Python', 'Dashboard', 'Predictive'],
+    href: 'https://github.com/akanksha-dot-dev/Urban-Intelligence-Dashboard-Final',
+    icon: '🔬',
+    category: 'NLP',
+    impact: 'Published research on industrial safety prediction',
+  },
+  {
+    title: 'Multilingual Mandi',
+    description: 'AI-powered voice-first web app for India\'s local markets — multilingual translation, price discovery & negotiation using AWS Bedrock, Transcribe, and Translate.',
+    tags: ['AWS Bedrock', 'FastAPI', 'GenAI', 'Multilingual', 'Voice'],
+    href: 'https://github.com/akanksha-dot-dev/multilingual_mandi',
+    icon: '🌐',
+    category: 'RAG',
+    impact: 'Built at PromptWars Noida (1st Runner-Up)',
+  },
+  {
+    title: 'gitsetu',
+    description: 'Zero-dependency CLI tool for Git multi-identity & SSH key setup. Switch between personal, work & open-source Git identities in seconds. Pure shell, no runtime needed.',
+    tags: ['Shell', 'Git', 'CLI', 'DevTools', 'Zero-dependency'],
+    href: 'https://github.com/akanksha-dot-dev/gitsetu',
+    icon: '🔧',
+    category: 'DevTools',
+    impact: 'Open-source CLI used by developers daily',
+  },
+  {
+    title: 'Productivity Analyzer',
+    description: 'RAG-powered AI assistant that analyzes documents, generates insights, and answers complex queries about productivity patterns using vector search.',
+    tags: ['RAG', 'Python', 'FAISS', 'LLM', 'Analytics'],
+    href: 'https://github.com/akanksha-dot-dev/ProductivityAnalyzer',
+    icon: '📊',
+    category: 'RAG',
+    impact: 'Full RAG pipeline with vector search & evaluation',
+  },
+  {
+    title: 'ATS Resume Optimizer',
+    description: 'AI-powered resume optimization tool that analyzes job descriptions and optimizes resumes for Applicant Tracking Systems using NLP and keyword matching.',
+    tags: ['NLP', 'Python', 'ATS', 'Resume', 'AI'],
+    href: 'https://github.com/akanksha-dot-dev/ATS-Master-Resume-Optimizer',
+    icon: '📄',
+    category: 'NLP',
+    impact: 'Practical AI tool solving real hiring pain point',
+  },
+];
+
+const categories = ['All', ...new Set(projects.map(p => p.category))];
+---
+
+<BaseLayout title="Projects — Akanksha | Production AI Engineer" description="Production-grade AI projects: agentic systems, RAG pipelines, NLP tools, and developer utilities. Built by Akanksha at Samsung SDS.">
+  
+  <section class="relative overflow-hidden">
+    <div class="orb orb-amber" style="top: -200px; left: -200px;"></div>
+    
+    <div class="max-w-6xl mx-auto px-6 py-16">
+      <div class="fade-in mb-12">
+        <span class="badge mb-4">Portfolio</span>
+        <h1 class="font-(--font-heading) text-4xl md:text-5xl font-800 mb-4">
+          Things I've <span class="gradient-text">Built</span>
+        </h1>
+        <p class="text-(--color-text-secondary) text-lg max-w-2xl">
+          Production-grade AI systems, not tutorial clones. Each project solves a real problem 
+          with real engineering — evaluation pipelines, guardrails, and monitoring included.
+        </p>
+      </div>
+      
+      <!-- Category Filters -->
+      <div class="fade-in flex flex-wrap gap-2 mb-10" id="project-filters">
+        {categories.map(cat => (
+          <button 
+            class="filter-btn badge cursor-pointer transition-all hover:bg-(--color-teal-glow)" 
+            data-category={cat}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+      
+      <!-- Project Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="project-grid">
+        {projects.map(project => (
+          <a 
+            href={project.href} 
+            target="_blank" 
+            rel="noopener" 
+            class="glass p-6 flex flex-col gap-4 group project-card fade-in"
+            data-category={project.category}
+          >
+            <div class="flex items-start justify-between">
+              <span class="text-3xl">{project.icon}</span>
+              <svg class="w-5 h-5 text-(--color-text-muted) group-hover:text-(--color-teal) transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </div>
+            
+            <div>
+              <span class="badge-amber badge text-[0.6rem] mb-2">{project.category}</span>
+              <h3 class="font-(--font-heading) font-700 text-lg group-hover:text-(--color-teal) transition-colors mt-1">
+                {project.title}
+              </h3>
+            </div>
+            
+            <p class="text-(--color-text-secondary) text-sm leading-relaxed flex-1">
+              {project.description}
+            </p>
+            
+            <p class="text-(--color-teal) text-xs font-(--font-mono)">
+              ⚡ {project.impact}
+            </p>
+            
+            <div class="flex flex-wrap gap-2 pt-2 border-t border-(--color-border)">
+              {project.tags.map(tag => (
+                <span class="badge text-[0.6rem]">{tag}</span>
+              ))}
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <script>
+    // Category filter
+    const buttons = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.project-card');
+    
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const category = btn.getAttribute('data-category');
+        
+        buttons.forEach(b => b.classList.remove('!bg-(--color-teal)', '!text-(--color-space)', '!border-(--color-teal)'));
+        btn.classList.add('!bg-(--color-teal)', '!text-(--color-space)', '!border-(--color-teal)');
+        
+        cards.forEach(card => {
+          if (category === 'All' || card.getAttribute('data-category') === category) {
+            (card as HTMLElement).style.display = '';
+          } else {
+            (card as HTMLElement).style.display = 'none';
+          }
+        });
+      });
+    });
+    
+    // Set "All" as active by default
+    buttons[0]?.classList.add('!bg-(--color-teal)', '!text-(--color-space)', '!border-(--color-teal)');
+  </script>
+</BaseLayout>

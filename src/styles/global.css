@@ -1,0 +1,287 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════
+   AKANKSHA.DEV — Design System
+   Brand: Electric Teal + Warm Amber + Deep Space
+   Typography: Syne (headings) + DM Sans (body) + JetBrains Mono (code)
+   ═══════════════════════════════════════════════════════════ */
+
+@theme {
+  /* Brand Colors */
+  --color-teal: #00E5B0;
+  --color-teal-dim: #00B88D;
+  --color-teal-glow: rgba(0, 229, 176, 0.15);
+  --color-amber: #F5A300;
+  --color-amber-dim: #D48E00;
+
+  /* Surfaces */
+  --color-space: #05070F;
+  --color-space-light: #0A1628;
+  --color-space-lighter: #0D2847;
+  --color-surface: rgba(255, 255, 255, 0.04);
+  --color-surface-hover: rgba(255, 255, 255, 0.08);
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-hover: rgba(0, 229, 176, 0.3);
+
+  /* Text */
+  --color-text-primary: #E2E8F0;
+  --color-text-secondary: #94A3B8;
+  --color-text-muted: #64748B;
+
+  /* Font families */
+  --font-heading: 'Syne', system-ui, sans-serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* ─── Base ─────────────────────────────────────────────── */
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-space);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: rgba(0, 229, 176, 0.3);
+  color: white;
+}
+
+/* ─── Glass Card ───────────────────────────────────────── */
+
+.glass {
+  background: var(--color-surface);
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass:hover {
+  background: var(--color-surface-hover);
+  border-color: var(--color-border-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 229, 176, 0.08);
+}
+
+/* ─── Gradient Text ────────────────────────────────────── */
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-teal) 0%, var(--color-amber) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Animated Gradient Orbs (background decoration) ──── */
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.15;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.orb-teal {
+  background: var(--color-teal);
+  width: 500px;
+  height: 500px;
+  animation: float-slow 20s ease-in-out infinite;
+}
+
+.orb-amber {
+  background: var(--color-amber);
+  width: 400px;
+  height: 400px;
+  animation: float-slow 25s ease-in-out infinite reverse;
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(30px, -40px) scale(1.05); }
+  50% { transform: translate(-20px, 20px) scale(0.95); }
+  75% { transform: translate(40px, 30px) scale(1.02); }
+}
+
+/* ─── Scroll Fade-In Animation ─────────────────────────── */
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Badge / Tag ──────────────────────────────────────── */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  font-family: var(--font-mono);
+  background: var(--color-teal-glow);
+  color: var(--color-teal);
+  border: 1px solid rgba(0, 229, 176, 0.2);
+}
+
+.badge-amber {
+  background: rgba(245, 163, 0, 0.12);
+  color: var(--color-amber);
+  border-color: rgba(245, 163, 0, 0.2);
+}
+
+/* ─── Button ───────────────────────────────────────────── */
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  background: var(--color-teal);
+  color: var(--color-space);
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  background: var(--color-teal-dim);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(0, 229, 176, 0.3);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  background: transparent;
+  color: var(--color-teal);
+  border: 1px solid var(--color-teal);
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.btn-outline:hover {
+  background: var(--color-teal-glow);
+  transform: translateY(-1px);
+}
+
+/* ─── Metric Counter ───────────────────────────────────── */
+
+.metric {
+  text-align: center;
+  padding: 1rem;
+}
+
+.metric-value {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--color-teal);
+  line-height: 1;
+}
+
+.metric-label {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 0.25rem;
+}
+
+/* ─── Section ──────────────────────────────────────────── */
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 2.5rem;
+}
+
+/* ─── Timeline ─────────────────────────────────────────── */
+
+.timeline-line {
+  position: absolute;
+  left: 1.25rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--color-teal), var(--color-amber), transparent);
+}
+
+.timeline-dot {
+  position: absolute;
+  left: 0.75rem;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: var(--color-teal);
+  border: 3px solid var(--color-space);
+  box-shadow: 0 0 12px rgba(0, 229, 176, 0.4);
+  z-index: 1;
+}
+
+/* ─── Nav Link Active ──────────────────────────────────── */
+
+.nav-link {
+  position: relative;
+  color: var(--color-text-secondary);
+  transition: color 0.3s ease;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--color-teal);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-teal);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after, .nav-link.active::after {
+  width: 100%;
+}
+
+/* ─── Responsive ───────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .metric-value { font-size: 1.75rem; }
+  .section-title { font-size: 1.5rem; }
+}

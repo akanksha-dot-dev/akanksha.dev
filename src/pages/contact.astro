@@ -1,0 +1,98 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const socials = [
+  { name: 'LinkedIn', href: 'https://linkedin.com/in/akankshadev', icon: '💼', description: 'Professional updates & career content' },
+  { name: 'GitHub', href: 'https://github.com/akanksha-dot-dev', icon: '🐙', description: 'Open-source projects & code' },
+  { name: 'Twitter/X', href: 'https://x.com/akankshadotdev', icon: '🐦', description: 'Quick thoughts & AI insights' },
+  { name: 'Dev.to', href: 'https://dev.to/akanksha-dev', icon: '📝', description: 'Technical articles & tutorials' },
+  { name: 'HuggingFace', href: 'https://huggingface.co/akanksha-dev', icon: '🤗', description: 'Models & ML experiments' },
+  { name: 'Kaggle', href: 'https://kaggle.com/akankshadotdev', icon: '📊', description: 'Data science competitions' },
+];
+---
+
+<BaseLayout title="Contact — Akanksha | Production AI Engineer" description="Get in touch with Akanksha. Open to AI engineering roles, collaborations, speaking engagements, and conversations about production AI.">
+  
+  <section class="relative overflow-hidden">
+    <div class="orb orb-amber" style="top: -100px; right: -200px;"></div>
+    
+    <div class="max-w-4xl mx-auto px-6 py-16">
+      <div class="fade-in mb-12">
+        <span class="badge mb-4">Connect</span>
+        <h1 class="font-(--font-heading) text-4xl md:text-5xl font-800 mb-4">
+          Let's <span class="gradient-text">Talk</span>
+        </h1>
+        <p class="text-(--color-text-secondary) text-lg max-w-2xl">
+          Open to AI engineering roles, collaborations, speaking engagements, and conversations 
+          about production AI systems.
+        </p>
+      </div>
+      
+      <!-- Email CTA -->
+      <div class="fade-in glass p-8 md:p-10 mb-10">
+        <div class="flex flex-col md:flex-row items-start md:items-center gap-6">
+          <div class="flex-1">
+            <h2 class="font-(--font-heading) font-700 text-2xl mb-2">Email is best</h2>
+            <p class="text-(--color-text-secondary) text-sm mb-4">
+              For roles, collaborations, or speaking — I typically respond within 24 hours.
+            </p>
+            <a href="mailto:me@akanksha.dev" class="btn-primary inline-flex">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              me@akanksha.dev
+            </a>
+          </div>
+          <div class="text-6xl opacity-20">📧</div>
+        </div>
+      </div>
+      
+      <!-- Open To -->
+      <div class="fade-in mb-12">
+        <h2 class="section-title mb-6">What I'm open to</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="glass p-5">
+            <h3 class="font-(--font-heading) font-600 text-(--color-teal) mb-1">🎯 AI Engineering Roles</h3>
+            <p class="text-(--color-text-secondary) text-sm">GenAI, Agentic AI, RAG, LLM Engineer, FDE roles at companies pushing AI boundaries</p>
+          </div>
+          <div class="glass p-5">
+            <h3 class="font-(--font-heading) font-600 text-(--color-teal) mb-1">🤝 Collaborations</h3>
+            <p class="text-(--color-text-secondary) text-sm">Open-source projects, research papers, AI product development</p>
+          </div>
+          <div class="glass p-5">
+            <h3 class="font-(--font-heading) font-600 text-(--color-teal) mb-1">🎤 Speaking</h3>
+            <p class="text-(--color-text-secondary) text-sm">Conferences, meetups, workshops on production AI, RAG systems, agentic AI</p>
+          </div>
+          <div class="glass p-5">
+            <h3 class="font-(--font-heading) font-600 text-(--color-teal) mb-1">💡 Mentorship</h3>
+            <p class="text-(--color-text-secondary) text-sm">Happy to chat with engineers transitioning into AI/ML careers</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Social Links -->
+      <div class="fade-in">
+        <h2 class="section-title mb-6">Find me elsewhere</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {socials.map(social => (
+            <a href={social.href} target="_blank" rel="noopener" class="glass p-4 flex items-center gap-4 group">
+              <span class="text-2xl">{social.icon}</span>
+              <div class="flex-1">
+                <p class="text-(--color-text-primary) font-semibold text-sm group-hover:text-(--color-teal) transition-colors">{social.name}</p>
+                <p class="text-(--color-text-muted) text-xs">{social.description}</p>
+              </div>
+              <svg class="w-4 h-4 text-(--color-text-muted) group-hover:text-(--color-teal) transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+          ))}
+        </div>
+      </div>
+      
+      <!-- Location -->
+      <div class="fade-in text-center mt-16">
+        <p class="text-(--color-text-muted) text-sm">
+          📍 Based in Gurugram, India · Open to remote & hybrid roles
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

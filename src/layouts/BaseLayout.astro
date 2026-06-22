@@ -1,0 +1,229 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const { 
+  title, 
+  description = "Production AI Engineer building enterprise AI systems — RAG, Agents, LLMs. 4+ years shipping AI at Samsung SDS & HCLTech.",
+  ogImage = "/og-image.png"
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const currentPath = Astro.url.pathname;
+
+const navLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'About' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/experience', label: 'Experience' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/contact', label: 'Contact' },
+];
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="generator" content={Astro.generator} />
+  
+  <!-- SEO -->
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalURL} />
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={new URL(ogImage, Astro.site)} />
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@akankshadotdev" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=JetBrains+Mono:wght@400;500;600&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  
+  <!-- JSON-LD Person Schema -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://akanksha.dev/#person",
+    "name": "Akanksha",
+    "url": "https://akanksha.dev",
+    "jobTitle": "Production AI Engineer",
+    "description": "Production AI Engineer at Samsung SDS specializing in Agentic RAG systems, autonomous agents, and LLM infrastructure at enterprise scale.",
+    "email": "me@akanksha.dev",
+    "sameAs": [
+      "https://linkedin.com/in/akankshadev",
+      "https://github.com/akanksha-dot-dev",
+      "https://dev.to/akanksha-dev",
+      "https://x.com/akankshadotdev",
+      "https://huggingface.co/akanksha-dev",
+      "https://kaggle.com/akankshadotdev"
+    ],
+    "knowsAbout": [
+      "Generative AI", "RAG Systems", "Agentic AI", "LLM Engineering",
+      "Python", "Google ADK", "LangChain", "LangGraph", "FastAPI",
+      "Machine Learning", "NLP", "Production AI Systems", "Multi-Agent Systems"
+    ],
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Samsung SDS",
+      "url": "https://www.samsungsds.com"
+    },
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "Darbhanga College of Engineering"
+    }
+  })} />
+</head>
+
+<body class="bg-(--color-space) text-(--color-text-primary) font-(--font-body) antialiased">
+  
+  <!-- ═══ NAVIGATION ═══ -->
+  <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="/" class="text-xl font-bold font-(--font-heading) tracking-tight group">
+        <span class="text-(--color-teal) transition-colors">A</span><span class="text-(--color-text-primary) group-hover:text-(--color-teal) transition-colors">kanksha</span><span class="text-(--color-text-muted)">.dev</span>
+      </a>
+      
+      <!-- Desktop Nav -->
+      <div class="hidden md:flex items-center gap-8">
+        {navLinks.map(link => (
+          <a 
+            href={link.href} 
+            class:list={['nav-link', { active: currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href)) }]}
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+      
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-btn" class="md:hidden text-(--color-text-secondary) hover:text-(--color-teal) transition-colors" aria-label="Toggle menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+    
+    <!-- Mobile Nav -->
+    <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+      <div class="glass p-4 flex flex-col gap-4">
+        {navLinks.map(link => (
+          <a 
+            href={link.href} 
+            class:list={['nav-link text-lg', { active: currentPath === link.href }]}
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══ MAIN CONTENT ═══ -->
+  <main class="pt-20">
+    <slot />
+  </main>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="border-t border-(--color-border) mt-24">
+    <div class="max-w-6xl mx-auto px-6 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Brand -->
+        <div>
+          <a href="/" class="text-xl font-bold font-(--font-heading)">
+            <span class="text-(--color-teal)">A</span>kanksha<span class="text-(--color-text-muted)">.dev</span>
+          </a>
+          <p class="text-(--color-text-secondary) text-sm mt-2 max-w-xs">
+            Production AI Engineer building enterprise AI systems that ship. RAG · Agents · LLMs.
+          </p>
+        </div>
+        
+        <!-- Quick Links -->
+        <div>
+          <h4 class="font-(--font-heading) font-semibold text-sm uppercase tracking-wider text-(--color-text-muted) mb-4">Navigate</h4>
+          <div class="flex flex-col gap-2">
+            {navLinks.map(link => (
+              <a href={link.href} class="text-(--color-text-secondary) hover:text-(--color-teal) text-sm transition-colors">{link.label}</a>
+            ))}
+          </div>
+        </div>
+        
+        <!-- Connect -->
+        <div>
+          <h4 class="font-(--font-heading) font-semibold text-sm uppercase tracking-wider text-(--color-text-muted) mb-4">Connect</h4>
+          <div class="flex flex-col gap-2">
+            <a href="https://linkedin.com/in/akankshadev" target="_blank" rel="noopener" class="text-(--color-text-secondary) hover:text-(--color-teal) text-sm transition-colors">LinkedIn</a>
+            <a href="https://github.com/akanksha-dot-dev" target="_blank" rel="noopener" class="text-(--color-text-secondary) hover:text-(--color-teal) text-sm transition-colors">GitHub</a>
+            <a href="https://x.com/akankshadotdev" target="_blank" rel="noopener" class="text-(--color-text-secondary) hover:text-(--color-teal) text-sm transition-colors">Twitter/X</a>
+            <a href="https://dev.to/akanksha-dev" target="_blank" rel="noopener" class="text-(--color-text-secondary) hover:text-(--color-teal) text-sm transition-colors">Dev.to</a>
+            <a href="mailto:me@akanksha.dev" class="text-(--color-text-secondary) hover:text-(--color-teal) text-sm transition-colors">me@akanksha.dev</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="border-t border-(--color-border) mt-8 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-(--color-text-muted) text-xs">
+          © {new Date().getFullYear()} Akanksha. Built with Astro. Deployed on Cloudflare.
+        </p>
+        <div class="flex gap-4">
+          <a href="/llms.txt" class="text-(--color-text-muted) hover:text-(--color-teal) text-xs transition-colors font-(--font-mono)">llms.txt</a>
+          <a href="/sitemap-index.xml" class="text-(--color-text-muted) hover:text-(--color-teal) text-xs transition-colors font-(--font-mono)">sitemap.xml</a>
+          <a href="https://github.com/akanksha-dot-dev/akanksha.dev" target="_blank" rel="noopener" class="text-(--color-text-muted) hover:text-(--color-teal) text-xs transition-colors font-(--font-mono)">source ↗</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══ SCRIPTS ═══ -->
+  <script>
+    // Nav background on scroll
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) {
+        nav?.classList.add('bg-(--color-space)/90', 'backdrop-blur-xl', 'border-b', 'border-(--color-border)');
+      } else {
+        nav?.classList.remove('bg-(--color-space)/90', 'backdrop-blur-xl', 'border-b', 'border-(--color-border)');
+      }
+    });
+
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn?.addEventListener('click', () => {
+      mobileMenu?.classList.toggle('hidden');
+    });
+
+    // Scroll fade-in
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

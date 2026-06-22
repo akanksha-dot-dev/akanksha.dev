@@ -1,0 +1,149 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const skills = {
+  'AI / GenAI / ML': [
+    'Google ADK', 'LangChain', 'LangGraph', 'CrewAI', 'MCP',
+    'Graph RAG', 'Agentic RAG', 'FAISS', 'Chroma', 'Pinecone',
+    'GPT-4', 'Llama-2/3', 'Mistral', 'BERT',
+    'PEFT/LoRA/QLoRA', 'SpaCy', 'PyTorch', 'Scikit-Learn',
+    'Transformers', 'Hugging Face', 'RAGAS', 'LangSmith',
+  ],
+  'Backend & Infrastructure': [
+    'Python', 'FastAPI', 'Django', 'Flask', 'REST APIs', 'Pydantic',
+    'PostgreSQL', 'MySQL', 'SQL Server', 'Vector DBs',
+    'Docker', 'Git', 'CI/CD', 'Kubernetes',
+    'AWS (Bedrock, Lambda, SageMaker)', 'Azure (ML, Cognitive)',
+  ],
+  'Tools & Platforms': [
+    'VS Code', 'Jupyter', 'Postman', 'Selenium', 'PyTest',
+    'Power BI', 'Jira', 'Confluence', 'GitHub Actions',
+  ],
+};
+
+const highlights = [
+  { icon: '🏆', text: '1st Runner-Up — PromptWars Noida (Hack2skill × Google for Developers)' },
+  { icon: '🎤', text: 'Speaker at INCEPT\'26 (GLA University) & AI Mobile Hackathon' },
+  { icon: '☁️', text: 'Google Cloud Summit India 2026 — Builder Connect participant' },
+  { icon: '📚', text: '300+ certifications across 8+ learning platforms' },
+  { icon: '🌐', text: 'Active across 12+ Delhi NCR AI communities' },
+  { icon: '⭐', text: 'NPTEL Star, Domain Scholar & Discipline Star (2021-2022)' },
+];
+---
+
+<BaseLayout title="About — Akanksha | Production AI Engineer" description="Learn about Akanksha's journey from Electrical Engineering in Darbhanga to Production AI Engineer at Samsung SDS. 4+ years, 300+ certifications, and a mission to build AI that ships.">
+  
+  <section class="relative overflow-hidden">
+    <div class="orb orb-teal" style="top: -100px; right: -200px;"></div>
+    
+    <div class="max-w-4xl mx-auto px-6 py-16">
+      <!-- Header -->
+      <div class="fade-in mb-12">
+        <span class="badge mb-4">About Me</span>
+        <h1 class="font-(--font-heading) text-4xl md:text-5xl font-800 mb-4">
+          From <span class="gradient-text">Darbhanga</span> to <span class="gradient-text">Samsung SDS</span>
+        </h1>
+        <p class="text-(--color-text-secondary) text-lg">
+          An unconventional path — Electrical Engineering → self-taught coder → Production AI Engineer.
+        </p>
+      </div>
+      
+      <!-- Main Story -->
+      <div class="fade-in prose prose-invert max-w-none mb-16">
+        <div class="glass p-8 md:p-10 space-y-5 text-(--color-text-secondary) leading-relaxed">
+          <p>
+            I build production AI systems that enterprises actually rely on — not just proof-of-concepts 
+            that impress in demos.
+          </p>
+          
+          <p>
+            As a <span class="text-(--color-text-primary) font-semibold">Senior Software Engineer at Samsung SDS</span>, 
+            I architect the full GenAI stack: autonomous AI agents with Google ADK, enterprise RAG pipelines 
+            processing complex financial documents, and LLM infrastructure serving 
+            <span class="text-(--color-teal)">500+ daily queries at 92% accuracy</span>. My work sits at the 
+            intersection of deep AI engineering and enterprise-grade reliability.
+          </p>
+          
+          <p>
+            Before Samsung SDS, I spent 2 years at <span class="text-(--color-text-primary) font-semibold">HCLTech</span> 
+            shipping ML to production — profile matching, CV parsing, smart search — for enterprise recruitment 
+            platforms serving thousands of users. I resolved 
+            <span class="text-(--color-amber)">500+ production incidents</span> and maintained 
+            <span class="text-(--color-teal)">98% service reliability</span>.
+          </p>
+          
+          <p>
+            My journey is unconventional: I studied Electrical Engineering in Darbhanga, Bihar, taught myself 
+            to code through hackathons, and built my way to leading AI projects at a global company. I've earned 
+            <span class="text-(--color-amber)">300+ certifications</span> across Coursera, LinkedIn Learning, 
+            Anthropic, ISRO, and more — and won national hackathons along the way.
+          </p>
+          
+          <p>
+            Beyond building, I speak at tech events (INCEPT'26, AI Mobile Hackathon), lead hands-on workshops 
+            on GenAI, and am active across <span class="text-(--color-teal)">12+ Delhi NCR AI communities</span>.
+          </p>
+          
+          <blockquote class="border-l-2 border-(--color-teal) pl-4 italic text-(--color-text-primary)">
+            "I care about AI that ships, not just AI that demos."
+          </blockquote>
+        </div>
+      </div>
+      
+      <!-- Highlights -->
+      <div class="fade-in mb-16">
+        <h2 class="section-title mb-8">Highlights</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {highlights.map(h => (
+            <div class="glass p-4 flex items-start gap-3 hover:border-(--color-border-hover)">
+              <span class="text-2xl flex-shrink-0">{h.icon}</span>
+              <p class="text-(--color-text-secondary) text-sm leading-relaxed">{h.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+      
+      <!-- Tech Stack -->
+      <div class="fade-in mb-16">
+        <h2 class="section-title mb-8">Tech Arsenal</h2>
+        <div class="space-y-8">
+          {Object.entries(skills).map(([category, items]) => (
+            <div>
+              <h3 class="font-(--font-heading) font-600 text-sm uppercase tracking-wider text-(--color-teal) mb-3">{category}</h3>
+              <div class="flex flex-wrap gap-2">
+                {items.map(skill => (
+                  <span class="badge">{skill}</span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      
+      <!-- Journey Timeline Mini -->
+      <div class="fade-in mb-16">
+        <h2 class="section-title mb-8">The Journey</h2>
+        <div class="glass p-8 font-(--font-mono) text-sm text-(--color-text-secondary) space-y-2 leading-relaxed">
+          <p><span class="text-(--color-text-muted)">📍</span> Darbhanga, Bihar</p>
+          <p class="text-(--color-text-muted)">   ↓  EEE student who taught herself to code through hackathons</p>
+          <p class="text-(--color-text-muted)">   ↓  Won national hackathons, completed 300+ certifications</p>
+          <p class="text-(--color-text-muted)">   ↓</p>
+          <p><span class="text-(--color-text-muted)">💼</span> <span class="text-(--color-text-primary)">HCLTech, Noida</span> <span class="text-(--color-teal)">(2022–2024)</span></p>
+          <p class="text-(--color-text-muted)">   ↓  Shipped 10+ ML features for enterprise recruitment platforms</p>
+          <p class="text-(--color-text-muted)">   ↓  Resolved 500+ production incidents, 98% reliability</p>
+          <p class="text-(--color-text-muted)">   ↓</p>
+          <p><span class="text-(--color-text-muted)">🚀</span> <span class="text-(--color-text-primary)">Samsung SDS, Gurugram</span> <span class="text-(--color-teal)">(2024–Present)</span></p>
+          <p class="text-(--color-text-muted)">   ↓  Building Agentic RAG, autonomous agents, LLM infrastructure</p>
+          <p class="text-(--color-text-muted)">   ↓  Leading AI projects across India & Korea teams</p>
+          <p class="text-(--color-text-muted)">   ↓</p>
+          <p><span class="text-(--color-text-muted)">🎯</span> <span class="text-(--color-amber)">Next: Staff/Principal AI Engineer at a top-tier AI company</span></p>
+        </div>
+      </div>
+      
+      <!-- CTA -->
+      <div class="fade-in text-center">
+        <a href="/contact" class="btn-primary">Let's Connect →</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,37 @@
+# Akanksha
+
+> Production AI Engineer at Samsung SDS. Specializes in Agentic RAG systems,
+> autonomous agents (Google ADK), and LLM infrastructure at enterprise scale.
+> 4+ years of production engineering experience. 300+ certifications.
+
+## About
+- [About Akanksha](https://akanksha.dev/about): Professional background, tech stack, career journey
+
+## Projects
+- [AgenticAI Workshop](https://github.com/akanksha-dot-dev/AgenticAI-Workshop): Multi-agent AI orchestration with Google ADK + MCP
+- [Multi-Agent Research System](https://github.com/akanksha-dot-dev/Multi-Agent-For-MGT): Production-grade multi-agent framework with guardrails
+- [o9 Optimizer Agent](https://github.com/akanksha-dot-dev/o9OptimizerAgent): AI-powered report optimization for enterprise supply chain
+- [Near Miss Incident Analysis](https://github.com/akanksha-dot-dev/Urban-Intelligence-Dashboard-Final): NLP + Knowledge Graph for incident prevention
+- [Multilingual Mandi](https://github.com/akanksha-dot-dev/multilingual_mandi): AI voice-first web app for Indian markets (AWS Bedrock)
+- [gitsetu](https://github.com/akanksha-dot-dev/gitsetu): Zero-dependency CLI for Git multi-identity management
+
+## Writing
+- [Blog](https://akanksha.dev/blog): Technical articles on production AI engineering
+
+## Experience
+- Production AI Engineer (Senior Executive Engineer) at Samsung SDS, Gurugram (Oct 2024–present)
+- Software Engineer at HCLTech, Noida (Sep 2022–Sep 2024)
+- B.Tech EEE, Darbhanga College of Engineering (2018–2022)
+
+## Speaking
+- Speaker at INCEPT'26 (GLA University) and AI Mobile Hackathon
+- 1st Runner-Up at PromptWars Noida (Hack2skill × Google for Developers)
+- Active in 12+ Delhi NCR AI communities (GDG, AWS UG, Microsoft UG)
+
+## Contact
+- Email: me@akanksha.dev
+- LinkedIn: https://linkedin.com/in/akankshadev
+- GitHub: https://github.com/akanksha-dot-dev
+- Twitter: https://x.com/akankshadotdev
+- Dev.to: https://dev.to/akanksha-dev
+- HuggingFace: https://huggingface.co/akanksha-dev
