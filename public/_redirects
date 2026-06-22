@@ -1,12 +1,4 @@
-# Trailing slash normalization
-/about/  /about  301
-/projects/  /projects  301
-/experience/  /experience  301
-/speaking/  /speaking  301
-/blog/  /blog  301
-/contact/  /contact  301
-
-# Legacy/common redirects
+# Vanity redirects
 /resume  /contact  302
 /cv  /contact  302
 /hire  /contact  302
