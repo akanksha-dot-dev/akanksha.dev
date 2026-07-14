@@ -152,53 +152,59 @@ const awards = [
     
     <div class="max-w-4xl mx-auto px-6 py-16">
       <div class="fade-in mb-12">
-        <span class="badge mb-4">Career</span>
+        <span class="badge mb-4">v.Latest</span>
         <h1 class="font-(--font-heading) text-4xl md:text-5xl font-800 mb-4 tracking-tight">
-          Professional <span class="gradient-text">Journey</span>
+          System <span class="gradient-text">Changelog</span>
         </h1>
-        <p class="text-(--color-text-secondary) text-lg">
-          From Darbhanga to Samsung SDS — from resolving production incidents to architecting autonomous AI agents.
+        <p class="text-(--color-text-secondary) text-lg font-(--font-mono) text-sm">
+          > Execution trace. Release history of roles, deployments, and system upgrades.
         </p>
       </div>
       
       <!-- ─── Timeline ─── -->
-      <div class="relative pl-12 space-y-10 mb-20">
-        <div class="timeline-line"></div>
-        
-        {experience.map((exp) => (
+      <div class="relative pl-8 md:pl-12 space-y-10 mb-20 border-l border-(--color-border) ml-4">
+        {experience.map((exp, idx) => (
           <div class="fade-in relative">
-            <div class="timeline-dot" style={`top: 1.75rem; ${exp.color === 'amber' ? 'background: var(--color-amber); box-shadow: 0 0 12px rgba(245, 163, 0, 0.4);' : exp.color === 'muted' ? 'background: var(--color-text-muted); box-shadow: none;' : ''}`}></div>
+            <div class="absolute -left-[2.85rem] md:-left-[3.85rem] top-6 w-4 h-4 rounded-full border-2 border-(--color-space) z-10" style={`background: ${exp.color === 'teal' ? 'var(--color-teal)' : exp.color === 'amber' ? 'var(--color-amber)' : 'var(--color-text-muted)'}; box-shadow: 0 0 10px ${exp.color === 'teal' ? 'var(--color-teal)' : exp.color === 'amber' ? 'var(--color-amber)' : 'transparent'};`}></div>
             
-            <div class="glass p-6 md:p-7">
-              <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-2 mb-4">
+            <div class="glass p-6 md:p-7 border border-(--color-border) hover:border-(--color-teal)/50 transition-colors">
+              <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-2 mb-6 pb-4 border-b border-(--color-border)/50">
                 <div>
-                  <h3 class="font-(--font-heading) font-700 text-lg text-(--color-text-primary)">{exp.title}</h3>
-                  <p class={`font-semibold ${exp.color === 'teal' ? 'text-(--color-teal)' : exp.color === 'amber' ? 'text-(--color-amber)' : 'text-(--color-text-muted)'}`}>{exp.company}</p>
-                  <p class="text-(--color-text-muted) text-xs font-(--font-mono)">{exp.subtitle}</p>
+                  <div class="flex items-center gap-3 mb-2">
+                     <span class="text-xs font-(--font-mono) px-2 py-0.5 rounded bg-(--color-space) border border-(--color-border)" style={`color: ${exp.color === 'teal' ? 'var(--color-teal)' : exp.color === 'amber' ? 'var(--color-amber)' : 'var(--color-text-muted)'}`}>release-{exp.period.split(' – ')[0].toLowerCase().replace(' ', '')}</span>
+                     <span class="text-xs text-(--color-text-muted) font-(--font-mono)">commit: {Math.random().toString(16).substring(2, 9)}</span>
+                  </div>
+                  <h3 class="font-(--font-heading) font-700 text-lg text-(--color-text-primary)">{exp.title} <span class="text-(--color-text-muted) font-400">@ {exp.company}</span></h3>
+                  <p class="text-(--color-text-muted) text-xs font-(--font-mono) mt-1">{exp.subtitle}</p>
                 </div>
                 <div class="md:text-right flex-shrink-0">
                   <p class="font-(--font-mono) text-xs text-(--color-text-secondary)">{exp.period}</p>
-                  <p class="text-(--color-text-muted) text-xs">{exp.location}</p>
+                  <p class="text-(--color-text-muted) text-[0.65rem] font-(--font-mono) uppercase tracking-wider mt-1">{exp.location}</p>
                 </div>
               </div>
               
-              {exp.projects.map(project => (
-                <div class="mb-4 last:mb-0">
-                  <p class="text-(--color-text-primary) text-sm font-600 mb-2 font-(--font-heading)">{project.name}</p>
-                  <ul class="space-y-1.5">
-                    {project.bullets.map(b => (
-                      <li class="flex items-start gap-2">
-                        <span class="text-(--color-teal) mt-1.5 text-[0.5rem]">●</span>
-                        <span class="text-(--color-text-secondary) text-sm leading-relaxed">{b}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+              <div class="space-y-6">
+                {exp.projects.map(project => (
+                  <div>
+                    <p class="text-(--color-text-primary) text-[0.75rem] font-600 mb-3 font-(--font-mono) flex items-center gap-2">
+                      <svg class="w-3.5 h-3.5 text-(--color-text-muted)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                      [module] {project.name}
+                    </p>
+                    <ul class="space-y-2 pl-5">
+                      {project.bullets.map(b => (
+                        <li class="flex items-start gap-2.5 font-(--font-mono) text-xs text-(--color-text-secondary) leading-relaxed">
+                          <span class="text-(--color-teal) mt-0.5 text-[0.65rem] opacity-70">+</span>
+                          <span>{b}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
               
-              <div class="flex flex-wrap gap-1.5 pt-3 border-t border-(--color-border) mt-3">
+              <div class="flex flex-wrap gap-1.5 pt-4 mt-6 border-t border-(--color-border)/50">
                 {exp.tech.map(t => (
-                  <span class="badge text-[0.6rem]">{t}</span>
+                  <span class="badge text-[0.6rem] bg-space-light/20">{t}</span>
                 ))}
               </div>
             </div>

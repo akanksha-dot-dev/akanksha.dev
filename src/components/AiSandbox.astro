@@ -1,0 +1,460 @@
+---
+// src/components/AiSandbox.astro
+---
+
+<div class="glass-static p-6 md:p-8 relative overflow-hidden fade-in border border-(--color-border) bg-(--color-surface)">
+  <!-- Glow Orbs -->
+  <div class="absolute -top-24 -left-24 w-48 h-48 rounded-full bg-(--color-teal-glow) filter blur-3xl pointer-events-none"></div>
+  <div class="absolute -bottom-24 -right-24 w-48 h-48 rounded-full bg-(--color-amber-glow) filter blur-3xl pointer-events-none"></div>
+
+  <!-- Header -->
+  <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-(--color-border) relative z-10">
+    <div>
+      <h3 class="font-(--font-heading) font-800 text-xl md:text-2xl text-(--color-text-primary) tracking-tight">
+        Interactive <span class="gradient-text">AI Sandbox</span>
+      </h3>
+      <p class="text-xs text-(--color-text-secondary) font-(--font-mono) mt-1">
+        Visualizing production-grade execution pipelines
+      </p>
+    </div>
+    
+    <!-- Tab Switches -->
+    <div class="flex p-1 bg-space-light/50 border border-(--color-border) rounded-lg self-start">
+      <button 
+        id="btn-rag-tab" 
+        class="px-3 py-1.5 text-xs font-(--font-mono) font-600 rounded-md transition-all cursor-pointer bg-(--color-teal-glow) text-(--color-teal)"
+      >
+        Graph-RAG.log
+      </button>
+      <button 
+        id="btn-agent-tab" 
+        class="px-3 py-1.5 text-xs font-(--font-mono) font-600 rounded-md transition-all cursor-pointer text-(--color-text-secondary) hover:text-(--color-text-primary)"
+      >
+        Agent-Loop.exe
+      </button>
+    </div>
+  </div>
+
+  <div class="relative z-10 min-h-[380px] flex flex-col">
+    <!-- ═══ RAG VISUALIZER PANEL ═══ -->
+    <div id="rag-panel" class="flex flex-col gap-6 flex-1">
+      <div class="grid grid-cols-1 md:grid-cols-[1fr_250px] gap-6 items-start">
+        <!-- Main Area -->
+        <div class="flex flex-col gap-4">
+          <label class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider">Query Input</label>
+          <div class="flex gap-2">
+            <select 
+              id="rag-query-select" 
+              class="bg-space-light/60 border border-(--color-border) px-3 py-2 text-xs rounded-lg flex-1 text-(--color-text-primary) focus:outline-none focus:border-(--color-teal)"
+            >
+              <option value="revenue">"Analyze Samsung SDS Q4 Net Income & retrieval precision"</option>
+              <option value="accuracy">"Assess RAG accuracy over 200-page annual financial statements"</option>
+              <option value="agents">"Explain Google ADK multi-agent state mapping patterns"</option>
+            </select>
+            <button 
+              id="btn-run-rag" 
+              class="btn-primary text-xs py-2 px-4 whitespace-nowrap cursor-pointer hover:scale-102 transition-transform"
+            >
+              ▶ Run RAG Pipeline
+            </button>
+          </div>
+
+          <!-- Pipeline Visual Blocks -->
+          <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 mt-2" id="rag-steps-container">
+            <!-- Step 1 -->
+            <div class="rag-step-box border border-(--color-border) p-3 rounded-lg bg-space-light/20 transition-all opacity-40">
+              <span class="text-xs font-(--font-mono) text-(--color-text-secondary) block mb-1">01. SEGMENTATION</span>
+              <div class="text-[0.65rem] font-(--font-mono) text-(--color-text-muted) truncate" id="rag-step1-log">Awaiting launch...</div>
+            </div>
+            <!-- Step 2 -->
+            <div class="rag-step-box border border-(--color-border) p-3 rounded-lg bg-space-light/20 transition-all opacity-40">
+              <span class="text-xs font-(--font-mono) text-(--color-text-secondary) block mb-1">02. FAISS SEARCH</span>
+              <div class="text-[0.65rem] font-(--font-mono) text-(--color-text-muted) truncate" id="rag-step2-log">Awaiting launch...</div>
+            </div>
+            <!-- Step 3 -->
+            <div class="rag-step-box border border-(--color-border) p-3 rounded-lg bg-space-light/20 transition-all opacity-40">
+              <span class="text-xs font-(--font-mono) text-(--color-text-secondary) block mb-1">03. GRAPH ENRICH</span>
+              <div class="text-[0.65rem] font-(--font-mono) text-(--color-text-muted) truncate" id="rag-step3-log">Awaiting launch...</div>
+            </div>
+            <!-- Step 4 -->
+            <div class="rag-step-box border border-(--color-border) p-3 rounded-lg bg-space-light/20 transition-all opacity-40">
+              <span class="text-xs font-(--font-mono) text-(--color-text-secondary) block mb-1">04. LLM INFERENCE</span>
+              <div class="text-[0.65rem] font-(--font-mono) text-(--color-text-muted) truncate" id="rag-step4-log">Awaiting launch...</div>
+            </div>
+          </div>
+
+          <!-- Typewriter Output Box -->
+          <div class="border border-(--color-border) bg-space-light/40 p-4 rounded-xl flex-1 flex flex-col gap-2 min-h-[140px]">
+            <span class="text-[0.65rem] font-(--font-mono) text-(--color-text-muted) uppercase tracking-wider block">Generated Synthesis (Streamed)</span>
+            <div id="rag-output-text" class="text-sm text-(--color-text-primary) leading-relaxed font-sans font-400">
+              Select a query above and run the pipeline to visualize document processing in real-time.
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar status & console logs -->
+        <div class="flex flex-col gap-4">
+          <span class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider">State & Nodes</span>
+          
+          <div class="glass-static p-3 flex items-center justify-between border border-(--color-border) bg-space-light/30">
+            <span class="text-xs font-(--font-mono) text-(--color-text-secondary)">Semantic Router Node</span>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" id="toggle-router" class="sr-only peer" checked>
+              <div class="w-8 h-4 bg-red-500/20 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3.5 after:w-3.5 after:transition-all peer-checked:bg-(--color-teal)"></div>
+            </label>
+          </div>
+
+          <div class="glass-static p-4 flex flex-col gap-3 font-(--font-mono) bg-space-light/30 border border-(--color-border)">
+            <div>
+              <span class="text-[0.6rem] text-(--color-text-muted) block">LATENCY DELTA</span>
+              <span id="rag-log-latency" class="text-sm font-semibold text-(--color-teal)">0.00 ms</span>
+            </div>
+            <div>
+              <span class="text-[0.6rem] text-(--color-text-muted) block">RETRIEVAL MATCHES</span>
+              <span id="rag-log-matches" class="text-sm font-semibold text-(--color-teal)">-</span>
+            </div>
+            <div>
+              <span class="text-[0.6rem] text-(--color-text-muted) block">RAGAS RELEVANCE</span>
+              <span id="rag-log-score" class="text-sm font-semibold text-(--color-amber)">-</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ AGENT ORCHESTRATION PANEL ═══ -->
+    <div id="agent-panel" class="hidden flex flex-col gap-6 flex-1">
+      <div class="grid grid-cols-1 md:grid-cols-[1fr_250px] gap-6 items-start">
+        <!-- Main Area -->
+        <div class="flex flex-col gap-4">
+          <label class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider">Select Agent Objective</label>
+          <div class="flex gap-2">
+            <select 
+              id="agent-task-select" 
+              class="bg-space-light/60 border border-(--color-border) px-3 py-2 text-xs rounded-lg flex-1 text-(--color-text-primary) focus:outline-none focus:border-(--color-teal)"
+            >
+              <option value="content">"Generate & evaluate SEO validated article about Graph RAG"</option>
+              <option value="qa">"Analyze JSON schema comparisons across o9 test instances"</option>
+              <option value="jira">"Extract work logs and generate JIRA story sprint reports"</option>
+            </select>
+            <button 
+              id="btn-run-agent" 
+              class="btn-primary text-xs py-2 px-4 whitespace-nowrap cursor-pointer hover:scale-102 transition-transform"
+            >
+              🚀 Initialize Agent
+            </button>
+          </div>
+
+          <!-- Console Terminal -->
+          <div class="border border-(--color-border) bg-[#03050a]/90 p-4 rounded-xl font-(--font-mono) flex-1 min-h-[220px] flex flex-col gap-1.5 shadow-inner">
+            <div class="flex items-center gap-1.5 pb-2 border-b border-white/5 mb-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-green-500/80"></span>
+              <span class="text-[0.65rem] text-(--color-text-muted) ml-2">akanksha@agent-node:~</span>
+            </div>
+            <div id="agent-terminal" class="text-xs text-green-400/90 leading-relaxed overflow-y-auto max-h-[180px] space-y-1">
+              <span class="text-(--color-text-muted)">Ready to initialize. Select an objective and launch the agent.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar status & checks -->
+        <div class="flex flex-col gap-4">
+          <span class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider">State & Guardrails</span>
+          
+          <div class="glass-static p-3 flex items-center justify-between border border-(--color-border) bg-space-light/30">
+            <span class="text-xs font-(--font-mono) text-(--color-text-secondary)">RAGAS Guardrails Node</span>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" id="toggle-guardrails" class="sr-only peer" checked>
+              <div class="w-8 h-4 bg-red-500/20 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3.5 after:w-3.5 after:transition-all peer-checked:bg-(--color-teal)"></div>
+            </label>
+          </div>
+
+          <div class="glass-static p-4 flex flex-col gap-3 font-(--font-mono) bg-space-light/30 border border-(--color-border)">
+            <div>
+              <span class="text-[0.6rem] text-(--color-text-muted) block">CURRENT AGENT STATE</span>
+              <span id="agent-state-label" class="text-xs font-semibold text-(--color-text-secondary)">IDLE</span>
+            </div>
+            <div>
+              <span class="text-[0.6rem] text-(--color-text-muted) block">MCP TOOLS INVOCATION</span>
+              <span id="agent-tools-count" class="text-xs font-semibold text-(--color-teal)">0 Called</span>
+            </div>
+            <div>
+              <span class="text-[0.6rem] text-(--color-text-muted) block">GUARDRAIL STATUS</span>
+              <span id="agent-guard-status" class="text-xs font-semibold text-(--color-amber)">WAITING</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .rag-step-box.active-step {
+    opacity: 1;
+    border-color: var(--color-teal);
+    background-color: var(--color-teal-glow);
+    box-shadow: 0 0 10px var(--color-teal-glow);
+  }
+</style>
+
+<script>
+  // RAG Query details database
+  const ragDatabase = {
+    revenue: {
+      step1: "Extracted: FY25 Q4 Report. Pages processed: 18 (PDF text-layer parsed)",
+      step2: "Chroma search matches: 4. Nearest distance: 0.28 (FAISS index)",
+      step3: "Entities matched: [Net Income], [Samsung SDS], [Quarter Earnings]. Graph connected.",
+      step4: "LLM synthesis initialized (GPT-4 - context limit dynamic optimization)",
+      output: "Based on Samsung SDS's official financial disclosure for FY25 Q4: \n\n" +
+              "• **Net Income:** Stood at a robust figure showing an 11.2% year-on-year growth, driven primarily by enterprise Generative AI integrations and cloud service deployments. \n" +
+              "• **Retrieval Precision:** Bypassed traditional context windows using a divide-and-conquer strategy, achieving an average evaluation context recall of **92%** across complex financial tables. \n" +
+              "• **Pipeline Latency:** Graph RAG extraction routing resolved in **240ms** with FAISS embeddings indexing.",
+      latency: "240 ms",
+      matches: "4 text chunks",
+      score: "0.93 / 1.0 (Groundedness)"
+    },
+    accuracy: {
+      step1: "Parsed: full 200-page document using GMFT / Partition PDF. Structured schemas generated.",
+      step2: "Indexed 420 vector nodes. Retrieved top 8 chunks (dot product similarity).",
+      step3: "Synthesized entity-relation mappings. Context graph built spanning 12 nodes.",
+      step4: "LLM synthesis initialized (Llama-3 - custom system prompts)",
+      output: "Processing the full 200-page financial report yielded the following compliance metrics: \n\n" +
+              "• **Baseline vs Graph RAG:** Standard vector embeddings returned incomplete cross-references due to fragmented pages. Graph RAG improved information retrieval relevance by **40%**. \n" +
+              "• **Accuracy Evaluation:** The retrieval pipeline scored **92% accuracy** in comparison with manual auditor auditing logs. \n" +
+              "• **Processing Performance:** Dynamic token distribution managed to fit high-density tables without exceeding limits, keeping LLM input prompt cost optimized.",
+      latency: "380 ms",
+      matches: "8 nodes",
+      score: "0.91 / 1.0 (Relevance)"
+    },
+    agents: {
+      step1: "Fetched Google ADK schema docs. Token count: 12,000.",
+      step2: "Vector query matched 3 sections on state orchestration.",
+      step3: "Resolved connections: [Agent State] -> [Tool Invocation] -> [Guardrail Verify].",
+      step4: "LLM synthesis initialized (Mistral Large - fine-tuned variants)",
+      output: "Under the Google Agent Development Kit (ADK) framework: \n\n" +
+              "• **State Mapping:** Autonomous agents use a state-based orchestration container, where agent tasks are routed dynamically according to runtime inputs. \n" +
+              "• **MCP Protocol:** Integration with Model Context Protocol (MCP) enables plug-and-play tool execution (e.g., executing DB scripts, API validation). \n" +
+              "• **Efficiency Gain:** Automating the creation and evaluation pipelines using this multi-agent loop achieves a **60% reduction in manual developer efforts**.",
+      latency: "190 ms",
+      matches: "3 modules",
+      score: "0.95 / 1.0 (Recall)"
+    }
+  };
+
+  // Agent task logs database
+  const agentDatabase = {
+    content: [
+      { delay: 100, text: "Initializing Orchestrator Agent...", state: "INIT", tool: "0 Called", guard: "WAITING" },
+      { delay: 600, text: "[Planner] Creating task execution roadmap. Goal: Write a production article.", state: "PLANNING", tool: "0 Called", guard: "WAITING" },
+      { delay: 1300, text: "[Action] Invoking MCP tool: `get_github_files` for 'AgenticAI-Workshop' README details...", state: "EXECUTING", tool: "1 Called", guard: "WAITING" },
+      { delay: 2000, text: "[Tool Output] Repo contains Google ADK, LangGraph orchestration, and FAISS vectors.", state: "EXECUTING", tool: "1 Called", guard: "WAITING" },
+      { delay: 2700, text: "[Action] Invoking LLM Writer Agent to generate structured markdown content...", state: "GENERATING", tool: "1 Called", guard: "WAITING" },
+      { delay: 3500, text: "[Verifier] Output generated. Running guardrails against RAGAS framework checks...", state: "VERIFYING", tool: "1 Called", guard: "EVALUATING" },
+      { delay: 4200, text: "[Guardrails] Groundedness check: 0.94. Context alignment: PASSED.", state: "VERIFYING", tool: "1 Called", guard: "PASSED ✅" },
+      { delay: 4800, text: "[Success] Content pipeline completed. Article drafted to dev.to/akanksha-dev successfully.", state: "SUCCESS", tool: "1 Called", guard: "PASSED ✅" }
+    ],
+    qa: [
+      { delay: 100, text: "Initializing Schema Testing Agent...", state: "INIT", tool: "0 Called", guard: "WAITING" },
+      { delay: 600, text: "[Planner] Parsing change requests for o9 platform integrations.", state: "PLANNING", tool: "0 Called", guard: "WAITING" },
+      { delay: 1200, text: "[Action] Running o9 Automation Engine - comparing JSON endpoints...", state: "EXECUTING", tool: "1 Called", guard: "WAITING" },
+      { delay: 1900, text: "[Tool Output] 4 discrepancy nodes detected in config payloads.", state: "EXECUTING", tool: "1 Called", guard: "WAITING" },
+      { delay: 2600, text: "[Action] Running automated SAST code validation checks...", state: "TESTING", tool: "2 Called", guard: "WAITING" },
+      { delay: 3300, text: "[Verifier] Executing comparison matrix tests. Reliability: 99.8%.", state: "VERIFYING", tool: "2 Called", guard: "EVALUATING" },
+      { delay: 4000, text: "[Guardrails] JSON Comparison Engine: Clean structure, zero SLA alerts.", state: "VERIFYING", tool: "2 Called", guard: "PASSED ✅" },
+      { delay: 4600, text: "[Success] QA diagnostic completed. Zero vulnerabilities reported in o9OptimizerAgent.", state: "SUCCESS", tool: "2 Called", guard: "PASSED ✅" }
+    ],
+    jira: [
+      { delay: 100, text: "Initializing Project Metrics Agent...", state: "INIT", tool: "0 Called", guard: "WAITING" },
+      { delay: 600, text: "[Planner] Defining sprint query targets for JIRA & Confluence portals.", state: "PLANNING", tool: "0 Called", guard: "WAITING" },
+      { delay: 1200, text: "[Action] Fetching JIRA user stories matching 'sprint_4_metrics' via API...", state: "EXECUTING", tool: "1 Called", guard: "WAITING" },
+      { delay: 1900, text: "[Tool Output] Retrieved 14 completed stories, 3 in review.", state: "EXECUTING", tool: "1 Called", guard: "WAITING" },
+      { delay: 2600, text: "[Action] Triggering ProductivityAnalyzer for text embedding and summaries...", state: "ANALYZING", tool: "2 Called", guard: "WAITING" },
+      { delay: 3300, text: "[Verifier] Processing text chunks with FAISS indexing search...", state: "VERIFYING", tool: "2 Called", guard: "EVALUATING" },
+      { delay: 4000, text: "[Guardrails] Summarization completeness: 0.91. Hallucination check: CLEAN.", state: "VERIFYING", tool: "2 Called", guard: "PASSED ✅" },
+      { delay: 4600, text: "[Success] Automated sprint newsletter generated and sent via SMTP reporting engine.", state: "SUCCESS", tool: "2 Called", guard: "PASSED ✅" }
+    ]
+  };
+
+  function setupSandbox() {
+    // --- Tabs Switch ---
+    const btnRagTab = document.getElementById('btn-rag-tab');
+    const btnAgentTab = document.getElementById('btn-agent-tab');
+    const ragPanel = document.getElementById('rag-panel');
+    const agentPanel = document.getElementById('agent-panel');
+
+    btnRagTab?.addEventListener('click', () => {
+      btnRagTab.className = "px-3 py-1.5 text-xs font-(--font-mono) font-600 rounded-md transition-all cursor-pointer bg-(--color-teal-glow) text-(--color-teal)";
+      btnAgentTab!.className = "px-3 py-1.5 text-xs font-(--font-mono) font-600 rounded-md transition-all cursor-pointer text-(--color-text-secondary) hover:text-(--color-text-primary)";
+      ragPanel?.classList.remove('hidden');
+      agentPanel?.classList.add('hidden');
+    });
+
+    btnAgentTab?.addEventListener('click', () => {
+      btnAgentTab.className = "px-3 py-1.5 text-xs font-(--font-mono) font-600 rounded-md transition-all cursor-pointer bg-(--color-teal-glow) text-(--color-teal)";
+      btnRagTab!.className = "px-3 py-1.5 text-xs font-(--font-mono) font-600 rounded-md transition-all cursor-pointer text-(--color-text-secondary) hover:text-(--color-text-primary)";
+      agentPanel?.classList.remove('hidden');
+      ragPanel?.classList.add('hidden');
+    });
+
+    // --- RAG Simulation Execution ---
+    const selectQuery = document.getElementById('rag-query-select') as HTMLSelectElement;
+    const btnRunRag = document.getElementById('btn-run-rag');
+    const outRagText = document.getElementById('rag-output-text');
+    const steps = document.querySelectorAll('.rag-step-box');
+    const stepLogs = [
+      document.getElementById('rag-step1-log'),
+      document.getElementById('rag-step2-log'),
+      document.getElementById('rag-step3-log'),
+      document.getElementById('rag-step4-log')
+    ];
+    const logLatency = document.getElementById('rag-log-latency');
+    const logMatches = document.getElementById('rag-log-matches');
+    const logScore = document.getElementById('rag-log-score');
+
+    let ragRunning = false;
+    btnRunRag?.addEventListener('click', () => {
+      if (ragRunning) return;
+      ragRunning = true;
+      btnRunRag.textContent = "Processing...";
+      
+      const val = selectQuery.value;
+      const toggleRouter = document.getElementById('toggle-router') as HTMLInputElement;
+      const isRouterOn = toggleRouter?.checked !== false;
+      
+      const data = isRouterOn ? ragDatabase[val as keyof typeof ragDatabase] : {
+        step1: "Extracted raw text dump. No schema parsing.",
+        step2: "Chroma search matches: 15 (high noise ratio).",
+        step3: "ROUTER DISABLED: Bypassing context graph. Appending all chunks.",
+        step4: "LLM synthesis initialized (Context limit exceeded warning)",
+        output: "⚠️ **Warning: Hallucination detected.** \n\nContext lost due to high noise ratio and missing Semantic Router. The LLM has generalized the output and missed key metrics. \n\nTurn the Semantic Router Node back on to restore 92% precision and proper vector routing.",
+        latency: "1250 ms",
+        matches: "15 (noisy)",
+        score: "0.31 / 1.0 (Fail)"
+      };
+      
+      // Clear previous outputs
+      outRagText!.textContent = "Connecting to pipeline container, starting segment parser...";
+      steps.forEach(s => s.classList.remove('active-step'));
+      stepLogs.forEach(sl => { if (sl) sl.textContent = "Queued..."; });
+      logLatency!.textContent = "0.00 ms";
+      logMatches!.textContent = "-";
+      logScore!.textContent = "-";
+
+      // Step-by-step trigger
+      setTimeout(() => {
+        steps[0].classList.add('active-step');
+        stepLogs[0]!.textContent = data.step1;
+      }, 300);
+
+      setTimeout(() => {
+        steps[1].classList.add('active-step');
+        stepLogs[1]!.textContent = data.step2;
+      }, 1000);
+
+      setTimeout(() => {
+        steps[2].classList.add('active-step');
+        stepLogs[2]!.textContent = data.step3;
+      }, 1700);
+
+      setTimeout(() => {
+        steps[3].classList.add('active-step');
+        stepLogs[3]!.textContent = data.step4;
+        
+        // Populate stats
+        logLatency!.textContent = data.latency;
+        logMatches!.textContent = data.matches;
+        logScore!.textContent = data.score;
+      }, 2400);
+
+      setTimeout(() => {
+        // Stream text output
+        outRagText!.textContent = "";
+        let i = 0;
+        const txt = data.output;
+        function typeWriter() {
+          if (i < txt.length) {
+            outRagText!.innerHTML += txt.charAt(i) === '\n' ? '<br>' : txt.charAt(i);
+            i++;
+            setTimeout(typeWriter, 12);
+          } else {
+            btnRunRag.textContent = "▶ Run RAG Pipeline";
+            ragRunning = false;
+          }
+        }
+        typeWriter();
+      }, 3000);
+    });
+
+    // --- Agent Simulation Execution ---
+    const selectAgentTask = document.getElementById('agent-task-select') as HTMLSelectElement;
+    const btnRunAgent = document.getElementById('btn-run-agent');
+    const terminal = document.getElementById('agent-terminal');
+    const labelState = document.getElementById('agent-state-label');
+    const countTools = document.getElementById('agent-tools-count');
+    const statusGuard = document.getElementById('agent-guard-status');
+
+    let agentRunning = false;
+    btnRunAgent?.addEventListener('click', () => {
+      if (agentRunning) return;
+      agentRunning = true;
+      btnRunAgent.textContent = "Running...";
+      
+      const val = selectAgentTask.value;
+      const toggleGuard = document.getElementById('toggle-guardrails') as HTMLInputElement;
+      const isGuardOn = toggleGuard?.checked !== false;
+      
+      let logs = [...agentDatabase[val as keyof typeof agentDatabase]];
+      
+      if (!isGuardOn) {
+         logs = logs.slice(0, 5); // Take up to GENERATING / TESTING
+         logs.push({ delay: 3500, text: "[Verifier] NODE DISABLED. Bypassing RAGAS framework checks...", state: "SKIPPED", tool: "N/A", guard: "OFFLINE" });
+         logs.push({ delay: 4200, text: "[Warning] Unverified output generated. Hallucination risk: HIGH.", state: "UNSAFE", tool: "N/A", guard: "OFFLINE" });
+         logs.push({ delay: 4800, text: "[Error] Pipeline produced degraded output. Turn Guardrails back on.", state: "FAILED", tool: "N/A", guard: "OFFLINE" });
+      }
+      
+      terminal!.innerHTML = '<span class="text-white/40">> Launching Docker instance for Agent Node...</span>';
+      labelState!.textContent = "INIT";
+      countTools!.textContent = "0 Called";
+      statusGuard!.textContent = "WAITING";
+
+      logs.forEach(l => {
+        setTimeout(() => {
+          const block = document.createElement('div');
+          // Highlight colors based on log categories
+          if (l.text.startsWith('[Action]')) {
+            block.className = 'text-sky-300';
+          } else if (l.text.startsWith('[Tool Output]')) {
+            block.className = 'text-white/60 pl-3 font-mono';
+          } else if (l.text.startsWith('[Verifier]') || l.text.startsWith('[Guardrails]')) {
+            block.className = 'text-amber-400';
+          } else if (l.text.startsWith('[Success]')) {
+            block.className = 'text-green-400 font-bold';
+          } else {
+            block.className = 'text-white/90';
+          }
+          block.textContent = `> ${l.text}`;
+          terminal?.appendChild(block);
+          terminal?.scrollTo({ top: terminal.scrollHeight, behavior: 'smooth' });
+
+          // Update sidebar indicators
+          labelState!.textContent = l.state;
+          countTools!.textContent = l.tool;
+          statusGuard!.textContent = l.guard;
+
+          // Finished check
+          if (l.state === "SUCCESS") {
+            btnRunAgent.textContent = "🚀 Initialize Agent";
+            agentRunning = false;
+          }
+        }, l.delay);
+      });
+    });
+  }
+
+  // Support both classic and Astro View Transitions
+  setupSandbox();
+  document.addEventListener('astro:page-load', setupSandbox);
+</script>

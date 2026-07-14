@@ -1,0 +1,346 @@
+---
+// src/components/JdMatcher.astro
+---
+
+<div class="glass-static p-6 md:p-8 relative overflow-hidden fade-in border border-(--color-border) bg-(--color-surface)">
+  <!-- Glow Orbs -->
+  <div class="absolute -top-24 -right-24 w-48 h-48 rounded-full bg-(--color-teal-glow) filter blur-3xl pointer-events-none"></div>
+  <div class="absolute -bottom-24 -left-24 w-48 h-48 rounded-full bg-(--color-amber-glow) filter blur-3xl pointer-events-none"></div>
+
+  <!-- Header -->
+  <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-(--color-border) relative z-10">
+    <div>
+      <h3 class="font-(--font-heading) font-800 text-xl md:text-2xl text-(--color-text-primary) tracking-tight">
+        Interactive <span class="gradient-text">JD Matcher & Analyzer</span>
+      </h3>
+      <p class="text-xs text-(--color-text-secondary) font-(--font-mono) mt-1">
+        Paste any Job Description to analyze match score and instantly filter relevant bullets
+      </p>
+    </div>
+  </div>
+
+  <div class="relative z-10 flex flex-col gap-6">
+    <!-- Paste Area -->
+    <div class="flex flex-col gap-3">
+      <div class="flex flex-wrap gap-2 items-center justify-between">
+        <label class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider">Paste Job Description</label>
+        <div class="flex gap-2">
+          <button 
+            id="btn-sample-genai" 
+            class="text-[0.65rem] font-(--font-mono) px-2.5 py-1 border border-(--color-border) hover:border-(--color-teal) rounded-md text-(--color-text-secondary) hover:text-(--color-text-primary) cursor-pointer transition-colors"
+          >
+            Sample: GenAI / Agentic
+          </button>
+          <button 
+            id="btn-sample-fde" 
+            class="text-[0.65rem] font-(--font-mono) px-2.5 py-1 border border-(--color-border) hover:border-(--color-teal) rounded-md text-(--color-text-secondary) hover:text-(--color-text-primary) cursor-pointer transition-colors"
+          >
+            Sample: Solutions / FDE
+          </button>
+        </div>
+      </div>
+      
+      <textarea 
+        id="jd-input" 
+        rows="4" 
+        placeholder="Paste JD text here (e.g., 'Looking for a Senior AI Engineer with experience building RAG systems, orchestrating multi-agent loops, deploying LLMs like Llama-3, using FastAPI, Docker, and Kubernetes...')" 
+        class="w-full bg-space-light/50 border border-(--color-border) p-3 text-xs rounded-lg text-(--color-text-primary) font-sans focus:outline-none focus:border-(--color-teal) focus:ring-1 focus:ring-(--color-teal) leading-relaxed"
+      ></textarea>
+      
+      <button 
+        id="btn-match-jd" 
+        class="btn-primary self-start text-xs py-2 px-6 cursor-pointer"
+      >
+        🔍 Run Compatibility Analysis
+      </button>
+    </div>
+
+    <!-- Match Results Area (Initially Hidden) -->
+    <div id="matcher-results" class="hidden flex flex-col gap-6 border-t border-(--color-border) pt-6">
+      <div class="grid grid-cols-1 md:grid-cols-[160px_1fr] gap-6 items-center">
+        <!-- Match Score Ring -->
+        <div class="flex flex-col items-center justify-center text-center">
+          <div class="relative w-28 h-28 flex items-center justify-center">
+            <!-- SVG Progress Circle -->
+            <svg class="absolute inset-0 w-full h-full transform -rotate-90">
+              <circle cx="56" cy="56" r="48" stroke="rgba(255,255,255,0.04)" stroke-width="8" fill="transparent"/>
+              <circle id="score-circle" cx="56" cy="56" r="48" stroke="var(--color-teal)" stroke-width="8" fill="transparent" stroke-linecap="round" stroke-dasharray="301.6" stroke-dashoffset="301.6" class="transition-all duration-1000 ease-out"/>
+            </svg>
+            <span id="score-percentage" class="text-2xl font-800 font-(--font-heading) text-(--color-teal)">0%</span>
+          </div>
+          <span class="text-[0.65rem] font-(--font-mono) text-(--color-text-secondary) mt-2 uppercase tracking-wider">FIT COMPATIBILITY</span>
+        </div>
+
+        <!-- Matched Keywords / Focus Tags -->
+        <div class="flex flex-col gap-3">
+          <span class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider">Detected Keywords & Skills</span>
+          <div id="matched-tags-container" class="flex flex-wrap gap-1.5">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Resume Bullet Matcher -->
+      <div class="flex flex-col gap-3">
+        <div class="flex justify-between items-center">
+          <span class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider">Tailored Experience Highlights</span>
+          <span class="text-[0.65rem] font-(--font-mono) text-(--color-text-muted)" id="bullet-count-label">0 Bullets Filtered</span>
+        </div>
+        
+        <div class="border border-(--color-border) bg-space-light/20 rounded-xl p-4 flex flex-col gap-4 max-h-[300px] overflow-y-auto" id="filtered-bullets-container">
+          <!-- Populated via JS -->
+        </div>
+      </div>
+
+      <!-- Suggested STAR Stories -->
+      <div class="flex flex-col gap-3">
+        <span class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider">Recommended Interview Discussion Topics</span>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="suggested-stories-container">
+          <!-- Populated via JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Sample JDs
+  const sampleJds = {
+    genai: "Senior AI Engineer. Core requirements:\n" +
+           "- Experience architecting advanced Retrieval-Augmented Generation (RAG) models, especially Graph RAG or Hybrid Search.\n" +
+           "- Orchestrating autonomous agents and multi-agent systems using frameworks like LangChain, LangGraph, or CrewAI.\n" +
+           "- Deploying LLM infrastructure (GPT-4, Llama) with FastAPI backends.\n" +
+           "- Custom evaluations using RAGAS, LangSmith or similar monitoring tools.\n" +
+           "- Team lead experience and client engagement is a plus.",
+    
+    fde: "Forward Deployed AI Engineer / Solutions Architect.\n" +
+         "- 3+ years experience deploying production Machine Learning and AI integrations in enterprise settings.\n" +
+         "- Client-facing delivery, gathering technical requirements, and presenting solution architectures to stakeholders.\n" +
+         "- Strong incident management skills — troubleshooting production system downtime and writing clean Python APIs.\n" +
+         "- Hands-on Docker deployments, cloud architectures (Azure, AWS), and databases (SQL, PostgreSQL)."
+  };
+
+  // Keyword dictionary mapping to skills & experience bullets
+  const matchDatabase = {
+    skills: [
+      { key: "rag", label: "RAG Systems", regex: /\brag\b|retrieval-augmented|retrieval augmented/i },
+      { key: "graph rag", label: "Graph RAG", regex: /graph\s*rag|knowledge\s*graph/i },
+      { key: "agents", label: "Agentic AI / Agents", regex: /agentic|agents|multi-agent|mcp|google\s*adk/i },
+      { key: "llm", label: "LLM Orchestration", regex: /\bllm\b|large language model|llama|gpt|mistral/i },
+      { key: "fastapi", label: "FastAPI", regex: /fastapi/i },
+      { key: "python", label: "Python", regex: /python/i },
+      { key: "django", label: "Django / Flask", regex: /django|flask/i },
+      { key: "sql", label: "SQL / PostgreSQL", regex: /sql|postgresql|mysql/i },
+      { key: "azure", label: "Azure Cloud", regex: /azure/i },
+      { key: "aws", label: "AWS Cloud", regex: /aws|bedrock|sagemaker/i },
+      { key: "docker", label: "Docker / Containers", regex: /docker/i },
+      { key: "kubernetes", label: "Kubernetes", regex: /kubernetes|k8s/i },
+      { key: "nlp", label: "NLP & ML", regex: /nlp|natural language|scikit|pytorch|machine learning/i },
+      { key: "lead", label: "Team Leadership", regex: /lead|mentor|managing|team\s*leader/i },
+      { key: "client", label: "Client Stakeholder", regex: /client|stakeholder|customer|solution\s*architect/i },
+      { key: "reliability", label: "Production Uptime", regex: /reliability|uptime|incidents|downtime|sla/i }
+    ],
+    bullets: [
+      {
+        text: "Built end-to-end Graph RAG system for Financial Services, achieving 92% accuracy on 500+ daily queries, improving document retrieval accuracy by 40% over baseline.",
+        keys: ["rag", "graph rag", "llm", "python"],
+        company: "Samsung SDS"
+      },
+      {
+        text: "Developed autonomous multi-agent systems using Google ADK and LangGraph for automated content generation and QA validation, reducing manual effort by 60%.",
+        keys: ["agents", "python"],
+        company: "Samsung SDS"
+      },
+      {
+        text: "Led a team of 3 developers on Generative AI solutions and mentored 2 junior engineers on RAG architectures and prompt engineering guidelines.",
+        keys: ["lead", "rag", "llm"],
+        company: "Samsung SDS"
+      },
+      {
+        text: "Presented technical AI solution architectures and weekly project results directly to client stakeholders across India and Korea teams.",
+        keys: ["client"],
+        company: "Samsung SDS"
+      },
+      {
+        text: "Implemented QA Automation Engine with structured JSON comparison and o9 platform custom Python plugins.",
+        keys: ["python", "docker"],
+        company: "Samsung SDS"
+      },
+      {
+        text: "Deployed 10+ production Machine Learning and NLP features (CV parsing, profile matching, smart search) for recruitment platform serving thousands of users.",
+        keys: ["nlp", "azure", "python"],
+        company: "HCLTech"
+      },
+      {
+        text: "Addressed 500+ production incidents, successfully reducing system downtime by 30% and maintaining 98% Azure service reliability.",
+        keys: ["reliability", "azure"],
+        company: "HCLTech"
+      },
+      {
+        text: "Configured automated database pipelines using SQL Server, Flask APIs, and Power BI dashboards.",
+        keys: ["sql", "django", "python"],
+        company: "HCLTech"
+      }
+    ],
+    stories: [
+      {
+        title: "Leading RAG & Mentorship",
+        desc: "How she built Samsung's RAG chatbot (500+ daily queries, 92% accuracy) and mentored 2 juniors.",
+        keys: ["lead", "rag", "agents"]
+      },
+      {
+        title: "Graph RAG Context Optimization",
+        desc: "How she bypassed token context limitations on 200+ page financial PDFs using divide-and-conquer strategy.",
+        keys: ["graph rag", "rag", "llm"]
+      },
+      {
+        title: "Cross-Border Integration (o9)",
+        desc: "Collaborating with Korean developers to wire Python plugins into the o9 Enterprise Platform.",
+        keys: ["client", "python"]
+      },
+      {
+        title: "Production Incident Resolution",
+        desc: "How she managed 500+ incidents and achieved 30% downtime reduction on HCLTech recruitment apps.",
+        keys: ["reliability", "azure", "sql"]
+      }
+    ]
+  };
+
+  function setupMatcher() {
+    const jdTextarea = document.getElementById('jd-input') as HTMLTextAreaElement;
+    const btnSampleGenAi = document.getElementById('btn-sample-genai');
+    const btnSampleFde = document.getElementById('btn-sample-fde');
+    const btnMatch = document.getElementById('btn-match-jd');
+    
+    const resultsPanel = document.getElementById('matcher-results');
+    const scoreCircle = document.getElementById('score-circle');
+    const scorePercentage = document.getElementById('score-percentage');
+    const tagsContainer = document.getElementById('matched-tags-container');
+    const bulletsContainer = document.getElementById('filtered-bullets-container');
+    const labelBulletCount = document.getElementById('bullet-count-label');
+    const storiesContainer = document.getElementById('suggested-stories-container');
+
+    // Sample clicks
+    btnSampleGenAi?.addEventListener('click', () => {
+      jdTextarea.value = sampleJds.genai;
+    });
+
+    btnSampleFde?.addEventListener('click', () => {
+      jdTextarea.value = sampleJds.fde;
+    });
+
+    // Run matching logic
+    btnMatch?.addEventListener('click', () => {
+      const text = jdTextarea.value.trim();
+      if (!text) return;
+
+      btnMatch.textContent = "Analyzing...";
+      
+      // Reset animations
+      scoreCircle?.setAttribute('stroke-dashoffset', '301.6');
+      scorePercentage!.textContent = "0%";
+      tagsContainer!.innerHTML = "";
+      bulletsContainer!.innerHTML = "";
+      storiesContainer!.innerHTML = "";
+
+      // Match logic processing
+      let matchCount = 0;
+      const matchedKeys = new Set<string>();
+
+      matchDatabase.skills.forEach(s => {
+        if (s.regex.test(text)) {
+          matchCount++;
+          matchedKeys.add(s.key);
+        }
+      });
+
+      // Match Score calculation: map matches out of total checked
+      const matchRatio = matchCount / matchDatabase.skills.length;
+      // Guarantee some baseline match if text is pasted, max out at 96% to keep realistic
+      const score = Math.min(96, Math.max(25, Math.round(matchRatio * 100) + 15));
+
+      // Show panel
+      resultsPanel?.classList.remove('hidden');
+
+      // Populate tags
+      matchDatabase.skills.forEach(s => {
+        const isMatched = matchedKeys.has(s.key);
+        const tag = document.createElement('span');
+        tag.className = isMatched 
+          ? "badge py-1 px-2.5 text-xs text-(--color-teal) bg-(--color-teal-glow) border border-(--color-teal)/20"
+          : "badge-ghost badge py-1 px-2.5 text-xs opacity-40 border border-white/5";
+        tag.textContent = (isMatched ? "✓ " : "") + s.label;
+        tagsContainer?.appendChild(tag);
+      });
+
+      // Filter experience bullets
+      let filteredBullets = matchDatabase.bullets.filter(b => 
+        b.keys.some(k => matchedKeys.has(k))
+      );
+      
+      // Default to showing SDS bullets if nothing matches
+      if (filteredBullets.length === 0) {
+        filteredBullets = matchDatabase.bullets.slice(0, 3);
+      }
+
+      labelBulletCount!.textContent = `${filteredBullets.length} Relevant Bullets Found`;
+
+      filteredBullets.forEach(b => {
+        const item = document.createElement('div');
+        item.className = "flex flex-col gap-1 pb-3 border-b border-(--color-border) last:border-0 last:pb-0";
+        item.innerHTML = `
+          <div class="flex items-center justify-between text-[0.65rem] font-(--font-mono)">
+            <span class="text-(--color-teal)">${b.company}</span>
+            <span class="text-(--color-text-muted)">Matched Context</span>
+          </div>
+          <p class="text-xs text-(--color-text-primary) leading-relaxed">${b.text}</p>
+        `;
+        bulletsContainer?.appendChild(item);
+      });
+
+      // Suggest STAR stories
+      const suggestedStories = matchDatabase.stories.filter(s =>
+        s.keys.some(k => matchedKeys.has(k) || text.toLowerCase().includes(k))
+      );
+
+      const storiesToShow = suggestedStories.length > 0 ? suggestedStories.slice(0, 2) : matchDatabase.stories.slice(0, 2);
+
+      storiesToShow.forEach(s => {
+        const card = document.createElement('div');
+        card.className = "glass-static p-4 bg-space-light/40 border border-(--color-border) rounded-lg flex flex-col gap-1.5";
+        card.innerHTML = `
+          <div class="flex items-center gap-1.5 text-xs text-(--color-amber)">
+            <span>💬</span>
+            <h4 class="font-semibold text-(--color-text-primary)">${s.title}</h4>
+          </div>
+          <p class="text-[0.68rem] text-(--color-text-secondary) leading-relaxed">${s.desc}</p>
+        `;
+        storiesContainer?.appendChild(card);
+      });
+
+      // Trigger animations
+      setTimeout(() => {
+        // SVG circle dashoffset manipulation
+        const strokeDashOffset = 301.6 - (301.6 * (score / 100));
+        scoreCircle?.setAttribute('stroke-dashoffset', strokeDashOffset.toString());
+        
+        // Count score text animation
+        let current = 0;
+        const interval = setInterval(() => {
+          if (current >= score) {
+            clearInterval(interval);
+            scorePercentage!.textContent = `${score}%`;
+            btnMatch.textContent = "🔍 Run Compatibility Analysis";
+          } else {
+            current += Math.ceil((score - current) / 6) || 1;
+            scorePercentage!.textContent = `${current}%`;
+          }
+        }, 30);
+      }, 100);
+    });
+  }
+
+  // Support both classic and Astro View Transitions
+  setupMatcher();
+  document.addEventListener('astro:page-load', setupMatcher);
+</script>
