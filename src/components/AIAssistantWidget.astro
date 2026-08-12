@@ -1,0 +1,224 @@
+---
+// AIAssistantWidget.astro
+// Interactive AI Prompt / Assistant Showcase Component grounded in Akanksha's profile
+---
+
+<div class="glass-static p-6 md:p-8 rounded-2xl relative overflow-hidden my-12 border border-(--color-border)">
+  <!-- Glow Orb background -->
+  <div class="orb orb-teal opacity-10" style="top: -100px; right: -100px; width: 300px; height: 300px;"></div>
+  
+  <div class="relative z-10">
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-(--color-border)">
+      <div>
+        <div class="flex items-center gap-2 mb-2">
+          <span class="badge text-xs">
+            <span class="pulse-dot"></span>
+            Simulated Agentic AI Terminal
+          </span>
+          <span class="text-xs font-(--font-mono) text-(--color-text-muted)">v2.4 • RAG Grounded</span>
+        </div>
+        <h3 class="font-(--font-heading) text-2xl font-700 text-(--color-text-primary)">
+          Ask <span class="gradient-text">Akanksha's AI Assistant</span>
+        </h3>
+        <p class="text-sm text-(--color-text-secondary) mt-1">
+          Explore production RAG implementations, multi-agent frameworks, and career milestones interactively.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-2 self-start md:self-auto font-(--font-mono) text-xs text-(--color-text-muted) bg-space-light/50 px-3 py-1.5 rounded-lg border border-(--color-border)">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+        <span>Google ADK / Fast-RAG Active</span>
+      </div>
+    </div>
+
+    <!-- Suggested Quick Prompts -->
+    <div class="mb-6">
+      <p class="text-xs font-(--font-mono) text-(--color-text-muted) uppercase tracking-wider mb-3">
+        Suggested Queries
+      </p>
+      <div class="flex flex-wrap gap-2" id="ai-quick-prompts">
+        <button 
+          data-query="Tell me about RAG architectures at Samsung SDS"
+          class="prompt-chip badge-ghost hover:border-(--color-teal) hover:text-(--color-teal) transition-colors cursor-pointer py-1.5 px-3 text-xs text-left"
+        >
+          ⚡ Samsung SDS RAG Architectures
+        </button>
+        <button 
+          data-query="What is the AgenticAI Workshop?"
+          class="prompt-chip badge-ghost hover:border-(--color-teal) hover:text-(--color-teal) transition-colors cursor-pointer py-1.5 px-3 text-xs text-left"
+        >
+          🤖 AgenticAI Workshop
+        </button>
+        <button 
+          data-query="What tech stack powers this portfolio site?"
+          class="prompt-chip badge-ghost hover:border-(--color-teal) hover:text-(--color-teal) transition-colors cursor-pointer py-1.5 px-3 text-xs text-left"
+        >
+          💻 Site Tech Stack
+        </button>
+        <button 
+          data-query="What awards and hackathon achievements does Akanksha have?"
+          class="prompt-chip badge-ghost hover:border-(--color-teal) hover:text-(--color-teal) transition-colors cursor-pointer py-1.5 px-3 text-xs text-left"
+        >
+          🏆 Hackathon & Speaker Milestones
+        </button>
+      </div>
+    </div>
+
+    <!-- Interactive Terminal & Response Display -->
+    <div class="bg-(--color-space) rounded-xl border border-(--color-border) p-4 md:p-5 font-(--font-mono) text-sm mb-4 min-h-[220px] flex flex-col justify-between shadow-inner">
+      <!-- Terminal Output Container -->
+      <div id="ai-terminal-output" class="space-y-4 overflow-y-auto max-h-[320px] pr-2">
+        <div class="text-(--color-text-muted) text-xs flex items-center gap-2 border-b border-white/5 pb-2">
+          <span class="text-(--color-teal)">system:</span> Agent session initialized. Knowledge retrieval ready across 300+ credentials, 4+ yrs experience, and Samsung SDS RAG pipelines.
+        </div>
+        <div class="response-message bg-surface/30 p-3 rounded-lg border border-white/5">
+          <p class="text-(--color-teal) font-semibold text-xs mb-1">🤖 Assistant:</p>
+          <p class="text-(--color-text-secondary) leading-relaxed">
+            Welcome! Click a suggested query above or type any question below to inspect Akanksha's AI stack, published research, speaker keynotes, and engineering methodology.
+          </p>
+        </div>
+      </div>
+
+      <!-- Input Form -->
+      <form id="ai-assistant-form" class="mt-4 pt-3 border-t border-(--color-border) flex gap-2">
+        <div class="relative flex-1">
+          <span class="absolute left-3 top-1/2 -translate-y-1/2 text-(--color-teal) font-bold text-xs">$</span>
+          <input 
+            type="text" 
+            id="ai-user-input" 
+            placeholder="Ask about agentic workflows, RAG accuracy, tech stack..." 
+            class="w-full bg-space-light/80 text-(--color-text-primary) text-xs md:text-sm pl-7 pr-4 py-2.5 rounded-lg border border-(--color-border) focus:outline-none focus:border-(--color-teal) transition-colors placeholder:text-(--color-text-muted)"
+            autocomplete="off"
+          />
+        </div>
+        <button 
+          type="submit" 
+          id="ai-submit-btn" 
+          class="btn-primary py-2 px-4 text-xs font-semibold flex items-center gap-1.5 shrink-0"
+        >
+          <span>Query</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Knowledge Base map for simulated AI responses grounded in Akanksha's profile
+  const knowledgeBase = [
+    {
+      keywords: ['samsung', 'sds', 'rag', 'architecture', 'enterprise', 'accuracy', 'financial'],
+      response: `**RAG Architecture at Samsung SDS**\n\n• **Core System:** Built high-precision enterprise RAG pipelines handling 500+ daily complex financial document queries.\n• **Performance:** Achieved **92% answer accuracy** through hybrid dense-sparse retriever ranking, chunk strategy optimization, and GraphRAG metadata index.\n• **Tech Stack:** Python, FastAPI, LlamaIndex, FAISS, Docker, Azure ML.`
+    },
+    {
+      keywords: ['agentic', 'workshop', 'google adk', 'adk', 'mcp', 'agents', 'incept'],
+      response: `**AgenticAI Workshop & Google ADK**\n\n• **Overview:** Created hands-on multi-agent AI orchestration repository featuring Model Context Protocol (MCP) & Google Agent Development Kit.\n• **Key Features:** Tool-use patterns, autonomous planner-executor loops, guardrails, and dynamic context delegation.\n• **Community Impact:** Highlighted during Akanksha's INCEPT'26 speaker talk at GLA University.`
+    },
+    {
+      keywords: ['site', 'stack', 'portfolio', 'powers', 'tech', 'built'],
+      response: `**Portfolio Tech Stack**\n\n• **Framework:** Astro 5.0 SSG for blazing fast 100/100 Lighthouse performance.\n• **Styling:** Tailwind CSS 4 with custom glassmorphism design tokens (` + "`" + `glass-card` + "`" + `, neon gradients, Syne & DM Sans typography).\n• **Deployment:** Cloudflare Pages with edge delivery.`
+    },
+    {
+      keywords: ['awards', 'hackathon', 'speaker', 'achievements', 'certifications', 'mandi'],
+      response: `**Milestones & Achievements**\n\n• **Hackathons:** 1st Runner-up at PromptWars for *Multilingual Mandi* (AWS Bedrock voice-first market app).\n• **Certifications:** 300+ completed technical certifications in AI/ML & Cloud.\n• **Speaking:** Session leader at AI Mobile Hackathon (Jun 2026) and Keynote at INCEPT'26.`
+    }
+  ];
+
+  const defaultResponse = `**AI Assistant Retrieval Result**\n\nAkanksha is a Production AI Engineer at **Samsung SDS** specializing in:\n• Enterprise RAG Pipelines & Graph Retrieval (92% Accuracy)\n• Multi-Agent Systems with Google ADK & MCP\n• Full-stack LLM applications (FastAPI, Bedrock, LangChain, Astro)\n\n*Try clicking one of the suggested query chips above for specific technical details!*`;
+
+  function getResponse(query: string): string {
+    const qLower = query.toLowerCase();
+    for (const item of knowledgeBase) {
+      if (item.keywords.some(kw => qLower.includes(kw))) {
+        return item.response;
+      }
+    }
+    return defaultResponse;
+  }
+
+  function formatMarkdown(text: string): string {
+    return text
+      .replace(/\*\*(.*?)\*\*/g, '<strong class="text-(--color-teal)">$1</strong>')
+      .replace(/\*(.*?)\*/g, '<em class="text-(--color-amber)">$1</em>')
+      .replace(/`([^`]+)`/g, '<code class="bg-space-lighter px-1.5 py-0.5 rounded text-xs text-(--color-teal)">$1</code>')
+      .replace(/\n\n/g, '<br/><br/>')
+      .replace(/\n/g, '<br/>');
+  }
+
+  function initAIAssistant() {
+    const terminalOutput = document.getElementById('ai-terminal-output');
+    const form = document.getElementById('ai-assistant-form') as HTMLFormElement | null;
+    const input = document.getElementById('ai-user-input') as HTMLInputElement | null;
+    const promptChips = document.querySelectorAll('#ai-quick-prompts button');
+
+    if (!terminalOutput || !form || !input) return;
+
+    function handleQuery(queryText: string) {
+      if (!queryText.trim() || !terminalOutput) return;
+
+      // Append user prompt
+      const userDiv = document.createElement('div');
+      userDiv.className = 'user-message bg-space-light/60 p-3 rounded-lg border border-white/10 text-xs';
+      userDiv.innerHTML = `<p class="text-(--color-amber) font-semibold mb-1">👤 You:</p><p class="text-(--color-text-primary)">${escapeHtml(queryText)}</p>`;
+      terminalOutput.appendChild(userDiv);
+
+      // Scroll to bottom
+      terminalOutput.scrollTop = terminalOutput.scrollHeight;
+
+      // Simulated agent streaming delay
+      const loadingDiv = document.createElement('div');
+      loadingDiv.className = 'agent-loading text-xs text-(--color-text-muted) animate-pulse p-2';
+      loadingDiv.innerHTML = '<span class="text-(--color-teal)">🤖 Assistant:</span> Retrieving vector embeddings & synthesizing...';
+      terminalOutput.appendChild(loadingDiv);
+      terminalOutput.scrollTop = terminalOutput.scrollHeight;
+
+      setTimeout(() => {
+        if (loadingDiv.parentNode) {
+          loadingDiv.parentNode.removeChild(loadingDiv);
+        }
+
+        const rawResponse = getResponse(queryText);
+        const agentDiv = document.createElement('div');
+        agentDiv.className = 'response-message bg-surface/50 p-3 rounded-lg border border-(--color-border) text-xs';
+        agentDiv.innerHTML = `<p class="text-(--color-teal) font-semibold mb-1 flex items-center justify-between"><span>🤖 Assistant</span><span class="text-[0.65rem] text-(--color-text-muted) font-mono">Simulated LLM</span></p><div class="text-(--color-text-secondary) leading-relaxed">${formatMarkdown(rawResponse)}</div>`;
+        
+        terminalOutput.appendChild(agentDiv);
+        terminalOutput.scrollTop = terminalOutput.scrollHeight;
+      }, 400);
+    }
+
+    function escapeHtml(str: string): string {
+      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = input.value;
+      if (text) {
+        handleQuery(text);
+        input.value = '';
+      }
+    });
+
+    promptChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        const query = chip.getAttribute('data-query');
+        if (query) {
+          if (input) input.value = query;
+          handleQuery(query);
+        }
+      });
+    });
+  }
+
+  // Initialize on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAIAssistant);
+  } else {
+    initAIAssistant();
+  }
+</script>

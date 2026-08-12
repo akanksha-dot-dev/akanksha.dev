@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import AIAssistantWidget from '../components/AIAssistantWidget.astro';
 
 const metrics = [
   { value: '4+', label: 'Years Shipping AI' },
@@ -157,6 +158,11 @@ const techStack = {
     </div>
   </section>
   
+  <!-- ═══ AI ASSISTANT SHOWCASE ═══ -->
+  <section class="max-w-6xl mx-auto px-6 mb-20 fade-in">
+    <AIAssistantWidget />
+  </section>
+
   <!-- ═══ FEATURED PROJECTS ═══ -->
   <section class="max-w-6xl mx-auto px-6 mb-24">
     <div class="fade-in text-center mb-10">
