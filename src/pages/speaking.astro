@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 const speakingEngagements = [
   {
+    id: 'ai-mobile-hackathon',
     title: 'AI Mobile Hackathon — Deep Dive Session on AI for Mobile Developers',
     event: 'AI Mobile Hackathon',
     organizer: 'Community (Anand Gaur)',
@@ -18,11 +19,13 @@ const speakingEngagements = [
       'Live demo: Training custom models with Teachable Machines',
     ],
     videoUrl: 'https://www.youtube.com/watch?v=-8xTRNfq-DE',
+    embedUrl: 'https://www.youtube-nocookie.com/embed/-8xTRNfq-DE',
     codelabUrl: 'https://github.com/imaakanksha/AI-Unboxed-Teachable-Machine-Codelab',
     linkedinUrl: 'https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7472486822854451200',
     icon: '📹',
   },
   {
+    id: 'incept-26',
     title: 'INCEPT\'26 — Industry Talk on AI, Career Growth & Software Engineering',
     event: 'INCEPT\'26',
     organizer: 'Google Developers Groups - GLA University, Mathura',
@@ -158,9 +161,18 @@ function formatDate(dateStr: string) {
               </div>
               
               <div class="flex flex-wrap gap-3 pt-4 border-t border-(--color-border)">
+                {talk.embedUrl && (
+                  <button 
+                    data-embed={talk.embedUrl} 
+                    data-title={talk.title}
+                    class="watch-talk-btn btn-primary text-xs py-2 px-4 cursor-pointer"
+                  >
+                    ▶ Watch Video Modal
+                  </button>
+                )}
                 {talk.videoUrl && (
-                  <a href={talk.videoUrl} target="_blank" rel="noopener" class="btn-primary text-xs py-2 px-4">
-                    ▶ Watch Recording
+                  <a href={talk.videoUrl} target="_blank" rel="noopener" class="btn-outline text-xs py-2 px-4">
+                    ↗ Open YouTube
                   </a>
                 )}
                 {talk.codelabUrl && (
@@ -250,4 +262,65 @@ function formatDate(dateStr: string) {
       </div>
     </div>
   </section>
+
+  <!-- Video Modal -->
+  <dialog id="talk-video-modal" class="bg-transparent backdrop:bg-space/85 backdrop:backdrop-blur-md p-4 max-w-3xl w-full mx-auto my-auto rounded-2xl border border-(--color-border) text-(--color-text-primary) shadow-2xl">
+    <div class="glass-static p-4 md:p-6 rounded-2xl relative">
+      <button id="close-video-modal" class="absolute top-3 right-3 text-(--color-text-muted) hover:text-(--color-teal) transition-colors p-2 text-lg z-10">✕</button>
+      <h3 id="video-modal-title" class="font-(--font-heading) text-base md:text-lg font-700 mb-3 pr-8">Talk Recording</h3>
+
+      <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-space-light border border-(--color-border)">
+        <iframe 
+          id="talk-video-iframe" 
+          src="" 
+          title="Speaker Talk Video" 
+          class="w-full h-full border-0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+  </dialog>
+
+  <script>
+    function initVideoModal() {
+      const modal = document.getElementById('talk-video-modal') as HTMLDialogElement | null;
+      const iframe = document.getElementById('talk-video-iframe') as HTMLIFrameElement | null;
+      const titleEl = document.getElementById('video-modal-title');
+      const closeBtn = document.getElementById('close-video-modal');
+      const watchButtons = document.querySelectorAll('.watch-talk-btn');
+
+      if (!modal || !iframe) return;
+
+      watchButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const embedUrl = btn.getAttribute('data-embed');
+          const title = btn.getAttribute('data-title');
+          if (embedUrl) {
+            iframe.src = `${embedUrl}?autoplay=1`;
+            if (titleEl && title) titleEl.textContent = title;
+            modal.showModal();
+          }
+        });
+      });
+
+      function stopAndClose() {
+        if (iframe) iframe.src = '';
+        if (modal) modal.close();
+      }
+
+      if (closeBtn) closeBtn.addEventListener('click', stopAndClose);
+      if (modal) {
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) stopAndClose();
+        });
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initVideoModal);
+    } else {
+      initVideoModal();
+    }
+  </script>
 </BaseLayout>

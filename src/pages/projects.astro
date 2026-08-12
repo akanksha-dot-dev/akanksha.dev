@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const projects = [
   // ─── Flagship: Agentic AI ───
   {
+    id: 'agentic-ai-workshop',
     title: 'AgenticAI Workshop',
     description: 'Multi-agent AI orchestration framework with Google ADK, MCP protocol integration, tool-use patterns & autonomous workflows. Includes hands-on workshop materials used at INCEPT\'26.',
     tags: ['Google ADK', 'LangChain', 'Agentic AI', 'MCP', 'Python'],
@@ -12,8 +13,19 @@ const projects = [
     category: 'Agentic AI',
     impact: 'Speaker workshop materials at INCEPT\'26',
     status: 'active',
+    deepDive: {
+      overview: 'Comprehensive hands-on curriculum and code repository for building production multi-agent systems using Google ADK and Anthropic\'s Model Context Protocol (MCP).',
+      architecture: 'Planner-Executor agent topology with dynamic tool selection, memory persistence, and guardrails evaluation layer.',
+      highlights: [
+        'Google ADK custom tool-calling agents',
+        'MCP (Model Context Protocol) server & client integration',
+        'Human-in-the-loop approval hooks for high-risk actions',
+        'Evaluation benchmarks comparing single-agent vs multi-agent execution'
+      ]
+    }
   },
   {
+    id: 'multi-agent-mgt',
     title: 'Multi-Agent Research System',
     description: 'Production-grade multi-agent research framework with guardrails, evaluation harness & async pipelines for detecting machine-generated text. Safety-first architecture.',
     tags: ['Python', 'FastAPI', 'Multi-Agent', 'Guardrails', 'Eval'],
@@ -22,8 +34,19 @@ const projects = [
     category: 'Agentic AI',
     impact: 'Guardrails + eval pipeline for production safety',
     status: 'active',
+    deepDive: {
+      overview: 'Multi-agent collaborative framework designed for detecting and classifying machine-generated text (MGT) with customizable safety guardrails.',
+      architecture: 'Asynchronous task queue with worker agents specialized in perplexity analysis, burstiness scoring, and semantic consistency checking.',
+      highlights: [
+        'Perplexity & burstiness feature extraction agents',
+        'Async FastAPI REST endpoint with WebSocket live progress updates',
+        'Automated evaluation harness against benchmark datasets',
+        'Configurable hallucination & safety guardrails'
+      ]
+    }
   },
   {
+    id: 'o9-optimizer-agent',
     title: 'o9 Optimizer Agent',
     description: 'AI-powered report optimization & diagnostic advisory suite for o9 enterprise supply chain platform. Intelligent analysis of complex business data.',
     tags: ['Python', 'AI Agent', 'Enterprise', 'o9 Solutions'],
@@ -32,9 +55,19 @@ const projects = [
     category: 'Agentic AI',
     impact: 'Enterprise supply chain optimization at scale',
     status: 'active',
+    deepDive: {
+      overview: 'Enterprise diagnostic agent that parses supply chain execution logs, identifies performance bottlenecks in o9 reports, and suggests automated indexing strategies.',
+      architecture: 'LLM reasoning engine integrated with enterprise database schemas and rule-based fallback heuristics.',
+      highlights: [
+        'Automated query log parser and anomaly detector',
+        'Natural language diagnostic report generator',
+        'Sub-second query plan advisory recommendations'
+      ]
+    }
   },
   // ─── Flagship: RAG ───
   {
+    id: 'multilingual-mandi',
     title: 'Multilingual Mandi',
     description: 'AI-powered voice-first web app for India\'s local markets — multilingual translation (Hindi/Bhojpuri/Tamil/Telugu/Bengali), price discovery & smart negotiation using AWS Bedrock.',
     tags: ['AWS Bedrock', 'FastAPI', 'GenAI', 'Multilingual', 'Voice AI'],
@@ -43,8 +76,18 @@ const projects = [
     category: 'RAG',
     impact: 'Built at PromptWars Noida (🥈 1st Runner-Up)',
     status: 'completed',
+    deepDive: {
+      overview: 'Voice-enabled AI marketplace negotiation assistant helping Indian farmers and local vendors overcome language barriers during crop sales.',
+      architecture: 'Whisper STT -> AWS Bedrock Claude 3 translation & price discovery RAG -> ElevenLabs TTS response generation pipeline.',
+      highlights: [
+        'Real-time speech-to-speech translation in 5 Indian languages',
+        'RAG price discovery against government APMC mandi market data',
+        'Built in 24 hours under hackathon constraints (1st Runner-Up)'
+      ]
+    }
   },
   {
+    id: 'productivity-analyzer',
     title: 'Productivity Analyzer',
     description: 'End-to-end RAG system for processing JIRA stories, Confluence documents, and annual reports to deliver automated weekly team productivity reports.',
     tags: ['RAG', 'Python', 'FAISS', 'LLM', 'JIRA API'],
@@ -53,9 +96,19 @@ const projects = [
     category: 'RAG',
     impact: 'Full RAG pipeline with vector search — used at Samsung SDS',
     status: 'active',
+    deepDive: {
+      overview: 'Enterprise productivity analytical assistant querying unstructured team sprint data to generate executive action summaries.',
+      architecture: 'Hybrid BM25 + FAISS vector retriever with reranking layer and strict source attribution citations.',
+      highlights: [
+        '92% retrieval accuracy on technical Confluence docs',
+        'JIRA API webhooks for real-time document ingestion',
+        'Automated Markdown & PDF report generation'
+      ]
+    }
   },
   // ─── NLP ───
   {
+    id: 'near-miss-incident',
     title: 'Near Miss Incident Analysis',
     description: 'Predictive knowledge graph web app leveraging NLP for near-miss incident analysis & prevention. Text mining + graph databases + interactive dashboards.',
     tags: ['NLP', 'Knowledge Graph', 'Python', 'Dashboard', 'ML'],
@@ -64,8 +117,18 @@ const projects = [
     category: 'NLP',
     impact: 'NLP + Knowledge Graph for industrial safety prediction',
     status: 'completed',
+    deepDive: {
+      overview: 'Industrial safety text mining platform extracting causal entities from unstructured safety incident reports into a Neo4j knowledge graph.',
+      architecture: 'SpaCy NER pipeline -> Entity relation extractor -> Neo4j Graph DB -> Streamlit interactive visualization dashboard.',
+      highlights: [
+        'Entity extraction for equipment, hazards, and root causes',
+        'Interactive graph network graph exploring incident paths',
+        'Predictive safety risk scoring for upcoming maintenance shifts'
+      ]
+    }
   },
   {
+    id: 'ats-resume-optimizer',
     title: 'ATS Resume Optimizer',
     description: 'AI-powered resume optimization engine that analyzes job descriptions and scores resumes for ATS compatibility using NLP and keyword matching.',
     tags: ['NLP', 'Python', 'ATS', 'Resume', 'AI'],
@@ -74,9 +137,19 @@ const projects = [
     category: 'NLP',
     impact: 'Practical AI tool solving real hiring problem',
     status: 'completed',
+    deepDive: {
+      overview: 'Automated candidate resume parsing tool that compares resume skill vectors against job posting requirements.',
+      architecture: 'PDF/Docx parser -> SentenceTransformer embeddings -> Cosine similarity + TF-IDF keyword gap analysis.',
+      highlights: [
+        'Actionable keyword gap recommendations',
+        'Instant ATS readability score generation',
+        'Privacy-first local execution without storing personal data'
+      ]
+    }
   },
   // ─── DevTools ───
   {
+    id: 'gitsetu',
     title: 'gitsetu',
     description: 'Zero-dependency CLI tool for Git multi-identity & SSH key setup. Switch between personal, work & open-source Git identities in seconds. Clone, run, done.',
     tags: ['Shell', 'Git', 'CLI', 'DevTools', 'Zero-dep'],
@@ -85,9 +158,19 @@ const projects = [
     category: 'DevTools',
     impact: 'Open-source CLI — zero dependencies, pure shell',
     status: 'completed',
+    deepDive: {
+      overview: 'Lightweight POSIX shell tool that configures directory-scoped `.gitconfig` includes and SSH key aliases.',
+      architecture: 'Zero-dependency pure Bash/Zsh script with interactive wizard and dry-run safety flags.',
+      highlights: [
+        'Zero external runtime dependencies required',
+        'Automatic SSH host alias generation',
+        'Prevents embarrassing commits with the wrong email/identity'
+      ]
+    }
   },
   // ─── Data Engineering ───
   {
+    id: 'enterprise-etl',
     title: 'Enterprise ETL Pipeline',
     description: 'Multi-source business data ETL pipeline with bad data trapping, ForEach Loop Container for folder automation, and data conversion transformations.',
     tags: ['ETL', 'Data Pipeline', 'Python', 'Data Engineering'],
@@ -96,9 +179,19 @@ const projects = [
     category: 'Data',
     impact: 'Bad Data Trap pattern for enterprise reliability',
     status: 'completed',
+    deepDive: {
+      overview: 'Enterprise data warehouse ingestion pipeline built to handle malformed schema updates and corrupt rows gracefully.',
+      architecture: 'Staging table quarantine queue -> Bad Data Trap handler -> Automated email alerts -> Transformed DW tables.',
+      highlights: [
+        'Zero data-loss architecture for bad/corrupt records',
+        'Automated directory scanner using ForEach polling loop',
+        'Comprehensive audit logging and execution metrics'
+      ]
+    }
   },
   // ─── College/Hackathon (IoT origin story) ───
   {
+    id: 'qport-card',
     title: 'QPORT Card — Smart Health Card',
     description: 'Unified medical records health card with RFID + IoT + Blockchain security. Emergency QR code access for critical patient data. Won hackathon prizes, continued as research proposal.',
     tags: ['IoT', 'RFID', 'Blockchain', 'Raspberry Pi', 'Firebase'],
@@ -107,8 +200,18 @@ const projects = [
     category: 'IoT',
     impact: 'B.Tech major project → hackathon winner → research proposal',
     status: 'completed',
+    deepDive: {
+      overview: 'Smart emergency healthcare card storing encrypted patient vitals, allergy records, and emergency contact metadata.',
+      architecture: 'RFID RC522 reader -> Raspberry Pi gateway -> Encrypted Firebase Firestore -> Emergency QR web interface.',
+      highlights: [
+        'Sub-second emergency record retrieval via QR scan',
+        'Tamper-evident hash validation for record updates',
+        'Hardware prototype built during B.Tech Electrical Engineering capstone'
+      ]
+    }
   },
   {
+    id: 'acotmos',
     title: 'ACOTMOS — COVID-19 Testing System',
     description: 'Dual-model automated COVID testing: community IoT kit + individual ML-based screening. Built for MIT COVID-19 Challenge hackathon (Beat the Pandemic II).',
     tags: ['IoT', 'ML', 'Mobile', 'APIs', 'Sensors'],
@@ -117,6 +220,15 @@ const projects = [
     category: 'IoT',
     impact: 'MIT COVID-19 Challenge — Team Lead',
     status: 'completed',
+    deepDive: {
+      overview: 'Rapid community COVID-19 diagnostic triage system developed during the international MIT Beat the Pandemic II hackathon.',
+      architecture: 'Sensor data collector app -> Random Forest symptom risk classifier -> Micro-triage dashboard.',
+      highlights: [
+        'Designed under intensive 48-hour hackathon timeframe',
+        'Led international multidisciplinary team of engineers & medical researchers',
+        'Evaluated by global public health hackathon judges'
+      ]
+    }
   },
 ];
 
@@ -140,7 +252,7 @@ const categories = ['All', ...new Set(projects.map(p => p.category))];
           with real engineering — evaluation pipelines, guardrails, and monitoring included.
         </p>
         <p class="text-(--color-text-muted) text-sm mt-2 font-(--font-mono)">
-          {projects.length} projects · {projects.filter(p => p.status === 'active').length} actively maintained
+          {projects.length} projects · {projects.filter(p => p.status === 'active').length} actively maintained · Click any card for architecture deep-dive
         </p>
       </div>
       
@@ -160,12 +272,10 @@ const categories = ['All', ...new Set(projects.map(p => p.category))];
       <!-- Project Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-5" id="project-grid">
         {projects.map(project => (
-          <a 
-            href={project.href} 
-            target={project.href !== '#' ? '_blank' : undefined} 
-            rel={project.href !== '#' ? 'noopener' : undefined}
-            class="glass p-5 flex flex-col gap-3 group project-card fade-in"
+          <div 
+            class="glass p-5 flex flex-col gap-3 group project-card fade-in cursor-pointer relative"
             data-category={project.category}
+            data-id={project.id}
           >
             <div class="flex items-start justify-between">
               <div class="flex items-center gap-3">
@@ -185,11 +295,13 @@ const categories = ['All', ...new Set(projects.map(p => p.category))];
                   </h3>
                 </div>
               </div>
-              {project.href !== '#' && (
-                <svg class="w-4 h-4 text-(--color-text-muted) group-hover:text-(--color-teal) transition-all transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-              )}
+
+              <button 
+                class="open-modal-btn text-xs text-(--color-teal) hover:underline font-mono bg-teal-glow/40 px-2 py-1 rounded border border-teal/20 shrink-0"
+                data-id={project.id}
+              >
+                Deep Dive →
+              </button>
             </div>
             
             <p class="text-(--color-text-secondary) text-sm leading-relaxed flex-1">
@@ -205,7 +317,7 @@ const categories = ['All', ...new Set(projects.map(p => p.category))];
                 <span class="badge text-[0.6rem]">{tag}</span>
               ))}
             </div>
-          </a>
+          </div>
         ))}
       </div>
       
@@ -218,6 +330,17 @@ const categories = ['All', ...new Set(projects.map(p => p.category))];
       </div>
     </div>
   </section>
+
+  <!-- Interactive Project Deep Dive Modal -->
+  <dialog id="project-modal" class="bg-transparent backdrop:bg-space/80 backdrop:backdrop-blur-md p-4 max-w-2xl w-full mx-auto my-auto rounded-2xl border border-(--color-border) text-(--color-text-primary) shadow-2xl">
+    <div class="glass-static p-6 md:p-8 rounded-2xl relative overflow-hidden">
+      <button id="close-project-modal" class="absolute top-4 right-4 text-(--color-text-muted) hover:text-(--color-teal) transition-colors p-2 text-lg">✕</button>
+
+      <div id="modal-content" class="space-y-4">
+        <!-- Dynamically injected via JS -->
+      </div>
+    </div>
+  </dialog>
   
   <style>
     .active-filter {
@@ -227,10 +350,14 @@ const categories = ['All', ...new Set(projects.map(p => p.category))];
     }
   </style>
   
-  <script>
+  <script is:inline define:vars={{ projects }}>
     const buttons = document.querySelectorAll('.filter-btn');
     const cards = document.querySelectorAll('.project-card');
+    const modal = document.getElementById('project-modal');
+    const modalContent = document.getElementById('modal-content');
+    const closeModalBtn = document.getElementById('close-project-modal');
     
+    // Category filtering
     buttons.forEach(btn => {
       btn.addEventListener('click', () => {
         const category = btn.getAttribute('data-category');
@@ -239,14 +366,68 @@ const categories = ['All', ...new Set(projects.map(p => p.category))];
         btn.classList.add('active-filter');
         
         cards.forEach(card => {
-          const el = card as HTMLElement;
           if (category === 'All' || card.getAttribute('data-category') === category) {
-            el.style.display = '';
+            card.style.display = '';
           } else {
-            el.style.display = 'none';
+            card.style.display = 'none';
           }
         });
       });
     });
+
+    // Deep dive modal logic
+    function openModal(projectId) {
+      const p = projects.find(item => item.id === projectId);
+      if (!p || !modal || !modalContent) return;
+
+      modalContent.innerHTML = `
+        <div class="flex items-center gap-3 mb-2">
+          <span class="text-3xl">${p.icon}</span>
+          <div>
+            <span class="badge-amber badge text-[0.6rem]">${p.category}</span>
+            <h3 class="font-heading font-700 text-xl text-text-primary mt-0.5">${p.title}</h3>
+          </div>
+        </div>
+
+        <p class="text-text-secondary text-sm leading-relaxed">${p.deepDive.overview}</p>
+
+        <div class="glass p-4 rounded-xl space-y-2 border border-border">
+          <p class="text-xs font-mono text-teal uppercase tracking-wider font-semibold">⚡ Architecture & Pipeline</p>
+          <p class="text-xs text-text-secondary leading-relaxed">${p.deepDive.architecture}</p>
+        </div>
+
+        <div>
+          <p class="text-xs font-mono text-text-muted uppercase tracking-wider mb-2">Key Technical Highlights</p>
+          <ul class="space-y-1.5">
+            ${p.deepDive.highlights.map(h => `<li class="flex items-start gap-2 text-xs text-text-secondary"><span class="text-teal mt-0.5">✔</span> <span>${h}</span></li>`).join('')}
+          </ul>
+        </div>
+
+        <div class="flex flex-wrap gap-1.5 pt-2">
+          ${p.tags.map(t => `<span class="badge text-[0.6rem]">${t}</span>`).join('')}
+        </div>
+
+        <div class="flex justify-between items-center pt-4 border-t border-border mt-4">
+          <span class="text-xs font-mono text-amber">Impact: ${p.impact}</span>
+          ${p.href !== '#' ? `<a href="${p.href}" target="_blank" rel="noopener" class="btn-primary py-2 px-4 text-xs">View Code Repository →</a>` : ''}
+        </div>
+      `;
+
+      modal.showModal();
+    }
+
+    cards.forEach(card => {
+      card.addEventListener('click', (e) => {
+        const id = card.getAttribute('data-id');
+        if (id) openModal(id);
+      });
+    });
+
+    if (closeModalBtn && modal) {
+      closeModalBtn.addEventListener('click', () => modal.close());
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.close();
+      });
+    }
   </script>
 </BaseLayout>
