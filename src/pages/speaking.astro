@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import StructuredData from '../components/StructuredData.astro';
 
 const speakingEngagements = [
   {
@@ -77,9 +78,27 @@ const communities = [
 function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 }
+
+const eventSchemas = speakingEngagements.map(talk => ({
+  '@type': 'Event',
+  'name': talk.title,
+  'startDate': talk.date,
+  'location': {
+    '@type': 'Place',
+    'name': talk.location,
+  },
+  'organizer': {
+    '@type': 'Organization',
+    'name': talk.organizer,
+  },
+  'performer': {
+    '@id': 'https://akanksha.dev/#person'
+  }
+}));
 ---
 
 <BaseLayout title="Speaking & Community — Akanksha | Production AI Engineer" description="Speaker at INCEPT'26 and AI Mobile Hackathon. Active across 12+ Delhi NCR AI communities with 25+ events attended. YouTube recordings available.">
+  <StructuredData schema={eventSchemas} />
   
   <section class="relative overflow-hidden">
     <div class="orb orb-teal" style="top: -100px; right: -200px;"></div>

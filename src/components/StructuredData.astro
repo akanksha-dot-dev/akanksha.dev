@@ -1,0 +1,15 @@
+---
+// src/components/StructuredData.astro
+export interface Props {
+  schema: Record<string, any> | Array<Record<string, any>>;
+}
+
+const { schema } = Astro.props;
+
+// Ensure schema includes @context if not present
+const formattedSchema = Array.isArray(schema)
+  ? schema.map(item => ({ '@context': 'https://schema.org', ...item }))
+  : { '@context': 'https://schema.org', ...schema };
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(formattedSchema, null, 2)} />

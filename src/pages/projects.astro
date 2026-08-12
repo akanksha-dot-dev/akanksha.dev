@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import StructuredData from '../components/StructuredData.astro';
 
 const projects = [
   // ─── Flagship: Agentic AI ───
@@ -233,9 +234,22 @@ const projects = [
 ];
 
 const categories = ['All', ...new Set(projects.map(p => p.category))];
+const projectSchemas = projects.map(p => ({
+  '@type': 'SoftwareApplication',
+  'name': p.title,
+  'description': p.description,
+  'applicationCategory': 'DeveloperApplication',
+  'operatingSystem': 'All',
+  'author': {
+    '@id': 'https://akanksha.dev/#person'
+  },
+  'codeRepository': p.href,
+  'keywords': p.tags.join(', ')
+}));
 ---
 
-<BaseLayout title="Projects — Akanksha | Production AI Engineer" description="11 production-grade projects across Agentic AI, RAG, NLP, DevTools and IoT. Built by Akanksha at Samsung SDS, HCLTech, and hackathons.">
+<BaseLayout title="Projects — Akanksha | Production AI Engineer" description="Production AI projects: Agentic AI frameworks, Graph RAG systems, LLM fine-tuning, and open-source ML tools built at Samsung SDS & HCLTech.">
+  <StructuredData schema={projectSchemas} />
   
   <section class="relative overflow-hidden">
     <div class="orb orb-amber" style="top: -200px; left: -200px;"></div>

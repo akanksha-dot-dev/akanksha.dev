@@ -2,6 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import ReadingProgressBar from '../components/ReadingProgressBar.astro';
 import TableOfContents from '../components/TableOfContents.astro';
+import StructuredData from '../components/StructuredData.astro';
 import { render } from 'astro:content';
 
 const { post } = Astro.props;
@@ -10,12 +11,29 @@ const { Content, headings } = await render(post);
 function formatDate(date: Date) {
   return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 }
+
+const articleSchema = {
+  '@type': 'BlogPosting',
+  'headline': post.data.title,
+  'description': post.data.description,
+  'datePublished': post.data.date.toISOString(),
+  'dateModified': post.data.updatedDate ? post.data.updatedDate.toISOString() : post.data.date.toISOString(),
+  'author': {
+    '@id': 'https://akanksha.dev/#person'
+  },
+  'mainEntityOfPage': {
+    '@type': 'WebPage',
+    '@id': `https://akanksha.dev/blog/${post.id}/`
+  },
+  'keywords': post.data.tags ? post.data.tags.join(', ') : ''
+};
 ---
 
 <BaseLayout 
   title={`${post.data.title} — Akanksha`}
   description={post.data.description}
 >
+  <StructuredData schema={articleSchema} />
   <ReadingProgressBar />
   <article class="relative overflow-hidden">
     <div class="orb orb-teal" style="top: -100px; left: -200px;"></div>
