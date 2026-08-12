@@ -1,10 +1,11 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import ReadingProgressBar from '../components/ReadingProgressBar.astro';
+import TableOfContents from '../components/TableOfContents.astro';
 import { render } from 'astro:content';
 
 const { post } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 
 function formatDate(date: Date) {
   return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
@@ -51,6 +52,9 @@ function formatDate(date: Date) {
       </div>
       
       <div class="divider"></div>
+      
+      <!-- Table of Contents -->
+      <TableOfContents headings={headings} />
       
       <!-- Content -->
       <div class="prose prose-invert max-w-none fade-in">

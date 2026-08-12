@@ -1,0 +1,157 @@
+---
+// src/components/TableOfContents.astro
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings?: Heading[];
+}
+
+const { headings = [] } = Astro.props;
+const filteredHeadings = headings.filter(h => h.depth === 2 || h.depth === 3);
+---
+
+<nav class="toc-wrapper glass p-4 md:p-5 rounded-2xl border border-(--color-border) text-xs mb-8" aria-label="Table of Contents">
+  <!-- Header -->
+  <div class="flex items-center justify-between mb-3 pb-2 border-b border-white/5">
+    <div class="flex items-center gap-2">
+      <span class="text-(--color-teal)">📑</span>
+      <h3 class="font-(--font-heading) font-700 text-xs uppercase tracking-wider text-(--color-text-primary)">
+        Table of Contents
+      </h3>
+    </div>
+    <span id="toc-count" class="font-mono text-[10px] text-(--color-text-muted) bg-white/5 px-2 py-0.5 rounded-full">
+      {filteredHeadings.length} topics
+    </span>
+  </div>
+
+  <!-- Server-rendered fallback list (if headings prop is passed) -->
+  <ul id="toc-list" class="space-y-1.5 max-h-[320px] overflow-y-auto pr-1 custom-scrollbar">
+    {filteredHeadings.map(h => (
+      <li class={h.depth === 3 ? 'pl-3' : ''}>
+        <a
+          href={`#${h.slug}`}
+          data-toc-slug={h.slug}
+          class="toc-link block py-1 px-2 rounded-lg text-(--color-text-secondary) hover:text-(--color-teal) hover:bg-white/5 transition-all truncate"
+        >
+          {h.text}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<style>
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 3px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 9999px;
+  }
+  .toc-link.active {
+    color: var(--color-teal) !important;
+    background: var(--color-teal-glow) !important;
+    border-left: 2px solid var(--color-teal);
+    font-weight: 600;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const proseContainer = document.querySelector('.prose');
+    const tocList = document.getElementById('toc-list');
+    const tocCount = document.getElementById('toc-count');
+
+    if (!proseContainer || !tocList) return;
+
+    // Scan article headings dynamically
+    const articleHeadings = Array.from(
+      proseContainer.querySelectorAll<HTMLHeadingElement>('h2, h3')
+    );
+
+    if (articleHeadings.length === 0) {
+      const parentNav = tocList.closest('.toc-wrapper');
+      if (parentNav) parentNav.classList.add('hidden');
+      return;
+    }
+
+    if (tocCount) {
+      tocCount.textContent = `${articleHeadings.length} topics`;
+    }
+
+    // Helper to generate clean slugs if missing
+    function slugify(text: string): string {
+      return text
+        .toLowerCase()
+        .replace(/[^\w\s-]/g, '')
+        .replace(/[\s_-]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+    }
+
+    // Ensure all headings have IDs & build/reconcile DOM elements
+    tocList.innerHTML = '';
+    articleHeadings.forEach((heading) => {
+      if (!heading.id) {
+        heading.id = slugify(heading.textContent || 'heading');
+      }
+
+      const li = document.createElement('li');
+      if (heading.tagName.toLowerCase() === 'h3') {
+        li.classList.add('pl-3');
+      }
+
+      const a = document.createElement('a');
+      a.href = `#${heading.id}`;
+      a.dataset.tocSlug = heading.id;
+      a.className = 'toc-link block py-1 px-2 rounded-lg text-(--color-text-secondary) hover:text-(--color-teal) hover:bg-white/5 transition-all truncate';
+      a.textContent = heading.textContent;
+
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.getElementById(heading.id);
+        if (target) {
+          const yOffset = -90; // Adjust for fixed header spacing
+          const y = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+          history.pushState(null, '', `#${heading.id}`);
+        }
+      });
+
+      li.appendChild(a);
+      tocList.appendChild(li);
+    });
+
+    // Active heading tracking with IntersectionObserver
+    const links = tocList.querySelectorAll<HTMLAnchorElement>('.toc-link');
+
+    const observerOptions: IntersectionObserverInit = {
+      root: null,
+      rootMargin: '-80px 0px -60% 0px',
+      threshold: 0.1,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          links.forEach((link) => {
+            if (link.dataset.tocSlug === id) {
+              link.classList.add('active');
+            } else {
+              link.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    articleHeadings.forEach((heading) => observer.observe(heading));
+  });
+</script>
