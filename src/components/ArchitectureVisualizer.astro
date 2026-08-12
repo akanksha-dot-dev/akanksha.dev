@@ -1,0 +1,158 @@
+---
+// ArchitectureVisualizer.astro - Interactive SVG / Node-based AI System Architecture Component
+interface Props {
+  projectId: string;
+}
+
+const { projectId } = Astro.props;
+
+// Topology definitions per project
+const topologies: Record<string, { title: string; nodes: Array<{ id: string; name: string; type: 'input' | 'agent' | 'tool' | 'eval' | 'output'; tech: string; latency: string; details: string; status: 'active' | 'success' }> }> = {
+  'agentic-ai-workshop': {
+    title: 'Multi-Agent Autonomous Orchestration Topology (Google ADK + MCP)',
+    nodes: [
+      { id: 'user-input', name: 'User Task Prompt', type: 'input', tech: 'WebSocket / REST', latency: '< 5ms', details: 'Raw natural language intent & user context payload passed to agent framework.', status: 'success' },
+      { id: 'planner-agent', name: 'Planner Agent', type: 'agent', tech: 'Google ADK + Gemini 1.5', latency: '~320ms', details: 'Decomposes complex requests into directed acyclic graph (DAG) of sub-tasks with memory state.', status: 'active' },
+      { id: 'mcp-dispatcher', name: 'MCP Tool Router', type: 'tool', tech: 'Model Context Protocol', latency: '~45ms', details: 'Dynamic protocol handshake discovering registered tools (SQL, Search, Code Sandbox).', status: 'success' },
+      { id: 'worker-agents', name: 'Worker Agents', type: 'agent', tech: 'Parallel Async Python Workers', latency: '~650ms', details: 'Specialized worker nodes executing targeted tools and returning JSON outputs.', status: 'success' },
+      { id: 'guardrails-eval', name: 'Guardrails & Safety Eval', type: 'eval', tech: 'NeMo Guardrails + Ragas', latency: '~90ms', details: 'Verification layer checking for hallucinations, PII leakage, and output format schema compliance.', status: 'success' },
+      { id: 'final-output', name: 'Synthesized Stream', type: 'output', tech: 'SSE Streaming Response', latency: 'Total 1.1s', details: 'Final formatted answer returned with full source attribution citations.', status: 'success' }
+    ]
+  },
+  'multi-agent-mgt': {
+    title: 'Machine-Generated Text Detection Multi-Agent Pipeline',
+    nodes: [
+      { id: 'input-doc', name: 'Document Ingestion', type: 'input', tech: 'FastAPI / Async Worker', latency: '~15ms', details: 'Extracts plain text and cleans formatting from PDF/Docx uploads.', status: 'success' },
+      { id: 'perplexity-agent', name: 'Perplexity Analyzer Agent', type: 'agent', tech: 'PyTorch / Transformers', latency: '~280ms', details: 'Calculates sliding-window token perplexity distribution metrics.', status: 'active' },
+      { id: 'burstiness-agent', name: 'Burstiness & Entropy Agent', type: 'agent', tech: 'Statistical NLP / SciPy', latency: '~110ms', details: 'Measures sentence length variation and token entropy spikes.', status: 'success' },
+      { id: 'eval-harness', name: 'Classifier Ensemble & Eval', type: 'eval', tech: 'XGBoost + LLM Judge', latency: '~180ms', details: 'Ensembles statistical features with LLM zero-shot detector for final confidence score.', status: 'success' }
+    ]
+  },
+  'multilingual-mandi': {
+    title: 'Multilingual Mandi Real-Time Voice RAG Architecture',
+    nodes: [
+      { id: 'audio-in', name: 'Voice Input (5 Dialects)', type: 'input', tech: 'Web Audio API / PCM', latency: '< 10ms', details: 'Captures spoken audio queries in Hindi, Bhojpuri, Tamil, Telugu, or Bengali.', status: 'success' },
+      { id: 'stt-whisper', name: 'Speech-to-Text (STT)', type: 'agent', tech: 'Whisper v3 Large API', latency: '~240ms', details: 'Transcribes audio into normalized text with automatic language detection.', status: 'active' },
+      { id: 'vector-rag', name: 'Mandi Price Vector RAG', type: 'tool', tech: 'FAISS + Bedrock Titan Embeddings', latency: '~55ms', details: 'Retrieves current APMC mandi market price data vectors across regional markets.', status: 'success' },
+      { id: 'claude-llm', name: 'Multilingual Negotiator LLM', type: 'agent', tech: 'AWS Bedrock (Claude 3)', latency: '~380ms', details: 'Generates empathetic, context-aware negotiation suggestions in native dialect.', status: 'success' },
+      { id: 'tts-out', name: 'Voice Output (TTS)', type: 'output', tech: 'ElevenLabs Multilingual v2', latency: '~290ms', details: 'Synthesizes natural-sounding speech response audio stream.', status: 'success' }
+    ]
+  },
+  'productivity-analyzer': {
+    title: 'Enterprise Hybrid Vector + Keyword RAG Pipeline',
+    nodes: [
+      { id: 'ingest-jira', name: 'JIRA & Confluence Ingest', type: 'input', tech: 'JIRA REST Webhooks', latency: '~30ms', details: 'Subscribes to updated sprint tickets, Confluence specs, and meeting notes.', status: 'success' },
+      { id: 'hybrid-retriever', name: 'BM25 + FAISS Vector Search', type: 'tool', tech: 'FAISS + SentenceTransformers', latency: '~60ms', details: 'Hybrid dense vector + sparse keyword retrieval for technical documents.', status: 'active' },
+      { id: 'reranker-layer', name: 'Cross-Encoder Reranker', type: 'eval', tech: 'bge-reranker-large', latency: '~120ms', details: 'Reranks top 25 retrieved chunks down to top 5 highest relevance contexts.', status: 'success' },
+      { id: 'summary-generator', name: 'Executive Report LLM', type: 'output', tech: 'GPT-4o / Claude 3.5 Sonnet', latency: '~650ms', details: 'Synthesizes weekly team productivity matrix with hyperlinked citations.', status: 'success' }
+    ]
+  }
+};
+
+const currentTopology = topologies[projectId] || topologies['agentic-ai-workshop'];
+---
+
+<div class="arch-visualizer-container glass p-4 md:p-6 rounded-2xl border border-cyan-500/20 bg-slate-950/70 text-slate-100 space-y-4 font-(--font-body)" data-project-id={projectId}>
+  <!-- Visualizer Header -->
+  <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-white/10 pb-3">
+    <div>
+      <span class="text-[10px] font-mono text-cyan-400 uppercase tracking-widest font-semibold flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+        Interactive System Architecture Visualizer
+      </span>
+      <h4 class="text-sm md:text-base font-heading font-bold text-white mt-0.5">{currentTopology.title}</h4>
+    </div>
+    <span class="text-xs font-mono text-slate-400 bg-white/5 px-2.5 py-1 rounded-lg border border-white/10 shrink-0">
+      Click node for latency & stack
+    </span>
+  </div>
+
+  <!-- Interactive Nodes Diagram Flow -->
+  <div class="relative overflow-x-auto py-4">
+    <div class="min-w-[600px] flex items-center justify-between gap-3 relative">
+      {currentTopology.nodes.map((node, i) => (
+        <div class="flex items-center gap-3 shrink-0 flex-1">
+          <!-- Node Box -->
+          <button 
+            type="button"
+            class:list={[
+              'arch-node-btn group relative flex-1 p-3 rounded-xl border text-left transition-all duration-200 cursor-pointer hover:scale-105 shadow-lg',
+              node.type === 'input' ? 'bg-indigo-950/60 border-indigo-500/40 hover:border-indigo-400 hover:shadow-indigo-950/50' : '',
+              node.type === 'agent' ? 'bg-cyan-950/60 border-cyan-500/40 hover:border-cyan-400 hover:shadow-cyan-950/50' : '',
+              node.type === 'tool' ? 'bg-teal-950/60 border-teal-500/40 hover:border-teal-400 hover:shadow-teal-950/50' : '',
+              node.type === 'eval' ? 'bg-purple-950/60 border-purple-500/40 hover:border-purple-400 hover:shadow-purple-950/50' : '',
+              node.type === 'output' ? 'bg-emerald-950/60 border-emerald-500/40 hover:border-emerald-400 hover:shadow-emerald-950/50' : '',
+              i === 1 ? 'ring-2 ring-cyan-400/80 shadow-cyan-500/20' : ''
+            ]}
+            data-node-id={node.id}
+            data-node-name={node.name}
+            data-node-tech={node.tech}
+            data-node-latency={node.latency}
+            data-node-details={node.details}
+          >
+            <div class="flex items-center justify-between gap-1 mb-1">
+              <span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded bg-white/10 text-slate-300 font-semibold">
+                {node.type}
+              </span>
+              <span class="text-[10px] font-mono text-cyan-300 font-bold">{node.latency}</span>
+            </div>
+            <p class="text-xs font-bold text-white group-hover:text-cyan-200 transition-colors line-clamp-1">{node.name}</p>
+            <p class="text-[10px] text-slate-400 font-mono truncate mt-0.5">{node.tech}</p>
+          </button>
+
+          <!-- Connecting Arrow SVG -->
+          {i < currentTopology.nodes.length - 1 && (
+            <div class="shrink-0 text-cyan-500/60 flex items-center justify-center">
+              <svg class="w-4 h-4 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+              </svg>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Selected Node Detail Specs Panel -->
+  <div id={`node-detail-panel-${projectId}`} class="bg-white/[0.03] border border-white/10 p-3.5 rounded-xl text-xs space-y-1.5 transition-all">
+    <div class="flex items-center justify-between">
+      <span class="font-mono text-cyan-400 font-semibold uppercase tracking-wider text-[11px]" id={`detail-node-name-${projectId}`}>
+        Selected Node: {currentTopology.nodes[1].name}
+      </span>
+      <span class="font-mono text-slate-400 text-[10px] bg-white/10 px-2 py-0.5 rounded" id={`detail-node-tech-${projectId}`}>
+        Tech: {currentTopology.nodes[1].tech} | Latency: {currentTopology.nodes[1].latency}
+      </span>
+    </div>
+    <p class="text-slate-300 text-xs leading-relaxed" id={`detail-node-desc-${projectId}`}>
+      {currentTopology.nodes[1].details}
+    </p>
+  </div>
+</div>
+
+<script>
+  function initArchVisualizer() {
+    document.querySelectorAll<HTMLElement>('.arch-visualizer-container').forEach(container => {
+      const projectId = container.dataset.projectId;
+      if (!projectId) return;
+
+      const nodeBtns = container.querySelectorAll<HTMLElement>('.arch-node-btn');
+      const nameEl = document.getElementById(`detail-node-name-${projectId}`);
+      const techEl = document.getElementById(`detail-node-tech-${projectId}`);
+      const descEl = document.getElementById(`detail-node-desc-${projectId}`);
+
+      nodeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          nodeBtns.forEach(b => b.classList.remove('ring-2', 'ring-cyan-400/80'));
+          btn.classList.add('ring-2', 'ring-cyan-400/80');
+
+          if (nameEl) nameEl.textContent = `Selected Node: ${btn.dataset.nodeName}`;
+          if (techEl) techEl.textContent = `Tech: ${btn.dataset.nodeTech} | Latency: ${btn.dataset.nodeLatency}`;
+          if (descEl) descEl.textContent = btn.dataset.nodeDetails || '';
+        });
+      });
+    });
+  }
+
+  initArchVisualizer();
+  document.addEventListener('astro:page-load', initArchVisualizer);
+</script>

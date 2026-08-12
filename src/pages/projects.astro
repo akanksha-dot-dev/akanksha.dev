@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import StructuredData from '../components/StructuredData.astro';
+import ArchitectureVisualizer from '../components/ArchitectureVisualizer.astro';
 
 const projects = [
   // ─── Flagship: Agentic AI ───
@@ -346,7 +347,7 @@ const projectSchemas = projects.map(p => ({
   </section>
 
   <!-- Interactive Project Deep Dive Modal -->
-  <dialog id="project-modal" class="bg-transparent backdrop:bg-space/80 backdrop:backdrop-blur-md p-4 max-w-2xl w-full mx-auto my-auto rounded-2xl border border-(--color-border) text-(--color-text-primary) shadow-2xl">
+  <dialog id="project-modal" class="bg-transparent backdrop:bg-space/80 backdrop:backdrop-blur-md p-4 max-w-3xl w-full mx-auto my-auto rounded-2xl border border-(--color-border) text-(--color-text-primary) shadow-2xl">
     <div class="glass-static p-6 md:p-8 rounded-2xl relative overflow-hidden">
       <button id="close-project-modal" class="absolute top-4 right-4 text-(--color-text-muted) hover:text-(--color-teal) transition-colors p-2 text-lg">✕</button>
 
@@ -355,6 +356,25 @@ const projectSchemas = projects.map(p => ({
       </div>
     </div>
   </dialog>
+
+  <!-- Pre-rendered Architecture Diagram Templates -->
+  <div id="arch-templates" class="hidden">
+    <div id="arch-template-agentic-ai-workshop">
+      <ArchitectureVisualizer projectId="agentic-ai-workshop" />
+    </div>
+    <div id="arch-template-multi-agent-mgt">
+      <ArchitectureVisualizer projectId="multi-agent-mgt" />
+    </div>
+    <div id="arch-template-multilingual-mandi">
+      <ArchitectureVisualizer projectId="multilingual-mandi" />
+    </div>
+    <div id="arch-template-productivity-analyzer">
+      <ArchitectureVisualizer projectId="productivity-analyzer" />
+    </div>
+    <div id="arch-template-o9-optimizer-agent">
+      <ArchitectureVisualizer projectId="agentic-ai-workshop" />
+    </div>
+  </div>
   
   <style>
     .active-filter {
@@ -394,27 +414,55 @@ const projectSchemas = projects.map(p => ({
       const p = projects.find(item => item.id === projectId);
       if (!p || !modal || !modalContent) return;
 
+      const archTemplate = document.getElementById(`arch-template-${projectId}`);
+      const archHtml = archTemplate ? archTemplate.innerHTML : '';
+
       modalContent.innerHTML = `
-        <div class="flex items-center gap-3 mb-2">
-          <span class="text-3xl">${p.icon}</span>
-          <div>
-            <span class="badge-amber badge text-[0.6rem]">${p.category}</span>
-            <h3 class="font-heading font-700 text-xl text-text-primary mt-0.5">${p.title}</h3>
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-2 pr-6">
+          <div class="flex items-center gap-3">
+            <span class="text-3xl">${p.icon}</span>
+            <div>
+              <span class="badge-amber badge text-[0.6rem]">${p.category}</span>
+              <h3 class="font-heading font-700 text-xl text-text-primary mt-0.5">${p.title}</h3>
+            </div>
           </div>
         </div>
 
-        <p class="text-text-secondary text-sm leading-relaxed">${p.deepDive.overview}</p>
-
-        <div class="glass p-4 rounded-xl space-y-2 border border-border">
-          <p class="text-xs font-mono text-teal uppercase tracking-wider font-semibold">⚡ Architecture & Pipeline</p>
-          <p class="text-xs text-text-secondary leading-relaxed">${p.deepDive.architecture}</p>
+        <!-- Navigation Tabs -->
+        <div class="flex gap-2 border-b border-border pb-2">
+          <button id="tab-btn-overview" class="px-3 py-1 text-xs font-mono rounded-lg bg-teal text-space font-semibold cursor-pointer">
+            Overview
+          </button>
+          <button id="tab-btn-arch" class="px-3 py-1 text-xs font-mono rounded-lg bg-white/5 hover:bg-white/10 text-text-secondary cursor-pointer border border-border">
+            ⚡ Interactive System Architecture Diagram
+          </button>
         </div>
 
-        <div>
-          <p class="text-xs font-mono text-text-muted uppercase tracking-wider mb-2">Key Technical Highlights</p>
-          <ul class="space-y-1.5">
-            ${p.deepDive.highlights.map(h => `<li class="flex items-start gap-2 text-xs text-text-secondary"><span class="text-teal mt-0.5">✔</span> <span>${h}</span></li>`).join('')}
-          </ul>
+        <!-- Tab 1: Overview -->
+        <div id="tab-content-overview" class="space-y-4">
+          <p class="text-text-secondary text-sm leading-relaxed">${p.deepDive.overview}</p>
+
+          <div class="glass p-4 rounded-xl space-y-2 border border-border">
+            <p class="text-xs font-mono text-teal uppercase tracking-wider font-semibold">⚡ Architecture & Pipeline</p>
+            <p class="text-xs text-text-secondary leading-relaxed">${p.deepDive.architecture}</p>
+          </div>
+
+          <div>
+            <p class="text-xs font-mono text-text-muted uppercase tracking-wider mb-2">Key Technical Highlights</p>
+            <ul class="space-y-1.5">
+              ${p.deepDive.highlights.map(h => `<li class="flex items-start gap-2 text-xs text-text-secondary"><span class="text-teal mt-0.5">✔</span> <span>${h}</span></li>`).join('')}
+            </ul>
+          </div>
+        </div>
+
+        <!-- Tab 2: Interactive Architecture Diagram -->
+        <div id="tab-content-arch" class="hidden space-y-3">
+          ${archHtml ? archHtml : `
+            <div class="glass p-4 rounded-xl text-xs text-text-secondary">
+              <p class="font-mono text-teal mb-1">Architecture Overview</p>
+              <p>${p.deepDive.architecture}</p>
+            </div>
+          `}
         </div>
 
         <div class="flex flex-wrap gap-1.5 pt-2">
@@ -426,6 +474,26 @@ const projectSchemas = projects.map(p => ({
           ${p.href !== '#' ? `<a href="${p.href}" target="_blank" rel="noopener" class="btn-primary py-2 px-4 text-xs">View Code Repository →</a>` : ''}
         </div>
       `;
+
+      // Tab switching logic inside modal
+      const overviewBtn = document.getElementById('tab-btn-overview');
+      const archBtn = document.getElementById('tab-btn-arch');
+      const overviewContent = document.getElementById('tab-content-overview');
+      const archContent = document.getElementById('tab-content-arch');
+
+      overviewBtn?.addEventListener('click', () => {
+        overviewBtn.className = 'px-3 py-1 text-xs font-mono rounded-lg bg-teal text-space font-semibold cursor-pointer';
+        archBtn.className = 'px-3 py-1 text-xs font-mono rounded-lg bg-white/5 hover:bg-white/10 text-text-secondary cursor-pointer border border-border';
+        overviewContent?.classList.remove('hidden');
+        archContent?.classList.add('hidden');
+      });
+
+      archBtn?.addEventListener('click', () => {
+        archBtn.className = 'px-3 py-1 text-xs font-mono rounded-lg bg-teal text-space font-semibold cursor-pointer';
+        overviewBtn.className = 'px-3 py-1 text-xs font-mono rounded-lg bg-white/5 hover:bg-white/10 text-text-secondary cursor-pointer border border-border';
+        archContent?.classList.remove('hidden');
+        overviewContent?.classList.add('hidden');
+      });
 
       modal.showModal();
     }
