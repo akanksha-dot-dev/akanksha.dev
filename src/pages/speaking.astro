@@ -210,14 +210,34 @@ const eventSchemas = speakingEngagements.map(talk => ({
       
       <!-- ─── Events Timeline ─── -->
       <div class="fade-in mb-16">
-        <h2 class="section-title mb-2">📅 Events Attended</h2>
-        <p class="section-subtitle">{eventsAttended.length} events across 2025-2026</p>
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
+          <div>
+            <h2 class="section-title mb-1">📅 Events Attended</h2>
+            <p class="section-subtitle">{eventsAttended.length} events across 2025-2026</p>
+          </div>
+          <div class="relative w-full md:w-72">
+            <svg class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-(--color-teal)" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+            <input 
+              type="text" 
+              id="event-search-input" 
+              placeholder="Search 25+ events by topic..." 
+              class="w-full bg-space-light/80 text-(--color-text-primary) text-xs pl-9 pr-3 py-2 rounded-xl border border-(--color-border) focus:outline-none focus:border-(--color-teal) transition-colors placeholder:text-(--color-text-muted)"
+            />
+          </div>
+        </div>
         
-        <div class="relative pl-10 space-y-4">
+        <div class="relative pl-10 space-y-4" id="events-timeline-container">
           <div class="timeline-line" style="left: 0.85rem;"></div>
           
           {eventsAttended.map((event, i) => (
-            <div class="fade-in relative">
+            <div 
+              class="event-timeline-card fade-in relative"
+              data-name={event.name.toLowerCase()}
+              data-org={event.org.toLowerCase()}
+              data-topics={JSON.stringify(event.topics.map(t => t.toLowerCase()))}
+            >
               <div class="timeline-dot" style={`top: 0.75rem; left: 0.35rem; width: 0.7rem; height: 0.7rem; ${i > 12 ? 'background: var(--color-text-muted); box-shadow: none;' : ''}`}></div>
               <div class="glass p-4">
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-1 mb-2">
@@ -233,6 +253,12 @@ const eventSchemas = speakingEngagements.map(talk => ({
               </div>
             </div>
           ))}
+
+          <div id="no-events-found" class="hidden text-center py-8 glass p-6 rounded-xl">
+            <p class="text-2xl mb-2">🔍</p>
+            <p class="text-(--color-text-primary) font-(--font-heading) font-600 text-sm">No matching events found</p>
+            <p class="text-(--color-text-muted) text-xs">Try searching for keywords like "Agentic", "RAG", or "Google"</p>
+          </div>
         </div>
       </div>
       
@@ -336,10 +362,50 @@ const eventSchemas = speakingEngagements.map(talk => ({
       }
     }
 
+    function initEventSearch() {
+      const searchInput = document.getElementById('event-search-input') as HTMLInputElement | null;
+      const eventCards = document.querySelectorAll('.event-timeline-card') as NodeListOf<HTMLElement>;
+      const noEventsMsg = document.getElementById('no-events-found');
+
+      if (!searchInput || !eventCards.length) return;
+
+      function filterEvents() {
+        const query = (searchInput?.value || '').toLowerCase().trim();
+        let visible = 0;
+
+        eventCards.forEach(card => {
+          const name = card.getAttribute('data-name') || '';
+          const org = card.getAttribute('data-org') || '';
+          const topicsJson = card.getAttribute('data-topics') || '[]';
+          let topics: string[] = [];
+          try { topics = JSON.parse(topicsJson); } catch (e) {}
+
+          const matches = !query || name.includes(query) || org.includes(query) || topics.some(t => t.includes(query));
+
+          if (matches) {
+            card.style.display = '';
+            visible++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        if (noEventsMsg) {
+          noEventsMsg.classList.toggle('hidden', visible > 0);
+        }
+      }
+
+      searchInput.addEventListener('input', filterEvents);
+    }
+
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initVideoModal);
+      document.addEventListener('DOMContentLoaded', () => {
+        initVideoModal();
+        initEventSearch();
+      });
     } else {
       initVideoModal();
+      initEventSearch();
     }
   </script>
 </BaseLayout>

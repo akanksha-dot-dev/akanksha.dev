@@ -11,7 +11,7 @@ interface Props {
 const { 
   title, 
   description = "Production AI Engineer building enterprise AI systems — RAG, Agents, LLMs. 4+ years shipping AI at Samsung SDS & HCLTech.",
-  ogImage = "/og-image.png"
+  ogImage = `/api/og?title=${encodeURIComponent(title)}`
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
