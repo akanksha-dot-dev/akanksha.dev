@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import ReadingProgressBar from '../components/ReadingProgressBar.astro';
 import { render } from 'astro:content';
 
 const { post } = Astro.props;
@@ -14,6 +15,7 @@ function formatDate(date: Date) {
   title={`${post.data.title} — Akanksha`}
   description={post.data.description}
 >
+  <ReadingProgressBar />
   <article class="relative overflow-hidden">
     <div class="orb orb-teal" style="top: -100px; left: -200px;"></div>
     

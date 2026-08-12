@@ -1,0 +1,32 @@
+---
+// ReadingProgressBar.astro
+// Sticky top progress indicator bar for long technical articles
+---
+
+<div class="fixed top-0 left-0 right-0 z-50 h-1 bg-transparent pointer-events-none">
+  <div 
+    id="reading-progress-bar" 
+    class="h-full bg-gradient-to-r from-(--color-teal) via-emerald-400 to-(--color-amber) w-0 transition-all duration-75 shadow-[0_0_10px_rgba(0,229,176,0.7)]"
+  ></div>
+</div>
+
+<script>
+  function updateProgressBar() {
+    const progressBar = document.getElementById('reading-progress-bar');
+    if (!progressBar) return;
+
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+    
+    if (scrollHeight > 0) {
+      const percentage = Math.min(100, Math.max(0, (scrollTop / scrollHeight) * 100));
+      progressBar.style.width = `${percentage}%`;
+    } else {
+      progressBar.style.width = '0%';
+    }
+  }
+
+  window.addEventListener('scroll', updateProgressBar, { passive: true });
+  window.addEventListener('resize', updateProgressBar, { passive: true });
+  document.addEventListener('DOMContentLoaded', updateProgressBar);
+</script>

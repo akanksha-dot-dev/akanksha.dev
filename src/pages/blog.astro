@@ -9,6 +9,9 @@ const posts = (await getCollection('blog'))
 const featured = posts.find(p => p.data.featured);
 const rest = posts.filter(p => p !== featured);
 
+// Unique list of tags across all blog posts
+const allTags = Array.from(new Set(posts.flatMap(p => p.data.tags || []))).sort();
+
 function formatDate(date: Date) {
   return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 }
@@ -20,7 +23,7 @@ function formatDate(date: Date) {
     <div class="orb orb-purple" style="top: -100px; right: -200px;"></div>
     
     <div class="max-w-4xl mx-auto px-6 py-16">
-      <div class="fade-in mb-12">
+      <div class="fade-in mb-8">
         <span class="badge mb-4">Blog</span>
         <h1 class="font-(--font-heading) text-4xl md:text-5xl font-800 mb-4 tracking-tight">
           Thoughts & <span class="gradient-text">Insights</span>
@@ -30,13 +33,51 @@ function formatDate(date: Date) {
           from building enterprise AI at scale.
         </p>
       </div>
+
+      <!-- Search & Tag Filter Controls -->
+      <div class="fade-in glass-static p-4 md:p-6 mb-10 space-y-4 rounded-2xl border border-(--color-border)">
+        <div class="relative">
+          <svg class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-(--color-teal)" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+          <input 
+            type="text" 
+            id="blog-search-input" 
+            placeholder="Search articles by title, summary, or concept..." 
+            class="w-full bg-space-light/80 text-(--color-text-primary) text-xs md:text-sm pl-10 pr-4 py-3 rounded-xl border border-(--color-border) focus:outline-none focus:border-(--color-teal) transition-colors placeholder:text-(--color-text-muted)"
+          />
+        </div>
+
+        <div class="flex items-center gap-2 overflow-x-auto pb-1" id="tag-filters">
+          <button 
+            data-tag="all" 
+            class="tag-filter-btn badge py-1.5 px-3.5 cursor-pointer text-xs transition-all active-tag bg-(--color-teal) text-(--color-space) border-(--color-teal) font-semibold"
+          >
+            All Posts ({posts.length})
+          </button>
+          {allTags.map(tag => (
+            <button 
+              data-tag={tag.toLowerCase()} 
+              class="tag-filter-btn badge-ghost badge py-1.5 px-3 cursor-pointer text-xs hover:border-(--color-teal) hover:text-(--color-teal) transition-all font-mono"
+            >
+              #{tag}
+            </button>
+          ))}
+        </div>
+      </div>
       
       {/* Featured Post */}
       {featured && (
-        <a href={`/blog/${featured.id}`} class="glass p-6 md:p-8 block group mb-10 fade-in relative overflow-hidden">
+        <a 
+          href={`/blog/${featured.id}`} 
+          class="blog-post-card glass p-6 md:p-8 block group mb-10 fade-in relative overflow-hidden"
+          data-title={featured.data.title.toLowerCase()}
+          data-description={featured.data.description.toLowerCase()}
+          data-tags={JSON.stringify((featured.data.tags || []).map((t: string) => t.toLowerCase()))}
+        >
           <div class="orb orb-teal" style="top: -150px; right: -150px; width: 200px; height: 200px; opacity: 0.06;"></div>
           <div class="relative z-10">
-            <span class="badge-amber badge text-[0.6rem] mb-3">Featured</span>
+            <span class="badge-amber badge text-[0.6rem] mb-3">Featured Article</span>
             <h2 class="font-(--font-heading) font-700 text-xl md:text-2xl mb-3 group-hover:text-(--color-teal) transition-colors">
               {featured.data.title}
             </h2>
@@ -61,9 +102,15 @@ function formatDate(date: Date) {
       
       {/* Other Posts */}
       {rest.length > 0 ? (
-        <div class="space-y-4 stagger">
+        <div class="space-y-4 stagger" id="blog-posts-list">
           {rest.map(post => (
-            <a href={`/blog/${post.id}`} class="glass p-5 flex flex-col md:flex-row md:items-center gap-3 group fade-in">
+            <a 
+              href={`/blog/${post.id}`} 
+              class="blog-post-card glass p-5 flex flex-col md:flex-row md:items-center gap-3 group fade-in"
+              data-title={post.data.title.toLowerCase()}
+              data-description={post.data.description.toLowerCase()}
+              data-tags={JSON.stringify((post.data.tags || []).map((t: string) => t.toLowerCase()))}
+            >
               <div class="flex-1">
                 <h3 class="font-(--font-heading) font-600 text-base group-hover:text-(--color-teal) transition-colors mb-1">
                   {post.data.title}
@@ -71,9 +118,15 @@ function formatDate(date: Date) {
                 <p class="text-(--color-text-secondary) text-sm leading-relaxed line-clamp-2">
                   {post.data.description}
                 </p>
+                <div class="flex gap-1.5 mt-2 md:hidden">
+                  {post.data.tags.map(t => <span class="badge text-[0.55rem]">{t}</span>)}
+                </div>
               </div>
               <div class="flex items-center gap-3 flex-shrink-0">
                 <span class="font-(--font-mono) text-xs text-(--color-text-muted)">{formatDate(post.data.date)}</span>
+                <div class="hidden md:flex gap-1.5">
+                  {post.data.tags.map(t => <span class="badge text-[0.55rem]">{t}</span>)}
+                </div>
                 <svg class="w-4 h-4 text-(--color-text-muted) group-hover:text-(--color-teal) transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                 </svg>
@@ -88,6 +141,13 @@ function formatDate(date: Date) {
           <p class="text-(--color-text-muted) text-sm">First post dropping soon. Follow on LinkedIn for updates.</p>
         </div>
       )}
+
+      <!-- No search results fallback state -->
+      <div id="no-results-state" class="hidden text-center py-16 glass p-8 my-6 rounded-2xl">
+        <p class="text-3xl mb-3">🔍</p>
+        <p class="text-(--color-text-primary) font-(--font-heading) font-600 text-lg mb-1">No matching articles found</p>
+        <p class="text-(--color-text-muted) text-xs font-(--font-mono)">Try searching for another topic like "RAG", "Agent", or "Google ADK"</p>
+      </div>
       
       <!-- Cross-post notice -->
       <div class="fade-in mt-10 glass-static p-5 text-center rounded-xl">
@@ -101,3 +161,69 @@ function formatDate(date: Date) {
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  function initBlogFilter() {
+    const searchInput = document.getElementById('blog-search-input') as HTMLInputElement | null;
+    const tagButtons = document.querySelectorAll('.tag-filter-btn');
+    const cards = document.querySelectorAll('.blog-post-card') as NodeListOf<HTMLElement>;
+    const noResults = document.getElementById('no-results-state');
+
+    let activeTag = 'all';
+
+    function filterPosts() {
+      const searchTerm = (searchInput?.value || '').toLowerCase().trim();
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const title = card.getAttribute('data-title') || '';
+        const description = card.getAttribute('data-description') || '';
+        const tagsJson = card.getAttribute('data-tags') || '[]';
+        
+        let tags: string[] = [];
+        try { tags = JSON.parse(tagsJson); } catch (e) {}
+
+        const matchesSearch = !searchTerm || title.includes(searchTerm) || description.includes(searchTerm) || tags.some(t => t.includes(searchTerm));
+        const matchesTag = activeTag === 'all' || tags.includes(activeTag);
+
+        if (matchesSearch && matchesTag) {
+          card.style.display = '';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      if (noResults) {
+        noResults.classList.toggle('hidden', visibleCount > 0);
+      }
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener('input', filterPosts);
+    }
+
+    tagButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tag = btn.getAttribute('data-tag') || 'all';
+        activeTag = tag;
+
+        tagButtons.forEach(b => {
+          b.classList.remove('bg-(--color-teal)', 'text-(--color-space)', 'border-(--color-teal)', 'font-semibold');
+          b.classList.add('badge-ghost');
+        });
+
+        btn.classList.remove('badge-ghost');
+        btn.classList.add('bg-(--color-teal)', 'text-(--color-space)', 'border-(--color-teal)', 'font-semibold');
+
+        filterPosts();
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initBlogFilter);
+  } else {
+    initBlogFilter();
+  }
+</script>
