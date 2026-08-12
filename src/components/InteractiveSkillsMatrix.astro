@@ -1,0 +1,501 @@
+---
+// src/components/InteractiveSkillsMatrix.astro
+interface SkillCategory {
+  id: string;
+  domain: 'ai-ml' | 'enterprise' | 'cloud';
+  domainLabel: string;
+  title: string;
+  proficiency: number;
+  experience: string;
+  theme: 'teal' | 'amber';
+  skills: string[];
+  description: string;
+  impact: string;
+}
+
+const categories: SkillCategory[] = [
+  {
+    id: 'agentic-ai',
+    domain: 'ai-ml',
+    domainLabel: 'AI & ML Engineering',
+    title: 'Agentic AI & Multi-Agent Systems',
+    proficiency: 95,
+    experience: 'Samsung SDS • 2+ yrs',
+    theme: 'teal',
+    skills: ['Google ADK', 'LangGraph', 'LangChain', 'CrewAI', 'MCP Protocol', 'A2A Protocol', 'Tool-Use Patterns', 'Autonomous QA Agents'],
+    description: 'Specialized in autonomous multi-agent orchestration, self-correcting loops, structured tool-calling, and enterprise task delegation.',
+    impact: 'Architected Google ADK agentic suite at Samsung SDS, achieving 60% reduction in manual effort.'
+  },
+  {
+    id: 'rag-vector',
+    domain: 'ai-ml',
+    domainLabel: 'AI & ML Engineering',
+    title: 'Graph RAG & Vector Search',
+    proficiency: 92,
+    experience: 'Samsung SDS',
+    theme: 'teal',
+    skills: ['Graph RAG', 'Agentic RAG', 'Pinecone', 'FAISS', 'Chroma', 'Hybrid Search', 'RAGAS Evaluation', 'Knowledge Graphs'],
+    description: 'High-precision retrieval pipelines merging graph structured relationships with dense vector search for complex document processing.',
+    impact: 'Built annual report processing engine serving 500+ daily queries at 92% retrieval accuracy.'
+  },
+  {
+    id: 'llm-infra',
+    domain: 'ai-ml',
+    domainLabel: 'AI & ML Engineering',
+    title: 'LLM Infra, Fine-Tuning & Guardrails',
+    proficiency: 90,
+    experience: 'Production • 3+ yrs',
+    theme: 'teal',
+    skills: ['GPT-4o', 'Llama 2/3', 'Mistral', 'Gemini', 'PEFT / LoRA / QLoRA', 'Prompt Engineering', 'LangSmith', 'Guardrails AI'],
+    description: 'Custom fine-tuning of open-weights models, prompt optimization, telemetry tracing, and cost-aware LLM routing architectures.',
+    impact: 'Optimized inference latency and token overhead across high-throughput production LLM features.'
+  },
+  {
+    id: 'nlp-core',
+    domain: 'ai-ml',
+    domainLabel: 'AI & ML Engineering',
+    title: 'NLP & Core Machine Learning',
+    proficiency: 94,
+    experience: 'HCLTech • 4+ yrs',
+    theme: 'teal',
+    skills: ['PyTorch', 'Hugging Face', 'SpaCy', 'Scikit-Learn', 'Sentiment Analysis', 'Resume Parsing', 'PeFT', 'Text Classification'],
+    description: 'Classic & deep learning NLP models for entity extraction, semantic candidate matching, and automated document analysis.',
+    impact: 'Deployed ML models for 10+ core features supporting high-scale candidate parser platforms.'
+  },
+  {
+    id: 'backend-api',
+    domain: 'enterprise',
+    domainLabel: 'Enterprise Software',
+    title: 'High-Scale Backend & API Systems',
+    proficiency: 92,
+    experience: 'HCLTech + SDS',
+    theme: 'amber',
+    skills: ['Python', 'FastAPI', 'Django', 'Flask', 'REST APIs', 'Pydantic', 'Microservices', 'AsyncIO'],
+    description: 'Production backend systems with strong type validation, asynchronous event processing, and robust endpoint design.',
+    impact: 'Engineered microservices processing high-frequency data ingestion and real-time inference payloads.'
+  },
+  {
+    id: 'database-sql',
+    domain: 'enterprise',
+    domainLabel: 'Enterprise Software',
+    title: 'Databases & Data Engineering',
+    proficiency: 88,
+    experience: '4+ yrs',
+    theme: 'amber',
+    skills: ['PostgreSQL', 'SQL Server', 'MySQL', 'SQL Optimization', 'Schema Architecture', 'Data Pipelines', 'ORMs'],
+    description: 'Relational data modeling, query optimization, indexing strategies, and transactional data consistency.',
+    impact: 'Maintained zero-data-loss database operations across enterprise recruitment & analytics pipelines.'
+  },
+  {
+    id: 'reliability-sre',
+    domain: 'enterprise',
+    domainLabel: 'Enterprise Software',
+    title: 'Production Incident & Reliability',
+    proficiency: 95,
+    experience: '500+ Incidents Resolved',
+    theme: 'amber',
+    skills: ['98% Service SLA', 'Bug Triage', 'Root Cause Analysis', 'Telemetry & Logging', 'System Profiling', 'Performance Tuning'],
+    description: 'Hands-on production operational excellence: debugging complex runtime edge cases and maintaining SLA benchmarks.',
+    impact: 'Successfully resolved 500+ production incidents at HCLTech while preserving 98%+ service reliability.'
+  },
+  {
+    id: 'cloud-aws-azure',
+    domain: 'cloud',
+    domainLabel: 'Cloud & Infra',
+    title: 'Cloud AI Ecosystems (AWS & Azure)',
+    proficiency: 88,
+    experience: 'Bedrock / SageMaker',
+    theme: 'teal',
+    skills: ['AWS Bedrock', 'AWS Lambda', 'AWS SageMaker', 'AWS Transcribe', 'Azure ML', 'Azure Cognitive Services'],
+    description: 'Deploying cloud-native AI solutions, serverless endpoints, managed model deployments, and IAM policies.',
+    impact: 'Architected scalable cloud inference workloads leveraging AWS Bedrock and Lambda functions.'
+  },
+  {
+    id: 'devops-containers',
+    domain: 'cloud',
+    domainLabel: 'Cloud & Infra',
+    title: 'DevOps, Containers & CI/CD',
+    proficiency: 90,
+    experience: 'Docker / K8s / Actions',
+    theme: 'teal',
+    skills: ['Docker', 'Kubernetes', 'GitHub Actions', 'CI/CD Pipelines', 'Git Workflows', 'Container Security'],
+    description: 'Containerizing Python & Node applications, creating automated test/build pipelines, and managing release cycles.',
+    impact: 'Automated CI/CD release flows with pre-merge test suites, decreasing deployment lead time.'
+  },
+  {
+    id: 'testing-qa',
+    domain: 'cloud',
+    domainLabel: 'Cloud & Infra',
+    title: 'Testing Automation & Enterprise Tools',
+    proficiency: 89,
+    experience: '4+ yrs',
+    theme: 'amber',
+    skills: ['PyTest', 'Selenium', 'Postman API Testing', 'VS Code', 'Jupyter', 'o9 Solutions', 'Jira / Confluence'],
+    description: 'Comprehensive test suite authoring, automated web testing, API benchmarking, and enterprise workflow tooling.',
+    impact: 'Ensured enterprise software quality across production releases through continuous automated verification.'
+  }
+];
+
+const domainFilters = [
+  { id: 'all', label: 'All Domains', count: categories.length },
+  { id: 'ai-ml', label: 'AI & ML Engineering', count: categories.filter(c => c.domain === 'ai-ml').length },
+  { id: 'enterprise', label: 'Enterprise Software', count: categories.filter(c => c.domain === 'enterprise').length },
+  { id: 'cloud', label: 'Cloud & Infra', count: categories.filter(c => c.domain === 'cloud').length }
+];
+---
+
+<div class="skills-matrix-wrapper">
+  <!-- Controls: Filter Tabs + Search Bar -->
+  <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 mb-8">
+    <!-- Domain Filter Tabs -->
+    <div class="flex flex-wrap items-center gap-2 p-1.5 glass rounded-xl" role="tablist" aria-label="Skills domain filter">
+      {domainFilters.map(tab => (
+        <button
+          type="button"
+          data-domain-filter={tab.id}
+          class={`px-3.5 py-1.5 text-xs font-medium rounded-lg transition-all duration-200 cursor-pointer ${
+            tab.id === 'all'
+              ? 'bg-(--color-teal) text-(--color-space) font-semibold shadow-sm'
+              : 'text-(--color-text-secondary) hover:text-(--color-text-primary) hover:bg-(--color-surface-hover)'
+          }`}
+          role="tab"
+          aria-selected={tab.id === 'all' ? "true" : "false"}
+        >
+          {tab.label}
+          <span class="ml-1.5 text-[10px] opacity-75 px-1.5 py-0.5 rounded-full bg-black/20">
+            {tab.count}
+          </span>
+        </button>
+      ))}
+    </div>
+
+    <!-- Search Input -->
+    <div class="relative min-w-[240px]">
+      <input
+        type="text"
+        id="skills-search-input"
+        placeholder="Filter skill (e.g. LangChain, AWS)..."
+        class="w-full px-4 py-2 text-xs rounded-xl glass bg-(--color-surface) text-(--color-text-primary) placeholder-(--color-text-muted) border border-(--color-border) focus:outline-none focus:border-(--color-teal) transition-all"
+        aria-label="Filter skills by keyword"
+      />
+      <span class="absolute right-3 top-2.5 text-xs text-(--color-text-muted) pointer-events-none">🔍</span>
+    </div>
+  </div>
+
+  <!-- Cards Grid -->
+  <div id="skills-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    {categories.map(cat => (
+      <div
+        class="skill-card glass p-5 rounded-2xl relative overflow-hidden group cursor-pointer transition-all duration-300"
+        data-domain={cat.domain}
+        data-search-targets={`${cat.title} ${cat.skills.join(' ')} ${cat.description} ${cat.experience}`.toLowerCase()}
+        data-category-id={cat.id}
+      >
+        <!-- Background Accent Glow -->
+        <div class={`absolute top-0 right-0 w-32 h-32 rounded-full blur-3xl opacity-10 pointer-events-none ${cat.theme === 'teal' ? 'bg-(--color-teal)' : 'bg-(--color-amber)'}`}></div>
+
+        <!-- Header -->
+        <div class="flex items-start justify-between gap-3 mb-3">
+          <div>
+            <span class={`inline-block text-[10px] font-mono font-semibold uppercase tracking-wider px-2 py-0.5 rounded-md mb-1.5 ${
+              cat.theme === 'teal'
+                ? 'bg-(--color-teal-glow) text-(--color-teal) border border-(--color-teal)/20'
+                : 'bg-(--color-amber-glow) text-(--color-amber) border border-(--color-amber)/20'
+            }`}>
+              {cat.domainLabel}
+            </span>
+            <h3 class="font-(--font-heading) font-700 text-lg text-(--color-text-primary) group-hover:text-white transition-colors">
+              {cat.title}
+            </h3>
+          </div>
+          <span class="text-[11px] font-mono text-(--color-text-muted) bg-white/5 px-2.5 py-1 rounded-lg border border-white/5 flex-shrink-0">
+            {cat.experience}
+          </span>
+        </div>
+
+        <!-- Proficiency Meter -->
+        <div class="mb-4">
+          <div class="flex justify-between items-center text-xs mb-1.5">
+            <span class="text-(--color-text-muted) text-[11px]">Competency Index</span>
+            <span class={`font-mono font-bold ${cat.theme === 'teal' ? 'text-(--color-teal)' : 'text-(--color-amber)'}`}>
+              {cat.proficiency}%
+            </span>
+          </div>
+          <div class="w-full h-1.5 bg-white/5 rounded-full overflow-hidden p-0.5 border border-white/5">
+            <div
+              class={`h-full rounded-full transition-all duration-1000 ease-out ${
+                cat.theme === 'teal'
+                  ? 'bg-gradient-to-r from-(--color-teal-dim) to-(--color-teal)'
+                  : 'bg-gradient-to-r from-(--color-amber-dim) to-(--color-amber)'
+              }`}
+              style={`width: ${cat.proficiency}%;`}
+            ></div>
+          </div>
+        </div>
+
+        <!-- Skills Pills -->
+        <div class="flex flex-wrap gap-1.5 mb-3">
+          {cat.skills.map(skill => (
+            <span class="badge text-[11px] py-0.5 px-2 bg-white/5 border border-white/10 text-(--color-text-secondary) group-hover:border-white/20 transition-colors">
+              {skill}
+            </span>
+          ))}
+        </div>
+
+        <!-- Impact Snippet -->
+        <p class="text-xs text-(--color-text-muted) line-clamp-2 leading-relaxed pt-2 border-t border-white/5 flex items-center gap-1.5">
+          <span class={cat.theme === 'teal' ? 'text-(--color-teal)' : 'text-(--color-amber)'}>⚡</span>
+          <span>{cat.impact}</span>
+        </p>
+      </div>
+    ))}
+  </div>
+
+  <!-- Empty State for Search -->
+  <div id="skills-empty-state" class="hidden glass p-8 text-center rounded-2xl my-6">
+    <p class="text-(--color-text-secondary) text-sm font-medium mb-1">No matching skills found</p>
+    <p class="text-(--color-text-muted) text-xs">Try adjusting your search query or switching domain filter tabs.</p>
+  </div>
+
+  <!-- Interactive Detail Modal / Inspector -->
+  <div id="skill-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="glass max-w-lg w-full p-6 md:p-8 rounded-2xl relative border border-(--color-border) shadow-2xl transform scale-95 transition-transform duration-300" id="skill-modal-card">
+      <button id="modal-close-btn" class="absolute top-4 right-4 text-(--color-text-muted) hover:text-white p-2 rounded-lg hover:bg-white/10 transition-colors cursor-pointer" aria-label="Close modal">
+        ✕
+      </button>
+
+      <span id="modal-domain" class="inline-block text-[10px] font-mono font-semibold uppercase tracking-wider px-2.5 py-1 rounded-md mb-2 bg-(--color-teal-glow) text-(--color-teal) border border-(--color-teal)/20">
+        Domain
+      </span>
+      <h3 id="modal-title" class="font-(--font-heading) font-700 text-2xl text-(--color-text-primary) mb-2">
+        Title
+      </h3>
+      <p id="modal-experience" class="text-xs font-mono text-(--color-amber) mb-4">
+        Experience
+      </p>
+
+      <div class="space-y-4 text-sm text-(--color-text-secondary) leading-relaxed mb-6">
+        <div>
+          <h4 class="text-xs uppercase font-mono tracking-wider text-(--color-text-muted) mb-1">Overview & Architecture</h4>
+          <p id="modal-description">Description</p>
+        </div>
+        <div>
+          <h4 class="text-xs uppercase font-mono tracking-wider text-(--color-text-muted) mb-1">Production Impact</h4>
+          <p id="modal-impact" class="text-(--color-text-primary) font-medium">Impact</p>
+        </div>
+        <div>
+          <h4 class="text-xs uppercase font-mono tracking-wider text-(--color-text-muted) mb-2">Key Tech Stack & Tools</h4>
+          <div id="modal-skills" class="flex flex-wrap gap-1.5"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterBtns = document.querySelectorAll('[data-domain-filter]');
+    const searchInput = document.getElementById('skills-search-input') as HTMLInputElement | null;
+    const cards = document.querySelectorAll<HTMLElement>('.skill-card');
+    const emptyState = document.getElementById('skills-empty-state');
+
+    // Modal elements
+    const modal = document.getElementById('skill-modal');
+    const modalCard = document.getElementById('skill-modal-card');
+    const modalCloseBtn = document.getElementById('modal-close-btn');
+    const modalDomain = document.getElementById('modal-domain');
+    const modalTitle = document.getElementById('modal-title');
+    const modalExperience = document.getElementById('modal-experience');
+    const modalDescription = document.getElementById('modal-description');
+    const modalImpact = document.getElementById('modal-impact');
+    const modalSkills = document.getElementById('modal-skills');
+
+    let currentDomain = 'all';
+    let currentQuery = '';
+
+    function filterCards() {
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const domain = card.dataset.domain;
+        const searchTargets = card.dataset.searchTargets || '';
+
+        const matchesDomain = currentDomain === 'all' || domain === currentDomain;
+        const matchesQuery = !currentQuery || searchTargets.includes(currentQuery);
+
+        if (matchesDomain && matchesQuery) {
+          card.style.display = 'block';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      if (emptyState) {
+        emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+      }
+    }
+
+    // Tab Filter listeners
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => {
+          b.classList.remove('bg-(--color-teal)', 'text-(--color-space)', 'font-semibold');
+          b.classList.add('text-(--color-text-secondary)');
+          b.setAttribute('aria-selected', 'false');
+        });
+
+        btn.classList.add('bg-(--color-teal)', 'text-(--color-space)', 'font-semibold');
+        btn.classList.remove('text-(--color-text-secondary)');
+        btn.setAttribute('aria-selected', 'true');
+
+        currentDomain = (btn as HTMLElement).dataset.domainFilter || 'all';
+        filterCards();
+      });
+    });
+
+    // Search Listener
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        currentQuery = (e.target as HTMLInputElement).value.toLowerCase().trim();
+        filterCards();
+      });
+    }
+
+    // Modal Details Logic
+    const categoryData: Record<string, any> = {
+      'agentic-ai': {
+        domainLabel: 'AI & ML Engineering',
+        title: 'Agentic AI & Multi-Agent Systems',
+        experience: 'Samsung SDS • 2+ yrs',
+        description: 'Designed autonomous multi-agent orchestration, self-correcting loops, structured tool-calling, and enterprise task delegation.',
+        impact: 'Architected Google ADK agentic suite at Samsung SDS, achieving 60% reduction in manual effort.',
+        skills: ['Google ADK', 'LangGraph', 'LangChain', 'CrewAI', 'MCP Protocol', 'A2A Protocol', 'Tool-Use Patterns', 'Autonomous QA Agents']
+      },
+      'rag-vector': {
+        domainLabel: 'AI & ML Engineering',
+        title: 'Graph RAG & Vector Search',
+        experience: 'Samsung SDS',
+        description: 'High-precision retrieval pipelines merging graph structured relationships with dense vector search for complex document processing.',
+        impact: 'Built annual report processing engine serving 500+ daily queries at 92% retrieval accuracy.',
+        skills: ['Graph RAG', 'Agentic RAG', 'Pinecone', 'FAISS', 'Chroma', 'Hybrid Search', 'RAGAS Evaluation', 'Knowledge Graphs']
+      },
+      'llm-infra': {
+        domainLabel: 'AI & ML Engineering',
+        title: 'LLM Infra, Fine-Tuning & Guardrails',
+        experience: 'Production • 3+ yrs',
+        description: 'Custom fine-tuning of open-weights models, prompt optimization, telemetry tracing, and cost-aware LLM routing architectures.',
+        impact: 'Optimized inference latency and token overhead across high-throughput production LLM features.',
+        skills: ['GPT-4o', 'Llama 2/3', 'Mistral', 'Gemini', 'PEFT / LoRA / QLoRA', 'Prompt Engineering', 'LangSmith', 'Guardrails AI']
+      },
+      'nlp-core': {
+        domainLabel: 'AI & ML Engineering',
+        title: 'NLP & Core Machine Learning',
+        experience: 'HCLTech • 4+ yrs',
+        description: 'Classic & deep learning NLP models for entity extraction, semantic candidate matching, and automated document analysis.',
+        impact: 'Deployed ML models for 10+ core features supporting high-scale candidate parser platforms.',
+        skills: ['PyTorch', 'Hugging Face', 'SpaCy', 'Scikit-Learn', 'Sentiment Analysis', 'Resume Parsing', 'PeFT', 'Text Classification']
+      },
+      'backend-api': {
+        domainLabel: 'Enterprise Software',
+        title: 'High-Scale Backend & API Systems',
+        experience: 'HCLTech + SDS',
+        description: 'Production backend systems with strong type validation, asynchronous event processing, and robust endpoint design.',
+        impact: 'Engineered microservices processing high-frequency data ingestion and real-time inference payloads.',
+        skills: ['Python', 'FastAPI', 'Django', 'Flask', 'REST APIs', 'Pydantic', 'Microservices', 'AsyncIO']
+      },
+      'database-sql': {
+        domainLabel: 'Enterprise Software',
+        title: 'Databases & Data Engineering',
+        experience: '4+ yrs',
+        description: 'Relational data modeling, query optimization, indexing strategies, and transactional data consistency.',
+        impact: 'Maintained zero-data-loss database operations across enterprise recruitment & analytics pipelines.',
+        skills: ['PostgreSQL', 'SQL Server', 'MySQL', 'SQL Optimization', 'Schema Architecture', 'Data Pipelines', 'ORMs']
+      },
+      'reliability-sre': {
+        domainLabel: 'Enterprise Software',
+        title: 'Production Incident & Reliability',
+        experience: '500+ Incidents Resolved',
+        description: 'Hands-on production operational excellence: debugging complex runtime edge cases and maintaining SLA benchmarks.',
+        impact: 'Successfully resolved 500+ production incidents at HCLTech while preserving 98%+ service reliability.',
+        skills: ['98% Service SLA', 'Bug Triage', 'Root Cause Analysis', 'Telemetry & Logging', 'System Profiling', 'Performance Tuning']
+      },
+      'cloud-aws-azure': {
+        domainLabel: 'Cloud & Infra',
+        title: 'Cloud AI Ecosystems (AWS & Azure)',
+        experience: 'Bedrock / SageMaker',
+        description: 'Deploying cloud-native AI solutions, serverless endpoints, managed model deployments, and IAM policies.',
+        impact: 'Architected scalable cloud inference workloads leveraging AWS Bedrock and Lambda functions.',
+        skills: ['AWS Bedrock', 'AWS Lambda', 'AWS SageMaker', 'AWS Transcribe', 'Azure ML', 'Azure Cognitive Services']
+      },
+      'devops-containers': {
+        domainLabel: 'Cloud & Infra',
+        title: 'DevOps, Containers & CI/CD',
+        experience: 'Docker / K8s / Actions',
+        description: 'Containerizing Python & Node applications, creating automated test/build pipelines, and managing release cycles.',
+        impact: 'Automated CI/CD release flows with pre-merge test suites, decreasing deployment lead time.',
+        skills: ['Docker', 'Kubernetes', 'GitHub Actions', 'CI/CD Pipelines', 'Git Workflows', 'Container Security']
+      },
+      'testing-qa': {
+        domainLabel: 'Cloud & Infra',
+        title: 'Testing Automation & Enterprise Tools',
+        experience: '4+ yrs',
+        description: 'Comprehensive test suite authoring, automated web testing, API benchmarking, and enterprise workflow tooling.',
+        impact: 'Ensured enterprise software quality across production releases through continuous automated verification.',
+        skills: ['PyTest', 'Selenium', 'Postman API Testing', 'VS Code', 'Jupyter', 'o9 Solutions', 'Jira / Confluence']
+      }
+    };
+
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        const catId = card.dataset.categoryId;
+        const data = catId ? categoryData[catId] : null;
+
+        if (data && modal && modalTitle && modalDescription && modalImpact && modalSkills && modalDomain && modalExperience) {
+          modalDomain.textContent = data.domainLabel;
+          modalTitle.textContent = data.title;
+          modalExperience.textContent = data.experience;
+          modalDescription.textContent = data.description;
+          modalImpact.textContent = data.impact;
+
+          modalSkills.innerHTML = data.skills
+            .map((s: string) => `<span class="badge text-[11px] py-0.5 px-2 bg-white/10 text-white">${s}</span>`)
+            .join('');
+
+          modal.classList.remove('opacity-0', 'pointer-events-none');
+          modalCard?.classList.remove('scale-95');
+          modalCard?.classList.add('scale-100');
+        }
+      });
+    });
+
+    function closeModal() {
+      if (modal && modalCard) {
+        modal.classList.add('opacity-0', 'pointer-events-none');
+        modalCard.classList.remove('scale-100');
+        modalCard.classList.add('scale-95');
+      }
+    }
+
+    if (modalCloseBtn) {
+      modalCloseBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeModal();
+      });
+    }
+
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          closeModal();
+        }
+      });
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+  });
+</script>

@@ -1,37 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-
-const skills = {
-  'AI Agents & Orchestration': [
-    'Google ADK', 'LangChain', 'LangGraph', 'CrewAI', 'MCP Protocol',
-    'A2A Protocol', 'Multi-Agent Systems', 'Tool-Use Patterns',
-  ],
-  'RAG & Vector Search': [
-    'Graph RAG', 'Agentic RAG', 'FAISS', 'Chroma', 'Pinecone',
-    'Embeddings', 'Hybrid Search', 'RAGAS Evaluation',
-  ],
-  'LLMs & Fine-tuning': [
-    'GPT-4', 'Llama-2/3', 'Mistral', 'BERT', 'Gemini',
-    'PEFT/LoRA/QLoRA', 'Prompt Engineering', 'LangSmith',
-  ],
-  'NLP & ML': [
-    'SpaCy', 'Transformers', 'Hugging Face', 'Scikit-Learn',
-    'PyTorch', 'Text Analytics', 'Sentiment Analysis',
-  ],
-  'Backend & APIs': [
-    'Python', 'FastAPI', 'Django', 'Flask', 'REST APIs', 'Pydantic',
-    'SQL', 'PostgreSQL', 'MySQL', 'SQL Server',
-  ],
-  'Cloud & DevOps': [
-    'AWS (Bedrock, Lambda, SageMaker, Transcribe)',
-    'Azure (ML, Cognitive Services)',
-    'Docker', 'Kubernetes', 'CI/CD', 'Git', 'GitHub Actions',
-  ],
-  'Tools & Platforms': [
-    'VS Code', 'Jupyter', 'Postman', 'Selenium', 'PyTest',
-    'Power BI', 'Jira', 'Confluence', 'o9 Solutions',
-  ],
-};
+import InteractiveSkillsMatrix from '../components/InteractiveSkillsMatrix.astro';
 
 const highlights = [
   { icon: '🏆', text: '1st Runner-Up — PromptWars Noida (Hack2skill × Google for Developers, Jun 2026)' },
@@ -137,21 +106,10 @@ const highlights = [
         </div>
       </div>
       
-      <!-- Tech Stack -->
+      <!-- Tech Stack & Skills Matrix -->
       <div class="fade-in mb-16">
-        <h2 class="section-title mb-6">Tech Arsenal</h2>
-        <div class="space-y-6">
-          {Object.entries(skills).map(([category, items]) => (
-            <div>
-              <h3 class="font-(--font-heading) font-600 text-xs uppercase tracking-wider text-(--color-teal) mb-2">{category}</h3>
-              <div class="flex flex-wrap gap-1.5">
-                {items.map(skill => (
-                  <span class="badge text-[0.65rem]">{skill}</span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
+        <h2 class="section-title mb-6">Tech Arsenal & Skills Matrix</h2>
+        <InteractiveSkillsMatrix />
       </div>
       
       <!-- Journey Timeline -->
