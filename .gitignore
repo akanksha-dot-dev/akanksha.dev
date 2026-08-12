@@ -30,3 +30,9 @@ Desktop.ini
 
 # Wrangler
 .wrangler/
+
+# Kramak (autonomous dev)
+.kramak/
+
+# kramak pipeline
+.agents/pipeline
