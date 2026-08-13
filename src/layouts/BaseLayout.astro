@@ -23,6 +23,8 @@ const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About' },
   { href: '/projects', label: 'Projects' },
+  { href: '/orchestrator', label: 'Orchestrator' },
+  { href: '/graph', label: 'Graph' },
   { href: '/sandbox', label: 'Sandbox' },
   { href: '/evals', label: 'Evals' },
   { href: '/experience', label: 'Experience' },
@@ -174,6 +176,9 @@ const breadcrumbs = [
           <span class="hidden lg:inline text-slate-400">Search</span>
           <kbd class="px-1.5 py-0.5 text-[10px] font-mono bg-white/10 rounded text-slate-400">⌘K</kbd>
         </button>
+        <button id="theme-toggle-btn" class="px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 text-xs border border-white/10 transition-colors cursor-pointer" title="Cycle Accent Theme (Cyber / Emerald / Amber)">
+          🎨
+        </button>
       </div>
       
       <!-- Mobile Menu Button -->
@@ -272,6 +277,25 @@ const breadcrumbs = [
       const mobileMenu = document.getElementById('mobile-menu');
       menuBtn?.addEventListener('click', () => {
         mobileMenu?.classList.toggle('hidden');
+      });
+
+      // Theme Switcher Logic
+      const themeBtn = document.getElementById('theme-toggle-btn');
+      const themes = ['cyber', 'emerald', 'amber'];
+      let currentTheme = localStorage.getItem('app-theme') || 'cyber';
+      if (currentTheme !== 'cyber') {
+        document.documentElement.setAttribute('data-theme', currentTheme);
+      }
+
+      themeBtn?.addEventListener('click', () => {
+        const idx = themes.indexOf(currentTheme);
+        currentTheme = themes[(idx + 1) % themes.length];
+        if (currentTheme === 'cyber') {
+          document.documentElement.removeAttribute('data-theme');
+        } else {
+          document.documentElement.setAttribute('data-theme', currentTheme);
+        }
+        localStorage.setItem('app-theme', currentTheme);
       });
 
       // Scroll fade-in

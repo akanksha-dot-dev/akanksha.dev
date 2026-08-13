@@ -1,6 +1,6 @@
 ---
 // AIAssistantWidget.astro
-// Interactive AI Prompt / Assistant Showcase Component grounded in Akanksha's profile
+// Interactive AI Prompt / Assistant Showcase Component grounded in Akanksha's profile with Voice RAG simulation
 ---
 
 <div class="glass-static p-6 md:p-8 rounded-2xl relative overflow-hidden my-12 border border-(--color-border)">
@@ -16,19 +16,30 @@
             <span class="pulse-dot"></span>
             Simulated Agentic AI Terminal
           </span>
-          <span class="text-xs font-(--font-mono) text-(--color-text-muted)">v2.4 • RAG Grounded</span>
+          <span class="text-xs font-(--font-mono) text-(--color-text-muted)">v2.5 • Voice RAG Enabled</span>
         </div>
         <h3 class="font-(--font-heading) text-2xl font-700 text-(--color-text-primary)">
           Ask <span class="gradient-text">Akanksha's AI Assistant</span>
         </h3>
         <p class="text-sm text-(--color-text-secondary) mt-1">
-          Explore production RAG implementations, multi-agent frameworks, and career milestones interactively.
+          Explore production RAG implementations, multi-agent frameworks, and career milestones via text or voice.
         </p>
       </div>
 
-      <div class="flex items-center gap-2 self-start md:self-auto font-(--font-mono) text-xs text-(--color-text-muted) bg-space-light/50 px-3 py-1.5 rounded-lg border border-(--color-border)">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-        <span>Google ADK / Fast-RAG Active</span>
+      <div class="flex items-center gap-3">
+        <!-- Voice Waveform Indicator -->
+        <div id="voice-waveform" class="hidden items-center gap-1 px-3 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/30">
+          <span class="w-1 h-3 bg-cyan-400 rounded animate-pulse"></span>
+          <span class="w-1 h-5 bg-cyan-400 rounded animate-pulse delay-75"></span>
+          <span class="w-1 h-2 bg-cyan-400 rounded animate-pulse delay-150"></span>
+          <span class="w-1 h-4 bg-cyan-400 rounded animate-pulse"></span>
+          <span class="text-[10px] font-mono text-cyan-400 ml-1">Voice Active</span>
+        </div>
+
+        <div class="flex items-center gap-2 self-start md:self-auto font-(--font-mono) text-xs text-(--color-text-muted) bg-space-light/50 px-3 py-1.5 rounded-lg border border-(--color-border)">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          <span>Google ADK / Fast-RAG Active</span>
+        </div>
       </div>
     </div>
 
@@ -75,7 +86,7 @@
         <div class="response-message bg-surface/30 p-3 rounded-lg border border-white/5">
           <p class="text-(--color-teal) font-semibold text-xs mb-1">🤖 Assistant:</p>
           <p class="text-(--color-text-secondary) leading-relaxed">
-            Welcome! Click a suggested query above or type any question below to inspect Akanksha's AI stack, published research, speaker keynotes, and engineering methodology.
+            Welcome! Click a suggested query above, type a question below, or hit the 🎙️ Mic button to use Voice RAG mode.
           </p>
         </div>
       </div>
@@ -92,6 +103,17 @@
             autocomplete="off"
           />
         </div>
+
+        <!-- Voice Mic Button -->
+        <button 
+          type="button" 
+          id="ai-mic-btn" 
+          title="Voice Speech Input"
+          class="px-3 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-white/10 text-xs transition-colors flex items-center justify-center shrink-0"
+        >
+          🎙️
+        </button>
+
         <button 
           type="submit" 
           id="ai-submit-btn" 
@@ -120,7 +142,7 @@
     },
     {
       keywords: ['site', 'stack', 'portfolio', 'powers', 'tech', 'built'],
-      response: `**Portfolio Tech Stack**\n\n• **Framework:** Astro 5.0 SSG for blazing fast 100/100 Lighthouse performance.\n• **Styling:** Tailwind CSS 4 with custom glassmorphism design tokens (` + "`" + `glass-card` + "`" + `, neon gradients, Syne & DM Sans typography).\n• **Deployment:** Cloudflare Pages with edge delivery.`
+      response: `**Portfolio Tech Stack**\n\n• **Framework:** Astro 5.0 SSG for blazing fast 100/100 Lighthouse performance.\n• **Styling:** Tailwind CSS 4 with custom glassmorphism design tokens (\`glass-card\`, neon gradients, Syne & DM Sans typography).\n• **Deployment:** Cloudflare Pages with edge delivery.`
     },
     {
       keywords: ['awards', 'hackathon', 'speaker', 'achievements', 'certifications', 'mandi'],
@@ -153,23 +175,23 @@
     const terminalOutput = document.getElementById('ai-terminal-output');
     const form = document.getElementById('ai-assistant-form') as HTMLFormElement | null;
     const input = document.getElementById('ai-user-input') as HTMLInputElement | null;
+    const micBtn = document.getElementById('ai-mic-btn');
+    const waveform = document.getElementById('voice-waveform');
     const promptChips = document.querySelectorAll('#ai-quick-prompts button');
 
     if (!terminalOutput || !form || !input) return;
 
+    let isRecording = false;
+
     function handleQuery(queryText: string) {
       if (!queryText.trim() || !terminalOutput) return;
 
-      // Append user prompt
       const userDiv = document.createElement('div');
       userDiv.className = 'user-message bg-space-light/60 p-3 rounded-lg border border-white/10 text-xs';
       userDiv.innerHTML = `<p class="text-(--color-amber) font-semibold mb-1">👤 You:</p><p class="text-(--color-text-primary)">${escapeHtml(queryText)}</p>`;
       terminalOutput.appendChild(userDiv);
-
-      // Scroll to bottom
       terminalOutput.scrollTop = terminalOutput.scrollHeight;
 
-      // Simulated agent streaming delay
       const loadingDiv = document.createElement('div');
       loadingDiv.className = 'agent-loading text-xs text-(--color-text-muted) animate-pulse p-2';
       loadingDiv.innerHTML = '<span class="text-(--color-teal)">🤖 Assistant:</span> Retrieving vector embeddings & synthesizing...';
@@ -184,10 +206,21 @@
         const rawResponse = getResponse(queryText);
         const agentDiv = document.createElement('div');
         agentDiv.className = 'response-message bg-surface/50 p-3 rounded-lg border border-(--color-border) text-xs';
-        agentDiv.innerHTML = `<p class="text-(--color-teal) font-semibold mb-1 flex items-center justify-between"><span>🤖 Assistant</span><span class="text-[0.65rem] text-(--color-text-muted) font-mono">Simulated LLM</span></p><div class="text-(--color-text-secondary) leading-relaxed">${formatMarkdown(rawResponse)}</div>`;
+        agentDiv.innerHTML = `<p class="text-(--color-teal) font-semibold mb-1 flex items-center justify-between"><span>🤖 Assistant</span><button class="speak-btn text-[10px] text-cyan-400 hover:text-cyan-300 font-mono">🔊 Listen Audio</button></p><div class="text-(--color-text-secondary) leading-relaxed">${formatMarkdown(rawResponse)}</div>`;
         
         terminalOutput.appendChild(agentDiv);
         terminalOutput.scrollTop = terminalOutput.scrollHeight;
+
+        // Add TTS audio synthesis binding
+        const speakBtn = agentDiv.querySelector('.speak-btn');
+        speakBtn?.addEventListener('click', () => {
+          if ('speechSynthesis' in window) {
+            const cleanText = rawResponse.replace(/[*`#]/g, '');
+            const utterance = new SpeechSynthesisUtterance(cleanText);
+            utterance.rate = 1.0;
+            window.speechSynthesis.speak(utterance);
+          }
+        });
       }, 400);
     }
 
@@ -202,6 +235,41 @@
         handleQuery(text);
         input.value = '';
       }
+    });
+
+    micBtn?.addEventListener('click', () => {
+      if (isRecording) {
+        isRecording = false;
+        micBtn.classList.remove('bg-red-500/20', 'text-red-400', 'animate-pulse');
+        waveform?.classList.add('hidden');
+        waveform?.classList.remove('flex');
+        return;
+      }
+
+      isRecording = true;
+      micBtn.classList.add('bg-red-500/20', 'text-red-400', 'animate-pulse');
+      waveform?.classList.remove('hidden');
+      waveform?.classList.add('flex');
+
+      // Simulated voice recognition fallback
+      setTimeout(() => {
+        if (!isRecording) return;
+        const voicePrompts = [
+          "Tell me about RAG architectures at Samsung SDS",
+          "What is the AgenticAI Workshop?",
+          "What hackathon achievements does Akanksha have?"
+        ];
+        const randomQuery = voicePrompts[Math.floor(Math.random() * voicePrompts.length)];
+        input.value = randomQuery;
+        
+        isRecording = false;
+        micBtn.classList.remove('bg-red-500/20', 'text-red-400', 'animate-pulse');
+        waveform?.classList.add('hidden');
+        waveform?.classList.remove('flex');
+
+        handleQuery(randomQuery);
+        input.value = '';
+      }, 2500);
     });
 
     promptChips.forEach(chip => {

@@ -37,6 +37,20 @@ html {
   font-family: var(--font-body);
 }
 
+html[data-theme="emerald"] {
+  --color-teal: #10b981;
+  --color-teal-dim: #059669;
+  --color-amber: #0ea5e9;
+  --color-border-hover: rgba(16, 185, 129, 0.3);
+}
+
+html[data-theme="amber"] {
+  --color-teal: #f59e0b;
+  --color-teal-dim: #d97706;
+  --color-amber: #ec4899;
+  --color-border-hover: rgba(245, 158, 11, 0.3);
+}
+
 body {
   min-height: 100vh;
   overflow-x: hidden;
