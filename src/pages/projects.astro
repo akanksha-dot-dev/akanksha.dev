@@ -269,6 +269,20 @@ const projectSchemas = projects.map(p => ({
         <p class="text-(--color-text-muted) text-sm mt-2 font-(--font-mono)">
           {projects.length} projects · {projects.filter(p => p.status === 'active').length} actively maintained · Click any card for architecture deep-dive
         </p>
+
+        <!-- System Design Sandbox Banner CTA -->
+        <div class="mt-6 p-4 rounded-2xl bg-cyan-950/40 border border-cyan-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <div class="p-2 rounded-xl bg-cyan-500/20 text-cyan-400 font-mono text-lg shrink-0">🧮</div>
+            <div>
+              <div class="text-sm font-bold text-white">Interactive RAG System Design Sandbox</div>
+              <div class="text-xs text-slate-300">Simulate vector token budgets, index memory footprint, and latency waterfalls</div>
+            </div>
+          </div>
+          <a href="/sandbox" class="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold text-xs transition-colors shrink-0 text-center font-mono">
+            Launch Sandbox →
+          </a>
+        </div>
       </div>
       
       <!-- Category Filters -->
