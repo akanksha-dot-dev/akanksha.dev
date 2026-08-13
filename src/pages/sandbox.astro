@@ -1,0 +1,86 @@
+---
+// sandbox.astro - Interactive RAG System Design Sandbox Page
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SystemDesignSandbox from '../components/SystemDesignSandbox.astro';
+import StructuredData from '../components/StructuredData.astro';
+
+const pageTitle = "RAG System Design Sandbox | Vector Token Budget & Latency Simulator — Akanksha";
+const pageDescription = "Interactive System Design Sandbox for Agentic RAG architectures. Calculate vector embedding token budgets, index RAM requirements, cross-encoder re-ranking overhead, P95 latency waterfalls, and LLM inference cost estimates.";
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <StructuredData 
+    type="SoftwareApplication font-mono"
+    data={{
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "RAG System Design & Latency Sandbox",
+      "url": "https://akanksha.dev/sandbox",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "All",
+      "author": {
+        "@type": "Person",
+        "name": "Akanksha"
+      },
+      "description": pageDescription
+    }}
+  />
+
+  <main class="py-12 md:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+    
+    <!-- Hero / Breadcrumb Header -->
+    <div class="space-y-4 text-center max-w-3xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-xs font-mono text-cyan-400">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+        Enterprise AI System Engineering
+      </div>
+      
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight font-(--font-heading)">
+        System Design <span class="bg-gradient-to-r from-cyan-400 via-teal-300 to-indigo-400 bg-clip-text text-transparent">Sandbox</span>
+      </h1>
+      
+      <p class="text-base sm:text-lg text-slate-400 leading-relaxed font-(--font-body)">
+        Tune parameters for enterprise retrieval-augmented generation: calculate document chunking strategies, vector memory footprint, latency waterfalls, and token expenditure.
+      </p>
+    </div>
+
+    <!-- Embedded Interactive Sandbox Component -->
+    <SystemDesignSandbox />
+
+    <!-- Technical Guide / FAQ Section below Sandbox -->
+    <div class="pt-12 border-t border-slate-800/80 grid grid-cols-1 md:grid-cols-3 gap-8">
+      
+      <div class="p-6 rounded-2xl bg-slate-900/40 border border-slate-800/60 space-y-3">
+        <div class="w-8 h-8 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center font-mono font-bold text-sm">
+          01
+        </div>
+        <h3 class="text-lg font-bold text-white font-(--font-heading)">Chunking & Overlap</h3>
+        <p class="text-xs text-slate-400 leading-relaxed font-(--font-body)">
+          Smaller chunk sizes (256–512 tokens) increase context precision for targeted Q&A, while larger chunks (1024+ tokens) preserve continuous document context at higher LLM prompt cost.
+        </p>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-slate-900/40 border border-slate-800/60 space-y-3">
+        <div class="w-8 h-8 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center font-mono font-bold text-sm">
+          02
+        </div>
+        <h3 class="text-lg font-bold text-white font-(--font-heading)">HNSW vs IVFFlat Indexing</h3>
+        <p class="text-xs text-slate-400 leading-relaxed font-(--font-body)">
+          HNSW graph indices deliver high recall and sub-10ms ANN query latency at the expense of ~25% RAM overhead. IVFFlat compresses index memory for multi-million vector stores.
+        </p>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-slate-900/40 border border-slate-800/60 space-y-3">
+        <div class="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-mono font-bold text-sm">
+          03
+        </div>
+        <h3 class="text-lg font-bold text-white font-(--font-heading)">Re-ranking Pipeline</h3>
+        <p class="text-xs text-slate-400 leading-relaxed font-(--font-body)">
+          Cross-encoder re-rankers (Cohere, BGE-Reranker) score semantic relevancy across retrieved top-N vectors before prompt construction, improving response precision by 25–40%.
+        </p>
+      </div>
+
+    </div>
+
+  </main>
+</BaseLayout>

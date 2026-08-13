@@ -1,0 +1,589 @@
+---
+// SystemDesignSandbox.astro - Interactive RAG Architecture & Token Budget Calculator
+---
+
+<div class="w-full max-w-7xl mx-auto space-y-8" id="rag-sandbox-root">
+
+  <!-- Header Banner / Intro -->
+  <div class="relative p-6 md:p-8 rounded-3xl bg-slate-900/80 border border-slate-800 backdrop-blur-xl overflow-hidden shadow-2xl">
+    <div class="absolute -right-20 -top-20 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -left-20 -bottom-20 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    
+    <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+      <div class="space-y-2 max-w-2xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-xs font-mono text-cyan-400">
+          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+          Interactive System Design Workbench
+        </div>
+        <h2 class="text-2xl md:text-3xl font-bold text-white tracking-tight font-(--font-heading)">
+          RAG Vector Token Budget & Latency Simulator
+        </h2>
+        <p class="text-sm md:text-base text-slate-400 leading-relaxed font-(--font-body)">
+          Simulate enterprise RAG pipeline specs: document chunking, embedding vector memory, re-ranking overhead, latency waterfalls, and cost estimations in real-time.
+        </p>
+      </div>
+
+      <!-- Quick Preset Selector -->
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="text-xs font-mono text-slate-400 w-full lg:w-auto mb-1 lg:mb-0">Presets:</span>
+        <button data-preset="finance" class="preset-btn px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-cyan-500/20 hover:border-cyan-500/40 border border-slate-700/60 text-xs font-medium text-slate-300 hover:text-cyan-300 transition-all flex items-center gap-1.5">
+          <span>🏦</span> Financial Compliance
+        </button>
+        <button data-preset="voice" class="preset-btn px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-emerald-500/20 hover:border-emerald-500/40 border border-slate-700/60 text-xs font-medium text-slate-300 hover:text-emerald-300 transition-all flex items-center gap-1.5">
+          <span>⚡</span> Real-Time Voice RAG
+        </button>
+        <button data-preset="enterprise" class="preset-btn px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-indigo-500/20 hover:border-indigo-500/40 border border-slate-700/60 text-xs font-medium text-slate-300 hover:text-indigo-300 transition-all flex items-center gap-1.5">
+          <span>📂</span> 500k Doc Knowledge Base
+        </button>
+        <button data-preset="codebase" class="preset-btn px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-purple-500/20 hover:border-purple-500/40 border border-slate-700/60 text-xs font-medium text-slate-300 hover:text-purple-300 transition-all flex items-center gap-1.5">
+          <span>💻</span> Codebase Graph RAG
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Grid Container: Controls on Left, Metrics & Visualizer on Right -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+    <!-- LEFT COLUMN: Parameter Controls (5 cols) -->
+    <div class="lg:col-span-5 space-y-6">
+      
+      <!-- Card: Ingestion & Chunking -->
+      <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800/80 backdrop-blur-md space-y-5">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+          <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-300 font-mono flex items-center gap-2">
+            <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            1. Document & Chunking Specs
+          </h3>
+          <span class="text-xs text-cyan-400 font-mono" id="doc-count-badge">50,000 docs</span>
+        </div>
+
+        <!-- Document Count Slider -->
+        <div class="space-y-2">
+          <div class="flex justify-between text-xs font-medium">
+            <label for="slider-docs" class="text-slate-300">Document Volume</label>
+            <span class="text-cyan-400 font-mono" id="val-docs">50,000 docs</span>
+          </div>
+          <input type="range" id="slider-docs" min="1000" max="500000" step="1000" value="50000" class="w-full accent-cyan-500 bg-slate-800 h-2 rounded-lg cursor-pointer">
+          <div class="flex justify-between text-[10px] text-slate-500 font-mono">
+            <span>1K</span>
+            <span>250K</span>
+            <span>500K</span>
+          </div>
+        </div>
+
+        <!-- Avg Words Per Document -->
+        <div class="space-y-2">
+          <div class="flex justify-between text-xs font-medium">
+            <label for="slider-doc-len" class="text-slate-300">Avg Tokens / Document</label>
+            <span class="text-cyan-400 font-mono" id="val-doc-len">1,200 tokens</span>
+          </div>
+          <input type="range" id="slider-doc-len" min="200" max="10000" step="100" value="1200" class="w-full accent-cyan-500 bg-slate-800 h-2 rounded-lg cursor-pointer">
+          <div class="flex justify-between text-[10px] text-slate-500 font-mono">
+            <span>200</span>
+            <span>5,000</span>
+            <span>10,000</span>
+          </div>
+        </div>
+
+        <!-- Chunk Size Slider -->
+        <div class="space-y-2">
+          <div class="flex justify-between text-xs font-medium">
+            <label for="slider-chunk-size" class="text-slate-300">Chunk Size (Tokens)</label>
+            <span class="text-indigo-400 font-mono" id="val-chunk-size">512 tokens</span>
+          </div>
+          <input type="range" id="slider-chunk-size" min="128" max="2048" step="64" value="512" class="w-full accent-indigo-500 bg-slate-800 h-2 rounded-lg cursor-pointer">
+        </div>
+
+        <!-- Chunk Overlap -->
+        <div class="space-y-2">
+          <div class="flex justify-between text-xs font-medium">
+            <label for="slider-overlap" class="text-slate-300">Chunk Overlap</label>
+            <span class="text-indigo-400 font-mono" id="val-overlap">15%</span>
+          </div>
+          <input type="range" id="slider-overlap" min="0" max="40" step="5" value="15" class="w-full accent-indigo-500 bg-slate-800 h-2 rounded-lg cursor-pointer">
+        </div>
+      </div>
+
+      <!-- Card: Embedding & Vector DB Config -->
+      <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800/80 backdrop-blur-md space-y-5">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+          <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-300 font-mono flex items-center gap-2">
+            <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+            2. Vector Index & Model Specs
+          </h3>
+        </div>
+
+        <!-- Embedding Model Select -->
+        <div class="space-y-2">
+          <label for="select-embedding" class="text-xs font-medium text-slate-300 block">Embedding Model</label>
+          <select id="select-embedding" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-200 focus:outline-none focus:border-cyan-500 font-mono">
+            <option value="text-embedding-3-small" data-dim="1536" data-cost="0.02">OpenAI text-embedding-3-small (1536 dim)</option>
+            <option value="text-embedding-3-large" data-dim="3072" data-cost="0.13">OpenAI text-embedding-3-large (3072 dim)</option>
+            <option value="cohere-embed-v3" data-dim="1024" data-cost="0.10">Cohere Embed v3 (1024 dim)</option>
+            <option value="bge-large-en" data-dim="1024" data-cost="0.00">BGE-Large-EN v1.5 Open Source (1024 dim)</option>
+          </select>
+        </div>
+
+        <!-- Vector Index Type -->
+        <div class="space-y-2">
+          <label for="select-index-type" class="text-xs font-medium text-slate-300 block">Vector Indexing Algorithm</label>
+          <select id="select-index-type" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-200 focus:outline-none focus:border-cyan-500 font-mono">
+            <option value="hnsw" data-overhead="1.25" data-lat="8">HNSW Graph Index (High Recall, 25% RAM overhead)</option>
+            <option value="ivfflat" data-overhead="1.05" data-lat="18">IVFFlat Inverted File (Medium RAM, slightly slower)</option>
+            <option value="flat" data-overhead="1.00" data-lat="45">Flat Exhaustive (100% Precision, High Latency)</option>
+          </select>
+        </div>
+
+        <!-- Re-ranking Switch & Model -->
+        <div class="flex items-center justify-between p-3 rounded-xl bg-slate-950 border border-slate-800/80">
+          <div>
+            <div class="text-xs font-medium text-slate-200">Cross-Encoder Re-ranking</div>
+            <div class="text-[11px] text-slate-400">Cohere / BGE Reranker (+45ms latency)</div>
+          </div>
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" id="toggle-rerank" checked class="sr-only peer">
+            <div class="w-9 h-5 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-emerald-500"></div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Card: LLM Generation & Query QPS -->
+      <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800/80 backdrop-blur-md space-y-5">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+          <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-300 font-mono flex items-center gap-2">
+            <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            3. LLM Model & Workload QPS
+          </h3>
+        </div>
+
+        <!-- LLM Choice -->
+        <div class="space-y-2">
+          <label for="select-llm" class="text-xs font-medium text-slate-300 block">LLM Generator</label>
+          <select id="select-llm" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-200 focus:outline-none focus:border-cyan-500 font-mono">
+            <option value="gpt-4o" data-ttft="320" data-tokspeed="75" data-cost-in="2.50" data-cost-out="10.00">GPT-4o (320ms TTFT, 75 tok/s)</option>
+            <option value="claude-35-sonnet" data-ttft="280" data-tokspeed="85" data-cost-in="3.00" data-cost-out="15.00">Claude 3.5 Sonnet (280ms TTFT, 85 tok/s)</option>
+            <option value="llama-33-70b" data-ttft="140" data-tokspeed="120" data-cost-in="0.60" data-cost-out="1.80">Llama 3.3 70B vLLM (140ms TTFT, 120 tok/s)</option>
+          </select>
+        </div>
+
+        <!-- Traffic QPS Slider -->
+        <div class="space-y-2">
+          <div class="flex justify-between text-xs font-medium">
+            <label for="slider-qps" class="text-slate-300">Queries / Minute</label>
+            <span class="text-purple-400 font-mono" id="val-qps">600 QPM (10 QPS)</span>
+          </div>
+          <input type="range" id="slider-qps" min="60" max="6000" step="60" value="600" class="w-full accent-purple-500 bg-slate-800 h-2 rounded-lg cursor-pointer">
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN: Output Dashboard & Interactive Latency Pipeline (7 cols) -->
+    <div class="lg:col-span-7 space-y-6">
+
+      <!-- Top KPI Stats Cards -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        
+        <!-- Metric 1: Total Vector Chunks -->
+        <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 flex flex-col justify-between">
+          <div class="text-[11px] font-mono uppercase text-slate-400">Total Chunks</div>
+          <div class="text-xl md:text-2xl font-bold text-white font-mono mt-1" id="kpi-chunks">135,000</div>
+          <div class="text-[10px] text-cyan-400 mt-1 font-mono" id="kpi-tokens">69.1M tokens</div>
+        </div>
+
+        <!-- Metric 2: Vector RAM -->
+        <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 flex flex-col justify-between">
+          <div class="text-[11px] font-mono uppercase text-slate-400">Vector Index RAM</div>
+          <div class="text-xl md:text-2xl font-bold text-emerald-400 font-mono mt-1" id="kpi-ram">1.03 GB</div>
+          <div class="text-[10px] text-slate-400 mt-1 font-mono" id="kpi-dim">1536 dim float32</div>
+        </div>
+
+        <!-- Metric 3: P95 Latency -->
+        <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 flex flex-col justify-between">
+          <div class="text-[11px] font-mono uppercase text-slate-400">Est. P95 Latency</div>
+          <div class="text-xl md:text-2xl font-bold text-indigo-400 font-mono mt-1" id="kpi-latency">418 ms</div>
+          <div class="text-[10px] text-emerald-400 mt-1 font-mono" id="kpi-sla">✔ Sub-500ms Target</div>
+        </div>
+
+        <!-- Metric 4: Monthly Cost -->
+        <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 flex flex-col justify-between">
+          <div class="text-[11px] font-mono uppercase text-slate-400">Monthly Cost (Est)</div>
+          <div class="text-xl md:text-2xl font-bold text-amber-400 font-mono mt-1" id="kpi-cost">$142/mo</div>
+          <div class="text-[10px] text-slate-400 mt-1 font-mono" id="kpi-cost-breakdown">Index + Ingress</div>
+        </div>
+      </div>
+
+      <!-- Latency Waterfall Breakdown Chart -->
+      <div class="p-6 rounded-2xl bg-slate-900/70 border border-slate-800/80 backdrop-blur-md space-y-6">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+          <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-300 font-mono flex items-center gap-2">
+            <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Live RAG Latency Pipeline Waterfall
+          </h3>
+          <span class="text-xs text-slate-400 font-mono" id="total-pipeline-ms">418 ms Total</span>
+        </div>
+
+        <!-- Waterfall Bars Container -->
+        <div class="space-y-4 font-mono text-xs">
+
+          <!-- Stage 1: Embedding Query -->
+          <div class="space-y-1">
+            <div class="flex justify-between text-slate-300">
+              <span class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
+                Query Embedding Model
+              </span>
+              <span class="text-cyan-400" id="wf-embed-ms">35 ms</span>
+            </div>
+            <div class="w-full h-3 bg-slate-950 rounded-full overflow-hidden p-0.5 border border-slate-800">
+              <div id="bar-embed" class="h-full bg-cyan-400 rounded-full transition-all duration-300" style="width: 8%;"></div>
+            </div>
+          </div>
+
+          <!-- Stage 2: ANN Vector Search -->
+          <div class="space-y-1">
+            <div class="flex justify-between text-slate-300">
+              <span class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                Vector Store ANN Retrieval (Top-20)
+              </span>
+              <span class="text-emerald-400" id="wf-ann-ms">8 ms</span>
+            </div>
+            <div class="w-full h-3 bg-slate-950 rounded-full overflow-hidden p-0.5 border border-slate-800">
+              <div id="bar-ann" class="h-full bg-emerald-400 rounded-full transition-all duration-300" style="width: 3%;"></div>
+            </div>
+          </div>
+
+          <!-- Stage 3: Re-ranking (Conditional) -->
+          <div class="space-y-1" id="wf-rerank-row">
+            <div class="flex justify-between text-slate-300">
+              <span class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                Cross-Encoder Re-ranking (Top-5)
+              </span>
+              <span class="text-amber-400" id="wf-rerank-ms">45 ms</span>
+            </div>
+            <div class="w-full h-3 bg-slate-950 rounded-full overflow-hidden p-0.5 border border-slate-800">
+              <div id="bar-rerank" class="h-full bg-amber-400 rounded-full transition-all duration-300" style="width: 10%;"></div>
+            </div>
+          </div>
+
+          <!-- Stage 4: LLM Time to First Token (TTFT) -->
+          <div class="space-y-1">
+            <div class="flex justify-between text-slate-300">
+              <span class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-purple-400"></span>
+                LLM Time-To-First-Token (TTFT)
+              </span>
+              <span class="text-purple-400" id="wf-ttft-ms">320 ms</span>
+            </div>
+            <div class="w-full h-3 bg-slate-950 rounded-full overflow-hidden p-0.5 border border-slate-800">
+              <div id="bar-ttft" class="h-full bg-purple-400 rounded-full transition-all duration-300" style="width: 70%;"></div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800/80 flex items-center justify-between text-xs">
+          <span class="text-slate-400">Stream TTFT SLA SLA Indicator:</span>
+          <span id="sla-badge" class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-mono text-[11px]">
+            ⚡ Excellent (< 500ms TTFT)
+          </span>
+        </div>
+      </div>
+
+      <!-- Storage & Infrastructure Architecture Summary -->
+      <div class="p-6 rounded-2xl bg-slate-900/70 border border-slate-800/80 backdrop-blur-md space-y-4">
+        <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-300 font-mono border-b border-slate-800 pb-3 flex items-center justify-between">
+          <span class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0h4m-4 0V11m0 0h4m-4 0H9"/></svg>
+            System Hardware & Storage Footprint
+          </span>
+          <div class="flex gap-2">
+            <button id="btn-copy-summary" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs transition-colors flex items-center gap-1 font-sans">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 012-2v-8a2 2 0 01-2-2h-8a2 2 0 01-2 2v8a2 2 0 012 2z"/></svg>
+              Copy Report
+            </button>
+            <button id="btn-export-json" class="px-2.5 py-1 rounded-lg bg-cyan-900/40 border border-cyan-700/50 hover:bg-cyan-800/60 text-cyan-300 text-xs transition-colors flex items-center gap-1 font-sans">
+              Export Config
+            </button>
+          </div>
+        </h3>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono">
+          <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800/80 space-y-1">
+            <span class="text-slate-400 text-[11px] block">Raw Text Ingestion Size:</span>
+            <span class="text-slate-200 font-bold text-sm" id="calc-raw-bytes">240 MB</span>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800/80 space-y-1">
+            <span class="text-slate-400 text-[11px] block">Vector Storage + Metadata:</span>
+            <span class="text-emerald-400 font-bold text-sm" id="calc-vdb-disk">1.28 GB</span>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800/80 space-y-1">
+            <span class="text-slate-400 text-[11px] block">Monthly Embedding API Cost:</span>
+            <span class="text-amber-400 font-bold text-sm" id="calc-embed-cost">$1.38 / month</span>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800/80 space-y-1">
+            <span class="text-slate-400 text-[11px] block">Monthly LLM Generation Cost:</span>
+            <span class="text-purple-400 font-bold text-sm" id="calc-llm-cost">$135.00 / month</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  // Dynamic Calculation Engine for System Design Sandbox
+  document.addEventListener('DOMContentLoaded', () => {
+    const initSandbox = () => {
+      const sliderDocs = document.getElementById('slider-docs') as HTMLInputElement;
+      const sliderDocLen = document.getElementById('slider-doc-len') as HTMLInputElement;
+      const sliderChunkSize = document.getElementById('slider-chunk-size') as HTMLInputElement;
+      const sliderOverlap = document.getElementById('slider-overlap') as HTMLInputElement;
+      const selectEmbedding = document.getElementById('select-embedding') as HTMLSelectElement;
+      const selectIndexType = document.getElementById('select-index-type') as HTMLSelectElement;
+      const toggleRerank = document.getElementById('toggle-rerank') as HTMLInputElement;
+      const selectLLM = document.getElementById('select-llm') as HTMLSelectElement;
+      const sliderQps = document.getElementById('slider-qps') as HTMLInputElement;
+
+      if (!sliderDocs) return;
+
+      const recalculate = () => {
+        const docCount = parseInt(sliderDocs.value, 10);
+        const tokensPerDoc = parseInt(sliderDocLen.value, 10);
+        const chunkSize = parseInt(sliderChunkSize.value, 10);
+        const overlapPercent = parseInt(sliderOverlap.value, 10);
+        const qpm = parseInt(sliderQps.value, 10);
+
+        // Selected options metadata
+        const selectedEmbedOption = selectEmbedding.options[selectEmbedding.selectedIndex];
+        const dim = parseInt(selectedEmbedOption.getAttribute('data-dim') || '1536', 10);
+        const embedCostPerM = parseFloat(selectedEmbedOption.getAttribute('data-cost') || '0.02');
+
+        const selectedIndexOption = selectIndexType.options[selectIndexType.selectedIndex];
+        const ramOverheadMultiplier = parseFloat(selectedIndexOption.getAttribute('data-overhead') || '1.25');
+        const annBaseLatency = parseInt(selectedIndexOption.getAttribute('data-lat') || '8', 10);
+
+        const isRerankEnabled = toggleRerank.checked;
+        const rerankLatency = isRerankEnabled ? 45 : 0;
+
+        const selectedLLMOption = selectLLM.options[selectLLM.selectedIndex];
+        const llmTtft = parseInt(selectedLLMOption.getAttribute('data-ttft') || '320', 10);
+        const llmCostIn = parseFloat(selectedLLMOption.getAttribute('data-cost-in') || '2.50');
+        const llmCostOut = parseFloat(selectedLLMOption.getAttribute('data-cost-out') || '10.00');
+
+        // Math calculations
+        const effectiveChunkStride = chunkSize * (1 - overlapPercent / 100);
+        const totalRawTokens = docCount * tokensPerDoc;
+        const totalChunks = Math.ceil(totalRawTokens / effectiveChunkStride);
+
+        // Memory footprint: Float32 = 4 bytes per dimension
+        // Raw vector bytes = totalChunks * dim * 4 bytes
+        const rawVectorBytes = totalChunks * dim * 4;
+        const totalIndexRAMBytes = rawVectorBytes * ramOverheadMultiplier;
+        const ramGB = (totalIndexRAMBytes / (1024 * 1024 * 1024)).toFixed(2);
+        
+        // Disk storage with text metadata (~200 bytes metadata per chunk)
+        const diskStorageGB = ((totalIndexRAMBytes + (totalChunks * 200)) / (1024 * 1024 * 1024)).toFixed(2);
+
+        // Raw text size in MB (approx 4 chars per token = 4 bytes)
+        const rawTextMB = ((totalRawTokens * 4) / (1024 * 1024)).toFixed(0);
+
+        // Latency calculations
+        const embedLatency = Math.round(30 + (dim / 1536) * 5);
+        const totalP95Ms = embedLatency + annBaseLatency + rerankLatency + llmTtft;
+
+        // Monthly Costs Calculation
+        // Indexing embedding cost (one-time / refresh)
+        const embedIndexingCost = (totalRawTokens / 1_000_000) * embedCostPerM;
+
+        // Monthly traffic token usage (QPM -> Monthly queries = QPM * 60 * 24 * 30)
+        const monthlyQueries = qpm * 60 * 24 * 30;
+        // Prompt tokens per query: User prompt (100 tok) + Top-5 chunks (5 * chunkSize)
+        const promptTokPerQuery = 100 + (5 * chunkSize);
+        const compTokPerQuery = 250; // avg answer length
+
+        const monthlyPromptTokM = (monthlyQueries * promptTokPerQuery) / 1_000_000;
+        const monthlyCompTokM = (monthlyQueries * compTokPerQuery) / 1_000_000;
+
+        const monthlyLLMCost = (monthlyPromptTokM * llmCostIn) + (monthlyCompTokM * llmCostOut);
+        const monthlyEmbedQueryCost = (monthlyQueries * 100 / 1_000_000) * embedCostPerM;
+        const monthlyTotalCost = Math.round(monthlyLLMCost + monthlyEmbedQueryCost + (parseFloat(ramGB) * 8)); // $8/GB RAM node
+
+        // Update Labels & Badges
+        (document.getElementById('val-docs') as HTMLElement).innerText = docCount.toLocaleString() + ' docs';
+        (document.getElementById('doc-count-badge') as HTMLElement).innerText = docCount.toLocaleString() + ' docs';
+        (document.getElementById('val-doc-len') as HTMLElement).innerText = tokensPerDoc.toLocaleString() + ' tokens';
+        (document.getElementById('val-chunk-size') as HTMLElement).innerText = chunkSize + ' tokens';
+        (document.getElementById('val-overlap') as HTMLElement).innerText = overlapPercent + '%';
+        (document.getElementById('val-qps') as HTMLElement).innerText = `${qpm} QPM (${(qpm/60).toFixed(1)} QPS)`;
+
+        // Update KPI Cards
+        (document.getElementById('kpi-chunks') as HTMLElement).innerText = totalChunks.toLocaleString();
+        (document.getElementById('kpi-tokens') as HTMLElement).innerText = `${(totalRawTokens / 1_000_000).toFixed(1)}M tokens`;
+        (document.getElementById('kpi-ram') as HTMLElement).innerText = `${ramGB} GB`;
+        (document.getElementById('kpi-dim') as HTMLElement).innerText = `${dim} dim Float32`;
+        (document.getElementById('kpi-latency') as HTMLElement).innerText = `${totalP95Ms} ms`;
+        (document.getElementById('kpi-cost') as HTMLElement).innerText = `$${monthlyTotalCost.toLocaleString()}/mo`;
+
+        // Waterfall ms values
+        (document.getElementById('total-pipeline-ms') as HTMLElement).innerText = `${totalP95Ms} ms Total`;
+        (document.getElementById('wf-embed-ms') as HTMLElement).innerText = `${embedLatency} ms`;
+        (document.getElementById('wf-ann-ms') as HTMLElement).innerText = `${annBaseLatency} ms`;
+        (document.getElementById('wf-rerank-ms') as HTMLElement).innerText = `${rerankLatency} ms`;
+        (document.getElementById('wf-ttft-ms') as HTMLElement).innerText = `${llmTtft} ms`;
+
+        // Waterfall percentage widths
+        (document.getElementById('bar-embed') as HTMLElement).style.width = `${Math.max(4, (embedLatency / totalP95Ms) * 100)}%`;
+        (document.getElementById('bar-ann') as HTMLElement).style.width = `${Math.max(4, (annBaseLatency / totalP95Ms) * 100)}%`;
+        
+        const rerankRow = document.getElementById('wf-rerank-row') as HTMLElement;
+        if (!isRerankEnabled) {
+          rerankRow.style.display = 'none';
+        } else {
+          rerankRow.style.display = 'block';
+          (document.getElementById('bar-rerank') as HTMLElement).style.width = `${Math.max(4, (rerankLatency / totalP95Ms) * 100)}%`;
+        }
+
+        (document.getElementById('bar-ttft') as HTMLElement).style.width = `${Math.max(4, (llmTtft / totalP95Ms) * 100)}%`;
+
+        // SLA Badge update
+        const slaBadge = document.getElementById('sla-badge') as HTMLElement;
+        if (totalP95Ms < 500) {
+          slaBadge.className = 'px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-mono text-[11px]';
+          slaBadge.innerText = '⚡ Excellent (< 500ms TTFT)';
+        } else if (totalP95Ms < 1000) {
+          slaBadge.className = 'px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30 font-mono text-[11px]';
+          slaBadge.innerText = '⚠️ Acceptable (< 1,000ms TTFT)';
+        } else {
+          slaBadge.className = 'px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30 font-mono text-[11px]';
+          slaBadge.innerText = '🐢 High Latency (> 1,000ms TTFT)';
+        }
+
+        // Detailed hardware calc outputs
+        (document.getElementById('calc-raw-bytes') as HTMLElement).innerText = `${rawTextMB} MB`;
+        (document.getElementById('calc-vdb-disk') as HTMLElement).innerText = `${diskStorageGB} GB`;
+        (document.getElementById('calc-embed-cost') as HTMLElement).innerText = `$${embedIndexingCost.toFixed(2)} one-time`;
+        (document.getElementById('calc-llm-cost') as HTMLElement).innerText = `$${Math.round(monthlyLLMCost).toLocaleString()} / month`;
+      };
+
+      // Add Listeners
+      const elements = [sliderDocs, sliderDocLen, sliderChunkSize, sliderOverlap, selectEmbedding, selectIndexType, toggleRerank, selectLLM, sliderQps];
+      elements.forEach(el => {
+        if (el) el.addEventListener('input', recalculate);
+        if (el) el.addEventListener('change', recalculate);
+      });
+
+      // Preset Handlers
+      document.querySelectorAll('.preset-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const target = e.currentTarget as HTMLElement;
+          const preset = target.getAttribute('data-preset');
+          
+          if (preset === 'finance') {
+            sliderDocs.value = '100000';
+            sliderDocLen.value = '2000';
+            sliderChunkSize.value = '512';
+            sliderOverlap.value = '20';
+            selectEmbedding.value = 'text-embedding-3-large';
+            selectIndexType.value = 'hnsw';
+            toggleRerank.checked = true;
+            selectLLM.value = 'gpt-4o';
+            sliderQps.value = '1200';
+          } else if (preset === 'voice') {
+            sliderDocs.value = '10000';
+            sliderDocLen.value = '800';
+            sliderChunkSize.value = '256';
+            sliderOverlap.value = '10';
+            selectEmbedding.value = 'bge-large-en';
+            selectIndexType.value = 'hnsw';
+            toggleRerank.checked = false;
+            selectLLM.value = 'llama-33-70b';
+            sliderQps.value = '3000';
+          } else if (preset === 'enterprise') {
+            sliderDocs.value = '500000';
+            sliderDocLen.value = '1500';
+            sliderChunkSize.value = '1024';
+            sliderOverlap.value = '15';
+            selectEmbedding.value = 'cohere-embed-v3';
+            selectIndexType.value = 'ivfflat';
+            toggleRerank.checked = true;
+            selectLLM.value = 'claude-35-sonnet';
+            sliderQps.value = '600';
+          } else if (preset === 'codebase') {
+            sliderDocs.value = '25000';
+            sliderDocLen.value = '3500';
+            sliderChunkSize.value = '512';
+            sliderOverlap.value = '25';
+            selectEmbedding.value = 'text-embedding-3-small';
+            selectIndexType.value = 'hnsw';
+            toggleRerank.checked = true;
+            selectLLM.value = 'claude-35-sonnet';
+            sliderQps.value = '1800';
+          }
+          recalculate();
+        });
+      });
+
+      // Export JSON Handler
+      document.getElementById('btn-export-json')?.addEventListener('click', () => {
+        const config = {
+          documents: parseInt(sliderDocs.value),
+          avgTokensPerDoc: parseInt(sliderDocLen.value),
+          chunkSize: parseInt(sliderChunkSize.value),
+          overlapPercent: parseInt(sliderOverlap.value),
+          embeddingModel: selectEmbedding.value,
+          indexAlgorithm: selectIndexType.value,
+          crossEncoderRerank: toggleRerank.checked,
+          llmModel: selectLLM.value,
+          trafficQpm: parseInt(sliderQps.value),
+          estimatedP95LatencyMs: document.getElementById('kpi-latency')?.innerText,
+          vectorRamGB: document.getElementById('kpi-ram')?.innerText
+        };
+
+        const blob = new Blob([JSON.stringify(config, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `rag-system-design-config-${Date.now()}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+      });
+
+      // Copy Summary Markdown Handler
+      document.getElementById('btn-copy-summary')?.addEventListener('click', () => {
+        const summary = `### RAG System Design Specs
+- **Document Volume**: ${sliderDocs.value} documents (${sliderDocLen.value} tok/doc)
+- **Chunking Strategy**: ${sliderChunkSize.value} tokens (Overlap: ${sliderOverlap.value}%)
+- **Embedding Model**: ${selectEmbedding.value}
+- **Index**: ${selectIndexType.value} (Vector RAM: ${document.getElementById('kpi-ram')?.innerText})
+- **Re-ranking**: ${toggleRerank.checked ? 'Enabled (Cohere/BGE)' : 'Disabled'}
+- **LLM**: ${selectLLM.value}
+- **P95 Latency Target**: ${document.getElementById('kpi-latency')?.innerText}
+- **Estimated Operating Cost**: ${document.getElementById('kpi-cost')?.innerText}`;
+
+        navigator.clipboard.writeText(summary).then(() => {
+          const btn = document.getElementById('btn-copy-summary');
+          if (btn) {
+            btn.innerText = 'Copied! ✓';
+            setTimeout(() => { btn.innerText = 'Copy Report'; }, 2000);
+          }
+        });
+      });
+
+      // Initial run
+      recalculate();
+    };
+
+    initSandbox();
+    document.addEventListener('astro:page-load', initSandbox);
+  });
+</script>
