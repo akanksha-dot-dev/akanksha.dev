@@ -1,0 +1,265 @@
+---
+// KnowledgeGraph.astro - Interactive AI Ecosystem & Concept Graph
+---
+
+<div class="knowledge-graph-container rounded-2xl border border-white/10 bg-slate-900/60 p-6 md:p-8 backdrop-blur-xl shadow-2xl relative overflow-hidden">
+  <!-- Header & Controls -->
+  <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8 pb-6 border-b border-white/10">
+    <div>
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-mono mb-3">
+        <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
+        AI Architecture Visualizer
+      </div>
+      <h3 class="text-2xl font-bold text-white tracking-tight">AI Stack & Concept Knowledge Graph</h3>
+      <p class="text-slate-400 text-sm mt-1">Explore interconnected enterprise AI frameworks, agentic patterns, project implementations, and research papers.</p>
+    </div>
+
+    <!-- Category Filter Pills -->
+    <div class="flex flex-wrap items-center gap-2" id="kgCategoryFilters">
+      <button data-category="all" class="kg-filter-btn active px-3.5 py-1.5 rounded-xl text-xs font-medium border transition-all duration-300 bg-purple-500/20 text-purple-300 border-purple-500/40 shadow-lg shadow-purple-500/10">
+        All (20)
+      </button>
+      <button data-category="concepts" class="kg-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-medium border transition-all duration-300 bg-white/5 text-slate-400 border-white/10 hover:bg-white/10 hover:text-white">
+        Concepts
+      </button>
+      <button data-category="frameworks" class="kg-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-medium border transition-all duration-300 bg-white/5 text-slate-400 border-white/10 hover:bg-white/10 hover:text-white">
+        Stack & Tools
+      </button>
+      <button data-category="projects" class="kg-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-medium border transition-all duration-300 bg-white/5 text-slate-400 border-white/10 hover:bg-white/10 hover:text-white">
+        Projects
+      </button>
+    </div>
+  </div>
+
+  <!-- Graph Search & Active Node Status -->
+  <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
+    <div class="relative w-full sm:w-80">
+      <input 
+        type="text" 
+        id="kgSearchInput" 
+        placeholder="Filter nodes (e.g., RAG, NeMo, Ragas)..."
+        class="w-full bg-slate-950/80 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-purple-500/50 transition-all pl-9"
+      />
+      <svg class="w-4 h-4 text-slate-400 absolute left-3 top-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg>
+    </div>
+
+    <div class="text-xs font-mono text-slate-400 flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
+      <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-cyan-400 inline-block"></span> Concepts</span>
+      <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-purple-400 inline-block"></span> Tools</span>
+      <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span> Projects</span>
+    </div>
+  </div>
+
+  <!-- Graph Interactive Canvas Area -->
+  <div class="relative w-full h-[520px] rounded-xl bg-slate-950/90 border border-white/10 overflow-hidden flex items-center justify-center">
+    <svg id="kgSvg" class="w-full h-full cursor-grab active:cursor-grabbing select-none" viewBox="0 0 1000 600">
+      <!-- Defined Links and Nodes rendered via JS -->
+    </svg>
+
+    <!-- Node Hover / Click Detail Drawer -->
+    <div id="kgNodeDrawer" class="hidden absolute bottom-4 left-4 right-4 sm:left-auto sm:right-4 sm:w-96 p-5 rounded-xl bg-slate-900/95 border border-purple-500/40 shadow-2xl backdrop-blur-2xl transition-all space-y-3 z-20">
+      <div class="flex items-center justify-between border-b border-white/10 pb-2">
+        <div class="flex items-center gap-2">
+          <span id="drawerBadge" class="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30 uppercase">
+            Concept
+          </span>
+          <h4 id="drawerTitle" class="text-sm font-bold text-white font-mono">Node Title</h4>
+        </div>
+        <button id="closeDrawerBtn" class="text-slate-400 hover:text-white text-xs">✕</button>
+      </div>
+
+      <p id="drawerDesc" class="text-xs text-slate-300 leading-relaxed">
+        Node description text explaining engineering implications and usage.
+      </p>
+
+      <div class="pt-2 border-t border-white/5 flex items-center justify-between">
+        <span id="drawerConnections" class="text-[10px] font-mono text-slate-400">3 connected nodes</span>
+        <a id="drawerLink" href="/projects" class="inline-flex items-center gap-1 text-xs font-mono text-cyan-400 hover:text-cyan-300 font-bold">
+          Explore Feature →
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Knowledge Graph Dataset
+  const GRAPH_NODES = [
+    // Concepts (Cyan)
+    { id: "rag", label: "Agentic RAG", category: "concepts", color: "#22d3ee", x: 300, y: 200, desc: "Retrieval-Augmented Generation with iterative query expansion, reranking, and citation verification.", link: "/projects" },
+    { id: "guardrails", label: "NeMo Guardrails", category: "concepts", color: "#22d3ee", x: 500, y: 150, desc: "Safety boundaries and prompt injection detection layer enforcing OWASP compliance.", link: "/evals" },
+    { id: "evals", label: "Ragas Metrics", category: "concepts", color: "#22d3ee", x: 700, y: 220, desc: "Automated LLM evaluation framework scoring context precision, recall, and faithfulness.", link: "/evals" },
+    { id: "multiagent", label: "Multi-Agent Systems", category: "concepts", color: "#22d3ee", x: 400, y: 350, desc: "Autonomous agent networks utilizing supervisor routing and task delegation patterns.", link: "/orchestrator" },
+    { id: "semcache", label: "Semantic Cache", category: "concepts", color: "#22d3ee", x: 200, y: 320, desc: "Vector similarity caching reducing LLM token costs and latency for repetitive queries.", link: "/sandbox" },
+
+    // Stack & Tools (Purple)
+    { id: "adk", label: "Google ADK", category: "frameworks", color: "#c084fc", x: 220, y: 120, desc: "Google Agent Development Kit for building modular, multi-modal production agents.", link: "/blog" },
+    { id: "langgraph", label: "LangGraph", category: "frameworks", color: "#c084fc", x: 450, y: 260, desc: "Stateful agentic graph orchestrator for cyclical LLM workflows.", link: "/orchestrator" },
+    { id: "qdrant", label: "Qdrant Vector DB", category: "frameworks", color: "#c084fc", x: 150, y: 220, desc: "Ultra low-latency vector engine for dense embedding indexing and similarity search.", link: "/sandbox" },
+    { id: "vllm", label: "vLLM Engine", category: "frameworks", color: "#c084fc", x: 620, y: 330, desc: "High-throughput LLM inference engine with PagedAttention for production deployment.", link: "/sandbox" },
+    { id: "fastapi", label: "FastAPI Async", category: "frameworks", color: "#c084fc", x: 780, y: 350, desc: "High-performance Python web API serving enterprise AI microservices.", link: "/about" },
+
+    // Projects (Emerald)
+    { id: "sec_agent", label: "Security Audit Agent", category: "projects", color: "#34d399", x: 320, y: 460, desc: "Automated AST scanner & SQL injection remediation agent built at Samsung SDS.", link: "/orchestrator" },
+    { id: "eval_workbench", label: "LLM Eval Workbench", category: "projects", color: "#34d399", x: 800, y: 160, desc: "Live evaluation sandbox benchmarking latency, token budgets, and Ragas scores.", link: "/evals" },
+    { id: "design_sandbox", label: "System Design Sandbox", category: "projects", color: "#34d399", x: 600, y: 460, desc: "Interactive vector DB token math & architecture latency calculator.", link: "/sandbox" },
+    { id: "orchestrator_studio", label: "Orchestrator Studio", category: "projects", color: "#34d399", x: 480, y: 440, desc: "Real-time multi-agent runtime execution visualizer.", link: "/orchestrator" }
+  ];
+
+  const GRAPH_LINKS = [
+    { source: "rag", target: "adk" },
+    { source: "rag", target: "qdrant" },
+    { source: "rag", target: "multiagent" },
+    { source: "multiagent", label: "langgraph", target: "langgraph" },
+    { source: "multiagent", target: "sec_agent" },
+    { source: "multiagent", target: "orchestrator_studio" },
+    { source: "guardrails", target: "multiagent" },
+    { source: "guardrails", target: "evals" },
+    { source: "evals", target: "eval_workbench" },
+    { source: "semcache", target: "qdrant" },
+    { source: "semcache", target: "design_sandbox" },
+    { source: "vllm", target: "design_sandbox" },
+    { source: "fastapi", target: "vllm" },
+    { source: "sec_agent", target: "guardrails" },
+    { source: "eval_workbench", target: "vllm" }
+  ];
+
+  function initKnowledgeGraph() {
+    const svg = document.getElementById('kgSvg');
+    const drawer = document.getElementById('kgNodeDrawer');
+    const drawerTitle = document.getElementById('drawerTitle');
+    const drawerDesc = document.getElementById('drawerDesc');
+    const drawerBadge = document.getElementById('drawerBadge');
+    const drawerConnections = document.getElementById('drawerConnections');
+    const drawerLink = document.getElementById('drawerLink') as HTMLAnchorElement;
+    const closeDrawerBtn = document.getElementById('closeDrawerBtn');
+    const searchInput = document.getElementById('kgSearchInput') as HTMLInputElement;
+
+    if (!svg) return;
+
+    let activeCategory = 'all';
+    let searchQuery = '';
+
+    function renderGraph() {
+      if (!svg) return;
+      svg.innerHTML = '';
+
+      // Render link lines
+      GRAPH_LINKS.forEach(link => {
+        const sourceNode = GRAPH_NODES.find(n => n.id === link.source);
+        const targetNode = GRAPH_NODES.find(n => n.id === link.target);
+
+        if (!sourceNode || !targetNode) return;
+
+        const isVisible = 
+          (activeCategory === 'all' || sourceNode.category === activeCategory || targetNode.category === activeCategory) &&
+          (!searchQuery || sourceNode.label.toLowerCase().includes(searchQuery) || targetNode.label.toLowerCase().includes(searchQuery));
+
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttribute('x1', sourceNode.x.toString());
+        line.setAttribute('y1', sourceNode.y.toString());
+        line.setAttribute('x2', targetNode.x.toString());
+        line.setAttribute('y2', targetNode.y.toString());
+        line.setAttribute('stroke', isVisible ? '#475569' : '#1e293b');
+        line.setAttribute('stroke-width', isVisible ? '1.5' : '0.5');
+        line.setAttribute('stroke-dasharray', isVisible ? 'none' : '4,4');
+        line.setAttribute('opacity', isVisible ? '0.6' : '0.2');
+        svg.appendChild(line);
+      });
+
+      // Render nodes
+      GRAPH_NODES.forEach(node => {
+        const isMatchCategory = activeCategory === 'all' || node.category === activeCategory;
+        const isMatchSearch = !searchQuery || node.label.toLowerCase().includes(searchQuery);
+        const isHighlight = isMatchCategory && isMatchSearch;
+
+        const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        g.setAttribute('class', 'node-group cursor-pointer transition-transform duration-300');
+        g.setAttribute('transform', `translate(${node.x}, ${node.y})`);
+        g.setAttribute('opacity', isHighlight ? '1' : '0.2');
+
+        // Pulse ring for highlight
+        if (isHighlight) {
+          const pulse = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          pulse.setAttribute('r', '18');
+          pulse.setAttribute('fill', node.color);
+          pulse.setAttribute('opacity', '0.15');
+          pulse.setAttribute('class', 'animate-ping');
+          g.appendChild(pulse);
+        }
+
+        // Node circle
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        circle.setAttribute('r', '12');
+        circle.setAttribute('fill', '#0f172a');
+        circle.setAttribute('stroke', node.color);
+        circle.setAttribute('stroke-width', '2.5');
+        g.appendChild(circle);
+
+        // Node text label
+        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        text.setAttribute('y', '24');
+        text.setAttribute('text-anchor', 'middle');
+        text.setAttribute('fill', isHighlight ? '#f8fafc' : '#64748b');
+        text.setAttribute('font-size', '11');
+        text.setAttribute('font-family', 'monospace');
+        text.setAttribute('font-weight', '600');
+        text.textContent = node.label;
+        g.appendChild(text);
+
+        // Event handler for clicking node
+        g.addEventListener('click', (e) => {
+          e.stopPropagation();
+          showNodeDetails(node);
+        });
+
+        svg.appendChild(g);
+      });
+    }
+
+    function showNodeDetails(node: typeof GRAPH_NODES[0]) {
+      if (!drawer) return;
+      const connectionsCount = GRAPH_LINKS.filter(l => l.source === node.id || l.target === node.id).length;
+
+      if (drawerTitle) drawerTitle.textContent = node.label;
+      if (drawerDesc) drawerDesc.textContent = node.desc;
+      if (drawerBadge) drawerBadge.textContent = node.category.toUpperCase();
+      if (drawerConnections) drawerConnections.textContent = `${connectionsCount} linked graph nodes`;
+      if (drawerLink) drawerLink.href = node.link;
+
+      drawer.classList.remove('hidden');
+    }
+
+    // Setup Category buttons
+    document.querySelectorAll('.kg-filter-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const target = e.currentTarget as HTMLButtonElement;
+        const category = target.getAttribute('data-category');
+        if (!category) return;
+
+        document.querySelectorAll('.kg-filter-btn').forEach(b => {
+          b.className = 'kg-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-medium border transition-all duration-300 bg-white/5 text-slate-400 border-white/10 hover:bg-white/10 hover:text-white';
+        });
+        target.className = 'kg-filter-btn active px-3.5 py-1.5 rounded-xl text-xs font-medium border transition-all duration-300 bg-purple-500/20 text-purple-300 border-purple-500/40 shadow-lg shadow-purple-500/10';
+
+        activeCategory = category;
+        renderGraph();
+      });
+    });
+
+    searchInput?.addEventListener('input', (e) => {
+      searchQuery = (e.target as HTMLInputElement).value.toLowerCase().trim();
+      renderGraph();
+    });
+
+    closeDrawerBtn?.addEventListener('click', () => {
+      drawer?.classList.add('hidden');
+    });
+
+    renderGraph();
+  }
+
+  document.addEventListener('astro:page-load', initKnowledgeGraph);
+</script>
