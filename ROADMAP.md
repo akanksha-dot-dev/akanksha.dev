@@ -39,3 +39,9 @@
 - [x] **Global Command Palette (`Cmd+K`)**: Site-wide fuzzy search across pages, projects, blog posts, speaking events, and quick AI prompts
 - [x] **Interactive AI Architecture Diagram Visualizer**: Dynamic node flow visualizers for Agentic Multi-Agent and Voice RAG topologies embedded in project deep dive modals
 - [x] **System Design Sandbox**: Live interactive parameter sliders for calculating RAG vector token budgets and latency estimates
+
+---
+
+## Phase 5: Production AI Evaluation & Guardrails Benchmarks (Completed)
+- [x] **LLM Evaluation & Guardrails Workbench (`/evals`)**: Live Ragas metric evaluation (Faithfulness, Context Precision, Answer Relevance), NeMo prompt injection guardrails testing, and model benchmarking playground.
+
