@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AgentOrchestrator from '../components/AgentOrchestrator.astro';
+---
+
+<BaseLayout 
+  title="Multi-Agent Orchestrator Studio — Akanksha | Production AI Engineer"
+  description="Interactive multi-agent graph orchestration studio. Simulate, inspect, and benchmark production AI agent pipelines, tool call execution, and NeMo guardrail validations."
+>
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24 space-y-16">
+    <!-- Hero Header -->
+    <div class="max-w-3xl space-y-6">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-mono">
+        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+        Interactive Agentic AI Runtime
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
+        Multi-Agent Workflow <br/>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-500">
+          Orchestrator Studio
+        </span>
+      </h1>
+      <p class="text-lg text-slate-300 leading-relaxed">
+        Test production agent graph topologies. Observe step-by-step token budgets, tool invocation parameters, vector store retrievals, and real-time safety guardrail validations across Enterprise Security, Financial RAG, and Voice AI pipelines.
+      </p>
+    </div>
+
+    <!-- Main Orchestrator Studio Component -->
+    <AgentOrchestrator />
+
+    <!-- Technical Architecture Deep Dive Cards -->
+    <div class="pt-8 border-t border-white/10 space-y-8">
+      <div class="max-w-2xl">
+        <h2 class="text-2xl font-bold text-white tracking-tight">Agent Graph Architecture Patterns</h2>
+        <p class="text-slate-400 text-sm mt-1">Enterprise multi-agent patterns engineered for deterministic execution and fault-tolerant failovers.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-6 rounded-2xl bg-slate-900/60 border border-white/10 backdrop-blur-xl hover:border-cyan-500/30 transition-all group">
+          <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center font-mono font-bold text-lg mb-4 group-hover:scale-110 transition-transform">
+            01
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-cyan-300 transition-colors">Supervisor-Worker Topology</h3>
+          <p class="text-slate-400 text-xs mt-2 leading-relaxed">
+            Centralized router agent dynamically delegates specialized sub-tasks to downstream worker agents (e.g. AST parsing, SQL sanitization) while maintaining shared memory state.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-slate-900/60 border border-white/10 backdrop-blur-xl hover:border-purple-500/30 transition-all group">
+          <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center font-mono font-bold text-lg mb-4 group-hover:scale-110 transition-transform">
+            02
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-purple-300 transition-colors">NeMo Safety Guardrails</h3>
+          <p class="text-slate-400 text-xs mt-2 leading-relaxed">
+            Bi-directional moderation layer evaluating input prompt injection threats and output hallucinations before releasing payloads to production webhooks or database write layers.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-slate-900/60 border border-white/10 backdrop-blur-xl hover:border-emerald-500/30 transition-all group">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center font-mono font-bold text-lg mb-4 group-hover:scale-110 transition-transform">
+            03
+          </div>
+          <h3 class="text-lg font-bold text-white group-hover:text-emerald-300 transition-colors">Low-Latency Streaming RAG</h3>
+          <p class="text-slate-400 text-xs mt-2 leading-relaxed">
+            Hybrid vector & BM25 retrieval pipeline with Ragas faithfulness scoring to ensure 100% grounded citations and sub-300ms time-to-first-token.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
