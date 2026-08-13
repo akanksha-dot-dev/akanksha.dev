@@ -1,0 +1,86 @@
+---
+// evals.astro - Interactive LLM Evaluation & Guardrails Benchmark Page
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LLMEvalPlayground from '../components/LLMEvalPlayground.astro';
+import StructuredData from '../components/StructuredData.astro';
+
+const pageTitle = "LLM Evaluation & Guardrails Workbench | Ragas Metrics & Safety — Akanksha";
+const pageDescription = "Interactive LLM Evaluation and Guardrails Workbench. Benchmark Ragas metrics (Faithfulness, Context Precision, Answer Relevance), test NeMo prompt injection defenses, and simulate production AI reliability.";
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <StructuredData 
+    type="SoftwareApplication font-mono"
+    data={{
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "LLM Evaluation & Guardrails Workbench",
+      "url": "https://akanksha.dev/evals",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "All",
+      "author": {
+        "@type": "Person",
+        "name": "Akanksha"
+      },
+      "description": pageDescription
+    }}
+  />
+
+  <main class="py-12 md:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+    
+    <!-- Hero Header -->
+    <div class="space-y-4 text-center max-w-3xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-xs font-mono text-purple-400">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        Enterprise AI Quality Engineering
+      </div>
+      
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight font-(--font-heading)">
+        LLM Evaluation & <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent">Guardrails</span>
+      </h1>
+      
+      <p class="text-base sm:text-lg text-slate-400 leading-relaxed font-(--font-body)">
+        Inspect Ragas factuality scores, test NeMo guardrail filters, analyze hallucination risks, and evaluate LLM output safety for production enterprise applications.
+      </p>
+    </div>
+
+    <!-- Embedded Interactive Playground Component -->
+    <LLMEvalPlayground />
+
+    <!-- Evaluation Framework Breakdown Cards -->
+    <div class="pt-12 border-t border-slate-800/80 grid grid-cols-1 md:grid-cols-3 gap-8">
+      
+      <div class="p-6 rounded-2xl bg-slate-900/40 border border-slate-800/60 space-y-3">
+        <div class="w-8 h-8 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center font-mono font-bold text-sm">
+          01
+        </div>
+        <h3 class="text-lg font-bold text-white font-(--font-heading)">Ragas Metric Evaluation</h3>
+        <p class="text-xs text-slate-400 leading-relaxed font-(--font-body)">
+          Faithfulness measures if all assertions in the response can be directly inferred from retrieved context. Context Precision penalizes noisy context chunks.
+        </p>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-slate-900/40 border border-slate-800/60 space-y-3">
+        <div class="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-mono font-bold text-sm">
+          02
+        </div>
+        <h3 class="text-lg font-bold text-white font-(--font-heading)">NeMo Guardrails Defense</h3>
+        <p class="text-xs text-slate-400 leading-relaxed font-(--font-body)">
+          Programmable rail policies enforce topical boundaries, prevent system prompt leakage, redact sensitive PII, and block malicious jailbreak inputs.
+        </p>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-slate-900/40 border border-slate-800/60 space-y-3">
+        <div class="w-8 h-8 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center font-mono font-bold text-sm">
+          03
+        </div>
+        <h3 class="text-lg font-bold text-white font-(--font-heading)">Model Benchmarking</h3>
+        <p class="text-xs text-slate-400 leading-relaxed font-(--font-body)">
+          Compare frontier models (Claude 3.5 Sonnet, GPT-4o, DeepSeek R1) on instruction following, reasoning depth, token speed, and cost efficiency.
+        </p>
+      </div>
+
+    </div>
+
+  </main>
+</BaseLayout>
