@@ -45,3 +45,11 @@
 ## Phase 5: Production AI Evaluation & Guardrails Benchmarks (Completed)
 - [x] **LLM Evaluation & Guardrails Workbench (`/evals`)**: Live Ragas metric evaluation (Faithfulness, Context Precision, Answer Relevance), NeMo prompt injection guardrails testing, and model benchmarking playground.
 
+---
+
+## Phase 6: Advanced Agentic Workflows & AI Ecosystem Graph (Completed)
+- [x] **Multi-Agent Workflow Orchestrator Studio (`/orchestrator`)**: Real-time agent pipeline execution simulator with step token budgets, tool invocation parameters, and custom workflow presets.
+- [x] **AI Architecture & Concept Knowledge Graph (`/graph`)**: Interactive visual node-link graph mapping enterprise AI concepts, framework stack, sandboxes, and production projects.
+- [x] **Voice RAG & Audio AI Simulation**: Integrated Web Speech API recognition, waveform animation, and text-to-speech audio playback in the AI Assistant terminal.
+- [x] **Global Accent Theme System**: Dynamic theme switcher (Cyber Neon, Deep Emerald, Electric Amber) with persistent state and header/command palette triggers.
+
