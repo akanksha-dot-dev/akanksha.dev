@@ -1,68 +1,71 @@
 ---
-// src/components/AiSandbox.astro — Production AI Architecture Sandbox 3.0
+// src/components/AiSandbox.astro — Production AI Architecture Sandbox 3.0 (Full-Width Responsive)
 ---
 
-<div class="glass-static p-5 sm:p-7 relative overflow-hidden fade-in border border-(--color-border) bg-(--color-surface) rounded-2xl" id="ai-sandbox-container">
+<div class="glass-static p-6 sm:p-8 relative overflow-hidden fade-in border border-(--color-border) bg-(--color-surface) rounded-2xl w-full" id="ai-sandbox-container">
   <!-- Subtle Ambient Glow -->
-  <div class="absolute -top-24 -left-24 w-52 h-52 rounded-full bg-(--color-teal-glow) filter blur-3xl pointer-events-none"></div>
-  <div class="absolute -bottom-24 -right-24 w-52 h-52 rounded-full bg-(--color-amber-glow) filter blur-3xl pointer-events-none"></div>
+  <div class="absolute -top-24 -left-24 w-64 h-64 rounded-full bg-(--color-teal-glow) filter blur-3xl pointer-events-none"></div>
+  <div class="absolute -bottom-24 -right-24 w-64 h-64 rounded-full bg-(--color-amber-glow) filter blur-3xl pointer-events-none"></div>
 
-  <!-- Component Header -->
+  <!-- Component Top Navigation & Mode Switcher -->
   <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-5 border-b border-(--color-border) relative z-10">
     <div>
       <div class="flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-(--color-teal) animate-pulse"></span>
+        <span class="w-2.5 h-2.5 rounded-full bg-(--color-teal) animate-pulse"></span>
         <h3 class="font-(--font-heading) font-extrabold text-lg sm:text-xl text-white tracking-tight">
           Interactive <span class="gradient-text">AI Architecture Sandbox</span>
         </h3>
       </div>
       <p class="text-xs text-(--color-text-secondary) font-(--font-mono) mt-1">
-        Production-grade execution pipeline & guardrail simulator
+        Production-grade execution pipeline, DAG node telemetry & guardrail simulator
       </p>
     </div>
     
-    <div class="flex items-center gap-2 self-start">
-      <!-- Tab Switches -->
-      <div class="flex p-1 bg-[#080E1E] border border-(--color-border) rounded-lg" role="tablist" aria-label="Pipeline Simulator Tabs">
-        <button 
-          type="button"
-          id="btn-rag-tab" 
-          role="tab"
-          aria-selected="true"
-          aria-controls="rag-panel"
-          class="px-3.5 py-1.5 text-xs font-(--font-mono) font-semibold rounded-md transition-all cursor-pointer bg-(--color-teal-glow) text-(--color-teal) border border-teal-500/30"
-        >
-          Enterprise Graph RAG
-        </button>
-        <button 
-          type="button"
-          id="btn-agent-tab" 
-          role="tab"
-          aria-selected="false"
-          aria-controls="agent-panel"
-          class="px-3.5 py-1.5 text-xs font-(--font-mono) font-semibold rounded-md transition-all cursor-pointer text-(--color-text-secondary) hover:text-white"
-        >
-          Agent Loop (Google ADK)
-        </button>
-      </div>
+    <!-- Tab Switches -->
+    <div class="flex p-1 bg-[#080E1E] border border-(--color-border) rounded-xl self-start sm:self-auto" role="tablist" aria-label="Pipeline Simulator Tabs">
+      <button 
+        type="button"
+        id="btn-rag-tab" 
+        role="tab"
+        aria-selected="true"
+        aria-controls="rag-panel"
+        class="px-4 py-2 text-xs font-(--font-mono) font-semibold rounded-lg transition-all cursor-pointer bg-(--color-teal-glow) text-(--color-teal) border border-teal-500/40 shadow-sm"
+      >
+        ⚡ Enterprise Graph RAG
+      </button>
+      <button 
+        type="button"
+        id="btn-agent-tab" 
+        role="tab"
+        aria-selected="false"
+        aria-controls="agent-panel"
+        class="px-4 py-2 text-xs font-(--font-mono) font-semibold rounded-lg transition-all cursor-pointer text-(--color-text-secondary) hover:text-white border border-transparent"
+      >
+        🤖 Agent Loop (Google ADK)
+      </button>
     </div>
   </div>
 
-  <div class="relative z-10 min-h-[420px] flex flex-col">
+  <div class="relative z-10 min-h-[440px] flex flex-col">
     <!-- ═══ RAG VISUALIZER PANEL ═══ -->
     <div id="rag-panel" role="tabpanel" aria-labelledby="btn-rag-tab" class="flex flex-col gap-6 flex-1">
-      <div class="grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-6 items-start">
-        <!-- Main Area -->
-        <div class="flex flex-col gap-4">
-          <div class="flex flex-col gap-1.5">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <!-- Main Area (8 cols) -->
+        <div class="lg:col-span-8 flex flex-col gap-5">
+          <!-- Workload Selector & Run Action -->
+          <div class="flex flex-col gap-2">
             <div class="flex justify-between items-center">
-              <label for="rag-query-select" class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider">Enterprise Query Workload</label>
-              <span class="text-[10px] font-(--font-mono) text-(--color-teal)">Samsung SDS Cluster</span>
+              <label for="rag-query-select" class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider font-semibold">
+                Select Enterprise Query Workload
+              </label>
+              <span class="text-[11px] font-(--font-mono) text-(--color-teal) bg-teal-500/10 border border-teal-500/20 px-2 py-0.5 rounded">
+                Samsung SDS Cluster
+              </span>
             </div>
-            <div class="flex flex-col sm:flex-row gap-2">
+            <div class="flex flex-col sm:flex-row gap-2.5">
               <select 
                 id="rag-query-select" 
-                class="bg-[#080E1E] border border-(--color-border) px-3 py-2 text-xs rounded-lg flex-1 text-(--color-text-primary) focus:outline-none focus:border-(--color-teal) focus:ring-1 focus:ring-(--color-teal)"
+                class="bg-[#080E1E] border border-(--color-border) px-3.5 py-2.5 text-xs rounded-xl flex-1 text-white font-sans focus:outline-none focus:border-(--color-teal) focus:ring-1 focus:ring-(--color-teal) shadow-inner"
               >
                 <option value="revenue">"Analyze Samsung SDS Q4 Net Income & retrieval precision"</option>
                 <option value="accuracy">"Assess RAG accuracy over 200-page annual financial statements"</option>
@@ -71,7 +74,7 @@
               <button 
                 type="button"
                 id="btn-run-rag" 
-                class="btn-primary text-xs py-2 px-4 whitespace-nowrap cursor-pointer hover:scale-[1.02] transition-transform flex items-center justify-center gap-1.5 shadow-[0_0_16px_rgba(0,240,181,0.3)]"
+                class="btn-primary text-xs py-2.5 px-6 whitespace-nowrap cursor-pointer hover:scale-[1.02] transition-transform flex items-center justify-center gap-2 shadow-[0_0_16px_rgba(0,240,181,0.3)] shrink-0"
               >
                 <span>▶ Run Pipeline</span>
               </button>
@@ -79,147 +82,160 @@
           </div>
 
           <!-- Degradation Warning Banner (Shown when router is toggled OFF) -->
-          <div id="rag-degraded-banner" class="hidden glass-static p-3 rounded-xl border border-red-500/40 bg-red-500/10 text-xs text-red-200 flex items-start gap-2.5">
-            <span class="text-red-400 text-base">⚠️</span>
+          <div id="rag-degraded-banner" class="hidden glass-static p-4 rounded-xl border border-red-500/40 bg-red-500/10 text-xs text-red-200 flex items-start gap-3 animate-fadeIn">
+            <span class="text-red-400 text-lg shrink-0">⚠️</span>
             <div>
-              <span class="font-semibold font-(--font-mono) text-red-300 block">ARCHITECTURAL DEGRADATION SIMULATED</span>
-              <p class="text-[0.7rem] text-red-200/80 leading-relaxed mt-0.5">Semantic Router Node is disabled. Vector similarity without intent routing causes context dilution, token bloat, and hallucination.</p>
+              <span class="font-bold font-(--font-mono) text-red-300 block text-xs">ARCHITECTURAL DEGRADATION SIMULATED</span>
+              <p class="text-[0.72rem] text-red-200/90 leading-relaxed mt-0.5">
+                Semantic Router Node is disabled. Raw vector similarity without intent classification causes context dilution, token bloat, and hallucinated table interpretations.
+              </p>
             </div>
           </div>
 
           <!-- Interactive Pipeline Visual Flow Nodes -->
-          <div class="relative mt-1">
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 relative z-10" id="rag-steps-container">
+          <div class="flex flex-col gap-2">
+            <div class="flex justify-between items-center">
+              <span class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider font-semibold">
+                Execution Flow Nodes (Click any node to inspect telemetry)
+              </span>
+              <span class="text-[10px] font-(--font-mono) text-(--color-text-muted)">4 Stages Active</span>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 relative z-10" id="rag-steps-container">
               <!-- Step 1 -->
               <button 
                 type="button" 
-                class="rag-step-box text-left border border-(--color-border) p-3 rounded-xl bg-[#080E1E]/60 transition-all opacity-50 cursor-pointer hover:border-(--color-teal)/50"
+                class="rag-step-box text-left border border-(--color-border) p-3.5 rounded-xl bg-[#080E1E]/70 transition-all opacity-50 cursor-pointer hover:border-(--color-teal)/60 flex flex-col justify-between gap-1.5"
                 data-step="1"
                 title="Click to inspect Segmentation node telemetry"
               >
-                <div class="flex items-center justify-between mb-1">
-                  <span class="text-[10px] font-(--font-mono) text-(--color-text-secondary) font-bold">01. SEGMENT</span>
-                  <span class="text-[9px] font-mono text-(--color-teal) step-badge">READY</span>
+                <div class="flex items-center justify-between gap-1">
+                  <span class="text-xs font-(--font-mono) text-white font-bold truncate">01. SEGMENT</span>
+                  <span class="text-[9px] font-mono text-(--color-teal) step-badge px-1.5 py-0.5 rounded bg-teal-500/10 border border-teal-500/20 font-bold whitespace-nowrap">READY</span>
                 </div>
-                <div class="text-[0.65rem] font-(--font-mono) text-(--color-text-muted) truncate" id="rag-step1-log">Awaiting launch...</div>
+                <div class="text-[11px] font-(--font-mono) text-(--color-text-muted) truncate" id="rag-step1-log">Awaiting launch...</div>
               </button>
 
               <!-- Step 2 -->
               <button 
                 type="button" 
-                class="rag-step-box text-left border border-(--color-border) p-3 rounded-xl bg-[#080E1E]/60 transition-all opacity-50 cursor-pointer hover:border-(--color-teal)/50"
+                class="rag-step-box text-left border border-(--color-border) p-3.5 rounded-xl bg-[#080E1E]/70 transition-all opacity-50 cursor-pointer hover:border-(--color-teal)/60 flex flex-col justify-between gap-1.5"
                 data-step="2"
                 title="Click to inspect FAISS Vector Search node telemetry"
               >
-                <div class="flex items-center justify-between mb-1">
-                  <span class="text-[10px] font-(--font-mono) text-(--color-text-secondary) font-bold">02. FAISS SEARCH</span>
-                  <span class="text-[9px] font-mono text-(--color-teal) step-badge">READY</span>
+                <div class="flex items-center justify-between gap-1">
+                  <span class="text-xs font-(--font-mono) text-white font-bold truncate">02. FAISS SEARCH</span>
+                  <span class="text-[9px] font-mono text-(--color-teal) step-badge px-1.5 py-0.5 rounded bg-teal-500/10 border border-teal-500/20 font-bold whitespace-nowrap">READY</span>
                 </div>
-                <div class="text-[0.65rem] font-(--font-mono) text-(--color-text-muted) truncate" id="rag-step2-log">Awaiting launch...</div>
+                <div class="text-[11px] font-(--font-mono) text-(--color-text-muted) truncate" id="rag-step2-log">Awaiting launch...</div>
               </button>
 
               <!-- Step 3 -->
               <button 
                 type="button" 
-                class="rag-step-box text-left border border-(--color-border) p-3 rounded-xl bg-[#080E1E]/60 transition-all opacity-50 cursor-pointer hover:border-(--color-teal)/50"
+                class="rag-step-box text-left border border-(--color-border) p-3.5 rounded-xl bg-[#080E1E]/70 transition-all opacity-50 cursor-pointer hover:border-(--color-teal)/60 flex flex-col justify-between gap-1.5"
                 data-step="3"
                 title="Click to inspect Graph Enrich node telemetry"
               >
-                <div class="flex items-center justify-between mb-1">
-                  <span class="text-[10px] font-(--font-mono) text-(--color-text-secondary) font-bold">03. GRAPH ENRICH</span>
-                  <span class="text-[9px] font-mono text-(--color-teal) step-badge">READY</span>
+                <div class="flex items-center justify-between gap-1">
+                  <span class="text-xs font-(--font-mono) text-white font-bold truncate">03. GRAPH ENRICH</span>
+                  <span class="text-[9px] font-mono text-(--color-teal) step-badge px-1.5 py-0.5 rounded bg-teal-500/10 border border-teal-500/20 font-bold whitespace-nowrap">READY</span>
                 </div>
-                <div class="text-[0.65rem] font-(--font-mono) text-(--color-text-muted) truncate" id="rag-step3-log">Awaiting launch...</div>
+                <div class="text-[11px] font-(--font-mono) text-(--color-text-muted) truncate" id="rag-step3-log">Awaiting launch...</div>
               </button>
 
               <!-- Step 4 -->
               <button 
                 type="button" 
-                class="rag-step-box text-left border border-(--color-border) p-3 rounded-xl bg-[#080E1E]/60 transition-all opacity-50 cursor-pointer hover:border-(--color-teal)/50"
+                class="rag-step-box text-left border border-(--color-border) p-3.5 rounded-xl bg-[#080E1E]/70 transition-all opacity-50 cursor-pointer hover:border-(--color-teal)/60 flex flex-col justify-between gap-1.5"
                 data-step="4"
                 title="Click to inspect LLM Inference node telemetry"
               >
-                <div class="flex items-center justify-between mb-1">
-                  <span class="text-[10px] font-(--font-mono) text-(--color-text-secondary) font-bold">04. INFERENCE</span>
-                  <span class="text-[9px] font-mono text-(--color-teal) step-badge">READY</span>
+                <div class="flex items-center justify-between gap-1">
+                  <span class="text-xs font-(--font-mono) text-white font-bold truncate">04. INFERENCE</span>
+                  <span class="text-[9px] font-mono text-(--color-teal) step-badge px-1.5 py-0.5 rounded bg-teal-500/10 border border-teal-500/20 font-bold whitespace-nowrap">READY</span>
                 </div>
-                <div class="text-[0.65rem] font-(--font-mono) text-(--color-text-muted) truncate" id="rag-step4-log">Awaiting launch...</div>
+                <div class="text-[11px] font-(--font-mono) text-(--color-text-muted) truncate" id="rag-step4-log">Awaiting launch...</div>
               </button>
             </div>
           </div>
 
           <!-- Step Deep-Inspection Pane (Interactive) -->
-          <div id="step-inspect-pane" class="hidden glass-static p-3.5 rounded-xl border border-(--color-teal)/30 bg-[#080E1E]/80 text-xs font-(--font-mono) flex flex-col gap-1.5 animate-fadeIn">
+          <div id="step-inspect-pane" class="hidden glass-static p-4 rounded-xl border border-(--color-teal)/40 bg-[#080E1E]/90 text-xs font-(--font-mono) flex flex-col gap-2 animate-fadeIn">
             <div class="flex items-center justify-between text-(--color-teal)">
               <span class="font-bold flex items-center gap-1.5" id="inspect-node-title">🔍 Node Telemetry Inspector</span>
-              <button type="button" id="btn-close-inspect" class="text-(--color-text-muted) hover:text-(--color-teal) text-[10px] cursor-pointer">✕ Close</button>
+              <button type="button" id="btn-close-inspect" class="text-(--color-text-muted) hover:text-(--color-teal) text-xs cursor-pointer px-2 py-0.5 rounded bg-white/5 border border-white/10">✕ Close</button>
             </div>
-            <p id="inspect-node-desc" class="text-[0.7rem] text-(--color-text-secondary)"></p>
-            <div id="inspect-node-stats" class="flex flex-wrap gap-3 pt-1 text-[0.65rem] text-(--color-text-muted) border-t border-white/5"></div>
+            <p id="inspect-node-desc" class="text-xs text-(--color-text-secondary) leading-relaxed"></p>
+            <div id="inspect-node-stats" class="flex flex-wrap gap-4 pt-2 text-[11px] text-(--color-text-muted) border-t border-white/5 font-(--font-mono)"></div>
           </div>
 
           <!-- Streamed Synthesis Box -->
-          <div class="border border-(--color-border) bg-[#080E1E]/50 p-4 rounded-xl flex-1 flex flex-col gap-2 min-h-[150px] relative">
-            <div class="flex items-center justify-between border-b border-white/5 pb-2">
-              <span class="text-[0.65rem] font-(--font-mono) text-(--color-teal) uppercase tracking-wider flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-(--color-teal)"></span>
-                Synthesized Output (Streamed)
+          <div class="border border-(--color-border) bg-[#080E1E]/60 p-5 rounded-xl flex-1 flex flex-col gap-3 min-h-[160px] relative shadow-inner">
+            <div class="flex items-center justify-between border-b border-white/5 pb-2.5">
+              <span class="text-xs font-(--font-mono) text-(--color-teal) uppercase tracking-wider font-semibold flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-(--color-teal) animate-pulse"></span>
+                Synthesized Output (Streamed Response)
               </span>
               <button 
                 type="button" 
                 id="btn-copy-rag" 
-                class="text-[0.65rem] font-(--font-mono) text-(--color-text-secondary) hover:text-(--color-teal) flex items-center gap-1 cursor-pointer transition-colors px-2 py-0.5 rounded border border-transparent hover:border-(--color-border) bg-white/5"
+                class="text-xs font-(--font-mono) text-(--color-text-secondary) hover:text-(--color-teal) flex items-center gap-1.5 cursor-pointer transition-colors px-2.5 py-1 rounded-lg border border-white/5 hover:border-(--color-teal)/40 bg-white/5"
                 title="Copy synthesized output"
               >
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
                 </svg>
                 <span id="copy-rag-label">Copy Synthesis</span>
               </button>
             </div>
-            <div id="rag-output-text" class="text-xs sm:text-sm text-(--color-text-primary) leading-relaxed font-sans font-normal" aria-live="polite">
+            <div id="rag-output-text" class="text-xs sm:text-sm text-(--color-text-primary) leading-relaxed font-sans" aria-live="polite">
               Select an enterprise query above and run the pipeline to visualize real-time RAG execution.
             </div>
           </div>
         </div>
 
-        <!-- Sidebar status & controls -->
-        <div class="flex flex-col gap-4">
-          <span class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider flex items-center justify-between">
+        <!-- Sidebar Status & Controls (4 cols) -->
+        <div class="lg:col-span-4 flex flex-col gap-4">
+          <span class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider font-semibold flex items-center justify-between">
             <span>Architecture Controls</span>
             <span class="text-[10px] text-(--color-teal)">Live Node</span>
           </span>
           
-          <div class="glass-static p-3.5 flex flex-col gap-2 border border-(--color-border) bg-[#080E1E]/50 rounded-xl">
+          <!-- Semantic Router Switch -->
+          <div class="glass-static p-4 flex flex-col gap-2.5 border border-(--color-border) bg-[#080E1E]/60 rounded-xl">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-(--font-mono) text-(--color-text-primary) flex items-center gap-1">
+              <span class="text-xs font-(--font-mono) text-white font-semibold flex items-center gap-1.5">
                 Semantic Router
-                <span class="text-[0.6rem] text-teal-400 font-mono" title="Routes queries dynamically based on semantic intent">ℹ</span>
+                <span class="text-[10px] text-teal-400 font-mono" title="Routes queries dynamically based on semantic intent">ℹ</span>
               </span>
               <label class="relative inline-flex items-center cursor-pointer" aria-label="Toggle Semantic Router Node">
                 <input type="checkbox" id="toggle-router" class="sr-only peer" checked>
-                <div class="w-8 h-4 bg-red-500/30 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3.5 after:w-3.5 after:transition-all peer-checked:bg-(--color-teal)"></div>
+                <div class="w-9 h-5 bg-red-500/40 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-(--color-teal)"></div>
               </label>
             </div>
-            <p class="text-[0.62rem] text-(--color-text-muted) font-(--font-mono)">Guarantees 92% retrieval precision. Toggle OFF to test hallucination degradation.</p>
+            <p class="text-[11px] text-(--color-text-secondary) font-(--font-mono) leading-relaxed">
+              Guarantees 92% retrieval precision. Toggle OFF to test hallucination degradation.
+            </p>
           </div>
 
-          <div class="glass-static p-4 flex flex-col gap-3 font-(--font-mono) bg-[#080E1E]/50 border border-(--color-border) rounded-xl">
-            <div class="flex justify-between items-center pb-2 border-b border-white/5">
-              <span class="text-[0.65rem] text-(--color-text-muted)">PIPELINE TELEMETRY</span>
-              <span class="text-[9px] text-(--color-teal) font-semibold">VALIDATED</span>
+          <!-- Pipeline Telemetry Box -->
+          <div class="glass-static p-4 sm:p-5 flex flex-col gap-3.5 font-(--font-mono) bg-[#080E1E]/60 border border-(--color-border) rounded-xl">
+            <div class="flex justify-between items-center pb-2.5 border-b border-white/5">
+              <span class="text-xs text-(--color-text-muted) uppercase tracking-wider font-semibold">PIPELINE TELEMETRY</span>
+              <span class="text-[10px] text-(--color-teal) font-semibold px-2 py-0.5 rounded bg-teal-500/10 border border-teal-500/20">VALIDATED</span>
             </div>
             <div>
-              <span class="text-[0.6rem] text-(--color-text-muted) block">LATENCY DELTA</span>
-              <span id="rag-log-latency" class="text-sm font-semibold text-(--color-teal)">0.00 ms</span>
+              <span class="text-[10px] text-(--color-text-muted) uppercase tracking-wider block">LATENCY DELTA</span>
+              <span id="rag-log-latency" class="text-base font-bold text-(--color-teal)">0.00 ms</span>
             </div>
             <div>
-              <span class="text-[0.6rem] text-(--color-text-muted) block">RETRIEVAL MATCHES</span>
-              <span id="rag-log-matches" class="text-sm font-semibold text-(--color-teal)">-</span>
+              <span class="text-[10px] text-(--color-text-muted) uppercase tracking-wider block">RETRIEVAL MATCHES</span>
+              <span id="rag-log-matches" class="text-base font-bold text-(--color-teal)">-</span>
             </div>
             <div>
-              <span class="text-[0.6rem] text-(--color-text-muted) block">RAGAS RELEVANCE SCORE</span>
-              <span id="rag-log-score" class="text-sm font-semibold text-(--color-amber)">-</span>
+              <span class="text-[10px] text-(--color-text-muted) uppercase tracking-wider block">RAGAS RELEVANCE SCORE</span>
+              <span id="rag-log-score" class="text-base font-bold text-(--color-amber)">-</span>
             </div>
           </div>
         </div>
@@ -228,18 +244,23 @@
 
     <!-- ═══ AGENT ORCHESTRATION PANEL ═══ -->
     <div id="agent-panel" role="tabpanel" aria-labelledby="btn-agent-tab" class="hidden flex flex-col gap-6 flex-1">
-      <div class="grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-6 items-start">
-        <!-- Main Area -->
-        <div class="flex flex-col gap-4">
-          <div class="flex flex-col gap-1.5">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <!-- Main Area (8 cols) -->
+        <div class="lg:col-span-8 flex flex-col gap-5">
+          <!-- Objective Selector -->
+          <div class="flex flex-col gap-2">
             <div class="flex justify-between items-center">
-              <label for="agent-task-select" class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider">Select Agent Objective</label>
-              <span class="text-[10px] font-(--font-mono) text-(--color-teal)">Google ADK Core</span>
+              <label for="agent-task-select" class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider font-semibold">
+                Select Autonomous Agent Objective
+              </label>
+              <span class="text-[11px] font-(--font-mono) text-(--color-teal) bg-teal-500/10 border border-teal-500/20 px-2 py-0.5 rounded">
+                Google ADK Core
+              </span>
             </div>
-            <div class="flex flex-col sm:flex-row gap-2">
+            <div class="flex flex-col sm:flex-row gap-2.5">
               <select 
                 id="agent-task-select" 
-                class="bg-[#080E1E] border border-(--color-border) px-3 py-2 text-xs rounded-lg flex-1 text-(--color-text-primary) focus:outline-none focus:border-(--color-teal) focus:ring-1 focus:ring-(--color-teal)"
+                class="bg-[#080E1E] border border-(--color-border) px-3.5 py-2.5 text-xs rounded-xl flex-1 text-white font-sans focus:outline-none focus:border-(--color-teal) focus:ring-1 focus:ring-(--color-teal) shadow-inner"
               >
                 <option value="content">"Generate & evaluate SEO validated article about Graph RAG"</option>
                 <option value="qa">"Analyze JSON schema comparisons across o9 test instances"</option>
@@ -248,7 +269,7 @@
               <button 
                 type="button"
                 id="btn-run-agent" 
-                class="btn-primary text-xs py-2 px-4 whitespace-nowrap cursor-pointer hover:scale-[1.02] transition-transform flex items-center justify-center gap-1.5 shadow-[0_0_16px_rgba(0,240,181,0.3)]"
+                class="btn-primary text-xs py-2.5 px-6 whitespace-nowrap cursor-pointer hover:scale-[1.02] transition-transform flex items-center justify-center gap-2 shadow-[0_0_16px_rgba(0,240,181,0.3)] shrink-0"
               >
                 <span>🚀 Launch Agent</span>
               </button>
@@ -256,69 +277,71 @@
           </div>
 
           <!-- Console Terminal -->
-          <div class="border border-(--color-border) bg-[#030712]/95 p-4 rounded-xl font-(--font-mono) flex-1 min-h-[240px] flex flex-col gap-1.5 shadow-2xl">
-            <div class="flex items-center justify-between pb-2 border-b border-white/10 mb-1.5">
-              <div class="flex items-center gap-1.5">
-                <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
-                <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></span>
-                <span class="w-2.5 h-2.5 rounded-full bg-green-500/80"></span>
-                <span class="text-[0.65rem] text-(--color-text-muted) ml-2">akanksha@adk-node:~$</span>
+          <div class="border border-(--color-border) bg-[#030712] p-5 rounded-xl font-(--font-mono) flex-1 min-h-[260px] flex flex-col gap-2 shadow-2xl">
+            <div class="flex items-center justify-between pb-3 border-b border-white/10">
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+                <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
+                <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
+                <span class="text-xs text-(--color-text-muted) ml-2">akanksha@adk-node:~$</span>
               </div>
               <button 
                 type="button" 
                 id="btn-copy-agent" 
-                class="text-[0.65rem] font-(--font-mono) text-(--color-text-secondary) hover:text-(--color-teal) flex items-center gap-1 cursor-pointer transition-colors px-2 py-0.5 rounded border border-transparent hover:border-white/10 bg-white/5"
+                class="text-xs font-(--font-mono) text-(--color-text-secondary) hover:text-(--color-teal) flex items-center gap-1.5 cursor-pointer transition-colors px-2.5 py-1 rounded border border-white/10 bg-white/5"
                 title="Copy terminal logs"
               >
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
                 </svg>
                 <span id="copy-agent-label">Copy Logs</span>
               </button>
             </div>
-            <div id="agent-terminal" class="text-xs text-emerald-400/90 leading-relaxed overflow-y-auto max-h-[190px] space-y-1" aria-live="polite">
+            <div id="agent-terminal" class="text-xs text-emerald-400 leading-relaxed overflow-y-auto max-h-[220px] space-y-1.5" aria-live="polite">
               <span class="text-(--color-text-muted)">Ready to initialize. Select an objective and launch the agent.</span>
             </div>
           </div>
         </div>
 
-        <!-- Sidebar status & checks -->
-        <div class="flex flex-col gap-4">
-          <span class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider flex items-center justify-between">
+        <!-- Sidebar Status & Checks (4 cols) -->
+        <div class="lg:col-span-4 flex flex-col gap-4">
+          <span class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider font-semibold flex items-center justify-between">
             <span>Safety & Guardrails</span>
             <span class="text-[10px] text-(--color-teal)">Active Harness</span>
           </span>
           
-          <div class="glass-static p-3.5 flex flex-col gap-2 border border-(--color-border) bg-[#080E1E]/50 rounded-xl">
+          <div class="glass-static p-4 flex flex-col gap-2.5 border border-(--color-border) bg-[#080E1E]/60 rounded-xl">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-(--font-mono) text-(--color-text-primary) flex items-center gap-1">
+              <span class="text-xs font-(--font-mono) text-white font-semibold flex items-center gap-1.5">
                 RAGAS Guardrails
-                <span class="text-[0.6rem] text-teal-400 font-mono" title="Scores groundedness & alignment against hallucination">ℹ</span>
+                <span class="text-[10px] text-teal-400 font-mono" title="Scores groundedness & alignment against hallucination">ℹ</span>
               </span>
               <label class="relative inline-flex items-center cursor-pointer" aria-label="Toggle RAGAS Guardrails Node">
                 <input type="checkbox" id="toggle-guardrails" class="sr-only peer" checked>
-                <div class="w-8 h-4 bg-red-500/30 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3.5 after:w-3.5 after:transition-all peer-checked:bg-(--color-teal)"></div>
+                <div class="w-9 h-5 bg-red-500/40 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-(--color-teal)"></div>
               </label>
             </div>
-            <p class="text-[0.62rem] text-(--color-text-muted) font-(--font-mono)">Evaluates agent outputs. Toggle OFF to simulate unverified tool execution.</p>
+            <p class="text-[11px] text-(--color-text-secondary) font-(--font-mono) leading-relaxed">
+              Enforces structured schema validation & anti-hallucination verification before agent execution.
+            </p>
           </div>
 
-          <div class="glass-static p-4 flex flex-col gap-3 font-(--font-mono) bg-[#080E1E]/50 border border-(--color-border) rounded-xl">
-            <div class="flex justify-between items-center pb-2 border-b border-white/5">
-              <span class="text-[0.65rem] text-(--color-text-muted)">AGENT ORCHESTRATION</span>
-              <span class="text-[9px] text-(--color-teal) font-semibold">ADK CORE</span>
+          <div class="glass-static p-4 sm:p-5 flex flex-col gap-3.5 font-(--font-mono) bg-[#080E1E]/60 border border-(--color-border) rounded-xl">
+            <div class="flex justify-between items-center pb-2.5 border-b border-white/5">
+              <span class="text-xs text-(--color-text-muted) uppercase tracking-wider font-semibold">AGENT TELEMETRY</span>
+              <span class="text-[10px] text-(--color-amber) font-semibold px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/20">STATEFUL</span>
             </div>
             <div>
-              <span class="text-[0.6rem] text-(--color-text-muted) block">CURRENT AGENT STATE</span>
-              <span id="agent-state-label" class="text-xs font-semibold text-(--color-text-secondary)">IDLE</span>
+              <span class="text-[10px] text-(--color-text-muted) uppercase tracking-wider block">EXECUTION CYCLES</span>
+              <span id="agent-stat-cycles" class="text-base font-bold text-(--color-teal)">0 Loops</span>
             </div>
             <div>
-              <span class="text-[0.6rem] text-(--color-text-muted) block">MCP TOOLS INVOCATION</span>
-              <span id="agent-tools-count" class="text-xs font-semibold text-(--color-teal)">0 Called</span>
+              <span class="text-[10px] text-(--color-text-muted) uppercase tracking-wider block">MCP TOOLS INVOKED</span>
+              <span id="agent-stat-tools" class="text-base font-bold text-(--color-teal)">0 Tools</span>
             </div>
             <div>
-              <span class="text-[0.6rem] text-(--color-text-muted) block">GUARDRAIL VERIFICATION</span>
-              <span id="agent-guard-status" class="text-xs font-semibold text-(--color-amber)">WAITING</span>
+              <span class="text-[10px] text-(--color-text-muted) uppercase tracking-wider block">VERIFICATION PASS RATE</span>
+              <span id="agent-stat-status" class="text-base font-bold text-(--color-amber)">-</span>
             </div>
           </div>
         </div>
@@ -327,348 +350,252 @@
   </div>
 </div>
 
-<style>
-  .rag-step-box.active-step {
-    opacity: 1 !important;
-    border-color: var(--color-teal) !important;
-    background-color: rgba(0, 240, 181, 0.12) !important;
-    box-shadow: 0 0 16px rgba(0, 240, 181, 0.25) !important;
-  }
-  .rag-step-box.inspected-step {
-    border-color: var(--color-amber) !important;
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-4px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .animate-fadeIn {
-    animation: fadeIn 0.25s ease-out forwards;
-  }
-</style>
-
 <script>
-  const ragDatabase = {
+  // Simulation Data
+  const ragResponses = {
     revenue: {
-      step1: "Parsed FY25 Q4 statements (18 pages, GMFT text layout extractor)",
-      step2: "Retrieved 4 chunks via FAISS (nearest cosine distance: 0.24)",
-      step3: "Graph enriched: linked [Net Income] ↔ [Cloud GenAI] ↔ [Enterprise Growth]",
-      step4: "LLM synthesis executed (GPT-4 with dynamic token allocation)",
-      output: "<p class='mb-2'>Based on Samsung SDS's official financial disclosure for FY25 Q4:</p>" +
-              "<ul class='space-y-1.5'>" +
-              "<li>• <strong>Net Income:</strong> Reached strong expansion with an 11.2% YoY increase, driven by enterprise GenAI deployments.</li>" +
-              "<li>• <strong>Retrieval Precision:</strong> Graph RAG bypassed context limits with divide-and-conquer processing, hitting <strong class='text-teal-300'>92% context recall</strong> across dense financial tables.</li>" +
-              "<li>• <strong>Pipeline Latency:</strong> Resolved in <strong class='text-teal-300'>240ms</strong> with sub-millisecond FAISS vector indexing.</li>" +
-              "</ul>",
+      steps: [
+        { label: "Segment", log: "Parsed FY25 Q4 statements (Table Extraction)", inspect: "Layout parser segmented 200 pages into 14 financial tables using GMFT table detection.", stats: ["Latency: 42ms", "Chunks: 14", "Parser: GMFT Layout"] },
+        { label: "FAISS Search", log: "Retrieved 4 chunks via vector similarity", inspect: "FAISS HNSW index queried with embedding cosine similarity >= 0.88.", stats: ["Latency: 18ms", "Index: HNSW32", "Embedding: text-embedding-3"] },
+        { label: "Graph Enrich", log: "Graph enriched: linked Net Income to Revenue nodes", inspect: "Neo4j Knowledge Graph matched entity 'Samsung SDS' to subsidiary revenue streams.", stats: ["Latency: 35ms", "Entities: 3", "Graph DB: Neo4j"] },
+        { label: "Inference", log: "LLM synthesized response with citations", inspect: "GPT-4 generated final grounded synthesis with direct row-column citations.", stats: ["Latency: 145ms", "Tokens: 240", "Guardrail: 100% Grounded"] }
+      ],
+      output: `Based on Samsung SDS's official financial disclosure for FY25 Q4:\n\n` +
+              `• **Net Income:** Reached strong expansion with an 11.2% YoY increase, driven by enterprise GenAI deployments and cloud managed services.\n` +
+              `• **Retrieval Precision:** Graph RAG bypassed context limits with divide-and-conquer processing, hitting **92% context recall** across dense financial tables.\n` +
+              `• **Pipeline Latency:** Resolved in **240ms** with sub-millisecond FAISS vector indexing.`,
       latency: "240 ms",
-      matches: "4 chunks (top-K: 4)",
-      score: "0.93 / 1.0 (Groundedness)",
-      inspect: [
-        { title: "01. Segmentation & Parser", desc: "PDF partitioned using GMFT layout preservation to retain multi-column table boundaries without OCR noise.", stats: "18 Pages · 42 Chunks · Token avg: 380/chunk" },
-        { title: "02. FAISS Vector Search", desc: "Embeddings generated with text-embedding-3-small (1536 dims). Cosine distance threshold: 0.78.", stats: "Distance: 0.24 · Top-4 selected · Index: HNSW" },
-        { title: "03. Graph Entity Enricher", desc: "Knowledge Graph traversal across Neo4j entity nodes matching revenue and enterprise AI contracts.", stats: "12 Node relationships · Subgraph depth: 2" },
-        { title: "04. LLM Synthesis & Router", desc: "Synthesized via GPT-4 with context window optimization and strict anti-hallucination prompt constraints.", stats: "Prompt tokens: 1,420 · Completion tokens: 185" }
-      ]
+      matches: "4 Chunks + 3 Graph Nodes",
+      score: "0.94 / 1.0 (RAGAS)"
     },
     accuracy: {
-      step1: "Processed 200-page annual financial report into structured token segments",
-      step2: "FAISS retrieved 8 high-relevance semantic chunks",
-      step3: "Graph enriched: cross-referenced audit trails and balance sheets",
-      step4: "LLM synthesis executed (Llama-3 enterprise variant)",
-      output: "<p class='mb-2'>Audit analysis across 200-page financial report:</p>" +
-              "<ul class='space-y-1.5'>" +
-              "<li>• <strong>Baseline vs Graph RAG:</strong> Standard vector embeddings missed cross-page footnotes. Graph RAG boosted retrieval relevance by <strong class='text-teal-300'>40%</strong>.</li>" +
-              "<li>• <strong>Measured Accuracy:</strong> Scored <strong class='text-teal-300'>92% accuracy</strong> against manual human auditing baselines.</li>" +
-              "<li>• <strong>Token Optimization:</strong> Subgraph pruning reduced token payload by 35% without information loss.</li>" +
-              "</ul>",
-      latency: "380 ms",
-      matches: "8 chunks",
-      score: "0.91 / 1.0 (Relevance)",
-      inspect: [
-        { title: "01. Segmentation & Parser", desc: "High-throughput parallel document chunking with metadata tagging.", stats: "200 Pages · 480 Chunks · 0 dropped tables" },
-        { title: "02. FAISS Vector Search", desc: "Hierarchical vector indexing over enterprise corpus.", stats: "Recall@8: 0.94 · Vector dimensions: 1536" },
-        { title: "03. Graph Entity Enricher", desc: "Entity extraction for multi-hop reasoning across balance sheets.", stats: "Graph triples: 84 · Entity clusters: 6" },
-        { title: "04. LLM Synthesis & Router", desc: "Context pruning and temperature 0.1 deterministic answer generation.", stats: "Prompt tokens: 2,850 · Latency: 380ms" }
-      ]
+      steps: [
+        { label: "Segment", log: "Parsed 200-page annual report", inspect: "Document structure partitioned into executive summary, disclosures, and appendix.", stats: ["Latency: 55ms", "Pages: 200", "Parser: PartitionPDF"] },
+        { label: "FAISS Search", log: "Retrieved 8 contextual chunks", inspect: "High-dimensional vector search against financial domain embeddings.", stats: ["Latency: 22ms", "K: 8", "Similarity: 0.91"] },
+        { label: "Graph Enrich", log: "Cross-referenced balance sheet entities", inspect: "Identified multi-year balance sheet continuity relations.", stats: ["Latency: 40ms", "Entities: 7", "Triplets: 12"] },
+        { label: "Inference", log: "RAGAS evaluation scored groundedness at 92%", inspect: "Anti-hallucination verification passed with zero synthetic contradictions.", stats: ["Latency: 160ms", "Faithfulness: 0.96", "Recall: 0.92"] }
+      ],
+      output: `RAG Architecture Evaluation Benchmark on 200-Page Annual Report:\n\n` +
+              `• **Context Recall:** **92.4%** on complex queries (vs. 52% baseline sliding-window chunking).\n` +
+              `• **Faithfulness Score:** **0.96** via RAGAS automated ground-truth evaluation.\n` +
+              `• **Context Precision:** Graph traversal prevented 40% of false-positive table lookups.`,
+      latency: "277 ms",
+      matches: "8 Chunks + 7 Graph Nodes",
+      score: "0.96 / 1.0 (RAGAS)"
     },
     agents: {
-      step1: "Loaded Google ADK framework specifications & schema definition",
-      step2: "Matched 3 orchestration state vectors",
-      step3: "Graph enriched: mapped [Agent State] → [MCP Tool] → [Verifier]",
-      step4: "LLM synthesis executed (Mistral Large fine-tuned)",
-      output: "<p class='mb-2'>Under the Google Agent Development Kit (ADK) architecture:</p>" +
-              "<ul class='space-y-1.5'>" +
-              "<li>• <strong>State-Driven Workflow:</strong> Autonomous loops dynamically assign sub-tasks to specialized agents based on runtime intermediate validation.</li>" +
-              "<li>• <strong>MCP Tool Integration:</strong> Plug-and-play Model Context Protocol interfaces connect database scripts, file parsers, and external APIs.</li>" +
-              "<li>• <strong>Productivity Impact:</strong> Automating development and evaluation workflows achieves a <strong class='text-teal-300'>60% manual effort reduction</strong>.</li>" +
-              "</ul>",
-      latency: "190 ms",
-      matches: "3 modules",
-      score: "0.95 / 1.0 (Recall)",
-      inspect: [
-        { title: "01. Segmentation & Parser", desc: "Schema parser parsing ADK tool descriptors and prompt contracts.", stats: "Schema nodes: 14 · Format: JSON-RPC" },
-        { title: "02. FAISS Vector Search", desc: "Vector similarity search over ADK pattern library.", stats: "Similarity: 0.91 · Index: FlatL2" },
-        { title: "03. Graph Entity Enricher", desc: "Agent dependency graph validation preventing infinite execution cycles.", stats: "Acyclic graph verified · Max depth: 4" },
-        { title: "04. LLM Synthesis & Router", desc: "Mistral reasoning pass with JSON schema output enforcement.", stats: "Latency: 190ms · Guardrail score: 0.95" }
-      ]
+      steps: [
+        { label: "Segment", log: "Queried ADK orchestration repository", inspect: "Indexed state schemas and DAG node routing configurations.", stats: ["Latency: 30ms", "Repository: ADK-Core", "Files: 6"] },
+        { label: "FAISS Search", log: "Retrieved 3 orchestration patterns", inspect: "Vector match on state machine transitions and event-driven triggers.", stats: ["Latency: 15ms", "Matches: 3", "Type: AST Chunks"] },
+        { label: "Graph Enrich", log: "Linked ADK to MCP tool interfaces", inspect: "Resolved tool calling schemas for Model Context Protocol (MCP) server endpoints.", stats: ["Latency: 32ms", "MCP Tools: 4", "Schemas: JSON-RPC"] },
+        { label: "Inference", log: "Synthesized multi-agent architecture blueprint", inspect: "Compiled step-by-step state transition diagram for Google ADK squad.", stats: ["Latency: 130ms", "Tokens: 310", "Pass Rate: 99.4%"] }
+      ],
+      output: `Google ADK Multi-Agent Orchestration Architecture:\n\n` +
+              `• **State Machine:** Directed Acyclic Graph (DAG) state coordinator managing task decomposition.\n` +
+              `• **MCP Protocol:** Standardized tool-use hooks for external API execution and local sandboxes.\n` +
+              `• **Efficiency Impact:** **60% reduction in manual effort** in enterprise content and QA pipelines.`,
+      latency: "207 ms",
+      matches: "3 Patterns + 4 MCP Schemas",
+      score: "0.98 / 1.0 (RAGAS)"
     }
   };
 
-  const agentDatabase = {
+  const agentLogs = {
     content: [
-      { delay: 100, text: "Initializing Orchestrator Agent with Google ADK...", state: "INIT", tool: "0 Called", guard: "WAITING" },
-      { delay: 600, text: "[Planner] Constructing task decomposition DAG for technical case study.", state: "PLANNING", tool: "0 Called", guard: "WAITING" },
-      { delay: 1300, text: "[Action] Invoking MCP tool: `get_github_files` for 'AgenticAI-Workshop' repo...", state: "EXECUTING", tool: "1 Called", guard: "WAITING" },
-      { delay: 2000, text: "[Tool Output] Repo structure parsed: Google ADK, LangGraph orchestration, FAISS indexing.", state: "EXECUTING", tool: "1 Called", guard: "WAITING" },
-      { delay: 2700, text: "[Action] Invoking Writer Agent for technical synthesis & evaluation criteria...", state: "GENERATING", tool: "1 Called", guard: "WAITING" },
-      { delay: 3500, text: "[Verifier] Output generated. Running RAGAS groundedness and factual alignment check...", state: "VERIFYING", tool: "1 Called", guard: "EVALUATING" },
-      { delay: 4200, text: "[Guardrails] Groundedness: 0.94. Context alignment: PASSED. Hallucination: 0.00.", state: "VERIFYING", tool: "1 Called", guard: "PASSED ✅" },
-      { delay: 4800, text: "[Success] Content pipeline completed. Output validated for enterprise deployment.", state: "SUCCESS", tool: "1 Called", guard: "PASSED ✅" }
+      "[0.00s] Initializing Google ADK Agent Cluster...",
+      "[0.12s] State Node 1: Planner Agent decomposing objective into 3 sub-tasks",
+      "[0.34s] State Node 2: Research Agent calling MCP tool 'search_knowledge_graph'...",
+      "[0.65s] MCP Tool Result: Retrieved 12 entity triplets from Neo4j",
+      "[0.92s] State Node 3: Drafter Agent generating structured Markdown with citations",
+      "[1.34s] State Node 4: Critic Agent executing RAGAS evaluation harness...",
+      "[1.65s] Verification Passed: Groundedness = 0.98, Hallucination = 0.00",
+      "[1.85s] ✅ Objective Complete! Generated SEO-validated article with 0 human edits needed."
     ],
     qa: [
-      { delay: 100, text: "Initializing Schema QA Automation Agent...", state: "INIT", tool: "0 Called", guard: "WAITING" },
-      { delay: 600, text: "[Planner] Parsing enterprise schema diffs across o9 platform test tenants.", state: "PLANNING", tool: "0 Called", guard: "WAITING" },
-      { delay: 1200, text: "[Action] Running QA Automation Engine - comparing JSON schema endpoints...", state: "EXECUTING", tool: "1 Called", guard: "WAITING" },
-      { delay: 1900, text: "[Tool Output] 4 discrepancy nodes detected in config payloads. Analyzing impact...", state: "EXECUTING", tool: "1 Called", guard: "WAITING" },
-      { delay: 2600, text: "[Action] Running automated SAST code validation & contract verification...", state: "TESTING", tool: "2 Called", guard: "WAITING" },
-      { delay: 3300, text: "[Verifier] Executing comparison matrix tests. Reliability score: 99.8%.", state: "VERIFYING", tool: "2 Called", guard: "EVALUATING" },
-      { delay: 4000, text: "[Guardrails] JSON Comparison Engine: Validated structure, zero SLA regression.", state: "VERIFYING", tool: "2 Called", guard: "PASSED ✅" },
-      { delay: 4600, text: "[Success] QA diagnostics completed. Zero vulnerabilities reported in o9OptimizerAgent.", state: "SUCCESS", tool: "2 Called", guard: "PASSED ✅" }
+      "[0.00s] Initializing o9 Platform QA Automation Engine...",
+      "[0.15s] State Node 1: Ingesting JSON schemas from test and staging instances",
+      "[0.42s] State Node 2: AST schema differ running deep reconciliation...",
+      "[0.78s] Detected 2 schema drift discrepancies in supply chain planning tables",
+      "[1.12s] State Node 3: Patch Agent formulating verified JSON Schema update payload",
+      "[1.50s] State Node 4: Executing PyTest validation suite on local sandbox...",
+      "[1.88s] Verification Passed: All 48 assertions succeeded (100% schema match)",
+      "[2.10s] ✅ QA Check Complete! Generated differential test report and patch advisory."
     ],
     jira: [
-      { delay: 100, text: "Initializing Productivity Analytics Agent...", state: "INIT", tool: "0 Called", guard: "WAITING" },
-      { delay: 600, text: "[Planner] Formulating sprint query parameters for JIRA & Confluence APIs.", state: "PLANNING", tool: "0 Called", guard: "WAITING" },
-      { delay: 1200, text: "[Action] Fetching JIRA user stories matching 'sprint_q4_metrics' via REST API...", state: "EXECUTING", tool: "1 Called", guard: "WAITING" },
-      { delay: 1900, text: "[Tool Output] Retrieved 14 completed stories, 3 under peer review.", state: "EXECUTING", tool: "1 Called", guard: "WAITING" },
-      { delay: 2600, text: "[Action] Triggering ProductivityAnalyzer for text embedding and sprint summary...", state: "ANALYZING", tool: "2 Called", guard: "WAITING" },
-      { delay: 3300, text: "[Verifier] Indexing text chunks with FAISS vector similarity search...", state: "VERIFYING", tool: "2 Called", guard: "EVALUATING" },
-      { delay: 4000, text: "[Guardrails] Summarization completeness: 0.92. Context hallucination: CLEAN.", state: "VERIFYING", tool: "2 Called", guard: "PASSED ✅" },
-      { delay: 4600, text: "[Success] Sprint performance digest generated and pushed to automated email queue.", state: "SUCCESS", tool: "2 Called", guard: "PASSED ✅" }
+      "[0.00s] Initializing Productivity Analyzer Agent...",
+      "[0.18s] State Node 1: Authenticating to Jira & Confluence REST endpoints",
+      "[0.55s] State Node 2: Ingested 34 engineering sprint issues and daily worklogs",
+      "[0.88s] State Node 3: Graph RAG summarizer analyzing sprint velocity and blockers",
+      "[1.32s] State Node 4: Guardrail evaluating sprint risk matrix...",
+      "[1.70s] Output Formatted: Weekly executive summary ready for squad leads",
+      "[1.95s] ✅ Report Complete! Automated delivery configured via SMTP worker."
     ]
   };
 
-  let activeTimeouts: ReturnType<typeof setTimeout>[] = [];
+  let activeStreamTimeout: any = null;
+  let activeTerminalTimeout: any = null;
 
-  function initAiSandbox() {
-    activeTimeouts.forEach(t => clearTimeout(t));
-    activeTimeouts = [];
+  function setupSandbox() {
+    const container = document.getElementById('ai-sandbox-container');
+    if (!container) return;
 
+    // Tabs
     const btnRagTab = document.getElementById('btn-rag-tab');
     const btnAgentTab = document.getElementById('btn-agent-tab');
     const ragPanel = document.getElementById('rag-panel');
     const agentPanel = document.getElementById('agent-panel');
 
-    const ragQuerySelect = document.getElementById('rag-query-select') as HTMLSelectElement | null;
-    const btnRunRag = document.getElementById('btn-run-rag');
-    const ragOutputText = document.getElementById('rag-output-text');
-    const ragDegradedBanner = document.getElementById('rag-degraded-banner');
-    const toggleRouter = document.getElementById('toggle-router') as HTMLInputElement | null;
-
-    const ragLatency = document.getElementById('rag-log-latency');
-    const ragMatches = document.getElementById('rag-log-matches');
-    const ragScore = document.getElementById('rag-log-score');
-
-    const stepInspectPane = document.getElementById('step-inspect-pane');
-    const inspectTitle = document.getElementById('inspect-node-title');
-    const inspectDesc = document.getElementById('inspect-node-desc');
-    const inspectStats = document.getElementById('inspect-node-stats');
-    const btnCloseInspect = document.getElementById('btn-close-inspect');
-
-    const agentTaskSelect = document.getElementById('agent-task-select') as HTMLSelectElement | null;
-    const btnRunAgent = document.getElementById('btn-run-agent');
-    const agentTerminal = document.getElementById('agent-terminal');
-    const toggleGuardrails = document.getElementById('toggle-guardrails') as HTMLInputElement | null;
-    const agentStateLabel = document.getElementById('agent-state-label');
-    const agentToolsCount = document.getElementById('agent-tools-count');
-    const agentGuardStatus = document.getElementById('agent-guard-status');
-
-    const btnCopyRag = document.getElementById('btn-copy-rag');
-    const copyRagLabel = document.getElementById('copy-rag-label');
-    const btnCopyAgent = document.getElementById('btn-copy-agent');
-    const copyAgentLabel = document.getElementById('copy-agent-label');
-
-    // Tab Switching
     btnRagTab?.addEventListener('click', () => {
-      btnRagTab.className = "px-3.5 py-1.5 text-xs font-(--font-mono) font-semibold rounded-md transition-all cursor-pointer bg-(--color-teal-glow) text-(--color-teal) border border-teal-500/30";
+      btnRagTab.classList.add('bg-(--color-teal-glow)', 'text-(--color-teal)', 'border-teal-500/40');
+      btnRagTab.classList.remove('text-(--color-text-secondary)', 'border-transparent');
       btnRagTab.setAttribute('aria-selected', 'true');
-      if (btnAgentTab) {
-        btnAgentTab.className = "px-3.5 py-1.5 text-xs font-(--font-mono) font-semibold rounded-md transition-all cursor-pointer text-(--color-text-secondary) hover:text-white";
-        btnAgentTab.setAttribute('aria-selected', 'false');
-      }
+
+      btnAgentTab?.classList.remove('bg-(--color-teal-glow)', 'text-(--color-teal)', 'border-teal-500/40');
+      btnAgentTab?.classList.add('text-(--color-text-secondary)', 'border-transparent');
+      btnAgentTab?.setAttribute('aria-selected', 'false');
+
       ragPanel?.classList.remove('hidden');
       agentPanel?.classList.add('hidden');
     });
 
     btnAgentTab?.addEventListener('click', () => {
-      btnAgentTab.className = "px-3.5 py-1.5 text-xs font-(--font-mono) font-semibold rounded-md transition-all cursor-pointer bg-(--color-teal-glow) text-(--color-teal) border border-teal-500/30";
+      btnAgentTab.classList.add('bg-(--color-teal-glow)', 'text-(--color-teal)', 'border-teal-500/40');
+      btnAgentTab.classList.remove('text-(--color-text-secondary)', 'border-transparent');
       btnAgentTab.setAttribute('aria-selected', 'true');
-      if (btnRagTab) {
-        btnRagTab.className = "px-3.5 py-1.5 text-xs font-(--font-mono) font-semibold rounded-md transition-all cursor-pointer text-(--color-text-secondary) hover:text-white";
-        btnRagTab.setAttribute('aria-selected', 'false');
-      }
+
+      btnRagTab?.classList.remove('bg-(--color-teal-glow)', 'text-(--color-teal)', 'border-teal-500/40');
+      btnRagTab?.classList.add('text-(--color-text-secondary)', 'border-transparent');
+      btnRagTab?.setAttribute('aria-selected', 'false');
+
       agentPanel?.classList.remove('hidden');
       ragPanel?.classList.add('hidden');
     });
 
-    // Close inspector
+    // RAG Pipeline Simulation
+    const btnRunRag = document.getElementById('btn-run-rag');
+    const selectRagQuery = document.getElementById('rag-query-select') as HTMLSelectElement | null;
+    const outputRagText = document.getElementById('rag-output-text');
+    const logLatency = document.getElementById('rag-log-latency');
+    const logMatches = document.getElementById('rag-log-matches');
+    const logScore = document.getElementById('rag-log-score');
+    const stepBoxes = document.querySelectorAll('.rag-step-box');
+    const toggleRouter = document.getElementById('toggle-router') as HTMLInputElement | null;
+    const bannerDegraded = document.getElementById('rag-degraded-banner');
+
+    // Inspector Pane
+    const inspectPane = document.getElementById('step-inspect-pane');
+    const inspectTitle = document.getElementById('inspect-node-title');
+    const inspectDesc = document.getElementById('inspect-node-desc');
+    const inspectStats = document.getElementById('inspect-node-stats');
+    const btnCloseInspect = document.getElementById('btn-close-inspect');
+
     btnCloseInspect?.addEventListener('click', () => {
-      stepInspectPane?.classList.add('hidden');
-      document.querySelectorAll('.rag-step-box').forEach(b => b.classList.remove('inspected-step'));
+      inspectPane?.classList.add('hidden');
     });
 
-    // Run RAG Pipeline
-    function runRagSimulation() {
-      const queryKey = (ragQuerySelect?.value || 'revenue') as keyof typeof ragDatabase;
-      const data = ragDatabase[queryKey];
-      const isRouterOn = toggleRouter?.checked ?? true;
+    toggleRouter?.addEventListener('change', () => {
+      if (!toggleRouter.checked) {
+        bannerDegraded?.classList.remove('hidden');
+      } else {
+        bannerDegraded?.classList.add('hidden');
+      }
+    });
 
-      // Reset Step Boxes
-      const stepBoxes = document.querySelectorAll('.rag-step-box');
+    function runRagSimulation() {
+      if (activeStreamTimeout) clearTimeout(activeStreamTimeout);
+      const queryKey = selectRagQuery?.value || 'revenue';
+      const data = ragResponses[queryKey as keyof typeof ragResponses];
+      const isRouterOn = toggleRouter ? toggleRouter.checked : true;
+
+      // Reset step boxes
       stepBoxes.forEach((box, i) => {
-        box.classList.remove('active-step', 'inspected-step');
-        box.classList.add('opacity-50');
+        box.classList.remove('border-(--color-teal)', 'bg-teal-500/10', 'border-red-500/50', 'bg-red-500/10');
+        box.classList.add('opacity-50', 'border-(--color-border)');
         const badge = box.querySelector('.step-badge');
-        if (badge) badge.textContent = 'RUNNING';
-        const log = box.querySelector('[id^="rag-step"]');
-        if (log) log.textContent = 'Processing stage...';
+        if (badge) {
+          badge.textContent = 'QUEUED';
+          badge.className = 'text-[9px] font-mono step-badge px-1.5 py-0.5 rounded font-bold whitespace-nowrap text-(--color-text-muted) bg-white/5 border border-white/10';
+        }
       });
 
-      if (ragOutputText) {
-        ragOutputText.innerHTML = '<span class="text-(--color-text-muted) animate-pulse font-mono text-xs">Executing Graph RAG pipeline with layout-aware indexing...</span>';
+      if (outputRagText) {
+        outputRagText.innerHTML = '<span class="text-(--color-teal) font-mono animate-pulse">Initializing pipeline nodes & vector indexing...</span>';
       }
 
-      // Step 1
-      activeTimeouts.push(setTimeout(() => {
-        const box = document.querySelector('[data-step="1"]');
-        box?.classList.add('active-step');
-        box?.classList.remove('opacity-50');
-        const badge = box?.querySelector('.step-badge');
-        if (badge) badge.textContent = 'DONE';
-        const log = document.getElementById('rag-step1-log');
-        if (log) log.textContent = data.step1;
-      }, 200));
+      // Step-by-step progression animation
+      data.steps.forEach((st, idx) => {
+        setTimeout(() => {
+          const box = stepBoxes[idx];
+          if (!box) return;
 
-      // Step 2
-      activeTimeouts.push(setTimeout(() => {
-        const box = document.querySelector('[data-step="2"]');
-        box?.classList.add('active-step');
-        box?.classList.remove('opacity-50');
-        const badge = box?.querySelector('.step-badge');
-        if (badge) badge.textContent = 'DONE';
-        const log = document.getElementById('rag-step2-log');
-        if (log) log.textContent = data.step2;
-      }, 550));
+          box.classList.remove('opacity-50', 'border-(--color-border)');
+          const logEl = box.querySelector(`#rag-step${idx + 1}-log`);
+          const badge = box.querySelector('.step-badge');
 
-      // Step 3
-      activeTimeouts.push(setTimeout(() => {
-        const box = document.querySelector('[data-step="3"]');
-        box?.classList.add('active-step');
-        box?.classList.remove('opacity-50');
-        const badge = box?.querySelector('.step-badge');
-        if (badge) badge.textContent = 'DONE';
-        const log = document.getElementById('rag-step3-log');
-        if (log) log.textContent = data.step3;
-      }, 950));
-
-      // Step 4
-      activeTimeouts.push(setTimeout(() => {
-        const box = document.querySelector('[data-step="4"]');
-        box?.classList.add('active-step');
-        box?.classList.remove('opacity-50');
-        const badge = box?.querySelector('.step-badge');
-        if (badge) badge.textContent = 'DONE';
-        const log = document.getElementById('rag-step4-log');
-        if (log) log.textContent = data.step4;
-
-        if (ragLatency) ragLatency.textContent = isRouterOn ? data.latency : "610 ms (Degraded)";
-        if (ragMatches) ragMatches.textContent = isRouterOn ? data.matches : "14 unranked chunks";
-        if (ragScore) ragScore.textContent = isRouterOn ? data.score : "0.61 / 1.0 (High Hallucination)";
-
-        if (ragOutputText) {
-          if (isRouterOn) {
-            ragOutputText.innerHTML = data.output;
-            ragDegradedBanner?.classList.add('hidden');
+          if (!isRouterOn && idx === 1) {
+            // Degraded path
+            box.classList.add('border-red-500/60', 'bg-red-500/10');
+            if (badge) {
+              badge.textContent = 'DEGRADED';
+              badge.className = 'text-[9px] font-mono step-badge px-1.5 py-0.5 rounded font-bold whitespace-nowrap text-red-400 bg-red-500/20 border border-red-500/30';
+            }
+            if (logEl) logEl.textContent = 'Unrouted vector match (diluted context)';
           } else {
-            ragDegradedBanner?.classList.remove('hidden');
-            ragOutputText.innerHTML = `
-              <div class="p-3 bg-red-500/10 border border-red-500/30 rounded-lg text-red-200">
-                <p class="font-bold mb-1 text-red-300">⚠️ Degraded Synthesis Output (Semantic Router Disabled):</p>
-                <p class="text-xs leading-relaxed text-red-200/90">
-                  Samsung SDS reported net revenue growth across cloud segments, but without graph entity disambiguation, 
-                  the pipeline retrieved unsegmented footnotes resulting in context hallucination: <span class="bg-red-900/60 px-1 rounded text-red-100">[Unverified: Predicted FY26 revenue margin distorted by 34%]</span>.
-                </p>
-              </div>
-            `;
+            box.classList.add('border-(--color-teal)', 'bg-teal-500/10');
+            if (badge) {
+              badge.textContent = 'DONE';
+              badge.className = 'text-[9px] font-mono step-badge px-1.5 py-0.5 rounded font-bold whitespace-nowrap text-(--color-teal) bg-teal-500/20 border border-teal-500/30';
+            }
+            if (logEl) logEl.textContent = st.log;
           }
+        }, idx * 250);
+      });
+
+      // Stream text output
+      setTimeout(() => {
+        if (!outputRagText) return;
+        if (!isRouterOn) {
+          outputRagText.innerHTML = `
+            <div class="text-red-300 font-mono text-xs mb-2">⚠️ WARNING: Semantic Router was OFF. Output contains context dilution:</div>
+            <div class="text-(--color-text-secondary) font-sans">${data.output.replace(/92%/g, '58% (degraded)').replace(/240ms/g, '680ms (timeout overhead)')}</div>
+          `;
+          if (logLatency) logLatency.textContent = '680 ms (slow)';
+          if (logMatches) logMatches.textContent = '14 Unfiltered Chunks';
+          if (logScore) logScore.textContent = '0.58 / 1.0 (Degraded)';
+        } else {
+          // Stream output formatted
+          outputRagText.innerHTML = data.output.replace(/\n/g, '<br/>');
+          if (logLatency) logLatency.textContent = data.latency;
+          if (logMatches) logMatches.textContent = data.matches;
+          if (logScore) logScore.textContent = data.score;
         }
-      }, 1400));
+      }, 1100);
     }
 
     btnRunRag?.addEventListener('click', runRagSimulation);
-    toggleRouter?.addEventListener('change', () => {
-      runRagSimulation();
-    });
 
-    // Step Node Inspector Click Handler
-    document.querySelectorAll('.rag-step-box').forEach((box) => {
+    // Node click handlers for telemetry inspection
+    stepBoxes.forEach((box, i) => {
       box.addEventListener('click', () => {
-        const stepNum = parseInt(box.getAttribute('data-step') || '1', 10);
-        const queryKey = (ragQuerySelect?.value || 'revenue') as keyof typeof ragDatabase;
-        const inspectItem = ragDatabase[queryKey].inspect[stepNum - 1];
+        const queryKey = selectRagQuery?.value || 'revenue';
+        const data = ragResponses[queryKey as keyof typeof ragResponses];
+        const stepData = data.steps[i];
+        if (!stepData || !inspectPane) return;
 
-        document.querySelectorAll('.rag-step-box').forEach(b => b.classList.remove('inspected-step'));
-        box.classList.add('inspected-step');
-
-        if (stepInspectPane && inspectTitle && inspectDesc && inspectStats) {
-          stepInspectPane.classList.remove('hidden');
-          inspectTitle.textContent = `🔍 Node Telemetry Inspector: ${inspectItem.title}`;
-          inspectDesc.textContent = inspectItem.desc;
-          inspectStats.innerHTML = `<span class="text-teal-300">Parameters:</span> <span>${inspectItem.stats}</span>`;
+        if (inspectTitle) inspectTitle.textContent = `🔍 0${i + 1}. ${stepData.label} — Node Telemetry`;
+        if (inspectDesc) inspectDesc.textContent = stepData.inspect;
+        if (inspectStats) {
+          inspectStats.innerHTML = stepData.stats.map(s => `<span class="px-2 py-1 rounded bg-white/5 border border-white/10 text-(--color-teal)">${s}</span>`).join('');
         }
+        inspectPane.classList.remove('hidden');
       });
     });
 
-    // Run Agent Loop Simulation
-    function runAgentSimulation() {
-      const taskKey = (agentTaskSelect?.value || 'content') as keyof typeof agentDatabase;
-      const logs = agentDatabase[taskKey];
-      const isGuardOn = toggleGuardrails?.checked ?? true;
-
-      if (!agentTerminal) return;
-      agentTerminal.innerHTML = '';
-
-      logs.forEach((step, idx) => {
-        activeTimeouts.push(setTimeout(() => {
-          if (!agentTerminal) return;
-          const p = document.createElement('div');
-          p.className = 'font-mono text-xs flex items-start gap-2 animate-fadeIn';
-          
-          let lineText = step.text;
-          if (!isGuardOn && step.guard.includes('PASSED')) {
-            lineText = "[Warning] RAGAS Guardrails OFF — Tool execution completed without hallucination validation.";
-            p.innerHTML = `<span class="text-amber-400">›</span> <span class="text-amber-300">${lineText}</span>`;
-            if (agentGuardStatus) agentGuardStatus.textContent = 'DISABLED ⚠️';
-          } else {
-            p.innerHTML = `<span class="text-teal-400">›</span> <span>${lineText}</span>`;
-            if (agentGuardStatus) agentGuardStatus.textContent = step.guard;
-          }
-
-          agentTerminal.appendChild(p);
-          agentTerminal.scrollTop = agentTerminal.scrollHeight;
-
-          if (agentStateLabel) agentStateLabel.textContent = step.state;
-          if (agentToolsCount) agentToolsCount.textContent = step.tool;
-        }, step.delay));
-      });
-    }
-
-    btnRunAgent?.addEventListener('click', runAgentSimulation);
-    toggleGuardrails?.addEventListener('change', () => {
-      runAgentSimulation();
-    });
-
-    // Copy handlers
+    // Copy Synthesis
+    const btnCopyRag = document.getElementById('btn-copy-rag');
+    const copyRagLabel = document.getElementById('copy-rag-label');
     btnCopyRag?.addEventListener('click', () => {
-      const text = ragOutputText?.innerText || '';
+      const text = outputRagText?.innerText || '';
       navigator.clipboard.writeText(text).then(() => {
         if (copyRagLabel) copyRagLabel.textContent = 'Copied!';
         setTimeout(() => {
@@ -677,8 +604,48 @@
       });
     });
 
+    // Agent Simulation
+    const btnRunAgent = document.getElementById('btn-run-agent');
+    const selectAgentTask = document.getElementById('agent-task-select') as HTMLSelectElement | null;
+    const terminalEl = document.getElementById('agent-terminal');
+    const statCycles = document.getElementById('agent-stat-cycles');
+    const statTools = document.getElementById('agent-stat-tools');
+    const statStatus = document.getElementById('agent-stat-status');
+    const btnCopyAgent = document.getElementById('btn-copy-agent');
+    const copyAgentLabel = document.getElementById('copy-agent-label');
+
+    function runAgentSimulation() {
+      if (activeTerminalTimeout) clearTimeout(activeTerminalTimeout);
+      const taskKey = selectAgentTask?.value || 'content';
+      const logs = agentLogs[taskKey as keyof typeof agentLogs];
+      if (!terminalEl) return;
+
+      terminalEl.innerHTML = '';
+      if (statCycles) statCycles.textContent = 'Running...';
+      if (statTools) statTools.textContent = 'Searching...';
+      if (statStatus) statStatus.textContent = 'Evaluating...';
+
+      logs.forEach((line, idx) => {
+        setTimeout(() => {
+          const div = document.createElement('div');
+          div.className = line.includes('✅') ? 'text-teal-300 font-bold' : line.includes('MCP') ? 'text-amber-300' : 'text-emerald-400';
+          div.textContent = line;
+          terminalEl.appendChild(div);
+          terminalEl.scrollTop = terminalEl.scrollHeight;
+
+          if (idx === logs.length - 1) {
+            if (statCycles) statCycles.textContent = '4 Cycles';
+            if (statTools) statTools.textContent = taskKey === 'content' ? '3 Tools (MCP)' : taskKey === 'qa' ? '2 Tools (PyTest)' : '2 Tools (Jira)';
+            if (statStatus) statStatus.textContent = '99.4% (Pass)';
+          }
+        }, idx * 280);
+      });
+    }
+
+    btnRunAgent?.addEventListener('click', runAgentSimulation);
+
     btnCopyAgent?.addEventListener('click', () => {
-      const text = agentTerminal?.innerText || '';
+      const text = terminalEl?.innerText || '';
       navigator.clipboard.writeText(text).then(() => {
         if (copyAgentLabel) copyAgentLabel.textContent = 'Copied!';
         setTimeout(() => {
@@ -687,10 +654,10 @@
       });
     });
 
-    // Auto-run initial RAG simulation once for rich first impression
+    // Run initial simulation on load
     runRagSimulation();
   }
 
-  initAiSandbox();
-  document.addEventListener('astro:page-load', initAiSandbox);
+  setupSandbox();
+  document.addEventListener('astro:page-load', setupSandbox);
 </script>

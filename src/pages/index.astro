@@ -78,12 +78,12 @@ const techStack = {
 <BaseLayout title="Akanksha — Production AI Engineer | Enterprise RAG & Agents">
   
   <!-- ═══ HERO ═══ -->
-  <section class="relative min-h-[82vh] flex items-center overflow-hidden" aria-label="Introduction Hero">
+  <section class="relative min-h-[80vh] flex items-center overflow-hidden" aria-label="Introduction Hero">
     <div class="orb orb-teal" style="top: -200px; right: -100px;"></div>
     <div class="orb orb-amber" style="bottom: -150px; left: -200px;"></div>
     <div class="orb orb-purple" style="top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
     
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20 relative z-10">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-14 sm:py-20 relative z-10">
       <div class="max-w-3xl">
         <!-- Status Badge -->
         <div class="fade-in mb-5">
@@ -157,31 +157,32 @@ const techStack = {
     </div>
   </section>
 
-  <!-- ═══ INTERACTIVE SHOWCASE ═══ -->
-  <section class="max-w-6xl mx-auto px-4 sm:px-6 mb-24 grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10" aria-label="Interactive Evaluator Showcase">
-    <div class="flex flex-col gap-3">
-      <div class="fade-in mb-2">
-        <h2 class="section-title text-left mb-1 text-white">Live <span class="gradient-text">Architecture Lab</span></h2>
-        <p class="text-(--color-text-secondary) text-xs sm:text-sm leading-relaxed max-w-xl">
-          Execute real-time pipeline simulations. Toggle between Graph RAG or Agentic loops to inspect tool executions, guardrail telemetry, and anti-hallucination controls.
-        </p>
-      </div>
-      <AiSandbox />
+  <!-- ═══ 1. LIVE ARCHITECTURE SIMULATOR (FULL WIDTH) ═══ -->
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 mb-24 relative z-10" aria-label="Interactive Architecture Sandbox">
+    <div class="fade-in mb-8 text-center max-w-2xl mx-auto">
+      <span class="badge mb-3">Live Simulation</span>
+      <h2 class="section-title text-white">Interactive <span class="gradient-text">AI Architecture Lab</span></h2>
+      <p class="section-subtitle">
+        Execute real-time pipeline simulations. Inspect DAG node telemetry, toggle guardrails, and test dynamic architectural degradation.
+      </p>
     </div>
-    
-    <div class="flex flex-col gap-3">
-      <div class="fade-in mb-2">
-        <h2 class="section-title text-left mb-1 text-white">Recruiter <span class="gradient-text">JD Matcher</span></h2>
-        <p class="text-(--color-text-secondary) text-xs sm:text-sm leading-relaxed max-w-xl">
-          Recruiter Command Center: Paste any Job Description (JD) to automatically calculate fit score, extract competencies, and generate a candidate dossier.
-        </p>
-      </div>
-      <JdMatcher />
+    <AiSandbox />
+  </section>
+
+  <!-- ═══ 2. RECRUITER JD COMPATIBILITY ENGINE (FULL WIDTH) ═══ -->
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 mb-24 relative z-10" aria-label="Recruiter JD Compatibility Engine">
+    <div class="fade-in mb-8 text-center max-w-2xl mx-auto">
+      <span class="badge-amber badge mb-3">Recruiter Command Center</span>
+      <h2 class="section-title text-white">Live <span class="gradient-text">JD Fit & Competency Engine</span></h2>
+      <p class="section-subtitle">
+        Paste any Job Description or select a role preset to evaluate alignment across 4 domains, filter verified evidence, and export a candidate dossier.
+      </p>
     </div>
+    <JdMatcher />
   </section>
   
   <!-- ═══ FEATURED PROJECTS & ARCHITECTURE SHOWCASE ═══ -->
-  <section class="max-w-6xl mx-auto px-4 sm:px-6 mb-24" aria-label="Featured Engineering Projects">
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 mb-24" aria-label="Featured Engineering Projects">
     <div class="fade-in text-center mb-10">
       <h2 class="section-title text-white">Featured <span class="gradient-text">Engineering Architectures</span></h2>
       <p class="section-subtitle mb-8">Production-grade enterprise AI systems, not tutorial clones</p>
@@ -298,7 +299,7 @@ const techStack = {
   </section>
   
   <!-- ═══ SPEAKING & COMMUNITY ═══ -->
-  <section class="max-w-6xl mx-auto px-4 sm:px-6 mb-24" aria-label="Speaking and Community Engagements">
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 mb-24" aria-label="Speaking and Community Engagements">
     <div class="fade-in text-center mb-10">
       <h2 class="section-title text-white">Speaking & <span class="gradient-text">Ecosystem Leadership</span></h2>
       <p class="section-subtitle mb-8">Active across 12+ Delhi NCR AI communities · 8,800+ LinkedIn reach</p>
@@ -340,7 +341,7 @@ const techStack = {
   </section>
   
   <!-- ═══ ABOUT PREVIEW ═══ -->
-  <section class="max-w-6xl mx-auto px-4 sm:px-6 mb-24" aria-label="About Summary">
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 mb-24" aria-label="About Summary">
     <div class="glass p-6 sm:p-10 md:p-12 relative overflow-hidden fade-in">
       <div class="orb orb-teal" style="top: -200px; right: -200px; width: 250px; height: 250px; opacity: 0.08;"></div>
       
@@ -398,7 +399,7 @@ const techStack = {
   </section>
   
   <!-- ═══ CTA ═══ -->
-  <section class="max-w-6xl mx-auto px-4 sm:px-6 mb-12" aria-label="Contact Call to Action">
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 mb-12" aria-label="Contact Call to Action">
     <div class="fade-in text-center py-12 sm:py-16">
       <h2 class="font-(--font-heading) text-2xl sm:text-3xl md:text-4xl font-extrabold mb-4 tracking-tight text-white">
         Let's build production AI <span class="gradient-text">together</span>

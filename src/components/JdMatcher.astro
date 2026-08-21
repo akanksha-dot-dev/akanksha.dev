@@ -1,53 +1,68 @@
 ---
-// src/components/JdMatcher.astro — Recruiter JD Compatibility & Competency Engine 3.0
+// src/components/JdMatcher.astro — Recruiter JD Compatibility & Competency Engine 3.0 (Full-Width Responsive)
 ---
 
-<div class="glass-static p-5 sm:p-7 relative overflow-hidden fade-in border border-(--color-border) bg-(--color-surface) rounded-2xl" id="jd-matcher-container">
+<div class="glass-static p-6 sm:p-8 relative overflow-hidden fade-in border border-(--color-border) bg-(--color-surface) rounded-2xl w-full" id="jd-matcher-container">
   <!-- Subtle Ambient Glow -->
-  <div class="absolute -top-24 -right-24 w-52 h-52 rounded-full bg-(--color-teal-glow) filter blur-3xl pointer-events-none"></div>
-  <div class="absolute -bottom-24 -left-24 w-52 h-52 rounded-full bg-(--color-amber-glow) filter blur-3xl pointer-events-none"></div>
+  <div class="absolute -top-24 -right-24 w-64 h-64 rounded-full bg-(--color-teal-glow) filter blur-3xl pointer-events-none"></div>
+  <div class="absolute -bottom-24 -left-24 w-64 h-64 rounded-full bg-(--color-amber-glow) filter blur-3xl pointer-events-none"></div>
 
   <!-- Header -->
   <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-5 border-b border-(--color-border) relative z-10">
     <div>
       <div class="flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-(--color-amber) animate-pulse"></span>
+        <span class="w-2.5 h-2.5 rounded-full bg-(--color-amber) animate-pulse"></span>
         <h3 class="font-(--font-heading) font-extrabold text-lg sm:text-xl text-white tracking-tight">
           Recruiter <span class="gradient-text">JD Compatibility Engine</span>
         </h3>
       </div>
       <p class="text-xs text-(--color-text-secondary) font-(--font-mono) mt-1">
-        Instant client-side candidate fit analysis, domain scoring & STAR story matching
+        Instant client-side candidate fit analysis, 4-domain scoring & STAR story matching
       </p>
+    </div>
+
+    <!-- Quick Actions / Dossier Export (Visible anytime) -->
+    <div class="flex items-center gap-2 self-start sm:self-auto">
+      <button 
+        type="button" 
+        id="btn-copy-jd-report" 
+        class="text-xs font-(--font-mono) text-(--color-teal) hover:text-white flex items-center gap-1.5 cursor-pointer transition-colors px-3.5 py-2 rounded-xl border border-teal-500/30 hover:border-(--color-teal) bg-teal-500/10 shadow-sm"
+        title="Copy match summary report dossier"
+      >
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+        </svg>
+        <span id="copy-jd-label">Copy Candidate Dossier</span>
+      </button>
     </div>
   </div>
 
-  <div class="relative z-10 flex flex-col gap-5">
+  <div class="relative z-10 flex flex-col gap-6">
     <!-- Paste Area -->
-    <div class="flex flex-col gap-2.5">
+    <div class="flex flex-col gap-3">
       <div class="flex flex-wrap gap-2 items-center justify-between">
-        <label for="jd-input" class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider flex items-center gap-1.5">
-          <span>Paste Job Description (Live Matching)</span>
+        <label for="jd-input" class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider font-semibold flex items-center gap-1.5">
+          <span>Paste Job Description or Select Role Preset:</span>
         </label>
-        <div class="flex flex-wrap gap-1.5">
+        <div class="flex flex-wrap gap-2">
           <button 
             type="button"
             id="btn-sample-genai" 
-            class="text-[0.65rem] font-(--font-mono) px-2.5 py-1 border border-(--color-border) hover:border-(--color-teal) rounded-md text-(--color-text-secondary) hover:text-(--color-teal) cursor-pointer transition-colors bg-[#080E1E]"
+            class="text-xs font-(--font-mono) px-3 py-1.5 border border-(--color-border) hover:border-(--color-teal) rounded-lg text-(--color-text-secondary) hover:text-(--color-teal) cursor-pointer transition-colors bg-[#080E1E]"
           >
-            Sample: GenAI / Agentic
+            Sample: Senior GenAI / Agentic
           </button>
           <button 
             type="button"
             id="btn-sample-fde" 
-            class="text-[0.65rem] font-(--font-mono) px-2.5 py-1 border border-(--color-border) hover:border-(--color-teal) rounded-md text-(--color-text-secondary) hover:text-(--color-teal) cursor-pointer transition-colors bg-[#080E1E]"
+            class="text-xs font-(--font-mono) px-3 py-1.5 border border-(--color-border) hover:border-(--color-teal) rounded-lg text-(--color-text-secondary) hover:text-(--color-teal) cursor-pointer transition-colors bg-[#080E1E]"
           >
             Sample: Solutions / FDE
           </button>
           <button 
             type="button"
             id="btn-clear-jd" 
-            class="text-[0.65rem] font-(--font-mono) px-2 py-1 border border-(--color-border) hover:border-red-400 rounded-md text-(--color-text-muted) hover:text-red-400 cursor-pointer transition-colors"
+            class="text-xs font-(--font-mono) px-2.5 py-1.5 border border-(--color-border) hover:border-red-400 rounded-lg text-(--color-text-muted) hover:text-red-400 cursor-pointer transition-colors"
             title="Clear input"
           >
             Clear
@@ -59,47 +74,29 @@
         id="jd-input" 
         rows="4" 
         placeholder="Paste any Job Description or job posting requirements (e.g. 'Looking for a Senior AI Engineer with Graph RAG experience, multi-agent workflows with Google ADK, LLM fine-tuning, FastAPI, Docker, and RAGAS evaluations...')" 
-        class="w-full bg-[#080E1E]/70 border border-(--color-border) p-3 text-xs rounded-xl text-(--color-text-primary) font-sans focus:outline-none focus:border-(--color-teal) focus:ring-1 focus:ring-(--color-teal) leading-relaxed shadow-inner"
+        class="w-full bg-[#080E1E]/80 border border-(--color-border) p-4 text-xs sm:text-sm rounded-xl text-white font-sans focus:outline-none focus:border-(--color-teal) focus:ring-1 focus:ring-(--color-teal) leading-relaxed shadow-inner"
       ></textarea>
       
-      <div class="flex items-center justify-between text-[11px] font-(--font-mono) text-(--color-text-muted)">
-        <span id="jd-typing-status">Type or paste to evaluate in real time...</span>
+      <div class="flex items-center justify-between text-xs font-(--font-mono) text-(--color-text-muted)">
+        <span id="jd-typing-status">Type or paste to evaluate candidate fit in real time...</span>
         <button 
           type="button"
           id="btn-match-jd" 
-          class="btn-primary text-xs py-1.5 px-5 cursor-pointer shadow-[0_0_12px_rgba(0,240,181,0.3)]"
+          class="btn-primary text-xs py-2 px-6 cursor-pointer shadow-[0_0_16px_rgba(0,240,181,0.3)] shrink-0"
         >
           ⚡ Recalculate Fit
         </button>
       </div>
     </div>
 
-    <!-- Match Results Area (Initially Hidden) -->
-    <div id="matcher-results" class="hidden flex flex-col gap-6 border-t border-(--color-border) pt-5 animate-fadeIn" aria-live="polite">
-      <div class="flex items-center justify-between flex-wrap gap-2">
-        <span class="text-xs font-(--font-mono) text-(--color-teal) uppercase tracking-wider font-bold flex items-center gap-1.5">
-          <span class="w-2 h-2 rounded-full bg-(--color-teal)"></span>
-          Candidate Compatibility Report Generated
-        </span>
-        <button 
-          type="button" 
-          id="btn-copy-jd-report" 
-          class="text-xs font-(--font-mono) text-(--color-text-secondary) hover:text-(--color-teal) flex items-center gap-1.5 cursor-pointer transition-colors px-3 py-1.5 rounded-lg border border-(--color-border) hover:border-(--color-teal)/40 bg-[#080E1E]/80 shadow-sm"
-          title="Copy match summary report dossier"
-        >
-          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
-          </svg>
-          <span id="copy-jd-label">Copy Candidate Dossier</span>
-        </button>
-      </div>
-
-      <!-- Top Row: Radial Ring + Domain Fit Breakdown -->
-      <div class="grid grid-cols-1 md:grid-cols-[140px_1fr] gap-6 items-center bg-[#080E1E]/50 p-4 rounded-xl border border-(--color-border)">
+    <!-- Match Results Area -->
+    <div id="matcher-results" class="flex flex-col gap-6 border-t border-(--color-border) pt-6 animate-fadeIn" aria-live="polite">
+      <!-- Top Row: Radial Ring + 4-Domain Breakdown (Spacious Grid) -->
+      <div class="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-6 items-center bg-[#080E1E]/60 p-6 rounded-2xl border border-(--color-border)">
         <!-- Match Score Ring -->
         <div class="flex flex-col items-center justify-center text-center">
           <div 
-            class="relative w-24 h-24 flex items-center justify-center" 
+            class="relative w-28 h-28 flex items-center justify-center" 
             role="progressbar" 
             id="score-progressbar" 
             aria-valuenow="0" 
@@ -111,56 +108,59 @@
               <circle cx="56" cy="56" r="48" stroke="rgba(255,255,255,0.07)" stroke-width="8" fill="transparent"/>
               <circle id="score-circle" cx="56" cy="56" r="48" stroke="var(--color-teal)" stroke-width="8" fill="transparent" stroke-linecap="round" stroke-dasharray="301.6" stroke-dashoffset="301.6" class="transition-all duration-1000 ease-out"/>
             </svg>
-            <span id="score-percentage" class="text-2xl font-extrabold font-(--font-heading) text-(--color-teal)">0%</span>
+            <span id="score-percentage" class="text-3xl font-extrabold font-(--font-heading) text-(--color-teal)">0%</span>
           </div>
-          <span class="text-[0.62rem] font-(--font-mono) text-(--color-text-secondary) mt-1.5 uppercase tracking-wider font-semibold">OVERALL FIT</span>
+          <span class="text-xs font-(--font-mono) text-(--color-text-secondary) mt-2 uppercase tracking-wider font-semibold">OVERALL FIT SCORE</span>
         </div>
 
         <!-- 4 Domain Category Breakdown Bars -->
-        <div class="flex flex-col gap-2.5">
-          <span class="text-[11px] font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider font-semibold">Domain Fit Breakdown</span>
+        <div class="flex flex-col gap-3">
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider font-semibold">Domain Fit Breakdown</span>
+            <span class="text-[11px] font-(--font-mono) text-(--color-teal)">4 Competency Spheres</span>
+          </div>
           
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-xs font-(--font-mono)">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-xs font-(--font-mono)">
             <!-- Category 1: Agentic AI -->
-            <div class="flex flex-col gap-1">
-              <div class="flex justify-between text-[11px]">
+            <div class="flex flex-col gap-1.5">
+              <div class="flex justify-between text-xs">
                 <span class="text-(--color-text-secondary)">Agentic AI & Orchestration</span>
                 <span id="cat-agentic-pct" class="text-(--color-teal) font-bold">0%</span>
               </div>
-              <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+              <div class="w-full h-2 bg-white/10 rounded-full overflow-hidden">
                 <div id="cat-agentic-bar" class="h-full bg-(--color-teal) rounded-full transition-all duration-700 w-0"></div>
               </div>
             </div>
 
             <!-- Category 2: RAG & Search -->
-            <div class="flex flex-col gap-1">
-              <div class="flex justify-between text-[11px]">
+            <div class="flex flex-col gap-1.5">
+              <div class="flex justify-between text-xs">
                 <span class="text-(--color-text-secondary)">RAG & Vector Search</span>
                 <span id="cat-rag-pct" class="text-(--color-teal) font-bold">0%</span>
               </div>
-              <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+              <div class="w-full h-2 bg-white/10 rounded-full overflow-hidden">
                 <div id="cat-rag-bar" class="h-full bg-(--color-teal) rounded-full transition-all duration-700 w-0"></div>
               </div>
             </div>
 
             <!-- Category 3: LLM Infra -->
-            <div class="flex flex-col gap-1">
-              <div class="flex justify-between text-[11px]">
+            <div class="flex flex-col gap-1.5">
+              <div class="flex justify-between text-xs">
                 <span class="text-(--color-text-secondary)">LLM Infra & Backend APIs</span>
                 <span id="cat-infra-pct" class="text-(--color-amber) font-bold">0%</span>
               </div>
-              <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+              <div class="w-full h-2 bg-white/10 rounded-full overflow-hidden">
                 <div id="cat-infra-bar" class="h-full bg-(--color-amber) rounded-full transition-all duration-700 w-0"></div>
               </div>
             </div>
 
             <!-- Category 4: Enterprise ML -->
-            <div class="flex flex-col gap-1">
-              <div class="flex justify-between text-[11px]">
+            <div class="flex flex-col gap-1.5">
+              <div class="flex justify-between text-xs">
                 <span class="text-(--color-text-secondary)">Enterprise ML & Reliability</span>
                 <span id="cat-ml-pct" class="text-(--color-amber) font-bold">0%</span>
               </div>
-              <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+              <div class="w-full h-2 bg-white/10 rounded-full overflow-hidden">
                 <div id="cat-ml-bar" class="h-full bg-(--color-amber) rounded-full transition-all duration-700 w-0"></div>
               </div>
             </div>
@@ -172,30 +172,36 @@
       <div class="flex flex-col gap-2.5">
         <div class="flex justify-between items-center">
           <span class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider font-semibold">Detected Core Competencies</span>
-          <span class="text-[10px] font-(--font-mono) text-(--color-teal)" id="matched-count-label">0 Skills Identified</span>
+          <span class="text-xs font-(--font-mono) text-(--color-teal)" id="matched-count-label">0 Skills Identified</span>
         </div>
-        <div id="matched-tags-container" class="flex flex-wrap gap-1.5">
+        <div id="matched-tags-container" class="flex flex-wrap gap-2">
           <!-- Populated via JS -->
         </div>
       </div>
 
-      <!-- Filtered Resume Bullets -->
-      <div class="flex flex-col gap-2.5">
-        <div class="flex justify-between items-center">
-          <span class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider font-semibold">Tailored Experience Evidence</span>
-          <span class="text-[10px] font-(--font-mono) text-(--color-text-muted)" id="bullet-count-label">0 Bullets Filtered</span>
+      <!-- 2-Column Split: Filtered Bullets (Left) & Suggested STAR Stories (Right) -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Filtered Resume Bullets -->
+        <div class="flex flex-col gap-2.5">
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider font-semibold">Tailored Experience Evidence</span>
+            <span class="text-xs font-(--font-mono) text-(--color-text-muted)" id="bullet-count-label">0 Bullets Filtered</span>
+          </div>
+          
+          <div class="border border-(--color-border) bg-[#080E1E]/60 rounded-xl p-4 flex flex-col gap-3.5 max-h-[300px] overflow-y-auto" id="filtered-bullets-container">
+            <!-- Populated via JS -->
+          </div>
         </div>
-        
-        <div class="border border-(--color-border) bg-[#080E1E]/50 rounded-xl p-4 flex flex-col gap-3.5 max-h-[280px] overflow-y-auto" id="filtered-bullets-container">
-          <!-- Populated via JS -->
-        </div>
-      </div>
 
-      <!-- Suggested STAR Interview Stories -->
-      <div class="flex flex-col gap-2.5">
-        <span class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider font-semibold">Recommended Interview Talking Points (STAR Method)</span>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="suggested-stories-container">
-          <!-- Populated via JS -->
+        <!-- Suggested STAR Interview Stories -->
+        <div class="flex flex-col gap-2.5">
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider font-semibold">Recommended Interview Talking Points (STAR)</span>
+            <span class="text-xs font-(--font-mono) text-(--color-amber)">Interview Prep</span>
+          </div>
+          <div class="flex flex-col gap-3 max-h-[300px] overflow-y-auto" id="suggested-stories-container">
+            <!-- Populated via JS -->
+          </div>
         </div>
       </div>
     </div>
@@ -347,7 +353,6 @@
     function runMatching() {
       const text = jdTextarea?.value.trim() || '';
       if (!text) {
-        resultsPanel?.classList.add('hidden');
         if (typingStatus) typingStatus.textContent = 'Type or paste to evaluate in real time...';
         return;
       }
@@ -377,9 +382,6 @@
       const ragScore = Math.min(100, Math.round((catCounts.rag / (catTotals.rag || 1)) * 100) + 20);
       const infraScore = Math.min(100, Math.round((catCounts.infra / (catTotals.infra || 1)) * 100) + 20);
       const mlScore = Math.min(100, Math.round((catCounts.ml / (catTotals.ml || 1)) * 100) + 20);
-
-      // Show Panel
-      resultsPanel?.classList.remove('hidden');
 
       // Populate Category Bars
       if (catAgenticPct && catAgenticBar) {
@@ -427,7 +429,7 @@
           matchDatabase.skills.forEach(s => {
             if (matchedKeys.has(s.key)) {
               const span = document.createElement('span');
-              span.className = 'badge text-[0.65rem] py-1 border-teal-500/40 bg-teal-500/15 text-teal-300 animate-fadeIn';
+              span.className = 'badge text-xs py-1 px-2.5 border-teal-500/40 bg-teal-500/15 text-teal-300 animate-fadeIn';
               span.textContent = `✔ ${s.label}`;
               tagsContainer.appendChild(span);
             }
@@ -452,12 +454,12 @@
 
         matchingBullets.forEach(b => {
           const item = document.createElement('div');
-          item.className = 'flex items-start gap-2 text-xs leading-relaxed text-(--color-text-secondary) font-sans animate-fadeIn';
+          item.className = 'flex items-start gap-2.5 text-xs leading-relaxed text-(--color-text-secondary) font-sans animate-fadeIn';
           const companyBadgeClass = b.company === 'Samsung SDS' ? 'text-teal-300 border-teal-500/30 bg-teal-500/10' : 'text-amber-300 border-amber-500/30 bg-amber-500/10';
           item.innerHTML = `
             <span class="text-teal-400 font-bold shrink-0 mt-0.5">▸</span>
             <div class="flex-1">
-              <span class="inline-block px-1.5 py-0.5 rounded text-[10px] font-mono border ${companyBadgeClass} mr-1 mb-0.5">${b.company}</span>
+              <span class="inline-block px-2 py-0.5 rounded text-[11px] font-mono border ${companyBadgeClass} mr-1.5 mb-1 font-semibold">${b.company}</span>
               ${b.text}
             </div>
           `;
@@ -480,12 +482,12 @@
 
         displayStories.forEach(st => {
           const card = document.createElement('div');
-          card.className = 'glass-static p-3 rounded-xl border border-(--color-border) bg-[#080E1E]/60 text-xs flex flex-col gap-1.5 animate-fadeIn';
+          card.className = 'glass-static p-3.5 rounded-xl border border-(--color-border) bg-[#080E1E]/80 text-xs flex flex-col gap-1.5 animate-fadeIn';
           card.innerHTML = `
             <h4 class="font-bold text-white text-xs font-(--font-heading) flex items-center gap-1.5">
               <span class="text-amber-400">★</span> ${st.title}
             </h4>
-            <p class="text-[0.7rem] text-(--color-text-secondary) leading-relaxed">${st.desc}</p>
+            <p class="text-xs text-(--color-text-secondary) leading-relaxed">${st.desc}</p>
           `;
           storiesContainer.appendChild(card);
         });
