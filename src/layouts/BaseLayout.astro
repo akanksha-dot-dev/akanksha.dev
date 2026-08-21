@@ -10,7 +10,7 @@ interface Props {
 
 const { 
   title, 
-  description = "Production AI Engineer building enterprise AI systems — RAG, Agents, LLMs. 4+ years shipping AI at Samsung SDS & HCLTech.",
+  description = "Production AI Engineer building enterprise AI systems — Agentic RAG, autonomous agents (Google ADK), and enterprise LLM orchestration. 4+ years shipping AI at Samsung SDS & HCLTech.",
   ogImage = "/og-image.png"
 } = Astro.props;
 
@@ -67,16 +67,16 @@ const breadcrumbs = [
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={new URL(ogImage, Astro.site || 'https://akanksha.dev')} />
   
-  <!-- Typography font loading -->
+  <!-- Typography font loading: Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
   <noscript>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet" />
   </noscript>
   
   <!-- Theme Color for mobile browsers -->
-  <meta name="theme-color" content="#05070F" />
+  <meta name="theme-color" content="#030712" />
   
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -154,17 +154,17 @@ const breadcrumbs = [
 <body class="bg-(--color-space) text-(--color-text-primary) font-(--font-body) antialiased">
   
   <!-- Skip to Main Content (WCAG 2.2 AA) -->
-  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2.5 focus:bg-(--color-teal) focus:text-(--color-space) focus:font-bold focus:rounded-lg focus:shadow-2xl focus:outline-none">
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2.5 focus:bg-(--color-teal) focus:text-[#030712] focus:font-bold focus:rounded-lg focus:shadow-2xl focus:outline-none">
     Skip to main content
   </a>
 
   <!-- ═══ NAVIGATION ═══ -->
   <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" aria-label="Primary Navigation">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-      <!-- Logo -->
-      <a href="/" class="text-xl font-bold font-(--font-heading) tracking-tight group flex items-center gap-1.5" aria-label="Akanksha.dev Homepage">
-        <span class="w-2.5 h-2.5 rounded-full bg-(--color-teal) shadow-[0_0_8px_rgba(0,229,176,0.8)]"></span>
-        <span class="text-(--color-teal) transition-colors">A</span><span class="text-(--color-text-primary) group-hover:text-(--color-teal) transition-colors">kanksha</span><span class="text-(--color-text-muted) font-mono text-xs">.dev</span>
+      <!-- Logo: Clean brand mark without awkward spacing -->
+      <a href="/" class="text-lg font-bold font-(--font-heading) tracking-tight group flex items-center gap-2" aria-label="Akanksha.dev Homepage">
+        <span class="w-2.5 h-2.5 rounded-full bg-(--color-teal) shadow-[0_0_10px_rgba(0,240,181,0.8)]"></span>
+        <span class="text-white tracking-tight">akanksha<span class="text-(--color-teal)">.dev</span></span>
       </a>
       
       <!-- Desktop Nav -->
@@ -187,7 +187,7 @@ const breadcrumbs = [
         >
           <svg class="w-3.5 h-3.5 text-(--color-teal)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
           <span>Ask Agent</span>
-          <kbd class="px-1.5 py-0.5 rounded bg-(--color-space) border border-(--color-border) text-[10px] text-(--color-text-muted)">⌘K</kbd>
+          <kbd class="px-1.5 py-0.5 rounded bg-[#030712] border border-(--color-border) text-[10px] text-(--color-text-muted)">⌘K</kbd>
         </button>
       </div>
       
@@ -249,15 +249,16 @@ const breadcrumbs = [
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
         <!-- Brand -->
         <div class="md:col-span-2">
-          <a href="/" class="text-xl font-bold font-(--font-heading) flex items-center gap-1.5 mb-2">
-            <span class="text-(--color-teal)">A</span>kanksha<span class="text-(--color-text-muted) font-mono text-xs">.dev</span>
+          <a href="/" class="text-lg font-bold font-(--font-heading) tracking-tight flex items-center gap-2 mb-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-(--color-teal) shadow-[0_0_10px_rgba(0,240,181,0.8)]"></span>
+            <span class="text-white tracking-tight">akanksha<span class="text-(--color-teal)">.dev</span></span>
           </a>
           <p class="text-(--color-text-secondary) text-sm max-w-sm leading-relaxed mb-4">
-            Production AI Engineer at Samsung SDS. Architecting Agentic RAG, autonomous agents, and enterprise LLM pipelines.
+            Production AI Engineer at Samsung SDS. Architecting enterprise Agentic RAG, autonomous agents (Google ADK), and LLM orchestration.
           </p>
           <div class="flex items-center gap-2 text-xs font-(--font-mono) text-(--color-text-muted)">
             <span class="pulse-dot"></span>
-            <span>Available for Senior / Staff AI Engineer Opportunities</span>
+            <span>Available for Senior / Staff AI Engineer Roles · Q3/Q4 2026</span>
           </div>
         </div>
         
@@ -298,7 +299,7 @@ const breadcrumbs = [
       
       <div class="border-t border-(--color-border) pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
         <p class="text-(--color-text-muted) text-xs font-(--font-mono)">
-          © {new Date().getFullYear()} Akanksha · Cyber-Physical AI Platform · Hosted on Cloudflare
+          © {new Date().getFullYear()} Akanksha · Production AI Engineering Platform · Hosted on Cloudflare Edge
         </p>
         <div class="flex gap-4 items-center">
           <a href="/llms.txt" class="text-(--color-text-muted) hover:text-(--color-teal) text-xs transition-colors font-(--font-mono)">llms.txt</a>
@@ -312,10 +313,10 @@ const breadcrumbs = [
   </footer>
 
   <!-- ═══ COMMAND PALETTE 2.0 (Cmd+K) ═══ -->
-  <div id="command-palette" class="fixed inset-0 z-[100] hidden bg-[#05070F]/85 backdrop-blur-md flex items-start justify-center pt-[12vh] px-4" aria-modal="true" role="dialog" aria-label="Command Palette & Local AI Agent">
-    <div class="w-full max-w-2xl bg-[#091628]/95 border border-(--color-border) rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[75vh] glass-glow-teal">
+  <div id="command-palette" class="fixed inset-0 z-[100] hidden bg-[#030712]/85 backdrop-blur-md flex items-start justify-center pt-[12vh] px-4" aria-modal="true" role="dialog" aria-label="Command Palette & Local AI Agent">
+    <div class="w-full max-w-2xl bg-[#080E1E]/95 border border-(--color-border) rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[75vh] glass-glow-teal">
       <!-- Search Input Header -->
-      <div class="flex items-center gap-3 px-4 py-3.5 border-b border-(--color-border) bg-[#05070F]/50">
+      <div class="flex items-center gap-3 px-4 py-3.5 border-b border-(--color-border) bg-[#030712]/60">
         <svg class="w-5 h-5 text-(--color-teal) shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         <input 
           type="text" 
@@ -325,13 +326,13 @@ const breadcrumbs = [
           autocomplete="off"
           aria-label="Search prompt or navigation command"
         />
-        <button type="button" id="palette-close-btn" class="text-(--color-text-muted) hover:text-(--color-teal) text-xs px-2 py-1 rounded bg-(--color-space) border border-(--color-border) font-(--font-mono) cursor-pointer" aria-label="Close search">ESC</button>
+        <button type="button" id="palette-close-btn" class="text-(--color-text-muted) hover:text-(--color-teal) text-xs px-2 py-1 rounded bg-[#030712] border border-(--color-border) font-(--font-mono) cursor-pointer" aria-label="Close search">ESC</button>
       </div>
 
       <!-- Scrollable content area -->
       <div class="flex-1 overflow-y-auto p-4 flex flex-col gap-4">
         <!-- AI Response (Hidden initially) -->
-        <div id="palette-ai-box" class="hidden glass-static p-4 border border-(--color-teal)/30 bg-[#05070F]/70 flex flex-col gap-2 rounded-xl">
+        <div id="palette-ai-box" class="hidden glass-static p-4 border border-(--color-teal)/30 bg-[#030712]/70 flex flex-col gap-2 rounded-xl">
           <div class="flex items-center justify-between text-[11px] font-(--font-mono) text-(--color-teal)">
             <span class="flex items-center gap-1.5">
               <span class="relative flex h-2 w-2">
@@ -355,7 +356,7 @@ const breadcrumbs = [
       </div>
       
       <!-- Footer instructions -->
-      <div class="px-4 py-2.5 bg-[#05070F]/90 border-t border-(--color-border) flex items-center justify-between text-[10px] font-(--font-mono) text-(--color-text-muted) select-none">
+      <div class="px-4 py-2.5 bg-[#030712]/90 border-t border-(--color-border) flex items-center justify-between text-[10px] font-(--font-mono) text-(--color-text-muted) select-none">
         <div class="flex items-center gap-3">
           <span>↑↓ to navigate</span>
           <span>↵ to execute</span>
@@ -366,8 +367,8 @@ const breadcrumbs = [
     </div>
   </div>
 
-  <!-- ═══ IDE STATUS BAR ═══ -->
-  <div class="fixed bottom-0 left-0 right-0 h-8 bg-[#05070F]/92 backdrop-blur-md border-t border-(--color-border) z-[49] flex items-center justify-between px-4 text-[10px] sm:text-xs font-(--font-mono) text-(--color-text-secondary) select-none">
+  <!-- ═══ SLEEK STATUS BAR ═══ -->
+  <div class="fixed bottom-0 left-0 right-0 h-8 bg-[#030712]/92 backdrop-blur-md border-t border-(--color-border) z-[49] flex items-center justify-between px-4 text-[10px] sm:text-xs font-(--font-mono) text-(--color-text-secondary) select-none">
     <div class="flex items-center gap-3">
       <span class="flex items-center gap-1.5 text-(--color-teal)">
         <span class="relative flex h-2 w-2">
@@ -465,15 +466,15 @@ const breadcrumbs = [
         item.type = 'button';
         item.className = `w-full text-left px-3 py-2 rounded-lg text-xs font-(--font-mono) flex items-center justify-between transition-all cursor-pointer ${
           idx === selectedIndex 
-            ? 'bg-(--color-teal) text-(--color-space) font-semibold shadow-[0_0_12px_rgba(0,229,176,0.4)]' 
+            ? 'bg-(--color-teal) text-[#030712] font-semibold shadow-[0_0_12px_rgba(0,240,181,0.4)]' 
             : 'text-(--color-text-secondary) hover:bg-white/5 hover:text-(--color-text-primary)'
         }`;
         item.innerHTML = `
           <span class="flex items-center gap-2">
-            <span class="${idx === selectedIndex ? 'text-(--color-space)' : 'text-(--color-teal)'}">›</span>
+            <span class="${idx === selectedIndex ? 'text-[#030712]' : 'text-(--color-teal)'}">›</span>
             ${cmd.name}
           </span>
-          <span class="${idx === selectedIndex ? 'text-(--color-space)/80' : 'text-(--color-text-muted)'} text-[10px]">Action</span>
+          <span class="${idx === selectedIndex ? 'text-[#030712]/80' : 'text-(--color-text-muted)'} text-[10px]">Action</span>
         `;
         item.addEventListener('click', () => {
           cmd.action();
@@ -618,7 +619,7 @@ const breadcrumbs = [
         (window as any).__AK_TELEMETRY_TIMER__ = true;
         
         setInterval(() => {
-          const lat = Math.floor(Math.random() * 8) + 14;
+          const lat = Math.floor(Math.random() * 6) + 14;
           const el = document.getElementById('latency-indicator');
           if (el) el.textContent = `Telemetry: ${lat}ms`;
 
