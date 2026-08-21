@@ -1,8 +1,14 @@
 {
-  "phase": "complete",
-  "batchNumber": 3,
+  "phase": "executing",
+  "batchNumber": 4,
   "active": null,
-  "queue": [],
+  "queue": [
+    "WI-401",
+    "WI-402",
+    "WI-403",
+    "WI-404",
+    "WI-405"
+  ],
   "completed": [
     {
       "id": "WI-101",
