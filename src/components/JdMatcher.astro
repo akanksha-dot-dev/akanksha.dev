@@ -1,9 +1,9 @@
 ---
-// src/components/JdMatcher.astro
+// src/components/JdMatcher.astro — Recruiter JD Compatibility & Competency Engine 3.0
 ---
 
 <div class="glass-static p-5 sm:p-7 relative overflow-hidden fade-in border border-(--color-border) bg-(--color-surface) rounded-2xl" id="jd-matcher-container">
-  <!-- Glow Orbs -->
+  <!-- Subtle Ambient Glow -->
   <div class="absolute -top-24 -right-24 w-52 h-52 rounded-full bg-(--color-teal-glow) filter blur-3xl pointer-events-none"></div>
   <div class="absolute -bottom-24 -left-24 w-52 h-52 rounded-full bg-(--color-amber-glow) filter blur-3xl pointer-events-none"></div>
 
@@ -12,8 +12,8 @@
     <div>
       <div class="flex items-center gap-2">
         <span class="w-2 h-2 rounded-full bg-(--color-amber) animate-pulse"></span>
-        <h3 class="font-(--font-heading) font-extrabold text-lg sm:text-xl text-(--color-text-primary) tracking-tight">
-          Recruiter <span class="gradient-text">JD Compatibility Engine 2.0</span>
+        <h3 class="font-(--font-heading) font-extrabold text-lg sm:text-xl text-white tracking-tight">
+          Recruiter <span class="gradient-text">JD Compatibility Engine</span>
         </h3>
       </div>
       <p class="text-xs text-(--color-text-secondary) font-(--font-mono) mt-1">
@@ -33,14 +33,14 @@
           <button 
             type="button"
             id="btn-sample-genai" 
-            class="text-[0.65rem] font-(--font-mono) px-2.5 py-1 border border-(--color-border) hover:border-(--color-teal) rounded-md text-(--color-text-secondary) hover:text-(--color-teal) cursor-pointer transition-colors bg-space-light/40"
+            class="text-[0.65rem] font-(--font-mono) px-2.5 py-1 border border-(--color-border) hover:border-(--color-teal) rounded-md text-(--color-text-secondary) hover:text-(--color-teal) cursor-pointer transition-colors bg-[#080E1E]"
           >
             Sample: GenAI / Agentic
           </button>
           <button 
             type="button"
             id="btn-sample-fde" 
-            class="text-[0.65rem] font-(--font-mono) px-2.5 py-1 border border-(--color-border) hover:border-(--color-teal) rounded-md text-(--color-text-secondary) hover:text-(--color-teal) cursor-pointer transition-colors bg-space-light/40"
+            class="text-[0.65rem] font-(--font-mono) px-2.5 py-1 border border-(--color-border) hover:border-(--color-teal) rounded-md text-(--color-text-secondary) hover:text-(--color-teal) cursor-pointer transition-colors bg-[#080E1E]"
           >
             Sample: Solutions / FDE
           </button>
@@ -59,7 +59,7 @@
         id="jd-input" 
         rows="4" 
         placeholder="Paste any Job Description or job posting requirements (e.g. 'Looking for a Senior AI Engineer with Graph RAG experience, multi-agent workflows with Google ADK, LLM fine-tuning, FastAPI, Docker, and RAGAS evaluations...')" 
-        class="w-full bg-space-light/60 border border-(--color-border) p-3 text-xs rounded-xl text-(--color-text-primary) font-sans focus:outline-none focus:border-(--color-teal) focus:ring-1 focus:ring-(--color-teal) leading-relaxed shadow-inner"
+        class="w-full bg-[#080E1E]/70 border border-(--color-border) p-3 text-xs rounded-xl text-(--color-text-primary) font-sans focus:outline-none focus:border-(--color-teal) focus:ring-1 focus:ring-(--color-teal) leading-relaxed shadow-inner"
       ></textarea>
       
       <div class="flex items-center justify-between text-[11px] font-(--font-mono) text-(--color-text-muted)">
@@ -67,7 +67,7 @@
         <button 
           type="button"
           id="btn-match-jd" 
-          class="btn-primary text-xs py-1.5 px-5 cursor-pointer shadow-[0_0_12px_rgba(0,229,176,0.3)]"
+          class="btn-primary text-xs py-1.5 px-5 cursor-pointer shadow-[0_0_12px_rgba(0,240,181,0.3)]"
         >
           ⚡ Recalculate Fit
         </button>
@@ -84,7 +84,7 @@
         <button 
           type="button" 
           id="btn-copy-jd-report" 
-          class="text-xs font-(--font-mono) text-(--color-text-secondary) hover:text-(--color-teal) flex items-center gap-1.5 cursor-pointer transition-colors px-3 py-1.5 rounded-lg border border-(--color-border) hover:border-(--color-teal)/40 bg-space-light/60 shadow-sm"
+          class="text-xs font-(--font-mono) text-(--color-text-secondary) hover:text-(--color-teal) flex items-center gap-1.5 cursor-pointer transition-colors px-3 py-1.5 rounded-lg border border-(--color-border) hover:border-(--color-teal)/40 bg-[#080E1E]/80 shadow-sm"
           title="Copy match summary report dossier"
         >
           <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -95,7 +95,7 @@
       </div>
 
       <!-- Top Row: Radial Ring + Domain Fit Breakdown -->
-      <div class="grid grid-cols-1 md:grid-cols-[140px_1fr] gap-6 items-center bg-space-light/30 p-4 rounded-xl border border-(--color-border)">
+      <div class="grid grid-cols-1 md:grid-cols-[140px_1fr] gap-6 items-center bg-[#080E1E]/50 p-4 rounded-xl border border-(--color-border)">
         <!-- Match Score Ring -->
         <div class="flex flex-col items-center justify-center text-center">
           <div 
@@ -186,7 +186,7 @@
           <span class="text-[10px] font-(--font-mono) text-(--color-text-muted)" id="bullet-count-label">0 Bullets Filtered</span>
         </div>
         
-        <div class="border border-(--color-border) bg-space-light/30 rounded-xl p-4 flex flex-col gap-3.5 max-h-[280px] overflow-y-auto" id="filtered-bullets-container">
+        <div class="border border-(--color-border) bg-[#080E1E]/50 rounded-xl p-4 flex flex-col gap-3.5 max-h-[280px] overflow-y-auto" id="filtered-bullets-container">
           <!-- Populated via JS -->
         </div>
       </div>
@@ -399,100 +399,110 @@
         catMlBar.style.width = `${mlScore}%`;
       }
 
-      // Populate Tags
+      // Animate Radial Circle
+      if (scoreCircle) {
+        const circumference = 2 * Math.PI * 48; // 301.6
+        const offset = circumference - (overallScore / 100) * circumference;
+        scoreCircle.style.strokeDashoffset = `${offset}`;
+      }
+
+      // Count-up numbers
+      let currentVal = 0;
+      countInterval = setInterval(() => {
+        currentVal += 2;
+        if (currentVal >= overallScore) {
+          currentVal = overallScore;
+          clearInterval(countInterval);
+        }
+        if (scorePercentage) scorePercentage.textContent = `${currentVal}%`;
+        if (scoreProgressbar) scoreProgressbar.setAttribute('aria-valuenow', `${currentVal}`);
+      }, 15);
+
+      // Populate Matched Tags
       if (tagsContainer) {
         tagsContainer.innerHTML = '';
-        matchDatabase.skills.forEach(s => {
-          const isMatched = matchedKeys.has(s.key);
-          const tag = document.createElement('span');
-          tag.className = isMatched 
-            ? "badge py-1 px-2.5 text-[11px] text-(--color-teal) bg-(--color-teal)/15 border border-(--color-teal)/40 font-semibold shadow-sm"
-            : "badge-ghost badge py-1 px-2 text-[10px] opacity-35 border border-white/5";
-          tag.textContent = (isMatched ? "✓ " : "") + s.label;
-          tagsContainer.appendChild(tag);
-        });
+        if (matchedKeys.size === 0) {
+          tagsContainer.innerHTML = '<span class="text-xs text-(--color-text-muted) font-mono">No direct keywords matched from dictionary. Try pasting full JD text.</span>';
+        } else {
+          matchDatabase.skills.forEach(s => {
+            if (matchedKeys.has(s.key)) {
+              const span = document.createElement('span');
+              span.className = 'badge text-[0.65rem] py-1 border-teal-500/40 bg-teal-500/15 text-teal-300 animate-fadeIn';
+              span.textContent = `✔ ${s.label}`;
+              tagsContainer.appendChild(span);
+            }
+          });
+        }
       }
 
       if (labelMatchedCount) {
-        labelMatchedCount.textContent = `${totalSkillsMatched} Competencies Detected`;
+        labelMatchedCount.textContent = `${matchedKeys.size} Core Skills Identified`;
       }
 
-      // Filter Experience Bullets
-      let filteredBullets = matchDatabase.bullets.filter(b => 
-        b.keys.some(k => matchedKeys.has(k))
-      );
-      if (filteredBullets.length === 0) {
-        filteredBullets = matchDatabase.bullets.slice(0, 3);
-      }
-
-      if (labelBulletCount) labelBulletCount.textContent = `${filteredBullets.length} Verified Evidence Bullets`;
-
+      // Populate Filtered Experience Bullets
       if (bulletsContainer) {
         bulletsContainer.innerHTML = '';
-        filteredBullets.forEach(b => {
+        let matchingBullets = matchDatabase.bullets.filter(b => 
+          b.keys.some(k => matchedKeys.has(k))
+        );
+
+        if (matchingBullets.length === 0) {
+          matchingBullets = matchDatabase.bullets.slice(0, 3);
+        }
+
+        matchingBullets.forEach(b => {
           const item = document.createElement('div');
-          item.className = "flex flex-col gap-1 pb-3 border-b border-(--color-border) last:border-0 last:pb-0";
+          item.className = 'flex items-start gap-2 text-xs leading-relaxed text-(--color-text-secondary) font-sans animate-fadeIn';
+          const companyBadgeClass = b.company === 'Samsung SDS' ? 'text-teal-300 border-teal-500/30 bg-teal-500/10' : 'text-amber-300 border-amber-500/30 bg-amber-500/10';
           item.innerHTML = `
-            <div class="flex items-center justify-between text-[10px] font-(--font-mono)">
-              <span class="text-(--color-teal) font-semibold px-2 py-0.5 rounded bg-teal-500/10 border border-teal-500/20">${b.company}</span>
-              <span class="text-(--color-text-muted)">Verified Production Experience</span>
+            <span class="text-teal-400 font-bold shrink-0 mt-0.5">▸</span>
+            <div class="flex-1">
+              <span class="inline-block px-1.5 py-0.5 rounded text-[10px] font-mono border ${companyBadgeClass} mr-1 mb-0.5">${b.company}</span>
+              ${b.text}
             </div>
-            <p class="text-xs text-(--color-text-primary) leading-relaxed mt-1">${b.text}</p>
           `;
           bulletsContainer.appendChild(item);
         });
+
+        if (labelBulletCount) {
+          labelBulletCount.textContent = `${matchingBullets.length} Verified Evidence Bullets`;
+        }
       }
 
-      // Populate STAR Stories
-      const suggestedStories = matchDatabase.stories.filter(s =>
-        s.keys.some(k => matchedKeys.has(k) || text.toLowerCase().includes(k))
-      );
-      const storiesToShow = suggestedStories.length > 0 ? suggestedStories.slice(0, 2) : matchDatabase.stories.slice(0, 2);
-
+      // Populate Suggested STAR Stories
       if (storiesContainer) {
         storiesContainer.innerHTML = '';
-        storiesToShow.forEach(s => {
+        const matchingStories = matchDatabase.stories.filter(s => 
+          s.keys.some(k => matchedKeys.has(k))
+        );
+
+        const displayStories = matchingStories.length > 0 ? matchingStories : matchDatabase.stories.slice(0, 2);
+
+        displayStories.forEach(st => {
           const card = document.createElement('div');
-          card.className = "glass-static p-3.5 bg-space-light/40 border border-(--color-border) rounded-xl flex flex-col gap-1.5";
+          card.className = 'glass-static p-3 rounded-xl border border-(--color-border) bg-[#080E1E]/60 text-xs flex flex-col gap-1.5 animate-fadeIn';
           card.innerHTML = `
-            <div class="flex items-center gap-1.5 text-xs text-(--color-amber) font-semibold">
-              <span>🎯</span>
-              <h4 class="text-(--color-text-primary) font-semibold font-(--font-heading)">${s.title}</h4>
-            </div>
-            <p class="text-[0.68rem] text-(--color-text-secondary) leading-relaxed font-sans">${s.desc}</p>
+            <h4 class="font-bold text-white text-xs font-(--font-heading) flex items-center gap-1.5">
+              <span class="text-amber-400">★</span> ${st.title}
+            </h4>
+            <p class="text-[0.7rem] text-(--color-text-secondary) leading-relaxed">${st.desc}</p>
           `;
           storiesContainer.appendChild(card);
         });
       }
 
-      // Animate Radial Score
-      setTimeout(() => {
-        const strokeDashOffset = 301.6 - (301.6 * (overallScore / 100));
-        scoreCircle?.setAttribute('stroke-dashoffset', strokeDashOffset.toString());
-        scoreProgressbar?.setAttribute('aria-valuenow', overallScore.toString());
-        
-        let current = 0;
-        countInterval = setInterval(() => {
-          if (current >= overallScore) {
-            clearInterval(countInterval);
-            if (scorePercentage) scorePercentage.textContent = `${overallScore}%`;
-            if (typingStatus) typingStatus.textContent = `Match Score: ${overallScore}% fit based on detected technical requirements.`;
-          } else {
-            current += Math.ceil((overallScore - current) / 4) || 1;
-            if (scorePercentage) scorePercentage.textContent = `${current}%`;
-          }
-        }, 25);
-      }, 50);
+      if (typingStatus) typingStatus.textContent = 'Match analysis complete.';
     }
 
-    // Debounced live typing
+    // Input handlers
     jdTextarea?.addEventListener('input', () => {
-      if (debounceTimer) clearTimeout(debounceTimer);
-      if (typingStatus) typingStatus.textContent = 'Typing detected... analyzing fit in real time...';
-      debounceTimer = setTimeout(runMatching, 300);
+      if (typingStatus) typingStatus.textContent = 'Analyzing input...';
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(runMatching, 250);
     });
 
-    // Sample buttons
+    btnMatch?.addEventListener('click', runMatching);
+
     btnSampleGenAi?.addEventListener('click', () => {
       if (jdTextarea) {
         jdTextarea.value = sampleJds.genai;
@@ -508,61 +518,36 @@
     });
 
     btnClearJd?.addEventListener('click', () => {
-      if (jdTextarea) jdTextarea.value = '';
-      if (countInterval) clearInterval(countInterval);
-      resultsPanel?.classList.add('hidden');
-      if (scoreCircle) scoreCircle.setAttribute('stroke-dashoffset', '301.6');
-      if (scorePercentage) scorePercentage.textContent = '0%';
-      if (scoreProgressbar) scoreProgressbar.setAttribute('aria-valuenow', '0');
-      if (typingStatus) typingStatus.textContent = 'Cleared. Paste a new job description.';
-    });
-
-    btnMatch?.addEventListener('click', runMatching);
-
-    // Copy Report Dossier
-    btnCopyJdReport?.addEventListener('click', async () => {
-      const currentScore = scorePercentage?.textContent || '0%';
-      const tags = Array.from(tagsContainer?.querySelectorAll('.badge') || [])
-        .map(el => el.textContent?.replace('✓', '').trim())
-        .filter(Boolean);
-      const topBullets = Array.from(bulletsContainer?.querySelectorAll('p') || [])
-        .map(p => `• ${p.textContent?.trim()}`)
-        .slice(0, 3)
-        .join('\n');
-
-      const dossierText = [
-        `=========================================================`,
-        `CANDIDATE FIT REPORT: Akanksha — Production AI Engineer`,
-        `Profile: https://akanksha.dev | Email: me@akanksha.dev`,
-        `=========================================================`,
-        `Role: Production AI Engineer @ Samsung SDS`,
-        `Overall Fit Compatibility: ${currentScore}`,
-        ``,
-        `DOMAIN BREAKDOWN:`,
-        `• Agentic AI & Orchestration: ${catAgenticPct?.textContent || '90%'}`,
-        `• RAG & Vector Search: ${catRagPct?.textContent || '95%'}`,
-        `• LLM Infra & Backend: ${catInfraPct?.textContent || '88%'}`,
-        `• Enterprise ML & Cloud: ${catMlPct?.textContent || '85%'}`,
-        ``,
-        `DETECTED SKILLS:`,
-        `${tags.join(', ')}`,
-        ``,
-        `VERIFIED EXPERIENCE HIGHLIGHTS:`,
-        `${topBullets}`,
-        ``,
-        `Full Portfolio & Live Architecture Sandbox: https://akanksha.dev`
-      ].join('\n');
-
-      try {
-        await navigator.clipboard.writeText(dossierText);
-        if (copyJdLabel) copyJdLabel.textContent = "✓ Dossier Copied!";
-        setTimeout(() => {
-          if (copyJdLabel) copyJdLabel.textContent = "Copy Candidate Dossier";
-        }, 2000);
-      } catch (err) {
-        console.error('Failed to copy dossier:', err);
+      if (jdTextarea) {
+        jdTextarea.value = '';
+        runMatching();
       }
     });
+
+    // Copy Dossier Markdown
+    btnCopyJdReport?.addEventListener('click', () => {
+      const score = scorePercentage?.textContent || '0%';
+      const text = `## Akanksha.dev — Candidate Match Dossier\n` +
+                   `**Role Alignment Score:** ${score}\n\n` +
+                   `### Core Competencies & Experience at Samsung SDS & HCLTech\n` +
+                   `• **Production AI Engineer @ Samsung SDS**: Graph RAG pipelines (92% accuracy), autonomous agents with Google ADK (60% effort reduction), LLM orchestration.\n` +
+                   `• **Credentials**: 300+ certifications, 4 Hackathon wins, Keynote speaker at INCEPT'26.\n` +
+                   `• **Full Profile & Case Studies**: https://akanksha.dev/projects\n` +
+                   `• **Direct Email**: me@akanksha.dev`;
+
+      navigator.clipboard.writeText(text).then(() => {
+        if (copyJdLabel) copyJdLabel.textContent = 'Dossier Copied!';
+        setTimeout(() => {
+          if (copyJdLabel) copyJdLabel.textContent = 'Copy Candidate Dossier';
+        }, 2000);
+      });
+    });
+
+    // Load initial sample so recruiters immediately see values
+    if (jdTextarea && !jdTextarea.value) {
+      jdTextarea.value = sampleJds.genai;
+      runMatching();
+    }
   }
 
   setupMatcher();
