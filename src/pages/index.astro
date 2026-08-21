@@ -4,10 +4,10 @@ import AiSandbox from '../components/AiSandbox.astro';
 import JdMatcher from '../components/JdMatcher.astro';
 
 const metrics = [
-  { value: '4+', label: 'Years Shipping AI' },
-  { value: '92%', label: 'Graph RAG Accuracy' },
-  { value: '60%', label: 'Manual QA Effort Cut' },
-  { value: '300+', label: 'Verified Certs' },
+  { value: '4+', label: 'Years Shipping AI', sublabel: 'Samsung SDS & HCLTech' },
+  { value: '92%', label: 'Graph RAG Accuracy', sublabel: '500+ Daily Prod Queries' },
+  { value: '60%', label: 'Manual QA Effort Cut', sublabel: 'Google ADK Multi-Agent' },
+  { value: '300+', label: 'Verified Certs', sublabel: 'Flagship ML & Agentic' },
 ];
 
 const featuredProjects = [
@@ -45,13 +45,13 @@ const speakingEvents = [
     title: 'AI Mobile Hackathon — Deep Dive Session',
     role: 'Session Leader',
     date: 'Jun 2026',
-    topics: 'Transformers, RAG, Fine-tuning, Live Demo',
+    topics: 'Transformers, Attention, RAG, Fine-tuning, Live Demo',
     hasVideo: true,
     videoUrl: 'https://www.youtube.com/watch?v=-8xTRNfq-DE',
   },
   {
     title: 'INCEPT\'26 at GLA University',
-    role: 'Speaker',
+    role: 'Keynote Speaker',
     date: 'Apr 2026',
     topics: 'AI career growth, production engineering with CampusX founder',
     hasVideo: false,
@@ -78,7 +78,7 @@ const techStack = {
 <BaseLayout title="Akanksha — Production AI Engineer | Enterprise RAG & Agents">
   
   <!-- ═══ HERO ═══ -->
-  <section class="relative min-h-[80vh] flex items-center overflow-hidden" aria-label="Introduction Hero">
+  <section class="relative min-h-[82vh] flex items-center overflow-hidden" aria-label="Introduction Hero">
     <div class="orb orb-teal" style="top: -200px; right: -100px;"></div>
     <div class="orb orb-amber" style="bottom: -150px; left: -200px;"></div>
     <div class="orb orb-purple" style="top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
@@ -87,27 +87,27 @@ const techStack = {
       <div class="max-w-3xl">
         <!-- Status Badge -->
         <div class="fade-in mb-5">
-          <span class="badge py-1.5 px-3.5 text-xs">
+          <span class="badge py-1.5 px-3.5 text-xs border-teal-500/40 bg-teal-500/10 text-teal-300">
             <span class="pulse-dot"></span>
             Senior Executive Engineer @ Samsung SDS, Gurugram
           </span>
         </div>
         
         <!-- Name & Headline -->
-        <h1 class="fade-in font-(--font-heading) text-4xl sm:text-5xl md:text-[4rem] font-extrabold leading-[1.08] mb-4 tracking-tight text-white">
+        <h1 class="fade-in font-(--font-heading) text-4xl sm:text-5xl md:text-[4.2rem] font-extrabold leading-[1.06] mb-4 tracking-tight text-white">
           Building <span class="gradient-text">Production GenAI Systems</span> That Scale.
         </h1>
         
         <!-- Subtitle -->
-        <p class="fade-in text-base sm:text-lg md:text-xl text-(--color-text-secondary) mb-4 max-w-2xl leading-relaxed">
+        <p class="fade-in text-base sm:text-lg md:text-xl text-(--color-text-secondary) mb-5 max-w-2xl leading-relaxed">
           I'm <strong class="text-white font-semibold">Akanksha</strong> — Production AI Engineer. I architect enterprise Agentic RAG pipelines, autonomous multi-agent loops with Google ADK, and high-throughput LLM infrastructure.
         </p>
         
         <!-- What I build bullets -->
-        <div class="fade-in flex flex-wrap gap-x-6 gap-y-2 text-xs sm:text-sm text-(--color-text-muted) mb-8 font-(--font-mono)">
-          <span>→ <span class="text-(--color-teal) font-medium">Enterprise Graph RAG</span> at 92% accuracy</span>
-          <span>→ <span class="text-(--color-amber) font-medium">Autonomous Agents</span> with Google ADK</span>
-          <span>→ <span class="text-(--color-teal) font-medium">LLM Infrastructure</span> at enterprise scale</span>
+        <div class="fade-in flex flex-wrap gap-x-6 gap-y-2.5 text-xs sm:text-sm text-(--color-text-muted) mb-8 font-(--font-mono)">
+          <span>→ <span class="text-(--color-teal) font-semibold">Enterprise Graph RAG</span> at 92% accuracy</span>
+          <span>→ <span class="text-(--color-amber) font-semibold">Autonomous Agents</span> with Google ADK</span>
+          <span>→ <span class="text-(--color-teal) font-semibold">LLM Infrastructure</span> at enterprise scale</span>
         </div>
         
         <!-- CTAs -->
@@ -118,7 +118,7 @@ const techStack = {
           </a>
           <a href="/contact" class="btn-outline">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-            Schedule Call / Contact
+            Schedule Call / View Availability
           </a>
         </div>
       </div>
@@ -133,6 +133,7 @@ const techStack = {
           <div class="metric">
             <div class="metric-value">{m.value}</div>
             <div class="metric-label">{m.label}</div>
+            <div class="text-[10px] text-(--color-text-muted) font-mono mt-0.5">{m.sublabel}</div>
           </div>
         ))}
       </div>
@@ -145,7 +146,7 @@ const techStack = {
       <div class="flex flex-wrap gap-5 justify-center">
         {Object.entries(techStack).map(([category, tools]) => (
           <div class="flex items-center gap-2">
-            <span class="text-[0.65rem] font-(--font-mono) text-(--color-text-muted) uppercase tracking-wider">{category}:</span>
+            <span class="text-[0.68rem] font-(--font-mono) text-(--color-text-muted) uppercase tracking-wider font-semibold">{category}:</span>
             <div class="flex gap-1.5 flex-wrap">
               {tools.map(t => (
                 <span class="badge text-[0.65rem] py-1">{t}</span>
@@ -330,7 +331,7 @@ const techStack = {
     
     <!-- Community Events Marquee -->
     <div class="fade-in glass-static p-5 rounded-2xl border border-(--color-border)">
-      <p class="text-xs text-(--color-text-muted) font-(--font-mono) uppercase tracking-wider mb-3">Recent Tech Summits Attended</p>
+      <p class="text-xs text-(--color-text-muted) font-(--font-mono) uppercase tracking-wider mb-3 font-semibold">Recent Tech Summits Attended</p>
       <div class="flex flex-wrap gap-2">
         {communityHighlights.map(e => (
           <span class="badge-ghost badge text-[0.65rem]">{e}</span>
