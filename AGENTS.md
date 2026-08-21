@@ -22,13 +22,13 @@ into interview requests for Senior/Staff AI Engineer roles.
 
 ```bash
 # Start dev server
-npm run dev        # → http://localhost:4321
+pnpm dev           # or: npm run dev → http://localhost:4321
 
-# Build for production (Cloudflare Workers)
-npm run build
+# Build for production
+pnpm build         # or: npm run build
 
 # Preview production build
-npm run preview
+pnpm preview       # or: npm run preview
 ```
 
 On Windows, if `npm` fails with script execution policy errors:
