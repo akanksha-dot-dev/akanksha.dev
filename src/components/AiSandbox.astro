@@ -102,7 +102,20 @@
 
           <!-- Typewriter Output Box -->
           <div class="border border-(--color-border) bg-space-light/40 p-4 rounded-xl flex-1 flex flex-col gap-2 min-h-[140px]">
-            <span class="text-[0.65rem] font-(--font-mono) text-(--color-text-muted) uppercase tracking-wider block">Generated Synthesis (Streamed)</span>
+            <div class="flex items-center justify-between">
+              <span class="text-[0.65rem] font-(--font-mono) text-(--color-text-muted) uppercase tracking-wider block">Generated Synthesis (Streamed)</span>
+              <button 
+                type="button" 
+                id="btn-copy-rag" 
+                class="text-[0.65rem] font-(--font-mono) text-(--color-text-secondary) hover:text-(--color-teal) flex items-center gap-1 cursor-pointer transition-colors px-2 py-0.5 rounded border border-transparent hover:border-(--color-border)"
+                title="Copy synthesized output"
+              >
+                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                </svg>
+                <span id="copy-rag-label">Copy Output</span>
+              </button>
+            </div>
             <div id="rag-output-text" class="text-sm text-(--color-text-primary) leading-relaxed font-sans font-normal" aria-live="polite">
               Select a query above and run the pipeline to visualize document processing in real-time.
             </div>
@@ -113,12 +126,18 @@
         <div class="flex flex-col gap-4">
           <span class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider">State & Nodes</span>
           
-          <div class="glass-static p-3 flex items-center justify-between border border-(--color-border) bg-space-light/30">
-            <span class="text-xs font-(--font-mono) text-(--color-text-secondary)">Semantic Router Node</span>
-            <label class="relative inline-flex items-center cursor-pointer" aria-label="Toggle Semantic Router Node">
-              <input type="checkbox" id="toggle-router" class="sr-only peer" checked>
-              <div class="w-8 h-4 bg-red-500/20 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3.5 after:w-3.5 after:transition-all peer-checked:bg-(--color-teal)"></div>
-            </label>
+          <div class="glass-static p-3 flex flex-col gap-1 border border-(--color-border) bg-space-light/30">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-(--font-mono) text-(--color-text-secondary) flex items-center gap-1">
+                Semantic Router
+                <span class="text-[0.6rem] text-teal-400 font-mono" title="Routes queries dynamically based on semantic intent">ℹ</span>
+              </span>
+              <label class="relative inline-flex items-center cursor-pointer" aria-label="Toggle Semantic Router Node">
+                <input type="checkbox" id="toggle-router" class="sr-only peer" checked>
+                <div class="w-8 h-4 bg-red-500/20 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3.5 after:w-3.5 after:transition-all peer-checked:bg-(--color-teal)"></div>
+              </label>
+            </div>
+            <p class="text-[0.6rem] text-(--color-text-muted) font-(--font-mono)">Guarantees 92% retrieval precision; disabling simulates hallucination.</p>
           </div>
 
           <div class="glass-static p-4 flex flex-col gap-3 font-(--font-mono) bg-space-light/30 border border-(--color-border)">
@@ -165,11 +184,24 @@
 
           <!-- Console Terminal -->
           <div class="border border-(--color-border) bg-[#03050a]/90 p-4 rounded-xl font-(--font-mono) flex-1 min-h-[220px] flex flex-col gap-1.5 shadow-inner">
-            <div class="flex items-center gap-1.5 pb-2 border-b border-white/5 mb-1.5">
-              <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-green-500/80"></span>
-              <span class="text-[0.65rem] text-(--color-text-muted) ml-2">akanksha@agent-node:~</span>
+            <div class="flex items-center justify-between pb-2 border-b border-white/5 mb-1.5">
+              <div class="flex items-center gap-1.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-green-500/80"></span>
+                <span class="text-[0.65rem] text-(--color-text-muted) ml-2">akanksha@agent-node:~</span>
+              </div>
+              <button 
+                type="button" 
+                id="btn-copy-agent" 
+                class="text-[0.65rem] font-(--font-mono) text-(--color-text-secondary) hover:text-(--color-teal) flex items-center gap-1 cursor-pointer transition-colors px-2 py-0.5 rounded border border-transparent hover:border-white/10"
+                title="Copy terminal logs"
+              >
+                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                </svg>
+                <span id="copy-agent-label">Copy Logs</span>
+              </button>
             </div>
             <div id="agent-terminal" class="text-xs text-green-400/90 leading-relaxed overflow-y-auto max-h-[180px] space-y-1" aria-live="polite">
               <span class="text-(--color-text-muted)">Ready to initialize. Select an objective and launch the agent.</span>
@@ -181,12 +213,18 @@
         <div class="flex flex-col gap-4">
           <span class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider">State & Guardrails</span>
           
-          <div class="glass-static p-3 flex items-center justify-between border border-(--color-border) bg-space-light/30">
-            <span class="text-xs font-(--font-mono) text-(--color-text-secondary)">RAGAS Guardrails Node</span>
-            <label class="relative inline-flex items-center cursor-pointer" aria-label="Toggle RAGAS Guardrails Node">
-              <input type="checkbox" id="toggle-guardrails" class="sr-only peer" checked>
-              <div class="w-8 h-4 bg-red-500/20 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3.5 after:w-3.5 after:transition-all peer-checked:bg-(--color-teal)"></div>
-            </label>
+          <div class="glass-static p-3 flex flex-col gap-1 border border-(--color-border) bg-space-light/30">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-(--font-mono) text-(--color-text-secondary) flex items-center gap-1">
+                RAGAS Guardrails
+                <span class="text-[0.6rem] text-teal-400 font-mono" title="Scores groundedness & alignment against hallucination">ℹ</span>
+              </span>
+              <label class="relative inline-flex items-center cursor-pointer" aria-label="Toggle RAGAS Guardrails Node">
+                <input type="checkbox" id="toggle-guardrails" class="sr-only peer" checked>
+                <div class="w-8 h-4 bg-red-500/20 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3.5 after:w-3.5 after:transition-all peer-checked:bg-(--color-teal)"></div>
+              </label>
+            </div>
+            <p class="text-[0.6rem] text-(--color-text-muted) font-(--font-mono)">Evaluates agent outputs; disabling causes unverified executions.</p>
           </div>
 
           <div class="glass-static p-4 flex flex-col gap-3 font-(--font-mono) bg-space-light/30 border border-(--color-border)">
@@ -535,6 +573,41 @@
           }
         }, l.delay));
       });
+    });
+
+    // --- Clipboard Copy Handlers ---
+    const btnCopyRag = document.getElementById('btn-copy-rag');
+    const copyRagLabel = document.getElementById('copy-rag-label');
+    btnCopyRag?.addEventListener('click', async () => {
+      cancelAutoDemo();
+      const text = outRagText?.innerText || outRagText?.textContent || '';
+      if (!text) return;
+      try {
+        await navigator.clipboard.writeText(text);
+        if (copyRagLabel) copyRagLabel.textContent = "✓ Copied!";
+        setTimeout(() => {
+          if (copyRagLabel) copyRagLabel.textContent = "Copy Output";
+        }, 2000);
+      } catch (err) {
+        console.error('Failed to copy RAG output:', err);
+      }
+    });
+
+    const btnCopyAgent = document.getElementById('btn-copy-agent');
+    const copyAgentLabel = document.getElementById('copy-agent-label');
+    btnCopyAgent?.addEventListener('click', async () => {
+      cancelAutoDemo();
+      const text = terminal?.innerText || terminal?.textContent || '';
+      if (!text) return;
+      try {
+        await navigator.clipboard.writeText(text);
+        if (copyAgentLabel) copyAgentLabel.textContent = "✓ Copied!";
+        setTimeout(() => {
+          if (copyAgentLabel) copyAgentLabel.textContent = "Copy Logs";
+        }, 2000);
+      } catch (err) {
+        console.error('Failed to copy Agent logs:', err);
+      }
     });
 
     // --- Auto-Demo Intersection Observer ---
