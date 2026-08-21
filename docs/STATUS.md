@@ -1,148 +1,47 @@
 # akanksha.dev — Website Development Status & Architecture
 
 > **Last updated:** 2026-08-21
-> **Status:** ✅ Phase 2 interactive features (Auto-Demo engine, JD match summary export, copy actions, responsive viewport polish) complete and tested.
+> **Status:** ✅ Batch 2 Complete — Cyber-Physical Laboratory UI/UX Overhaul, AI Sandbox 2.0 with node inspection, JD Matcher 2.0 with domain radar & dossier export, interactive project case studies, and full contact conversion engine with honeypot bot defense.
 
 ---
 
-## Current State
+## Current Architecture State
 
-### Architecture
-- **Framework:** Astro v7.0 (static-first with client-side islands)
-- **Styling:** Tailwind CSS v4 (`@theme` for design tokens) + vanilla CSS
-- **Components:** Pure Astro + vanilla JavaScript (zero React/Vue overhead)
-- **Hosting:** Cloudflare Workers (see `DEPLOY.md`)
-- **Domain:** akanksha.dev
+### Stack & Infrastructure
+- **Framework:** Astro v7.2.4 (static-first with client-side View Transitions and ClientRouter)
+- **Styling:** Tailwind CSS v4.3.1 (`@theme` tokens) + pure Vanilla CSS micro-animations
+- **Components:** Pure Astro + vanilla TypeScript/JavaScript (zero client framework runtime overhead)
+- **Hosting:** Cloudflare Workers (Edge edge delivery, custom headers, zero cold start)
+- **Domain:** `https://akanksha.dev`
 
-### File Structure
-```
-src/
-├── components/
-│   ├── AiSandbox.astro      # Interactive RAG + Agent pipeline simulator
-│   └── JdMatcher.astro      # Recruiter JD compatibility analyzer
-├── content/
-│   └── blog/                # Markdown blog posts (content collection)
-├── layouts/
-│   ├── BaseLayout.astro     # Master layout (nav, footer, cmd palette, status bar)
-│   └── BlogPost.astro       # Blog post layout
-├── pages/
-│   ├── 404.astro
-│   ├── about.astro
-│   ├── blog.astro
-│   ├── blog/[slug].astro    # Dynamic blog post routes
-│   ├── contact.astro
-│   ├── experience.astro     # "System Changelog" git-style timeline
-│   ├── index.astro          # Homepage with interactive showcase
-│   ├── projects.astro
-│   └── speaking.astro
-└── styles/
-    └── global.css           # Full design system (tokens + components)
-```
+### Core Capabilities Implemented (from 16 Decision Papers)
+1. **Cyber-Physical Laboratory Design System (DP-05, DP-06, DP-07, DP-08, DP-11, DP-12)**
+   - OKLCH color token architecture with Electric Teal (`#00E5B0`) and Warm Amber (`#F5A300`) accents on Deep Space (`#05070F`).
+   - Frosted glassmorphism (18-20px backdrop blur + 160% saturation + subtle neon inner borders).
+   - Blueprint telemetry grid with pulsing status nodes.
+   - Command Palette 2.0 (`Cmd+K`) with zero-latency local knowledge base, action commands, and keyboard navigation.
+   - IDE Status Bar with real-time IST clock, live simulated telemetry ping, and availability status.
 
-### Design System Quick Reference
-- **Colors:** Teal (#00E5B0) + Amber (#F5A300) + Deep Space (#05070F)
-- **Fonts:** Syne (display) + Plus Jakarta Sans (body) + JetBrains Mono (code)
-- **Aesthetic:** "Cyber-Physical Laboratory" — blueprint grid + glassmorphism + floating orbs
-- **Full docs:** `docs/DESIGN_SYSTEM.md`
+2. **Interactive AI Architecture Sandbox 2.0 (DP-05, DP-07, DP-14, DP-USYN)**
+   - 4-Stage Graph RAG pipeline visualizer with animated node progression.
+   - Deep Node Telemetry Inspector: Click any pipeline stage to view intermediate parameters (GMFT layout tokens, FAISS cosine distances, Neo4j entities, GPT-4 prompt tokens).
+   - Dynamic Architectural Degradation Mode: Toggling OFF Semantic Router or RAGAS Guardrails displays warning banners and highlights hallucination diffs.
+   - Containerized Google ADK Multi-Agent loop simulation with tool execution logs.
 
----
+3. **Recruiter JD Compatibility Engine 2.0 (DP-13, DP-14, DP-16, DP-USYN)**
+   - Instant 300ms debounced live evaluation as recruiters type or paste job postings.
+   - 4-Domain Fit Radar: Agentic AI & Orchestration, RAG & Vector Search, LLM Infra & APIs, Enterprise ML & Reliability.
+   - Tailored STAR interview discussion points based on detected competencies.
+   - One-click Candidate Match Dossier export formatted for Slack / Email / Notion.
 
-## Interactive Features
+4. **Project Architecture Deep-Dive Modals & Case Studies (DP-04, DP-14, DP-USYN)**
+   - Interactive system architecture inspection modals for flagship systems.
+   - Problem statement vs Naive Tutorial approach vs Production Hardened Architecture comparisons.
+   - Verified metric benchmarks (60% effort reduction, 92% retrieval accuracy, 500+ daily queries).
+   - Core engineering trade-offs and decision rationale.
 
-### 1. AI Sandbox (Homepage)
-**What it proves:** You understand complex multi-step AI pipeline orchestration.
-
-- **RAG tab:** Select query → runs 4-step pipeline (Segment → FAISS → Graph → LLM) with animated step activation and streaming output
-- **Agent tab:** Select objective → terminal displays color-coded agent logs (Planning → Tool Call → Guardrails → Success)
-- **Node Toggles:** Turn off "Semantic Router" or "RAGAS Guardrails" → pipeline degrades with hallucination warnings
-- **Metrics sidebar:** Latency, retrieval matches, RAGAS scores
-
-### 2. JD Matcher (Homepage)
-**What it proves:** You can build developer tools that recruiters actually use.
-
-- Paste any JD → client-side keyword matching against 16 skill patterns
-- Outputs: % match (circular ring), matched skill tags, filtered experience bullets, STAR story suggestions
-- Sample JDs: GenAI/Agentic, Solutions/FDE
-- Guaranteed 25-96% range (baseline + cap for realism)
-
-### 3. Command Palette (Global)
-**What it proves:** You build developer-first UX.
-
-- `Ctrl+K` triggers spotlight search
-- Local knowledge base: skills, samsung, experience, hcltech, hackathons, certifications, contact, resume
-- Streaming text animation simulates AI agent
-- Navigation commands: Go to pages, Download Resume
-
-### 4. IDE Status Bar (Global)
-**What it proves:** Your site is a living system, not a static page.
-
-- `system: online` with pulsing green dot
-- `main*` branch indicator
-- `⚡ Status: Open to Senior AI Engineer Roles`
-- Simulated latency ticker (14-25ms, updates every 4s)
-
----
-
-## Git Status (as of 2026-07-14)
-
-### Unstaged changes:
-```
-modified:   src/layouts/BaseLayout.astro
-modified:   src/pages/experience.astro
-modified:   src/pages/index.astro
-modified:   src/styles/global.css
-```
-
-### Untracked:
-```
-src/components/   (AiSandbox.astro, JdMatcher.astro)
-docs/             (DESIGN_SYSTEM.md)
-```
-
-### Last committed state (59170ce):
-```
-fix: Remove trailing slash redirects — caused infinite redirect loops
-```
-
-**All the interactive components, design overhaul, and homepage restructure are in unstaged changes.**
-These should be committed as a single feature commit.
-
----
-
-## How to Work On This
-
-### Development
-```bash
-cd github-repos/akanksha.dev
-npm install
-npm run dev      # → http://localhost:4321
-```
-
-### Key Files to Edit
-| Want to change... | Edit this |
-|-------------------|-----------|
-| Colors, fonts, component classes | `src/styles/global.css` |
-| Navigation, Cmd+K, status bar | `src/layouts/BaseLayout.astro` |
-| Homepage sections & data | `src/pages/index.astro` |
-| RAG/Agent simulations | `src/components/AiSandbox.astro` |
-| JD matching logic & skill dictionary | `src/components/JdMatcher.astro` |
-| Blog posts | `src/content/blog/*.md` |
-| Design system docs | `docs/DESIGN_SYSTEM.md` |
-
-### Data Sources (from identity layer)
-The website's data (metrics, projects, experience, skills) is currently hardcoded in the Astro page frontmatter. It should match `identity/*.yaml`:
-- Experience data → `identity/experience.yaml`
-- Skills/tech stack → `identity/skills.yaml`
-- Projects → `identity/projects.yaml`
-- Speaking events → `identity/speaking-and-community.yaml`
-- Certifications count → `identity/credentials.yaml`
-- Claims verification → `identity/claims-and-evidence.md`
-
----
-
-## Competitive References
-
-### GitSetu (gitsetu.bhaskar.dev)
-Analyzed during this session. Key design elements borrowed:
-- Command palette, IDE status bar, pulsing badges, before/after cards
-- See `ops/session-handoff.md` for full analysis
+5. **Contact Conversion Engine & Availability Signaling (DP-10, DP-12, DP-16, DP-USYN)**
+   - Interactive Contact Conversion Form with topic selector ("Senior AI Role", "Project Advisory", "Speaking", "General").
+   - Zero-friction bot defense: Honeypot trap + minimum time-to-submit verification.
+   - Live availability badge ("Open to Senior/Staff AI Engineer Roles · Q3/Q4 2026").
+   - Direct email copying, mailto fallback, and PDF Resume Dossier download.
