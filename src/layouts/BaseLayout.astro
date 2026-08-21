@@ -14,7 +14,7 @@ const {
   ogImage = "/og-image.png"
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://akanksha.dev');
 const cfAnalyticsToken = import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN;
 const currentPath = Astro.url.pathname;
 
@@ -56,20 +56,22 @@ const breadcrumbs = [
   <meta property="og:url" content={canonicalURL} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
-  <meta property="og:image" content={new URL(ogImage, Astro.site)} />
+  <meta property="og:image" content={new URL(ogImage, Astro.site || 'https://akanksha.dev')} />
   
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@akankshadotdev" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
-  <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
+  <meta name="twitter:image" content={new URL(ogImage, Astro.site || 'https://akanksha.dev')} />
   
-  <!-- Fonts -->
-  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <!-- Typography font loading (System + Google Fonts preconnect fallback) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=JetBrains+Mono:wght@400;500;600&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+  </noscript>
   
   <!-- Theme Color for mobile browsers -->
   <meta name="theme-color" content="#05070F" />
@@ -146,11 +148,16 @@ const breadcrumbs = [
 
 <body class="bg-(--color-space) text-(--color-text-primary) font-(--font-body) antialiased">
   
+  <!-- Skip to Main Content (WCAG 2.2 AA) -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-(--color-teal) focus:text-(--color-space) focus:font-bold focus:rounded-lg focus:shadow-lg focus:outline-none">
+    Skip to main content
+  </a>
+
   <!-- ═══ NAVIGATION ═══ -->
-  <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+  <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" aria-label="Primary Navigation">
     <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
       <!-- Logo -->
-      <a href="/" class="text-xl font-bold font-(--font-heading) tracking-tight group">
+      <a href="/" class="text-xl font-bold font-(--font-heading) tracking-tight group" aria-label="Akanksha.dev Homepage">
         <span class="text-(--color-teal) transition-colors">A</span><span class="text-(--color-text-primary) group-hover:text-(--color-teal) transition-colors">kanksha</span><span class="text-(--color-text-muted)">.dev</span>
       </a>
       
@@ -160,12 +167,13 @@ const breadcrumbs = [
           <a 
             href={link.href} 
             class:list={['nav-link', { active: currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href)) }]}
+            aria-current={currentPath === link.href ? 'page' : undefined}
           >
             {link.label}
           </a>
         ))}
         <!-- Search Button (Ctrl+K) -->
-        <button id="nav-search-btn" class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-(--color-surface) border border-(--color-border) hover:border-(--color-teal) transition-colors text-xs font-(--font-mono) text-(--color-text-secondary) cursor-pointer select-none">
+        <button type="button" id="nav-search-btn" class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-(--color-surface) border border-(--color-border) hover:border-(--color-teal) transition-colors text-xs font-(--font-mono) text-(--color-text-secondary) cursor-pointer select-none" aria-label="Open Command Palette">
           <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
           <span>Search</span>
           <span class="px-1.5 py-0.5 rounded bg-(--color-space) border border-(--color-border) text-[10px]">Ctrl+K</span>
@@ -175,11 +183,11 @@ const breadcrumbs = [
       <!-- Mobile Controls -->
       <div class="flex items-center gap-4 md:hidden">
         <!-- Mobile Search Button -->
-        <button id="mobile-search-btn" class="text-(--color-text-secondary) hover:text-(--color-teal) transition-colors cursor-pointer" aria-label="Open search">
+        <button type="button" id="mobile-search-btn" class="text-(--color-text-secondary) hover:text-(--color-teal) transition-colors cursor-pointer p-1" aria-label="Open search">
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         </button>
         <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" class="text-(--color-text-secondary) hover:text-(--color-teal) transition-colors" aria-label="Toggle menu">
+        <button type="button" id="mobile-menu-btn" class="text-(--color-text-secondary) hover:text-(--color-teal) transition-colors p-1" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle navigation menu">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
@@ -194,6 +202,7 @@ const breadcrumbs = [
           <a 
             href={link.href} 
             class:list={['nav-link text-lg', { active: currentPath === link.href }]}
+            aria-current={currentPath === link.href ? 'page' : undefined}
           >
             {link.label}
           </a>
@@ -203,12 +212,12 @@ const breadcrumbs = [
   </nav>
 
   <!-- ═══ MAIN CONTENT ═══ -->
-  <main class="pt-20">
+  <main id="main-content" tabindex="-1" class="pt-20 outline-none">
     <slot />
   </main>
 
   <!-- ═══ FOOTER ═══ -->
-  <footer class="border-t border-(--color-border) mt-24">
+  <footer class="border-t border-(--color-border) mt-24" aria-label="Site Footer">
     <div class="max-w-6xl mx-auto px-6 py-12">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <!-- Brand -->
@@ -246,7 +255,7 @@ const breadcrumbs = [
       
       <div class="border-t border-(--color-border) mt-8 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
         <p class="text-(--color-text-muted) text-xs">
-          © {new Date().getFullYear()} Akanksha. Built with Astro. Deployed on Cloudflare.
+          © {new Date().getFullYear()} Akanksha. Built with Astro. Deployed on Cloudflare Pages.
         </p>
         <div class="flex gap-4">
           <a href="/llms.txt" class="text-(--color-text-muted) hover:text-(--color-teal) text-xs transition-colors font-(--font-mono)">llms.txt</a>
@@ -258,7 +267,7 @@ const breadcrumbs = [
   </footer>
 
   <!-- ═══ COMMAND PALETTE ═══ -->
-  <div id="command-palette" class="fixed inset-0 z-100 hidden bg-[#05070F]/80 backdrop-blur-md flex items-start justify-center pt-[15vh] px-4" aria-modal="true" role="dialog">
+  <div id="command-palette" class="fixed inset-0 z-[100] hidden bg-[#05070F]/80 backdrop-blur-md flex items-start justify-center pt-[15vh] px-4" aria-modal="true" role="dialog" aria-label="Command Palette and Local AI Agent">
     <div class="w-full max-w-2xl bg-[#091628]/95 border border-(--color-border) rounded-xl shadow-2xl overflow-hidden flex flex-col max-h-[70vh]">
       <!-- Search Input Header -->
       <div class="flex items-center gap-3 px-4 py-3.5 border-b border-(--color-border)">
@@ -269,8 +278,9 @@ const breadcrumbs = [
           class="w-full bg-transparent border-0 outline-none text-sm font-(--font-mono) text-(--color-text-primary) placeholder-(--color-text-muted)"
           placeholder="Ask Akanksha's AI (e.g. 'skills', 'samsung', 'resume') or search pages..."
           autocomplete="off"
+          aria-label="Search prompt or navigation command"
         />
-        <button id="palette-close-btn" class="text-(--color-text-muted) hover:text-(--color-teal) text-xs px-2 py-1 rounded bg-(--color-space) border border-(--color-border) font-(--font-mono)" aria-label="Close">ESC</button>
+        <button type="button" id="palette-close-btn" class="text-(--color-text-muted) hover:text-(--color-teal) text-xs px-2 py-1 rounded bg-(--color-space) border border-(--color-border) font-(--font-mono) cursor-pointer" aria-label="Close search">ESC</button>
       </div>
 
       <!-- Scrollable content area -->
@@ -311,7 +321,7 @@ const breadcrumbs = [
   </div>
 
   <!-- ═══ IDE STATUS BAR ═══ -->
-  <div class="fixed bottom-0 left-0 right-0 h-8 bg-[#05070F]/90 backdrop-blur-md border-t border-(--color-border) z-49 flex items-center justify-between px-4 text-[10px] sm:text-xs font-(--font-mono) text-(--color-text-secondary) select-none">
+  <div class="fixed bottom-0 left-0 right-0 h-8 bg-[#05070F]/90 backdrop-blur-md border-t border-(--color-border) z-[49] flex items-center justify-between px-4 text-[10px] sm:text-xs font-(--font-mono) text-(--color-text-secondary) select-none">
     <div class="flex items-center gap-3">
       <span class="flex items-center gap-1.5 text-(--color-teal)">
         <span class="relative flex h-2 w-2">
@@ -332,21 +342,199 @@ const breadcrumbs = [
       <span class="text-(--color-text-muted) hidden md:inline">|</span>
       <span id="latency-indicator">Latency: 18ms</span>
       <span class="text-(--color-text-muted)">|</span>
-      <span>Astro v7.0</span>
+      <span>Astro Static</span>
     </div>
   </div>
 
   <!-- Adding extra padding to body so status bar doesn't overlay bottom content -->
   <style>
     body {
-      padding-bottom: 2rem;
+      padding-bottom: 2.5rem;
     }
   </style>
 
   <!-- ═══ SCRIPTS ═══ -->
   <script>
+    const kb: Record<string, string> = {
+      skills: "Akanksha's Core Tech Stack:\n• AI & Agents: Google ADK, LangChain, LangGraph, CrewAI, MCP\n• RAG & LLMs: Graph RAG, FAISS, Chroma DB, OpenAI, Llama 3, Mistral\n• Backend & Infra: Python, FastAPI, Django, PostgreSQL, Docker, Kubernetes\n• Cloud: AWS (Bedrock), Azure ML, Cloudflare Pages",
+      samsung: "Senior Executive Engineer @ Samsung SDS, Gurugram (Oct 2024 - Present):\n• Architecting Agentic RAG systems for financial document classification and extraction.\n• Designing autonomous agents with Google ADK and Custom Model Orchestration.\n• Serving enterprise workloads with 92% RAG evaluation accuracy.",
+      experience: "Professional Timeline:\n1. Samsung SDS (Oct 2024 - Present) | Senior Executive Engineer\n2. HCLTech (Sep 2022 - Sep 2024) | Software Engineer (FastAPI/Django REST APIs)\n3. Collegedunia (2021 - 2024) | Content Writer (Concurrent freelance developer posts)",
+      hcltech: "Software Engineer @ HCLTech (Sep 2022 - Sep 2024):\n• Built scalable backend services with Django & FastAPI.\n• Optimized database query bottlenecks, reducing queries by 40% with database index restructuring.\n• Set up CI/CD workflows and automated staging deployments.",
+      hackathons: "Key Competitions & Wins:\n• PromptWars Hackathon: 1st Runner-Up (Voice-AI Mandi Negotiator in Hindi/Bhojpuri/Tamil)\n• SPIU Bihar Hackathon: 2nd Place (Smart Solar Irrigation Grid Controller)\n• Corporate Hackathons: Competing & winning multiple local and internal challenges.",
+      certifications: "Technical Credentials:\n• 300+ total certifications completed.\n• 150+ Coursera courses (DeepLearning.AI, TensorFlow, Google Cloud Professional Developer).\n• 89 LinkedIn Learning path validations, 40+ Skillsoft, Anthropic, ISRO, Cisco.",
+      contact: "Reach out to Akanksha:\n• Professional Email: me@akanksha.dev\n• LinkedIn: linkedin.com/in/akankshadev\n• GitHub: github.com/akanksha-dot-dev\n• Twitter/X: x.com/akankshadotdev",
+      resume: "Resume Dossier:\n• Verified career metrics & claims on file.\n• [PDF Format] available. Type 'download' or select the download command to grab the latest file."
+    };
+
+    const defaultCommands = [
+      { name: "Go to Home", action: () => window.location.href = "/" },
+      { name: "Go to About Page", action: () => window.location.href = "/about" },
+      { name: "Go to Projects", action: () => window.location.href = "/projects" },
+      { name: "Go to Experience", action: () => window.location.href = "/experience" },
+      { name: "Go to Speaking & Community", action: () => window.location.href = "/speaking" },
+      { name: "Go to Blog & Writings", action: () => window.location.href = "/blog" },
+      { name: "Go to Contact Page", action: () => window.location.href = "/contact" },
+      { name: "Download Resume PDF", action: () => window.open("/resume/akanksha_resume.pdf", "_blank") }
+    ];
+
+    let selectedIndex = 0;
+    let streamInterval: ReturnType<typeof setInterval> | null = null;
+
+    function togglePalette() {
+      const palette = document.getElementById('command-palette');
+      const searchInput = document.getElementById('palette-search-input') as HTMLInputElement | null;
+      const aiBox = document.getElementById('palette-ai-box');
+      if (!palette) return;
+
+      palette.classList.toggle('hidden');
+      if (!palette.classList.contains('hidden')) {
+        selectedIndex = 0;
+        if (searchInput) {
+          searchInput.value = '';
+          searchInput.focus();
+        }
+        aiBox?.classList.add('hidden');
+        renderSuggestions('');
+      } else {
+        if (streamInterval) clearInterval(streamInterval);
+      }
+    }
+
+    function renderSuggestions(filter = '') {
+      const optionsList = document.getElementById('palette-options-list');
+      if (!optionsList) return;
+      optionsList.innerHTML = '';
+
+      const filtered = defaultCommands.filter(c => 
+        c.name.toLowerCase().includes(filter.toLowerCase())
+      );
+
+      if (filtered.length === 0) {
+        optionsList.innerHTML = `<div class="text-xs text-(--color-text-muted) px-3 py-2 font-(--font-mono)">No commands found matching "${filter}"</div>`;
+        return;
+      }
+
+      filtered.forEach((cmd, idx) => {
+        const item = document.createElement('button');
+        item.type = 'button';
+        item.className = `w-full text-left px-3 py-2 rounded-lg text-xs font-(--font-mono) flex items-center justify-between transition-all cursor-pointer ${
+          idx === selectedIndex 
+            ? 'bg-(--color-teal) text-(--color-space) font-semibold' 
+            : 'text-(--color-text-secondary) hover:bg-white/5 hover:text-(--color-text-primary)'
+        }`;
+        item.innerHTML = `
+          <span>> ${cmd.name}</span>
+          <span class="${idx === selectedIndex ? 'text-(--color-space)/80' : 'text-(--color-text-muted)'} text-[10px]">Command</span>
+        `;
+        item.addEventListener('click', () => {
+          cmd.action();
+          togglePalette();
+        });
+        optionsList.appendChild(item);
+      });
+    }
+
+    function handleSearchInput() {
+      const searchInput = document.getElementById('palette-search-input') as HTMLInputElement | null;
+      const aiBox = document.getElementById('palette-ai-box');
+      const aiResponse = document.getElementById('palette-ai-response');
+      const aiStatus = document.getElementById('palette-ai-status');
+
+      if (!searchInput) return;
+      const query = searchInput.value.toLowerCase().trim();
+      renderSuggestions(query);
+
+      if (streamInterval) clearInterval(streamInterval);
+
+      if (query.length < 2) {
+        aiBox?.classList.add('hidden');
+        return;
+      }
+
+      let responseText = '';
+      for (const [key, val] of Object.entries(kb)) {
+        if (query.includes(key) || key.includes(query)) {
+          responseText = val;
+          break;
+        }
+      }
+
+      if (!responseText) {
+        if (query.includes('hi') || query.includes('hello') || query.includes('hey')) {
+          responseText = "Hello! I'm Akanksha's Local AI Agent. Try searching for 'skills', 'experience', 'samsung', 'hcltech', 'hackathons', 'certifications', or 'resume'.";
+        } else {
+          const keys = Object.keys(kb);
+          const partial = keys.find(k => k.startsWith(query) || query.startsWith(k));
+          if (partial) {
+            responseText = kb[partial];
+          } else {
+            responseText = `Searching Akanksha's static data corpus for "${query}"...\nNo exact mapping found. Try querying 'skills', 'experience', 'samsung', or 'resume'.`;
+          }
+        }
+      }
+
+      aiBox?.classList.remove('hidden');
+      if (aiResponse) aiResponse.textContent = '';
+      if (aiStatus) aiStatus.textContent = 'Streaming...';
+
+      let i = 0;
+      streamInterval = setInterval(() => {
+        if (aiResponse) {
+          aiResponse.textContent += responseText.charAt(i);
+        }
+        i++;
+        if (i >= responseText.length) {
+          if (streamInterval) clearInterval(streamInterval);
+          if (aiStatus) aiStatus.textContent = 'Local Index Answered';
+        }
+      }, 10);
+    }
+
+    // Global Key Listener (Registered once on window)
+    if (!(window as any).__AK_GLOBAL_KEYS_INIT__) {
+      (window as any).__AK_GLOBAL_KEYS_INIT__ = true;
+
+      window.addEventListener('keydown', (e: KeyboardEvent) => {
+        const palette = document.getElementById('command-palette');
+        const searchInput = document.getElementById('palette-search-input') as HTMLInputElement | null;
+        const optionsList = document.getElementById('palette-options-list');
+
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+          e.preventDefault();
+          togglePalette();
+          return;
+        }
+
+        if (palette && !palette.classList.contains('hidden')) {
+          if (e.key === 'Escape') {
+            e.preventDefault();
+            togglePalette();
+            return;
+          }
+
+          const items = optionsList?.querySelectorAll('button') || [];
+          if (items.length > 0) {
+            if (e.key === 'ArrowDown') {
+              e.preventDefault();
+              selectedIndex = (selectedIndex + 1) % items.length;
+              renderSuggestions(searchInput?.value || '');
+            } else if (e.key === 'ArrowUp') {
+              e.preventDefault();
+              selectedIndex = (selectedIndex - 1 + items.length) % items.length;
+              renderSuggestions(searchInput?.value || '');
+            } else if (e.key === 'Enter') {
+              e.preventDefault();
+              const activeItem = items[selectedIndex] as HTMLButtonElement | undefined;
+              activeItem?.click();
+            }
+          }
+        }
+      });
+    }
+
+    // Page-level Initializer
     function initPage() {
-      // Nav background on scroll — uses CSS class defined in global.css
+      // Nav background on scroll
       const nav = document.getElementById('main-nav');
       window.addEventListener('scroll', () => {
         if (window.scrollY > 20) {
@@ -354,223 +542,51 @@ const breadcrumbs = [
         } else {
           nav?.classList.remove('nav-scrolled');
         }
-      });
+      }, { passive: true });
 
       // Mobile menu toggle
       const menuBtn = document.getElementById('mobile-menu-btn');
       const mobileMenu = document.getElementById('mobile-menu');
       menuBtn?.addEventListener('click', () => {
-        mobileMenu?.classList.toggle('hidden');
+        const isHidden = mobileMenu?.classList.toggle('hidden');
+        menuBtn.setAttribute('aria-expanded', isHidden ? 'false' : 'true');
       });
 
-      // Scroll fade-in
+      // Scroll observer
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
           }
         });
-      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
       document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-      // ─── Latency Ticker ───
+      // Latency ticker
       const latencyEl = document.getElementById('latency-indicator');
-      if (latencyEl) {
+      if (latencyEl && !(window as any).__AK_LATENCY_TICKER__) {
+        (window as any).__AK_LATENCY_TICKER__ = true;
         setInterval(() => {
-          const lat = Math.floor(Math.random() * 12) + 14; // 14-25ms
-          latencyEl.textContent = `Latency: ${lat}ms`;
+          const lat = Math.floor(Math.random() * 10) + 14;
+          const el = document.getElementById('latency-indicator');
+          if (el) el.textContent = `Latency: ${lat}ms`;
         }, 4000);
       }
 
-      // ─── Command Palette Logic ───
-      const palette = document.getElementById('command-palette');
-      const searchInput = document.getElementById('palette-search-input') as HTMLInputElement;
+      // Palette event hooks
+      const searchInput = document.getElementById('palette-search-input');
       const closeBtn = document.getElementById('palette-close-btn');
       const navSearchBtn = document.getElementById('nav-search-btn');
       const mobileSearchBtn = document.getElementById('mobile-search-btn');
-      const aiBox = document.getElementById('palette-ai-box');
-      const aiResponse = document.getElementById('palette-ai-response');
-      const aiStatus = document.getElementById('palette-ai-status');
-      const optionsList = document.getElementById('palette-options-list');
 
-      const kb: Record<string, string> = {
-        skills: "Akanksha's Core Tech Stack:\n• AI & Agents: Google ADK, LangChain, LangGraph, CrewAI, MCP\n• RAG & LLMs: Graph RAG, FAISS, Chroma DB, OpenAI, Llama 3, Mistral\n• Backend & Infra: Python, FastAPI, Django, PostgreSQL, Docker, Kubernetes\n• Cloud: AWS (Bedrock), Azure ML, Cloudflare Workers",
-        samsung: "Senior Executive Engineer @ Samsung SDS, Gurugram (Oct 2024 - Present):\n• Architecting Agentic RAG systems for financial document classification and extraction.\n• Designing autonomous agents with Google ADK and Custom Model Orchestration.\n• Serving enterprise workloads with 92% RAG evaluation accuracy.",
-        experience: "Professional Timeline:\n1. Samsung SDS (Oct 2024 - Present) | Senior Executive Engineer\n2. HCLTech (Sep 2022 - Sep 2024) | Software Engineer (FastAPI/Django REST APIs)\n3. Collegedunia (2021 - 2024) | Content Writer (Concurrent freelance developer posts)",
-        hcltech: "Software Engineer @ HCLTech (Sep 2022 - Sep 2024):\n• Built scalable backend services with Django & FastAPI.\n• Optimized database query bottlenecks, reducing queries by 40% with database index restructuring.\n• Set up CI/CD workflows and automated staging deployments.",
-        hackathons: "Key Competitions & Wins:\n• PromptWars Hackathon: 1st Runner-Up (Voice-AI Mandi Negotiator in Hindi/Bhojpuri/Tamil)\n• SPIU Bihar Hackathon: 2nd Place (Smart Solar Irrigation Grid Controller)\n• Corporate Hackathons: Competing & winning multiple local and internal challenges.",
-        certifications: "Technical Credentials:\n• 300+ total certifications completed.\n• 150+ Coursera courses (DeepLearning.AI, TensorFlow, Google Cloud Professional Developer).\n• 89 LinkedIn Learning path validations, 40+ Skillsoft, Anthropic, ISRO, Cisco.",
-        contact: "Reach out to Akanksha:\n• Professional Email: me@akanksha.dev\n• LinkedIn: linkedin.com/in/akankshadev\n• GitHub: github.com/akanksha-dot-dev\n• Twitter/X: x.com/akankshadotdev",
-        resume: "Resume Dossier:\n• Verified career metrics & claims on file.\n• [PDF Format] available. Type 'download' or select the download command to grab the latest file."
-      };
-
-      const defaultCommands = [
-        { name: "Go to Home", action: () => window.location.href = "/" },
-        { name: "Go to About Page", action: () => window.location.href = "/about" },
-        { name: "Go to Projects", action: () => window.location.href = "/projects" },
-        { name: "Go to Experience", action: () => window.location.href = "/experience" },
-        { name: "Go to Speaking & Community", action: () => window.location.href = "/speaking" },
-        { name: "Go to Blog & Writings", action: () => window.location.href = "/blog" },
-        { name: "Go to Contact Page", action: () => window.location.href = "/contact" },
-        { name: "Download Resume PDF", action: () => window.open("/resume.pdf", "_blank") }
-      ];
-
-      let selectedIndex = 0;
-
-      function renderSuggestions(filter = "") {
-        if (!optionsList) return;
-        optionsList.innerHTML = "";
-        
-        const filtered = defaultCommands.filter(c => 
-          c.name.toLowerCase().includes(filter.toLowerCase())
-        );
-
-        if (filtered.length === 0) {
-          optionsList.innerHTML = `<div class="text-xs text-(--color-text-muted) px-3 py-2 font-(--font-mono)">No commands found matching "${filter}"</div>`;
-          return;
-        }
-
-        filtered.forEach((cmd, idx) => {
-          const item = document.createElement("button");
-          item.className = `w-full text-left px-3 py-2 rounded-lg text-xs font-(--font-mono) flex items-center justify-between transition-all cursor-pointer ${
-            idx === selectedIndex 
-              ? "bg-(--color-teal) text-(--color-space) font-semibold" 
-              : "text-(--color-text-secondary) hover:bg-white/5 hover:text-(--color-text-primary)"
-          }`;
-          item.innerHTML = `
-            <span>> ${cmd.name}</span>
-            <span class="${idx === selectedIndex ? "text-(--color-space)/80" : "text-(--color-text-muted)"} text-[10px]">Command</span>
-          `;
-          item.addEventListener("click", () => {
-            cmd.action();
-            togglePalette();
-          });
-          optionsList.appendChild(item);
-        });
-      }
-
-      let typeTimeout: any = null;
-      let streamInterval: any = null;
-
-      function handleSearchInput() {
-        const query = searchInput.value.toLowerCase().trim();
-        renderSuggestions(query);
-
-        // Cancel previous streaming
-        if (typeTimeout) clearTimeout(typeTimeout);
-        if (streamInterval) clearInterval(streamInterval);
-
-        if (query.length < 2) {
-          aiBox?.classList.add("hidden");
-          return;
-        }
-
-        // Search in local KB
-        let responseText = "";
-        let matchedKey = "";
-        
-        for (const [key, val] of Object.entries(kb)) {
-          if (query.includes(key) || key.includes(query)) {
-            responseText = val;
-            matchedKey = key;
-            break;
-          }
-        }
-
-        if (!responseText) {
-          if (query.includes("hi") || query.includes("hello") || query.includes("hey")) {
-            responseText = "Hello! I'm Akanksha's Local AI Agent. Try searching for 'skills', 'experience', 'samsung', 'hcltech', 'hackathons', 'certifications', or 'resume'.";
-          } else {
-            // Attempt standard fuzzy matching
-            const keys = Object.keys(kb);
-            const partial = keys.find(k => k.startsWith(query) || query.startsWith(k));
-            if (partial) {
-              responseText = kb[partial];
-            } else {
-              responseText = `Searching Akanksha's static data corpus for "${query}"...\nNo exact mapping found. Try querying 'skills', 'experience', 'samsung', or 'resume'.`;
-            }
-          }
-        }
-
-        // Show AI box and start stream animation
-        aiBox?.classList.remove("hidden");
-        if (aiResponse) aiResponse.textContent = "";
-        if (aiStatus) aiStatus.textContent = "Streaming...";
-
-        let i = 0;
-        streamInterval = setInterval(() => {
-          if (aiResponse) {
-            aiResponse.textContent += responseText.charAt(i);
-          }
-          i++;
-          if (i >= responseText.length) {
-            clearInterval(streamInterval);
-            if (aiStatus) aiStatus.textContent = "Local Index Answered";
-          }
-        }, 12);
-      }
-
-      function togglePalette() {
-        if (!palette) return;
-        palette.classList.toggle("hidden");
-        if (!palette.classList.contains("hidden")) {
-          searchInput.focus();
-          searchInput.value = "";
-          aiBox?.classList.add("hidden");
-          selectedIndex = 0;
-          renderSuggestions();
-        }
-      }
-
-      // Keyboard listeners
-      const keyHandler = (e: KeyboardEvent) => {
-        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
-          e.preventDefault();
-          togglePalette();
-        }
-        if (e.key === "Escape" && palette && !palette.classList.contains("hidden")) {
-          togglePalette();
-        }
-
-        if (palette && !palette.classList.contains("hidden")) {
-          const items = optionsList?.querySelectorAll("button") || [];
-          if (e.key === "ArrowDown") {
-            e.preventDefault();
-            selectedIndex = (selectedIndex + 1) % items.length;
-            renderSuggestions(searchInput.value);
-          } else if (e.key === "ArrowUp") {
-            e.preventDefault();
-            selectedIndex = (selectedIndex - 1 + items.length) % items.length;
-            renderSuggestions(searchInput.value);
-          } else if (e.key === "Enter") {
-            e.preventDefault();
-            const activeItem = items[selectedIndex] as HTMLButtonElement;
-            activeItem?.click();
-          }
-        }
-      };
-
-      // Clean up previous event listeners just in case page transition occurs
-      window.removeEventListener("keydown", keyHandler);
-      window.addEventListener("keydown", keyHandler);
-
-      searchInput?.removeEventListener("input", handleSearchInput);
-      searchInput?.addEventListener("input", handleSearchInput);
-
-      closeBtn?.removeEventListener("click", togglePalette);
-      closeBtn?.addEventListener("click", togglePalette);
-
-      navSearchBtn?.removeEventListener("click", togglePalette);
-      navSearchBtn?.addEventListener("click", togglePalette);
-
-      mobileSearchBtn?.removeEventListener("click", togglePalette);
-      mobileSearchBtn?.addEventListener("click", togglePalette);
+      searchInput?.addEventListener('input', handleSearchInput);
+      closeBtn?.addEventListener('click', togglePalette);
+      navSearchBtn?.addEventListener('click', togglePalette);
+      mobileSearchBtn?.addEventListener('click', togglePalette);
     }
 
-    // Run on initial load
     initPage();
-    // Re-run after View Transition navigation
     document.addEventListener('astro:page-load', initPage);
   </script>
 </body>
