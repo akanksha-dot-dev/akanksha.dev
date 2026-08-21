@@ -1,52 +1,64 @@
 ---
-// src/components/AiSandbox.astro — Production AI Architecture Sandbox 3.0 (Full-Width Responsive)
+// src/components/AiSandbox.astro — Production AI Architecture Sandbox 4.0 (Interactive Cyber-Physical Lab)
 ---
 
-<div class="glass-static p-6 sm:p-8 relative overflow-hidden fade-in border border-(--color-border) bg-(--color-surface) rounded-2xl w-full" id="ai-sandbox-container">
-  <!-- Subtle Ambient Glow -->
-  <div class="absolute -top-24 -left-24 w-64 h-64 rounded-full bg-(--color-teal-glow) filter blur-3xl pointer-events-none"></div>
-  <div class="absolute -bottom-24 -right-24 w-64 h-64 rounded-full bg-(--color-amber-glow) filter blur-3xl pointer-events-none"></div>
+<div class="glass-static p-6 sm:p-8 relative overflow-hidden fade-in border border-(--color-border) bg-(--color-surface) rounded-2xl w-full shadow-2xl" id="ai-sandbox-container">
+  <!-- Subtle Ambient Glow Orbs -->
+  <div class="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-(--color-teal-glow) filter blur-3xl pointer-events-none"></div>
+  <div class="absolute -bottom-24 -right-24 w-72 h-72 rounded-full bg-(--color-amber-glow) filter blur-3xl pointer-events-none"></div>
 
   <!-- Component Top Navigation & Mode Switcher -->
   <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-5 border-b border-(--color-border) relative z-10">
     <div>
       <div class="flex items-center gap-2">
-        <span class="w-2.5 h-2.5 rounded-full bg-(--color-teal) animate-pulse"></span>
+        <span class="w-2.5 h-2.5 rounded-full bg-(--color-teal) animate-pulse shadow-[0_0_8px_rgba(0,240,181,0.8)]"></span>
         <h3 class="font-(--font-heading) font-extrabold text-lg sm:text-xl text-white tracking-tight">
           Interactive <span class="gradient-text">AI Architecture Sandbox</span>
         </h3>
       </div>
       <p class="text-xs text-(--color-text-secondary) font-(--font-mono) mt-1">
-        Production-grade execution pipeline, DAG node telemetry & guardrail simulator
+        DAG node telemetry, SVG dataflow, degradation matrix & autonomous agent runner
       </p>
     </div>
     
-    <!-- Tab Switches -->
-    <div class="flex p-1 bg-[#080E1E] border border-(--color-border) rounded-xl self-start sm:self-auto" role="tablist" aria-label="Pipeline Simulator Tabs">
+    <!-- Tab Switches & Auto-Demo Button -->
+    <div class="flex flex-wrap items-center gap-2">
+      <!-- Auto-Demo Trigger -->
       <button 
-        type="button"
-        id="btn-rag-tab" 
-        role="tab"
-        aria-selected="true"
-        aria-controls="rag-panel"
-        class="px-4 py-2 text-xs font-(--font-mono) font-semibold rounded-lg transition-all cursor-pointer bg-(--color-teal-glow) text-(--color-teal) border border-teal-500/40 shadow-sm"
+        type="button" 
+        id="btn-auto-demo" 
+        class="px-3 py-1.5 text-xs font-(--font-mono) font-semibold rounded-lg transition-all cursor-pointer bg-(--color-amber-glow) text-(--color-amber) border border-amber-500/40 hover:bg-amber-500/20 shadow-sm flex items-center gap-1.5"
+        title="Run automated hands-free pipeline demonstration"
       >
-        ⚡ Enterprise Graph RAG
+        <span>⚡ Auto-Demo</span>
       </button>
-      <button 
-        type="button"
-        id="btn-agent-tab" 
-        role="tab"
-        aria-selected="false"
-        aria-controls="agent-panel"
-        class="px-4 py-2 text-xs font-(--font-mono) font-semibold rounded-lg transition-all cursor-pointer text-(--color-text-secondary) hover:text-white border border-transparent"
-      >
-        🤖 Agent Loop (Google ADK)
-      </button>
+
+      <div class="flex p-1 bg-[#080E1E] border border-(--color-border) rounded-xl" role="tablist" aria-label="Pipeline Simulator Tabs">
+        <button 
+          type="button"
+          id="btn-rag-tab" 
+          role="tab"
+          aria-selected="true"
+          aria-controls="rag-panel"
+          class="px-3.5 py-1.5 text-xs font-(--font-mono) font-semibold rounded-lg transition-all cursor-pointer bg-(--color-teal-glow) text-(--color-teal) border border-teal-500/40 shadow-sm"
+        >
+          ⚡ Enterprise Graph RAG
+        </button>
+        <button 
+          type="button"
+          id="btn-agent-tab" 
+          role="tab"
+          aria-selected="false"
+          aria-controls="agent-panel"
+          class="px-3.5 py-1.5 text-xs font-(--font-mono) font-semibold rounded-lg transition-all cursor-pointer text-(--color-text-secondary) hover:text-white border border-transparent"
+        >
+          🤖 Agent Loop (Google ADK)
+        </button>
+      </div>
     </div>
   </div>
 
-  <div class="relative z-10 min-h-[440px] flex flex-col">
+  <div class="relative z-10 min-h-[460px] flex flex-col">
     <!-- ═══ RAG VISUALIZER PANEL ═══ -->
     <div id="rag-panel" role="tabpanel" aria-labelledby="btn-rag-tab" class="flex flex-col gap-6 flex-1">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
@@ -72,7 +84,7 @@
                 <option value="agents">"Explain Google ADK multi-agent state mapping patterns"</option>
               </select>
               <button 
-                type="button"
+                type="button" 
                 id="btn-run-rag" 
                 class="btn-primary text-xs py-2.5 px-6 whitespace-nowrap cursor-pointer hover:scale-[1.02] transition-transform flex items-center justify-center gap-2 shadow-[0_0_16px_rgba(0,240,181,0.3)] shrink-0"
               >
@@ -81,26 +93,30 @@
             </div>
           </div>
 
-          <!-- Degradation Warning Banner (Shown when router is toggled OFF) -->
-          <div id="rag-degraded-banner" class="hidden glass-static p-4 rounded-xl border border-red-500/40 bg-red-500/10 text-xs text-red-200 flex items-start gap-3 animate-fadeIn">
+          <!-- Degradation Warning Banner -->
+          <div id="rag-degraded-banner" class="hidden glass-static p-4 rounded-xl border border-red-500/40 bg-red-500/10 text-xs text-red-200 flex items-start gap-3">
             <span class="text-red-400 text-lg shrink-0">⚠️</span>
             <div>
               <span class="font-bold font-(--font-mono) text-red-300 block text-xs">ARCHITECTURAL DEGRADATION SIMULATED</span>
               <p class="text-[0.72rem] text-red-200/90 leading-relaxed mt-0.5">
-                Semantic Router Node is disabled. Raw vector similarity without intent classification causes context dilution, token bloat, and hallucinated table interpretations.
+                Semantic Router or RAGAS Guardrails is disabled. Raw vector similarity without intent classification causes context dilution, token bloat (+420 tokens), and unverified table hallucinations.
               </p>
             </div>
           </div>
 
-          <!-- Interactive Pipeline Visual Flow Nodes -->
+          <!-- Interactive Pipeline Visual Flow Nodes with Connected SVG Dataflow -->
           <div class="flex flex-col gap-2">
             <div class="flex justify-between items-center">
               <span class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider font-semibold">
-                Execution Flow Nodes (Click any node to inspect telemetry)
+                Execution Flow Nodes (Click node to inspect telemetry)
               </span>
-              <span class="text-[10px] font-(--font-mono) text-(--color-text-muted)">4 Stages Active</span>
+              <span class="text-[10px] font-(--font-mono) text-(--color-teal) flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-(--color-teal) animate-ping"></span>
+                <span>DAG Active</span>
+              </span>
             </div>
             
+            <!-- Nodes Container -->
             <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 relative z-10" id="rag-steps-container">
               <!-- Step 1 -->
               <button 
@@ -161,13 +177,14 @@
           </div>
 
           <!-- Step Deep-Inspection Pane (Interactive) -->
-          <div id="step-inspect-pane" class="hidden glass-static p-4 rounded-xl border border-(--color-teal)/40 bg-[#080E1E]/90 text-xs font-(--font-mono) flex flex-col gap-2 animate-fadeIn">
+          <div id="step-inspect-pane" class="hidden glass-static p-4 rounded-xl border border-(--color-teal)/40 bg-[#080E1E]/95 text-xs font-(--font-mono) flex flex-col gap-2.5">
             <div class="flex items-center justify-between text-(--color-teal)">
               <span class="font-bold flex items-center gap-1.5" id="inspect-node-title">🔍 Node Telemetry Inspector</span>
               <button type="button" id="btn-close-inspect" class="text-(--color-text-muted) hover:text-(--color-teal) text-xs cursor-pointer px-2 py-0.5 rounded bg-white/5 border border-white/10">✕ Close</button>
             </div>
             <p id="inspect-node-desc" class="text-xs text-(--color-text-secondary) leading-relaxed"></p>
-            <div id="inspect-node-stats" class="flex flex-wrap gap-4 pt-2 text-[11px] text-(--color-text-muted) border-t border-white/5 font-(--font-mono)"></div>
+            <div id="inspect-node-payload" class="bg-[#030712] p-3 rounded-lg border border-white/5 font-mono text-[11px] text-teal-300 overflow-x-auto"></div>
+            <div id="inspect-node-stats" class="flex flex-wrap gap-3 pt-2 text-[11px] text-(--color-text-muted) border-t border-white/5 font-(--font-mono)"></div>
           </div>
 
           <!-- Streamed Synthesis Box -->
@@ -267,13 +284,29 @@
                 <option value="jira">"Extract work logs and generate JIRA story sprint reports"</option>
               </select>
               <button 
-                type="button"
+                type="button" 
                 id="btn-run-agent" 
                 class="btn-primary text-xs py-2.5 px-6 whitespace-nowrap cursor-pointer hover:scale-[1.02] transition-transform flex items-center justify-center gap-2 shadow-[0_0_16px_rgba(0,240,181,0.3)] shrink-0"
               >
                 <span>🚀 Launch Agent</span>
               </button>
             </div>
+          </div>
+
+          <!-- Multi-Agent Orchestration Flow Graph -->
+          <div class="glass-static p-3 rounded-xl border border-white/10 bg-[#030712]/80 flex flex-wrap items-center justify-between gap-2 text-[11px] font-(--font-mono)">
+            <span class="text-white font-bold flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-(--color-teal)"></span>
+              Manager Agent
+            </span>
+            <span class="text-(--color-text-muted)">➔</span>
+            <span class="text-teal-300">Planner</span>
+            <span class="text-(--color-text-muted)">➔</span>
+            <span class="text-teal-300">Researcher</span>
+            <span class="text-(--color-text-muted)">➔</span>
+            <span class="text-amber-300">Code Synth</span>
+            <span class="text-(--color-text-muted)">➔</span>
+            <span class="text-teal-300 font-bold">RAGAS Verifier</span>
           </div>
 
           <!-- Console Terminal -->
@@ -351,17 +384,41 @@
 </div>
 
 <script>
-  // Simulation Data
+  // Simulation Data 4.0
   const ragResponses = {
     revenue: {
       steps: [
-        { label: "Segment", log: "Parsed FY25 Q4 statements (Table Extraction)", inspect: "Layout parser segmented 200 pages into 14 financial tables using GMFT table detection.", stats: ["Latency: 42ms", "Chunks: 14", "Parser: GMFT Layout"] },
-        { label: "FAISS Search", log: "Retrieved 4 chunks via vector similarity", inspect: "FAISS HNSW index queried with embedding cosine similarity >= 0.88.", stats: ["Latency: 18ms", "Index: HNSW32", "Embedding: text-embedding-3"] },
-        { label: "Graph Enrich", log: "Graph enriched: linked Net Income to Revenue nodes", inspect: "Neo4j Knowledge Graph matched entity 'Samsung SDS' to subsidiary revenue streams.", stats: ["Latency: 35ms", "Entities: 3", "Graph DB: Neo4j"] },
-        { label: "Inference", log: "LLM synthesized response with citations", inspect: "GPT-4 generated final grounded synthesis with direct row-column citations.", stats: ["Latency: 145ms", "Tokens: 240", "Guardrail: 100% Grounded"] }
+        { 
+          label: "Segment", 
+          log: "Parsed FY25 Q4 statements (Table Extraction)", 
+          inspect: "Layout parser segmented 200 pages into 14 financial tables using GMFT table detection.",
+          payload: `{\n  "parser": "GMFT-Layout",\n  "table_bboxes": [[120, 45, 540, 310]],\n  "extracted_cells": 142,\n  "schema_type": "Q4_Financial_Disclosure"\n}`,
+          stats: ["Latency: 42ms", "Chunks: 14", "Parser: GMFT Layout"] 
+        },
+        { 
+          label: "FAISS Search", 
+          log: "Retrieved 4 chunks via vector similarity", 
+          inspect: "FAISS HNSW index queried with embedding cosine similarity >= 0.88.",
+          payload: `{\n  "index_type": "HNSW32",\n  "query_vector_dim": 1536,\n  "cosine_distances": [0.082, 0.095, 0.112, 0.134],\n  "top_k_chunks": 4\n}`,
+          stats: ["Latency: 18ms", "Index: HNSW32", "Embedding: text-embedding-3"] 
+        },
+        { 
+          label: "Graph Enrich", 
+          log: "Graph enriched: linked Net Income to Revenue nodes", 
+          inspect: "Neo4j Knowledge Graph matched entity 'Samsung SDS' to subsidiary revenue streams.",
+          payload: `MATCH (c:Company {name: "Samsung SDS"})-[:REPORTED]->(f:FinancialPeriod {quarter: "Q4_FY25"})\nMATCH (f)-[:HAS_METRIC]->(m:Metric)\nRETURN m.name, m.value, m.yoy_growth`,
+          stats: ["Latency: 35ms", "Entities: 3", "Graph DB: Neo4j"] 
+        },
+        { 
+          label: "Inference", 
+          log: "LLM synthesized response with citations", 
+          inspect: "GPT-4 generated final grounded synthesis with direct row-column citations.",
+          payload: `{\n  "model": "gpt-4o",\n  "prompt_tokens": 482,\n  "output_tokens": 198,\n  "faithfulness_eval": 0.96,\n  "groundedness_check": "PASSED"\n}`,
+          stats: ["Latency: 145ms", "Tokens: 240", "Guardrail: 100% Grounded"] 
+        }
       ],
       output: `Based on Samsung SDS's official financial disclosure for FY25 Q4:\n\n` +
-              `• **Net Income:** Reached strong expansion with an 11.2% YoY increase, driven by enterprise GenAI deployments and cloud managed services.\n` +
+              `• **Net Income:** Reached strong expansion with an **11.2% YoY increase**, driven by enterprise GenAI deployments and cloud managed services.\n` +
               `• **Retrieval Precision:** Graph RAG bypassed context limits with divide-and-conquer processing, hitting **92% context recall** across dense financial tables.\n` +
               `• **Pipeline Latency:** Resolved in **240ms** with sub-millisecond FAISS vector indexing.`,
       latency: "240 ms",
@@ -370,10 +427,34 @@
     },
     accuracy: {
       steps: [
-        { label: "Segment", log: "Parsed 200-page annual report", inspect: "Document structure partitioned into executive summary, disclosures, and appendix.", stats: ["Latency: 55ms", "Pages: 200", "Parser: PartitionPDF"] },
-        { label: "FAISS Search", log: "Retrieved 8 contextual chunks", inspect: "High-dimensional vector search against financial domain embeddings.", stats: ["Latency: 22ms", "K: 8", "Similarity: 0.91"] },
-        { label: "Graph Enrich", log: "Cross-referenced balance sheet entities", inspect: "Identified multi-year balance sheet continuity relations.", stats: ["Latency: 40ms", "Entities: 7", "Triplets: 12"] },
-        { label: "Inference", log: "RAGAS evaluation scored groundedness at 92%", inspect: "Anti-hallucination verification passed with zero synthetic contradictions.", stats: ["Latency: 160ms", "Faithfulness: 0.96", "Recall: 0.92"] }
+        { 
+          label: "Segment", 
+          log: "Parsed 200-page annual report", 
+          inspect: "Document structure partitioned into executive summary, disclosures, and appendix.",
+          payload: `{\n  "parser": "PartitionPDF",\n  "total_pages": 200,\n  "structural_elements": ["Header", "Narrative", "Table", "Footnote"],\n  "chunk_strategy": "semantic_boundary"\n}`,
+          stats: ["Latency: 55ms", "Pages: 200", "Parser: PartitionPDF"] 
+        },
+        { 
+          label: "FAISS Search", 
+          log: "Retrieved 8 contextual chunks", 
+          inspect: "High-dimensional vector search against financial domain embeddings.",
+          payload: `{\n  "index": "FAISS_IndexFlatIP",\n  "similarity_threshold": 0.90,\n  "dense_vector_dim": 1536,\n  "retrieved_nodes": 8\n}`,
+          stats: ["Latency: 22ms", "K: 8", "Similarity: 0.91"] 
+        },
+        { 
+          label: "Graph Enrich", 
+          log: "Cross-referenced balance sheet entities", 
+          inspect: "Identified multi-year balance sheet continuity relations.",
+          payload: `MATCH (b:BalanceSheet)-[:CONTAINS]->(e:Entity)\nWHERE e.category = 'Consolidated_Liability'\nRETURN e.name, e.prior_year_diff`,
+          stats: ["Latency: 40ms", "Entities: 7", "Triplets: 12"] 
+        },
+        { 
+          label: "Inference", 
+          log: "RAGAS evaluation scored groundedness at 92%", 
+          inspect: "Anti-hallucination verification passed with zero synthetic contradictions.",
+          payload: `{\n  "ragas_context_recall": 0.924,\n  "ragas_faithfulness": 0.960,\n  "ragas_answer_relevance": 0.948,\n  "hallucination_detected": false\n}`,
+          stats: ["Latency: 160ms", "Faithfulness: 0.96", "Recall: 0.92"] 
+        }
       ],
       output: `RAG Architecture Evaluation Benchmark on 200-Page Annual Report:\n\n` +
               `• **Context Recall:** **92.4%** on complex queries (vs. 52% baseline sliding-window chunking).\n` +
@@ -385,10 +466,34 @@
     },
     agents: {
       steps: [
-        { label: "Segment", log: "Queried ADK orchestration repository", inspect: "Indexed state schemas and DAG node routing configurations.", stats: ["Latency: 30ms", "Repository: ADK-Core", "Files: 6"] },
-        { label: "FAISS Search", log: "Retrieved 3 orchestration patterns", inspect: "Vector match on state machine transitions and event-driven triggers.", stats: ["Latency: 15ms", "Matches: 3", "Type: AST Chunks"] },
-        { label: "Graph Enrich", log: "Linked ADK to MCP tool interfaces", inspect: "Resolved tool calling schemas for Model Context Protocol (MCP) server endpoints.", stats: ["Latency: 32ms", "MCP Tools: 4", "Schemas: JSON-RPC"] },
-        { label: "Inference", log: "Synthesized multi-agent architecture blueprint", inspect: "Compiled step-by-step state transition diagram for Google ADK squad.", stats: ["Latency: 130ms", "Tokens: 310", "Pass Rate: 99.4%"] }
+        { 
+          label: "Segment", 
+          log: "Queried ADK orchestration repository", 
+          inspect: "Indexed state schemas and DAG node routing configurations.",
+          payload: `{\n  "source": "google_adk/orchestration",\n  "state_definitions": ["PlannerState", "ExecutorState", "VerifierState"],\n  "schema_version": "2.4.0"\n}`,
+          stats: ["Latency: 30ms", "Repository: ADK-Core", "Files: 6"] 
+        },
+        { 
+          label: "FAISS Search", 
+          log: "Retrieved 3 orchestration patterns", 
+          inspect: "Vector match on state machine transitions and event-driven triggers.",
+          payload: `{\n  "query": "multi_agent_dag_state_transitions",\n  "matched_patterns": ["FanOutFanIn", "SupervisedOrchestration", "ReActLoop"]\n}`,
+          stats: ["Latency: 15ms", "Matches: 3", "Type: AST Chunks"] 
+        },
+        { 
+          label: "Graph Enrich", 
+          log: "Linked ADK to MCP tool interfaces", 
+          inspect: "Resolved tool calling schemas for Model Context Protocol (MCP) server endpoints.",
+          payload: `{\n  "mcp_server": "localhost:8080/mcp",\n  "registered_tools": ["search_db", "verify_json", "generate_patch"],\n  "protocol": "2025-11-25"\n}`,
+          stats: ["Latency: 32ms", "MCP Tools: 4", "Schemas: JSON-RPC"] 
+        },
+        { 
+          label: "Inference", 
+          log: "Synthesized multi-agent architecture blueprint", 
+          inspect: "Compiled step-by-step state transition diagram for Google ADK squad.",
+          payload: `{\n  "orchestrator": "Google-ADK-DAG",\n  "verification_gate": "Strict-Typing",\n  "manual_effort_delta": "-60%",\n  "production_ready": true\n}`,
+          stats: ["Latency: 130ms", "Tokens: 310", "Pass Rate: 99.4%"] 
+        }
       ],
       output: `Google ADK Multi-Agent Orchestration Architecture:\n\n` +
               `• **State Machine:** Directed Acyclic Graph (DAG) state coordinator managing task decomposition.\n` +
@@ -439,13 +544,17 @@
     const container = document.getElementById('ai-sandbox-container');
     if (!container) return;
 
+    const playSound = (window as any).__AK_PLAY_SOUND__ || (() => {});
+
     // Tabs
     const btnRagTab = document.getElementById('btn-rag-tab');
     const btnAgentTab = document.getElementById('btn-agent-tab');
     const ragPanel = document.getElementById('rag-panel');
     const agentPanel = document.getElementById('agent-panel');
+    const btnAutoDemo = document.getElementById('btn-auto-demo');
 
     btnRagTab?.addEventListener('click', () => {
+      playSound('click');
       btnRagTab.classList.add('bg-(--color-teal-glow)', 'text-(--color-teal)', 'border-teal-500/40');
       btnRagTab.classList.remove('text-(--color-text-secondary)', 'border-transparent');
       btnRagTab.setAttribute('aria-selected', 'true');
@@ -459,6 +568,7 @@
     });
 
     btnAgentTab?.addEventListener('click', () => {
+      playSound('click');
       btnAgentTab.classList.add('bg-(--color-teal-glow)', 'text-(--color-teal)', 'border-teal-500/40');
       btnAgentTab.classList.remove('text-(--color-text-secondary)', 'border-transparent');
       btnAgentTab.setAttribute('aria-selected', 'true');
@@ -480,35 +590,52 @@
     const logScore = document.getElementById('rag-log-score');
     const stepBoxes = document.querySelectorAll('.rag-step-box');
     const toggleRouter = document.getElementById('toggle-router') as HTMLInputElement | null;
+    const toggleGuardrails = document.getElementById('toggle-guardrails') as HTMLInputElement | null;
     const bannerDegraded = document.getElementById('rag-degraded-banner');
 
     // Inspector Pane
     const inspectPane = document.getElementById('step-inspect-pane');
     const inspectTitle = document.getElementById('inspect-node-title');
     const inspectDesc = document.getElementById('inspect-node-desc');
+    const inspectPayload = document.getElementById('inspect-node-payload');
     const inspectStats = document.getElementById('inspect-node-stats');
     const btnCloseInspect = document.getElementById('btn-close-inspect');
 
     btnCloseInspect?.addEventListener('click', () => {
+      playSound('click');
       inspectPane?.classList.add('hidden');
     });
 
-    toggleRouter?.addEventListener('change', () => {
-      if (!toggleRouter.checked) {
+    function checkDegradation() {
+      const isRouterOn = toggleRouter ? toggleRouter.checked : true;
+      const isGuardrailsOn = toggleGuardrails ? toggleGuardrails.checked : true;
+      if (!isRouterOn || !isGuardrailsOn) {
         bannerDegraded?.classList.remove('hidden');
       } else {
         bannerDegraded?.classList.add('hidden');
       }
+    }
+
+    toggleRouter?.addEventListener('change', () => {
+      playSound('click');
+      checkDegradation();
+    });
+
+    toggleGuardrails?.addEventListener('change', () => {
+      playSound('click');
+      checkDegradation();
     });
 
     function runRagSimulation() {
       if (activeStreamTimeout) clearTimeout(activeStreamTimeout);
+      playSound('click');
       const queryKey = selectRagQuery?.value || 'revenue';
       const data = ragResponses[queryKey as keyof typeof ragResponses];
       const isRouterOn = toggleRouter ? toggleRouter.checked : true;
+      const isGuardrailsOn = toggleGuardrails ? toggleGuardrails.checked : true;
 
       // Reset step boxes
-      stepBoxes.forEach((box, i) => {
+      stepBoxes.forEach((box) => {
         box.classList.remove('border-(--color-teal)', 'bg-teal-500/10', 'border-red-500/50', 'bg-red-500/10');
         box.classList.add('opacity-50', 'border-(--color-border)');
         const badge = box.querySelector('.step-badge');
@@ -528,18 +655,19 @@
           const box = stepBoxes[idx];
           if (!box) return;
 
+          playSound('node');
           box.classList.remove('opacity-50', 'border-(--color-border)');
           const logEl = box.querySelector(`#rag-step${idx + 1}-log`);
           const badge = box.querySelector('.step-badge');
 
-          if (!isRouterOn && idx === 1) {
+          if ((!isRouterOn && idx === 1) || (!isGuardrailsOn && idx === 3)) {
             // Degraded path
             box.classList.add('border-red-500/60', 'bg-red-500/10');
             if (badge) {
               badge.textContent = 'DEGRADED';
               badge.className = 'text-[9px] font-mono step-badge px-1.5 py-0.5 rounded font-bold whitespace-nowrap text-red-400 bg-red-500/20 border border-red-500/30';
             }
-            if (logEl) logEl.textContent = 'Unrouted vector match (diluted context)';
+            if (logEl) logEl.textContent = idx === 1 ? 'Unrouted vector match (diluted context)' : 'Unverified generation (hallucination risk)';
           } else {
             box.classList.add('border-(--color-teal)', 'bg-teal-500/10');
             if (badge) {
@@ -554,16 +682,17 @@
       // Stream text output
       setTimeout(() => {
         if (!outputRagText) return;
-        if (!isRouterOn) {
+        playSound('success');
+        if (!isRouterOn || !isGuardrailsOn) {
           outputRagText.innerHTML = `
-            <div class="text-red-300 font-mono text-xs mb-2">⚠️ WARNING: Semantic Router was OFF. Output contains context dilution:</div>
-            <div class="text-(--color-text-secondary) font-sans">${data.output.replace(/92%/g, '58% (degraded)').replace(/240ms/g, '680ms (timeout overhead)')}</div>
+            <div class="text-red-300 font-mono text-xs mb-2">⚠️ WARNING: Guardrails or Semantic Router disabled. Output contains hallucinated values:</div>
+            <div class="text-(--color-text-secondary) font-sans">${data.output.replace(/92%/g, '<span class="text-red-400 font-mono font-bold line-through">92%</span> <span class="text-red-300 font-bold">58% (degraded)</span>').replace(/240ms/g, '<span class="text-red-400 font-mono line-through">240ms</span> <span class="text-red-300">680ms (context bloat)</span>')}</div>
           `;
           if (logLatency) logLatency.textContent = '680 ms (slow)';
           if (logMatches) logMatches.textContent = '14 Unfiltered Chunks';
           if (logScore) logScore.textContent = '0.58 / 1.0 (Degraded)';
         } else {
-          // Stream output formatted
+          // Clean output
           outputRagText.innerHTML = data.output.replace(/\n/g, '<br/>');
           if (logLatency) logLatency.textContent = data.latency;
           if (logMatches) logMatches.textContent = data.matches;
@@ -574,16 +703,27 @@
 
     btnRunRag?.addEventListener('click', runRagSimulation);
 
+    // Auto-Demo Simulation
+    btnAutoDemo?.addEventListener('click', () => {
+      playSound('agent');
+      if (selectRagQuery) {
+        selectRagQuery.value = 'accuracy';
+      }
+      runRagSimulation();
+    });
+
     // Node click handlers for telemetry inspection
     stepBoxes.forEach((box, i) => {
       box.addEventListener('click', () => {
+        playSound('click');
         const queryKey = selectRagQuery?.value || 'revenue';
         const data = ragResponses[queryKey as keyof typeof ragResponses];
         const stepData = data.steps[i];
         if (!stepData || !inspectPane) return;
 
-        if (inspectTitle) inspectTitle.textContent = `🔍 0${i + 1}. ${stepData.label} — Node Telemetry`;
+        if (inspectTitle) inspectTitle.textContent = `🔍 0${i + 1}. ${stepData.label} — Node Telemetry Inspector`;
         if (inspectDesc) inspectDesc.textContent = stepData.inspect;
+        if (inspectPayload) inspectPayload.textContent = stepData.payload;
         if (inspectStats) {
           inspectStats.innerHTML = stepData.stats.map(s => `<span class="px-2 py-1 rounded bg-white/5 border border-white/10 text-(--color-teal)">${s}</span>`).join('');
         }
@@ -595,6 +735,7 @@
     const btnCopyRag = document.getElementById('btn-copy-rag');
     const copyRagLabel = document.getElementById('copy-rag-label');
     btnCopyRag?.addEventListener('click', () => {
+      playSound('click');
       const text = outputRagText?.innerText || '';
       navigator.clipboard.writeText(text).then(() => {
         if (copyRagLabel) copyRagLabel.textContent = 'Copied!';
@@ -616,6 +757,7 @@
 
     function runAgentSimulation() {
       if (activeTerminalTimeout) clearTimeout(activeTerminalTimeout);
+      playSound('click');
       const taskKey = selectAgentTask?.value || 'content';
       const logs = agentLogs[taskKey as keyof typeof agentLogs];
       if (!terminalEl) return;
@@ -627,6 +769,7 @@
 
       logs.forEach((line, idx) => {
         setTimeout(() => {
+          playSound('node');
           const div = document.createElement('div');
           div.className = line.includes('✅') ? 'text-teal-300 font-bold' : line.includes('MCP') ? 'text-amber-300' : 'text-emerald-400';
           div.textContent = line;
@@ -634,6 +777,7 @@
           terminalEl.scrollTop = terminalEl.scrollHeight;
 
           if (idx === logs.length - 1) {
+            playSound('success');
             if (statCycles) statCycles.textContent = '4 Cycles';
             if (statTools) statTools.textContent = taskKey === 'content' ? '3 Tools (MCP)' : taskKey === 'qa' ? '2 Tools (PyTest)' : '2 Tools (Jira)';
             if (statStatus) statStatus.textContent = '99.4% (Pass)';
@@ -645,6 +789,7 @@
     btnRunAgent?.addEventListener('click', runAgentSimulation);
 
     btnCopyAgent?.addEventListener('click', () => {
+      playSound('click');
       const text = terminalEl?.innerText || '';
       navigator.clipboard.writeText(text).then(() => {
         if (copyAgentLabel) copyAgentLabel.textContent = 'Copied!';
