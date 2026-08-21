@@ -2,18 +2,23 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="404 — Page Not Found | akanksha.dev">
-  <section class="min-h-[70vh] flex items-center justify-center">
-    <div class="text-center px-6">
-      <p class="text-8xl font-(--font-heading) font-800 gradient-text mb-4">404</p>
-      <h1 class="font-(--font-heading) text-2xl font-700 mb-3">Page not found</h1>
-      <p class="text-(--color-text-secondary) mb-8 max-w-md mx-auto">
-        The page you're looking for doesn't exist. Maybe it was moved, or maybe it never existed — 
-        like a hallucination from a poorly-tuned LLM.
+<BaseLayout title="404 — Page Not Found | akanksha.dev" description="The page you are looking for does not exist on akanksha.dev.">
+  <section class="min-h-[70vh] flex items-center justify-center relative overflow-hidden" aria-label="Page Not Found Error">
+    <div class="orb orb-teal" style="top: 10%; right: 15%; width: 250px; height: 250px; opacity: 0.1;"></div>
+    <div class="text-center px-6 relative z-10 max-w-lg">
+      <p class="text-7xl sm:text-8xl font-(--font-heading) font-extrabold gradient-text mb-4">404</p>
+      <h1 class="font-(--font-heading) text-2xl font-bold mb-3 text-(--color-text-primary)">Pipeline Route Not Found</h1>
+      <p class="text-(--color-text-secondary) text-sm mb-8 leading-relaxed">
+        The requested endpoint doesn't exist or was relocated — like a hallucination from a context-depleted model.
       </p>
-      <a href="/" class="btn-primary">
-        ← Back to Home
-      </a>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="/" class="btn-primary">
+          ← Back to Home
+        </a>
+        <a href="/projects" class="btn-outline">
+          Explore Projects
+        </a>
+      </div>
     </div>
   </section>
 </BaseLayout>

@@ -19,7 +19,7 @@ const socials = [
     <div class="max-w-4xl mx-auto px-6 py-16">
       <div class="fade-in mb-12">
         <span class="badge mb-4">Connect</span>
-        <h1 class="font-(--font-heading) text-4xl md:text-5xl font-800 mb-4">
+        <h1 class="font-(--font-heading) text-4xl md:text-5xl font-extrabold mb-4">
           Let's <span class="gradient-text">Talk</span>
         </h1>
         <p class="text-(--color-text-secondary) text-lg max-w-2xl">
@@ -30,30 +30,43 @@ const socials = [
       
       <!-- Email CTA -->
       <div class="fade-in glass p-8 md:p-10 mb-10">
-        <div class="flex flex-col md:flex-row items-start md:items-center gap-6">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div class="flex-1">
-            <h2 class="font-(--font-heading) font-700 text-2xl mb-2">Email is best</h2>
+            <h2 class="font-(--font-heading) font-bold text-2xl mb-2">Email is best</h2>
             <p class="text-(--color-text-secondary) text-sm mb-4">
               For roles, collaborations, or speaking — I typically respond within 24 hours.
             </p>
-            <a href="mailto:me@akanksha.dev" class="btn-primary inline-flex">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-              me@akanksha.dev
-            </a>
+            <div class="flex flex-wrap items-center gap-3">
+              <a href="mailto:me@akanksha.dev" class="btn-primary inline-flex">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                me@akanksha.dev
+              </a>
+              <button 
+                type="button" 
+                id="btn-copy-email" 
+                class="btn-outline text-xs py-3 px-4 cursor-pointer"
+                aria-label="Copy email address to clipboard"
+              >
+                📋 Copy Address
+              </button>
+              <span id="copy-status" class="text-xs text-(--color-teal) font-(--font-mono) hidden" aria-live="polite">
+                ✓ Copied to clipboard!
+              </span>
+            </div>
           </div>
-          <div class="text-6xl opacity-20">📧</div>
+          <div class="text-6xl opacity-20 hidden sm:block select-none" aria-hidden="true">📧</div>
         </div>
       </div>
       
       <!-- Resume Download -->
       <div class="fade-in glass p-6 mb-10 flex flex-col md:flex-row items-start md:items-center gap-4">
         <div class="flex-1">
-          <h3 class="font-(--font-heading) font-600 text-base mb-1">📄 Download Resume</h3>
+          <h3 class="font-(--font-heading) font-semibold text-base mb-1">📄 Download Resume Dossier</h3>
           <p class="text-(--color-text-secondary) text-sm">
-            Latest resume tailored for AI Engineer roles — Production RAG, Agents, LLMs.
+            Latest resume tailored for AI Engineer roles — Production RAG, Agents, LLM Infrastructure.
           </p>
         </div>
-        <a href="/resume/akanksha_resume.pdf" download class="btn-outline text-sm flex-shrink-0">
+        <a href="/resume/akanksha_resume.pdf" download="Akanksha_AI_Engineer_Resume.pdf" class="btn-outline text-sm flex-shrink-0">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
           Download PDF
         </a>
@@ -64,19 +77,19 @@ const socials = [
         <h2 class="section-title mb-6">What I'm open to</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div class="glass p-5">
-            <h3 class="font-(--font-heading) font-600 text-(--color-teal) mb-1">🎯 AI Engineering Roles</h3>
+            <h3 class="font-(--font-heading) font-semibold text-(--color-teal) mb-1">🎯 AI Engineering Roles</h3>
             <p class="text-(--color-text-secondary) text-sm">GenAI, Agentic AI, RAG, LLM Engineer, FDE roles at companies pushing AI boundaries</p>
           </div>
           <div class="glass p-5">
-            <h3 class="font-(--font-heading) font-600 text-(--color-teal) mb-1">🤝 Collaborations</h3>
+            <h3 class="font-(--font-heading) font-semibold text-(--color-teal) mb-1">🤝 Collaborations</h3>
             <p class="text-(--color-text-secondary) text-sm">Open-source projects, research papers, AI product development</p>
           </div>
           <div class="glass p-5">
-            <h3 class="font-(--font-heading) font-600 text-(--color-teal) mb-1">🎤 Speaking</h3>
+            <h3 class="font-(--font-heading) font-semibold text-(--color-teal) mb-1">🎤 Speaking</h3>
             <p class="text-(--color-text-secondary) text-sm">Conferences, meetups, workshops on production AI, RAG systems, agentic AI</p>
           </div>
           <div class="glass p-5">
-            <h3 class="font-(--font-heading) font-600 text-(--color-teal) mb-1">💡 Mentorship</h3>
+            <h3 class="font-(--font-heading) font-semibold text-(--color-teal) mb-1">💡 Mentorship</h3>
             <p class="text-(--color-text-secondary) text-sm">Happy to chat with engineers transitioning into AI/ML careers</p>
           </div>
         </div>
@@ -104,9 +117,33 @@ const socials = [
       <!-- Location -->
       <div class="fade-in text-center mt-16">
         <p class="text-(--color-text-muted) text-sm">
-          📍 Based in Gurugram, India · Open to remote & hybrid roles
+          📍 Based in Gurugram, India · Open to remote &amp; hybrid roles
         </p>
       </div>
     </div>
   </section>
+
+  <script>
+    function initContact() {
+      const btnCopy = document.getElementById('btn-copy-email');
+      const copyStatus = document.getElementById('copy-status');
+      
+      btnCopy?.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText('me@akanksha.dev');
+          if (copyStatus) {
+            copyStatus.classList.remove('hidden');
+            setTimeout(() => {
+              copyStatus.classList.add('hidden');
+            }, 3000);
+          }
+        } catch {
+          window.location.href = 'mailto:me@akanksha.dev';
+        }
+      });
+    }
+
+    initContact();
+    document.addEventListener('astro:page-load', initContact);
+  </script>
 </BaseLayout>

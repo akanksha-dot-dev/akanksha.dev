@@ -18,8 +18,8 @@ const speakingEngagements = [
       'Live demo: Training custom models with Teachable Machines',
     ],
     videoUrl: 'https://www.youtube.com/watch?v=-8xTRNfq-DE',
-    codelabUrl: 'https://github.com/imaakanksha/AI-Unboxed-Teachable-Machine-Codelab',
-    linkedinUrl: 'https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7472486822854451200',
+    codelabUrl: 'https://github.com/akanksha-dot-dev/AgenticAI-Workshop',
+    linkedinUrl: 'https://www.linkedin.com/in/akankshadev',
     icon: '📹',
   },
   {
@@ -38,7 +38,7 @@ const speakingEngagements = [
       'Journey: College to corporate tech world',
     ],
     coSpeakers: ['Nitish Singh (Founder, CampusX)', 'Anand Gaur (Mobile Development)'],
-    linkedinUrl: 'https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7454719715660206081',
+    linkedinUrl: 'https://www.linkedin.com/in/akankshadev',
     icon: '🎤',
   },
 ];
@@ -85,7 +85,7 @@ function formatDate(dateStr: string) {
     <div class="max-w-4xl mx-auto px-6 py-16">
       <div class="fade-in mb-12">
         <span class="badge mb-4">Community</span>
-        <h1 class="font-(--font-heading) text-4xl md:text-5xl font-800 mb-4 tracking-tight">
+        <h1 class="font-(--font-heading) text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">
           Speaking & <span class="gradient-text">Community</span>
         </h1>
         <p class="text-(--color-text-secondary) text-lg max-w-2xl">
@@ -130,7 +130,7 @@ function formatDate(dateStr: string) {
                     <span class="text-(--color-text-muted) text-xs">·</span>
                     <span class="text-(--color-text-muted) text-xs">{talk.location}</span>
                   </div>
-                  <h3 class="font-(--font-heading) font-700 text-lg mb-1">{talk.title}</h3>
+                  <h3 class="font-(--font-heading) font-bold text-lg mb-1">{talk.title}</h3>
                   <p class="text-(--color-text-secondary) text-sm mb-1">{talk.event} — {talk.organizer}</p>
                   <p class="text-(--color-text-muted) text-xs">Audience: {talk.audience}</p>
                 </div>
@@ -165,11 +165,11 @@ function formatDate(dateStr: string) {
                 )}
                 {talk.codelabUrl && (
                   <a href={talk.codelabUrl} target="_blank" rel="noopener" class="btn-outline text-xs py-2 px-4">
-                    📂 View Codelab
+                    📂 View Code Repository
                   </a>
                 )}
                 <a href={talk.linkedinUrl} target="_blank" rel="noopener" class="btn-outline text-xs py-2 px-4">
-                  💼 LinkedIn Post
+                  💼 LinkedIn Profile
                 </a>
               </div>
             </div>
@@ -190,7 +190,7 @@ function formatDate(dateStr: string) {
               <div class="timeline-dot" style={`top: 0.75rem; left: 0.35rem; width: 0.7rem; height: 0.7rem; ${i > 12 ? 'background: var(--color-text-muted); box-shadow: none;' : ''}`}></div>
               <div class="glass p-4">
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-1 mb-2">
-                  <h3 class="font-(--font-heading) font-600 text-sm">{event.name}</h3>
+                  <h3 class="font-(--font-heading) font-semibold text-sm">{event.name}</h3>
                   <span class="text-(--color-text-muted) text-xs font-(--font-mono) flex-shrink-0">{event.date}</span>
                 </div>
                 <p class="text-(--color-text-muted) text-xs mb-2">{event.org} · {event.location}</p>
@@ -211,7 +211,7 @@ function formatDate(dateStr: string) {
         <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
           {communities.map(c => (
             <div class="glass p-3 text-center">
-              <p class="text-(--color-text-secondary) text-sm font-500">{c}</p>
+              <p class="text-(--color-text-secondary) text-sm font-medium">{c}</p>
             </div>
           ))}
         </div>
@@ -223,19 +223,19 @@ function formatDate(dateStr: string) {
         <div class="glass p-6 md:p-8">
           <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div class="text-center">
-              <p class="text-2xl font-800 font-(--font-heading) text-(--color-teal)">8,839</p>
+              <p class="text-2xl font-extrabold font-(--font-heading) text-(--color-teal)">8,839</p>
               <p class="text-[0.65rem] text-(--color-text-muted) font-(--font-mono)">REACTIONS</p>
             </div>
             <div class="text-center">
-              <p class="text-2xl font-800 font-(--font-heading) text-(--color-amber)">2,304</p>
+              <p class="text-2xl font-extrabold font-(--font-heading) text-(--color-amber)">2,304</p>
               <p class="text-[0.65rem] text-(--color-text-muted) font-(--font-mono)">NEW CONNECTIONS</p>
             </div>
             <div class="text-center">
-              <p class="text-2xl font-800 font-(--font-heading) text-(--color-teal)">334</p>
+              <p class="text-2xl font-extrabold font-(--font-heading) text-(--color-teal)">334</p>
               <p class="text-[0.65rem] text-(--color-text-muted) font-(--font-mono)">DAYS ACTIVE</p>
             </div>
             <div class="text-center">
-              <p class="text-2xl font-800 font-(--font-heading) text-(--color-amber)">Top 5%</p>
+              <p class="text-2xl font-extrabold font-(--font-heading) text-(--color-amber)">Top 5%</p>
               <p class="text-[0.65rem] text-(--color-text-muted) font-(--font-mono)">OF ALL MEMBERS</p>
             </div>
           </div>

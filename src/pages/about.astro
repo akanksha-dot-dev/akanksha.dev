@@ -59,7 +59,7 @@ const highlights = [
       <!-- Header -->
       <div class="fade-in mb-12">
         <span class="badge mb-4">About Me</span>
-        <h1 class="font-(--font-heading) text-4xl md:text-5xl font-800 mb-4 tracking-tight">
+        <h1 class="font-(--font-heading) text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">
           From <span class="gradient-text">Darbhanga</span> to <span class="gradient-text">Samsung SDS</span>
         </h1>
         <p class="text-(--color-text-secondary) text-lg">
@@ -79,9 +79,9 @@ const highlights = [
           <p>
             As a <span class="text-(--color-text-primary) font-semibold">Production AI Engineer at Samsung SDS</span>, 
             I architect the full GenAI stack: autonomous AI agents using Google ADK for content generation 
-            and QA automation (<span class="text-(--color-teal)">60% reduction in manual effort</span>), 
+            and QA automation (<span class="text-(--color-teal) font-medium">60% reduction in manual effort</span>), 
             enterprise Graph RAG pipelines processing annual reports with advanced PDF extraction, and LLM 
-            infrastructure serving <span class="text-(--color-teal)">500+ daily queries at 92% accuracy</span>. 
+            infrastructure serving <span class="text-(--color-teal) font-medium">500+ daily queries at 92% accuracy</span>. 
             I lead a team of 3 developers and collaborate across India & Korea teams.
           </p>
           
@@ -89,8 +89,8 @@ const highlights = [
             Before Samsung SDS, I spent 2 years at <span class="text-(--color-text-primary) font-semibold">HCLTech</span> 
             shipping ML to production — profile matching, CV parsing, smart search — for enterprise recruitment 
             platforms. I deployed ML models for 10+ features, resolved 
-            <span class="text-(--color-amber)">500+ production incidents</span>, and maintained 
-            <span class="text-(--color-teal)">98% service reliability</span>. I started as a Graduate Engineer 
+            <span class="text-(--color-amber) font-medium">500+ production incidents</span>, and maintained 
+            <span class="text-(--color-teal) font-medium">98% service reliability</span>. I started as a Graduate Engineer 
             Trainee and was promoted to Software Engineer within my first year.
           </p>
           
@@ -109,15 +109,15 @@ const highlights = [
           </p>
 
           <p>
-            Beyond building, I <span class="text-(--color-teal)">speak at tech events</span> (INCEPT'26 alongside 
+            Beyond building, I <span class="text-(--color-teal) font-medium">speak at tech events</span> (INCEPT'26 alongside 
             CampusX founder Nitish Singh, AI Mobile Hackathon with YouTube recording), attend 25+ community events 
             yearly (Google Cloud Summit, India AI Impact Summit at Bharat Mandapam, US Embassy tech event), and am 
-            active across <span class="text-(--color-teal)">12+ Delhi NCR AI communities</span> including GDG, 
+            active across <span class="text-(--color-teal) font-medium">12+ Delhi NCR AI communities</span> including GDG, 
             AWS UG, and Microsoft UG.
           </p>
           
           <blockquote class="border-l-2 border-(--color-teal) pl-4 mt-6">
-            <p class="text-(--color-text-primary) italic font-(--font-heading) font-500 text-lg">
+            <p class="text-(--color-text-primary) italic font-(--font-heading) font-medium text-lg">
               "I care about AI that ships, not just AI that demos."
             </p>
           </blockquote>
@@ -143,7 +143,7 @@ const highlights = [
         <div class="space-y-6">
           {Object.entries(skills).map(([category, items]) => (
             <div>
-              <h3 class="font-(--font-heading) font-600 text-xs uppercase tracking-wider text-(--color-teal) mb-2">{category}</h3>
+              <h3 class="font-(--font-heading) font-semibold text-xs uppercase tracking-wider text-(--color-teal) mb-2">{category}</h3>
               <div class="flex flex-wrap gap-1.5">
                 {items.map(skill => (
                   <span class="badge text-[0.65rem]">{skill}</span>
@@ -158,21 +158,21 @@ const highlights = [
       <div class="fade-in mb-16">
         <h2 class="section-title mb-6">The Journey</h2>
         <div class="glass p-6 md:p-8 font-(--font-mono) text-sm text-(--color-text-secondary) space-y-1.5 leading-relaxed">
-          <p><span class="text-(--color-text-muted)">📍</span> <span class="text-(--color-text-primary)">Darbhanga, Bihar</span></p>
+          <p><span class="text-(--color-text-muted)">📍</span> <span class="text-(--color-text-primary) font-semibold">Darbhanga, Bihar</span></p>
           <p class="text-(--color-text-muted) pl-5">↓  EEE student who taught herself to code through hackathons</p>
           <p class="text-(--color-text-muted) pl-5">↓  Won TEQIP-III (1st), led MIT COVID-19 teams, AICTE regionals</p>
           <p class="text-(--color-text-muted) pl-5">↓  DCA at 16, started 300+ certification marathon</p>
           <p class="text-(--color-text-muted) pl-5">↓</p>
-          <p><span class="text-(--color-text-muted)">💼</span> <span class="text-(--color-text-primary)">HCLTech, Noida</span> <span class="text-(--color-teal)">(Sep 2022–Sep 2024)</span></p>
+          <p><span class="text-(--color-text-muted)">💼</span> <span class="text-(--color-text-primary) font-semibold">HCLTech, Noida</span> <span class="text-(--color-teal) font-medium">(Sep 2022–Sep 2024)</span></p>
           <p class="text-(--color-text-muted) pl-5">↓  GET → Software Engineer (promoted in 1 year)</p>
           <p class="text-(--color-text-muted) pl-5">↓  10+ ML features shipped, 500+ incidents resolved, 98% reliability</p>
           <p class="text-(--color-text-muted) pl-5">↓</p>
-          <p><span class="text-(--color-text-muted)">🚀</span> <span class="text-(--color-text-primary)">Samsung SDS, Gurugram</span> <span class="text-(--color-teal)">(Oct 2024–Present)</span></p>
+          <p><span class="text-(--color-text-muted)">🚀</span> <span class="text-(--color-text-primary) font-semibold">Samsung SDS, Gurugram</span> <span class="text-(--color-teal) font-medium">(Oct 2024–Present)</span></p>
           <p class="text-(--color-text-muted) pl-5">↓  Google ADK agents, Graph RAG, LLM infrastructure</p>
           <p class="text-(--color-text-muted) pl-5">↓  Leading team of 3, India-Korea cross-border collaboration</p>
           <p class="text-(--color-text-muted) pl-5">↓  Speaker at INCEPT'26, 1st Runner-Up PromptWars</p>
           <p class="text-(--color-text-muted) pl-5">↓</p>
-          <p><span class="text-(--color-text-muted)">🎯</span> <span class="text-(--color-amber) font-600">Next: Senior/Staff AI Engineer at a top-tier AI company</span></p>
+          <p><span class="text-(--color-text-muted)">🎯</span> <span class="text-(--color-amber) font-semibold">Next: Senior/Staff AI Engineer at a top-tier AI company</span></p>
         </div>
       </div>
       
