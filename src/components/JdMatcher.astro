@@ -67,6 +67,21 @@
 
     <!-- Match Results Area (Initially Hidden) -->
     <div id="matcher-results" class="hidden flex flex-col gap-6 border-t border-(--color-border) pt-6" aria-live="polite">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <span class="text-xs font-(--font-mono) text-(--color-teal) uppercase tracking-wider font-semibold">Match Report Generated</span>
+        <button 
+          type="button" 
+          id="btn-copy-jd-report" 
+          class="text-xs font-(--font-mono) text-(--color-text-secondary) hover:text-(--color-teal) flex items-center gap-1.5 cursor-pointer transition-colors px-3 py-1 rounded-md border border-(--color-border) hover:border-(--color-teal)/40 bg-space-light/40"
+          title="Copy match summary report"
+        >
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+          </svg>
+          <span id="copy-jd-label">Copy Report</span>
+        </button>
+      </div>
+
       <div class="grid grid-cols-1 md:grid-cols-[160px_1fr] gap-6 items-center">
         <!-- Match Score Ring -->
         <div class="flex flex-col items-center justify-center text-center">
@@ -246,31 +261,16 @@
     const labelBulletCount = document.getElementById('bullet-count-label');
     const storiesContainer = document.getElementById('suggested-stories-container');
 
-    // Sample clicks
-    btnSampleGenAi?.addEventListener('click', () => {
-      if (jdTextarea) jdTextarea.value = sampleJds.genai;
-    });
+    const btnCopyJdReport = document.getElementById('btn-copy-jd-report');
+    const copyJdLabel = document.getElementById('copy-jd-label');
 
-    btnSampleFde?.addEventListener('click', () => {
-      if (jdTextarea) jdTextarea.value = sampleJds.fde;
-    });
-
-    btnClearJd?.addEventListener('click', () => {
-      if (jdTextarea) jdTextarea.value = '';
-      if (countInterval) clearInterval(countInterval);
-      resultsPanel?.classList.add('hidden');
-      if (scoreCircle) scoreCircle.setAttribute('stroke-dashoffset', '301.6');
-      if (scorePercentage) scorePercentage.textContent = '0%';
-      if (scoreProgressbar) scoreProgressbar.setAttribute('aria-valuenow', '0');
-    });
-
-    // Run matching logic
-    btnMatch?.addEventListener('click', () => {
+    // Matching logic
+    function runMatching() {
       const text = jdTextarea?.value.trim() || '';
       if (!text) return;
 
       if (countInterval) clearInterval(countInterval);
-      btnMatch.textContent = "Analyzing...";
+      if (btnMatch) btnMatch.textContent = "Analyzing...";
       
       // Reset animations
       scoreCircle?.setAttribute('stroke-dashoffset', '301.6');
@@ -363,13 +363,67 @@
           if (current >= score) {
             clearInterval(countInterval);
             if (scorePercentage) scorePercentage.textContent = `${score}%`;
-            btnMatch.textContent = "🔍 Run Compatibility Analysis";
+            if (btnMatch) btnMatch.textContent = "🔍 Run Compatibility Analysis";
           } else {
             current += Math.ceil((score - current) / 5) || 1;
             if (scorePercentage) scorePercentage.textContent = `${current}%`;
           }
         }, 30);
       }, 80);
+    }
+
+    // Sample clicks with auto-trigger
+    btnSampleGenAi?.addEventListener('click', () => {
+      if (jdTextarea) {
+        jdTextarea.value = sampleJds.genai;
+        runMatching();
+      }
+    });
+
+    btnSampleFde?.addEventListener('click', () => {
+      if (jdTextarea) {
+        jdTextarea.value = sampleJds.fde;
+        runMatching();
+      }
+    });
+
+    btnClearJd?.addEventListener('click', () => {
+      if (jdTextarea) jdTextarea.value = '';
+      if (countInterval) clearInterval(countInterval);
+      resultsPanel?.classList.add('hidden');
+      if (scoreCircle) scoreCircle.setAttribute('stroke-dashoffset', '301.6');
+      if (scorePercentage) scorePercentage.textContent = '0%';
+      if (scoreProgressbar) scoreProgressbar.setAttribute('aria-valuenow', '0');
+    });
+
+    btnMatch?.addEventListener('click', runMatching);
+
+    // Copy match report
+    btnCopyJdReport?.addEventListener('click', async () => {
+      const currentScore = scorePercentage?.textContent || '0%';
+      const tags = Array.from(tagsContainer?.querySelectorAll('.badge') || [])
+        .map(el => el.textContent?.replace('✓', '').trim())
+        .filter(Boolean);
+      const firstBullet = bulletsContainer?.querySelector('p')?.textContent?.trim() || '';
+
+      const reportText = [
+        `=== Candidate Fit Analysis: Akanksha (akanksha.dev) ===`,
+        `Role: Production AI Engineer (Samsung SDS)`,
+        `Compatibility Match: ${currentScore}`,
+        `Matched Skills: ${tags.join(', ')}`,
+        firstBullet ? `Key Highlight: ${firstBullet}` : '',
+        `Portfolio: https://akanksha.dev`
+      ].filter(Boolean).join('\n');
+
+      try {
+        await navigator.clipboard.writeText(reportText);
+        if (copyJdLabel) copyJdLabel.textContent = "✓ Report Copied!";
+        setTimeout(() => {
+          if (copyJdLabel) copyJdLabel.textContent = "Copy Report";
+        }, 2000);
+      } catch (err) {
+        console.error('Failed to copy report:', err);
+      }
     });
   }
 
