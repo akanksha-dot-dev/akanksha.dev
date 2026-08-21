@@ -17,7 +17,8 @@ const featuredProjects = [
     tags: ['Google ADK', 'LangChain', 'MCP', 'Agents'],
     href: 'https://github.com/akanksha-dot-dev/AgenticAI-Workshop',
     icon: '🤖',
-    highlight: 'Speaker workshop materials',
+    highlight: 'Speaker workshop materials at INCEPT\'26',
+    status: 'In Production'
   },
   {
     title: 'Multilingual Mandi',
@@ -25,15 +26,17 @@ const featuredProjects = [
     tags: ['AWS Bedrock', 'FastAPI', 'GenAI', 'Voice AI'],
     href: 'https://github.com/akanksha-dot-dev/multilingual_mandi',
     icon: '🌐',
-    highlight: 'Built at PromptWars (1st Runner-Up)',
+    highlight: 'PromptWars Noida 🥈 1st Runner-Up',
+    status: 'Hackathon Winner'
   },
   {
-    title: 'Multi-Agent Research System',
-    description: 'Production-grade multi-agent framework with guardrails, evaluation harness & async pipelines for machine-generated text detection.',
-    tags: ['Python', 'FastAPI', 'Multi-Agent', 'Eval'],
-    href: 'https://github.com/akanksha-dot-dev/Multi-Agent-For-MGT',
-    icon: '🧠',
-    highlight: 'Guardrails + eval pipeline',
+    title: 'Financial Graph RAG (Productivity Analyzer)',
+    description: 'Production-grade enterprise RAG system with knowledge graphs, layout-aware PDF extraction & RAGAS guardrails processing 500+ daily queries.',
+    tags: ['Graph RAG', 'FAISS', 'Neo4j', 'RAGAS', 'Python'],
+    href: 'https://github.com/akanksha-dot-dev/ProductivityAnalyzer',
+    icon: '📊',
+    highlight: '92% retrieval accuracy at Samsung SDS',
+    status: 'In Production'
   },
 ];
 
@@ -50,7 +53,7 @@ const speakingEvents = [
     title: 'INCEPT\'26 at GLA University',
     role: 'Speaker',
     date: 'Apr 2026',
-    topics: 'AI career growth, production engineering',
+    topics: 'AI career growth, production engineering with CampusX founder',
     hasVideo: false,
   },
 ];
@@ -65,58 +68,58 @@ const communityHighlights = [
 ];
 
 const techStack = {
-  'AI & Agents': ['Google ADK', 'LangChain', 'LangGraph', 'CrewAI', 'MCP'],
-  'RAG & LLMs': ['Graph RAG', 'FAISS', 'Chroma', 'GPT-4', 'Llama', 'Mistral'],
-  'Backend': ['Python', 'FastAPI', 'Django', 'PostgreSQL', 'Docker'],
-  'Cloud': ['AWS Bedrock', 'Azure ML', 'Kubernetes'],
+  'AI & Agents': ['Google ADK', 'LangChain', 'LangGraph', 'CrewAI', 'MCP Protocol'],
+  'RAG & Search': ['Graph RAG', 'FAISS', 'Chroma DB', 'RAGAS Eval', 'Hybrid Search'],
+  'LLM Serving': ['GPT-4', 'Llama-3', 'Mistral Large', 'AWS Bedrock', 'Prompt Eng'],
+  'Infra & APIs': ['Python', 'FastAPI', 'Docker', 'Kubernetes', 'PostgreSQL', 'Cloudflare'],
 };
 ---
 
 <BaseLayout title="Akanksha — Production AI Engineer | RAG · Agents · LLMs">
   
   <!-- ═══ HERO ═══ -->
-  <section class="relative min-h-[90vh] flex items-center overflow-hidden" aria-label="Introduction Hero">
+  <section class="relative min-h-[85vh] flex items-center overflow-hidden" aria-label="Introduction Hero">
     <div class="orb orb-teal" style="top: -200px; right: -100px;"></div>
     <div class="orb orb-amber" style="bottom: -150px; left: -200px;"></div>
     <div class="orb orb-purple" style="top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
     
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-20 relative z-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20 relative z-10">
       <div class="max-w-3xl">
         <!-- Status Badge -->
-        <div class="fade-in mb-6">
-          <span class="badge py-1.5 px-4 text-[0.78rem]">
+        <div class="fade-in mb-5">
+          <span class="badge py-1.5 px-3.5 text-xs">
             <span class="pulse-dot"></span>
             Building AI at Samsung SDS, Gurugram
           </span>
         </div>
         
         <!-- Name -->
-        <h1 class="fade-in font-(--font-heading) text-4xl sm:text-5xl md:text-[4.25rem] font-extrabold leading-[1.08] mb-5 tracking-tight">
+        <h1 class="fade-in font-(--font-heading) text-4xl sm:text-5xl md:text-[4.25rem] font-extrabold leading-[1.08] mb-4 tracking-tight">
           Hey, I'm <span class="gradient-text">Akanksha</span>
         </h1>
         
         <!-- Role -->
-        <p class="fade-in text-xl md:text-2xl text-(--color-text-secondary) mb-3 font-(--font-heading) font-semibold">
+        <p class="fade-in text-lg sm:text-2xl text-(--color-text-secondary) mb-3 font-(--font-heading) font-semibold">
           Production AI Engineer
         </p>
         
         <!-- Tagline -->
-        <p class="fade-in text-base md:text-lg text-(--color-text-secondary) mb-4 max-w-2xl leading-relaxed">
+        <p class="fade-in text-sm sm:text-base md:text-lg text-(--color-text-secondary) mb-4 max-w-2xl leading-relaxed">
           I build AI systems that enterprises actually rely on — not just proof-of-concepts that impress in demos.
         </p>
         
-        <!-- What I build -->
-        <div class="fade-in flex flex-wrap gap-x-6 gap-y-1.5 text-sm text-(--color-text-muted) mb-8 font-(--font-mono)">
+        <!-- What I build bullets -->
+        <div class="fade-in flex flex-wrap gap-x-6 gap-y-1.5 text-xs sm:text-sm text-(--color-text-muted) mb-8 font-(--font-mono)">
           <span>→ <span class="text-(--color-teal) font-medium">RAG pipelines</span> at 92% accuracy</span>
           <span>→ <span class="text-(--color-amber) font-medium">Autonomous agents</span> with Google ADK</span>
           <span>→ <span class="text-(--color-teal) font-medium">LLM infrastructure</span> at enterprise scale</span>
         </div>
         
         <!-- CTAs -->
-        <div class="fade-in flex flex-wrap gap-4">
+        <div class="fade-in flex flex-wrap gap-3.5">
           <a href="/projects" class="btn-primary">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-            View Projects
+            View Projects & Case Studies
           </a>
           <a href="/contact" class="btn-outline">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
@@ -128,9 +131,9 @@ const techStack = {
   </section>
   
   <!-- ═══ METRICS BAR ═══ -->
-  <section class="relative z-10 -mt-10 mb-16" aria-label="Key Career Metrics">
+  <section class="relative z-10 -mt-8 mb-14" aria-label="Key Career Metrics">
     <div class="max-w-4xl mx-auto px-4 sm:px-6">
-      <div class="glass-static p-1.5 grid grid-cols-2 md:grid-cols-4 rounded-xl">
+      <div class="glass-static p-2 grid grid-cols-2 md:grid-cols-4 rounded-xl border border-(--color-border)">
         {metrics.map(m => (
           <div class="metric">
             <div class="metric-value">{m.value}</div>
@@ -144,7 +147,7 @@ const techStack = {
   <!-- ═══ TECH STACK ═══ -->
   <section class="mb-20" aria-label="Core Tech Stack Summary">
     <div class="max-w-5xl mx-auto px-4 sm:px-6">
-      <div class="flex flex-wrap gap-6 justify-center">
+      <div class="flex flex-wrap gap-5 justify-center">
         {Object.entries(techStack).map(([category, tools]) => (
           <div class="flex items-center gap-2">
             <span class="text-[0.65rem] font-(--font-mono) text-(--color-text-muted) uppercase tracking-wider">{category}:</span>
@@ -160,12 +163,12 @@ const techStack = {
   </section>
 
   <!-- ═══ INTERACTIVE SHOWCASE ═══ -->
-  <section class="max-w-6xl mx-auto px-4 sm:px-6 mb-28 grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10" aria-label="Interactive Evaluator Showcase">
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 mb-24 grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10" aria-label="Interactive Evaluator Showcase">
     <div class="flex flex-col gap-3">
       <div class="fade-in mb-2">
         <h2 class="section-title text-left mb-1">Evaluate <span class="gradient-text">My Stack</span></h2>
-        <p class="text-(--color-text-secondary) text-sm leading-relaxed max-w-xl">
-          Execute real-time pipeline simulations. Toggle between a Graph RAG system or an Agentic loop to inspect tool executions, guardrail logs, and metrics.
+        <p class="text-(--color-text-secondary) text-xs sm:text-sm leading-relaxed max-w-xl">
+          Execute real-time pipeline simulations. Toggle between Graph RAG or Agentic loops to inspect tool executions, guardrail telemetry, and anti-hallucination controls.
         </p>
       </div>
       <AiSandbox />
@@ -174,69 +177,67 @@ const techStack = {
     <div class="flex flex-col gap-3">
       <div class="fade-in mb-2">
         <h2 class="section-title text-left mb-1">Audit <span class="gradient-text">Compatibility</span></h2>
-        <p class="text-(--color-text-secondary) text-sm leading-relaxed max-w-xl">
-          Recruiter Command Center: Paste a Job Description (JD) to automatically cross-reference match scores, extract keywords, and filter experience bullets.
+        <p class="text-(--color-text-secondary) text-xs sm:text-sm leading-relaxed max-w-xl">
+          Recruiter Command Center: Paste any Job Description (JD) to automatically calculate fit score, extract competencies, and generate a candidate dossier.
         </p>
       </div>
       <JdMatcher />
     </div>
   </section>
   
-  <!-- ═══ FEATURED PROJECTS ═══ -->
-  <section class="max-w-6xl mx-auto px-6 mb-24" aria-label="Featured Engineering Projects">
+  <!-- ═══ FEATURED PROJECTS & ARCHITECTURE SHOWCASE ═══ -->
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 mb-24" aria-label="Featured Engineering Projects">
     <div class="fade-in text-center mb-10">
-      <h2 class="section-title">Featured <span class="gradient-text">Projects</span></h2>
+      <h2 class="section-title">Featured <span class="gradient-text">Engineering Architectures</span></h2>
       <p class="section-subtitle mb-8">Production-grade AI systems, not tutorial clones</p>
     </div>
     
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch stagger mb-8">
       <!-- Naive Way Panel (4 cols) -->
-      <div class="lg:col-span-4 glass-static p-6 border border-red-500/20 bg-red-500/5 rounded-2xl flex flex-col gap-5 fade-in">
+      <div class="lg:col-span-4 glass-static p-6 border border-red-500/30 bg-red-500/5 rounded-2xl flex flex-col gap-4 fade-in">
         <div class="flex items-center gap-2 text-red-400 font-(--font-mono) text-xs">
           <span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping"></span>
           <span>The Naive AI Way (Tutorials)</span>
         </div>
-        <h3 class="font-(--font-heading) text-xl font-bold text-white">Why Demo-Level AI Fails in Production</h3>
-        <ul class="flex flex-col gap-4 text-xs text-(--color-text-secondary) leading-relaxed">
+        <h3 class="font-(--font-heading) text-lg sm:text-xl font-bold text-white">Why Demo AI Fails in Production</h3>
+        <ul class="flex flex-col gap-3.5 text-xs text-(--color-text-secondary) leading-relaxed">
           <li class="flex items-start gap-2.5">
             <span class="text-red-400 text-sm font-bold">✕</span>
             <div><strong class="text-white">Naive Prompts:</strong> Brittle string concatenation that fails on complex inputs or prompt injections.</div>
           </li>
           <li class="flex items-start gap-2.5">
             <span class="text-red-400 text-sm font-bold">✕</span>
-            <div><strong class="text-white">Blind RAG Retrieval:</strong> Fetching top-K vector chunks without semantic routing or validation, causing hallucinations.</div>
+            <div><strong class="text-white">Blind Vector Search:</strong> Fetching top-K chunks without semantic routing or graph context, causing hallucinations.</div>
           </li>
           <li class="flex items-start gap-2.5">
             <span class="text-red-400 text-sm font-bold">✕</span>
-            <div><strong class="text-white">Zero Observability:</strong> Black-box agent runs with no trace logging, fallback paths, or accuracy evaluation harnesses.</div>
+            <div><strong class="text-white">Zero Observability:</strong> Black-box agent runs with no trace logging, fallback paths, or RAGAS evaluation harnesses.</div>
           </li>
         </ul>
-        <div class="mt-auto pt-4 border-t border-red-500/10 text-[10px] font-(--font-mono) text-red-400/90">
-          Average System accuracy: ~60-70%
+        <div class="mt-auto pt-4 border-t border-red-500/15 text-[10px] font-(--font-mono) text-red-400">
+          Typical Tutorial Accuracy: ~60-70%
         </div>
       </div>
 
       <!-- Resilient Way Bento Grid (8 cols) -->
-      <div class="lg:col-span-8 flex flex-col gap-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 flex-1">
+      <div class="lg:col-span-8 flex flex-col gap-5">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 flex-1">
           <!-- Featured Project 1 -->
-          <a href={featuredProjects[0].href} target="_blank" rel="noopener" class="glass p-6 flex flex-col gap-4 group cursor-pointer fade-in">
+          <a href={featuredProjects[0].href} target="_blank" rel="noopener" class="glass p-5 sm:p-6 flex flex-col gap-3.5 group cursor-pointer fade-in">
             <div class="flex items-start justify-between">
-              <span class="text-3xl">{featuredProjects[0].icon}</span>
-              <svg class="w-4 h-4 text-(--color-text-muted) group-hover:text-(--color-teal) transition-colors transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
+              <span class="text-3xl p-2 rounded-xl bg-space-light/60 border border-(--color-border)">{featuredProjects[0].icon}</span>
+              <span class="badge text-[0.6rem]">{featuredProjects[0].status}</span>
             </div>
-            <h3 class="font-(--font-heading) font-bold text-lg group-hover:text-(--color-teal) transition-colors">
+            <h3 class="font-(--font-heading) font-bold text-base sm:text-lg group-hover:text-(--color-teal) transition-colors">
               {featuredProjects[0].title}
             </h3>
-            <p class="text-(--color-text-secondary) text-sm leading-relaxed flex-1">
+            <p class="text-(--color-text-secondary) text-xs sm:text-sm leading-relaxed flex-1">
               {featuredProjects[0].description}
             </p>
             <p class="text-(--color-teal) text-xs font-(--font-mono)">
               ✔ {featuredProjects[0].highlight}
             </p>
-            <div class="flex flex-wrap gap-1.5 pt-3 border-t border-(--color-border)">
+            <div class="flex flex-wrap gap-1.5 pt-2.5 border-t border-(--color-border)">
               {featuredProjects[0].tags.map(tag => (
                 <span class="badge text-[0.6rem]">{tag}</span>
               ))}
@@ -244,23 +245,21 @@ const techStack = {
           </a>
 
           <!-- Featured Project 2 -->
-          <a href={featuredProjects[1].href} target="_blank" rel="noopener" class="glass p-6 flex flex-col gap-4 group cursor-pointer fade-in">
+          <a href={featuredProjects[1].href} target="_blank" rel="noopener" class="glass p-5 sm:p-6 flex flex-col gap-3.5 group cursor-pointer fade-in">
             <div class="flex items-start justify-between">
-              <span class="text-3xl">{featuredProjects[1].icon}</span>
-              <svg class="w-4 h-4 text-(--color-text-muted) group-hover:text-(--color-teal) transition-colors transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
+              <span class="text-3xl p-2 rounded-xl bg-space-light/60 border border-(--color-border)">{featuredProjects[1].icon}</span>
+              <span class="badge-amber badge text-[0.6rem]">{featuredProjects[1].status}</span>
             </div>
-            <h3 class="font-(--font-heading) font-bold text-lg group-hover:text-(--color-teal) transition-colors">
+            <h3 class="font-(--font-heading) font-bold text-base sm:text-lg group-hover:text-(--color-teal) transition-colors">
               {featuredProjects[1].title}
             </h3>
-            <p class="text-(--color-text-secondary) text-sm leading-relaxed flex-1">
+            <p class="text-(--color-text-secondary) text-xs sm:text-sm leading-relaxed flex-1">
               {featuredProjects[1].description}
             </p>
             <p class="text-(--color-teal) text-xs font-(--font-mono)">
               ✔ {featuredProjects[1].highlight}
             </p>
-            <div class="flex flex-wrap gap-1.5 pt-3 border-t border-(--color-border)">
+            <div class="flex flex-wrap gap-1.5 pt-2.5 border-t border-(--color-border)">
               {featuredProjects[1].tags.map(tag => (
                 <span class="badge text-[0.6rem]">{tag}</span>
               ))}
@@ -269,26 +268,21 @@ const techStack = {
         </div>
 
         <!-- Featured Project 3 (spans full width at bottom) -->
-        <a href={featuredProjects[2].href} target="_blank" rel="noopener" class="glass p-6 flex flex-col sm:flex-row gap-6 group cursor-pointer fade-in">
+        <a href={featuredProjects[2].href} target="_blank" rel="noopener" class="glass p-5 sm:p-6 flex flex-col sm:flex-row gap-5 group cursor-pointer fade-in">
           <div class="flex sm:flex-col justify-between items-start">
-            <span class="text-4xl">{featuredProjects[2].icon}</span>
-            <svg class="w-4 h-4 text-(--color-text-muted) group-hover:text-(--color-teal) transition-colors transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
+            <span class="text-3xl sm:text-4xl p-2 rounded-xl bg-space-light/60 border border-(--color-border)">{featuredProjects[2].icon}</span>
           </div>
           <div class="flex-1 flex flex-col gap-2">
             <div class="flex justify-between items-center">
-              <h3 class="font-(--font-heading) font-bold text-lg group-hover:text-(--color-teal) transition-colors">
+              <h3 class="font-(--font-heading) font-bold text-base sm:text-lg group-hover:text-(--color-teal) transition-colors">
                 {featuredProjects[2].title}
               </h3>
-              <svg class="w-4 h-4 text-(--color-text-muted) group-hover:text-(--color-teal) transition-colors transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 sm:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
+              <span class="badge text-[0.6rem]">{featuredProjects[2].status}</span>
             </div>
-            <p class="text-(--color-text-secondary) text-sm leading-relaxed">
+            <p class="text-(--color-text-secondary) text-xs sm:text-sm leading-relaxed">
               {featuredProjects[2].description}
             </p>
-            <div class="flex flex-wrap items-center justify-between gap-4 mt-2 pt-3 border-t border-(--color-border)">
+            <div class="flex flex-wrap items-center justify-between gap-3 mt-1 pt-2.5 border-t border-(--color-border)">
               <div class="flex flex-wrap gap-1.5">
                 {featuredProjects[2].tags.map(tag => (
                   <span class="badge text-[0.6rem]">{tag}</span>
@@ -304,33 +298,32 @@ const techStack = {
     </div>
     
     <div class="text-center mt-8">
-      <a href="/projects" class="btn-outline text-sm">View All 8 Projects →</a>
+      <a href="/projects" class="btn-outline text-sm">Explore All 11 Projects & Case Studies →</a>
     </div>
   </section>
   
   <!-- ═══ SPEAKING & COMMUNITY ═══ -->
-  <section class="max-w-6xl mx-auto px-6 mb-24" aria-label="Speaking and Community Engagements">
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 mb-24" aria-label="Speaking and Community Engagements">
     <div class="fade-in text-center mb-10">
-      <h2 class="section-title">Speaking & <span class="gradient-text">Community</span></h2>
-      <p class="section-subtitle mb-8">Active across 12+ Delhi NCR AI communities · 8,800+ LinkedIn reactions</p>
+      <h2 class="section-title">Speaking & <span class="gradient-text">Community Leadership</span></h2>
+      <p class="section-subtitle mb-8">Active across 12+ Delhi NCR AI communities · 8,800+ LinkedIn reach</p>
     </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-      <!-- Speaking Engagements -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
       {speakingEvents.map(event => (
-        <div class="glass p-6 fade-in">
+        <div class="glass p-5 sm:p-6 fade-in">
           <div class="flex items-start gap-4">
-            <span class="text-3xl">🎤</span>
+            <span class="text-3xl p-2 rounded-xl bg-space-light/60 border border-(--color-border)">🎤</span>
             <div class="flex-1">
               <div class="flex items-center gap-2 mb-1">
                 <span class="badge-amber badge text-[0.6rem]">{event.role}</span>
                 <span class="text-(--color-text-muted) text-xs font-(--font-mono)">{event.date}</span>
               </div>
-              <h3 class="font-(--font-heading) font-semibold text-sm mb-1">{event.title}</h3>
+              <h3 class="font-(--font-heading) font-semibold text-sm sm:text-base mb-1">{event.title}</h3>
               <p class="text-(--color-text-muted) text-xs">{event.topics}</p>
               {event.hasVideo && (
-                <a href={event.videoUrl} target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-(--color-teal) text-xs mt-2 hover:underline font-(--font-mono)">
-                  ▶ Watch Recording
+                <a href={event.videoUrl} target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-(--color-teal) text-xs mt-2.5 hover:underline font-(--font-mono)">
+                  ▶ Watch Hackathon Session Recording ↗
                 </a>
               )}
             </div>
@@ -340,33 +333,33 @@ const techStack = {
     </div>
     
     <!-- Community Events Marquee -->
-    <div class="fade-in glass-static p-5 rounded-xl">
-      <p class="text-xs text-(--color-text-muted) font-(--font-mono) uppercase tracking-wider mb-3">Recent Events Attended</p>
+    <div class="fade-in glass-static p-5 rounded-xl border border-(--color-border)">
+      <p class="text-xs text-(--color-text-muted) font-(--font-mono) uppercase tracking-wider mb-3">Recent Tech Summits Attended</p>
       <div class="flex flex-wrap gap-2">
         {communityHighlights.map(e => (
           <span class="badge-ghost badge text-[0.65rem]">{e}</span>
         ))}
-        <span class="badge-ghost badge text-[0.65rem]">+19 more</span>
+        <span class="badge-ghost badge text-[0.65rem]">+19 more in Delhi NCR</span>
       </div>
     </div>
   </section>
   
   <!-- ═══ ABOUT PREVIEW ═══ -->
-  <section class="max-w-6xl mx-auto px-6 mb-24" aria-label="About Summary">
-    <div class="glass p-8 md:p-12 relative overflow-hidden fade-in">
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 mb-24" aria-label="About Summary">
+    <div class="glass p-6 sm:p-10 md:p-12 relative overflow-hidden fade-in">
       <div class="orb orb-teal" style="top: -200px; right: -200px; width: 250px; height: 250px; opacity: 0.08;"></div>
       
       <div class="relative z-10">
         <div class="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8 items-start">
           <div>
             <h2 class="section-title mb-4">The Short Version</h2>
-            <p class="text-(--color-text-secondary) leading-relaxed mb-4">
+            <p class="text-(--color-text-secondary) text-sm sm:text-base leading-relaxed mb-4">
               I'm a Production AI Engineer at <span class="text-(--color-text-primary) font-semibold">Samsung SDS</span>, Gurugram. 
-              I architect the full GenAI stack: autonomous AI agents with Google ADK, enterprise RAG pipelines 
+              I architect the full GenAI stack: autonomous AI agents with Google ADK, enterprise Graph RAG pipelines 
               processing financial documents, and LLM infrastructure serving 
               <span class="text-(--color-teal) font-semibold">500+ daily queries at 92% accuracy</span>.
             </p>
-            <p class="text-(--color-text-secondary) leading-relaxed mb-6">
+            <p class="text-(--color-text-secondary) text-sm sm:text-base leading-relaxed mb-6">
               My journey is unconventional — I studied Electrical Engineering in Darbhanga, Bihar, taught 
               myself to code through hackathons, and built my way to leading AI projects at a global company. 
               Along the way: <span class="text-(--color-amber) font-semibold">300+ certifications</span>, 
@@ -375,7 +368,7 @@ const techStack = {
             </p>
             
             <blockquote class="border-l-2 border-(--color-teal) pl-4 mb-6">
-              <p class="text-(--color-text-primary) italic font-(--font-heading) font-medium">
+              <p class="text-(--color-text-primary) italic font-(--font-heading) font-medium text-sm sm:text-base">
                 "I care about AI that ships, not just AI that demos."
               </p>
             </blockquote>
@@ -387,21 +380,21 @@ const techStack = {
           
           <!-- Quick stats sidebar -->
           <div class="hidden md:flex flex-col gap-3 min-w-[180px]">
-            <div class="glass-static p-3 rounded-lg text-center">
+            <div class="glass-static p-3 rounded-lg text-center border border-(--color-border)">
               <p class="text-lg font-extrabold font-(--font-heading) text-(--color-teal)">🏆 4</p>
               <p class="text-[0.65rem] text-(--color-text-muted) font-(--font-mono)">HACKATHON WINS</p>
             </div>
-            <div class="glass-static p-3 rounded-lg text-center">
+            <div class="glass-static p-3 rounded-lg text-center border border-(--color-border)">
               <p class="text-lg font-extrabold font-(--font-heading) text-(--color-amber)">🎤 2</p>
               <p class="text-[0.65rem] text-(--color-text-muted) font-(--font-mono)">SPEAKER TALKS</p>
             </div>
-            <div class="glass-static p-3 rounded-lg text-center">
+            <div class="glass-static p-3 rounded-lg text-center border border-(--color-border)">
               <p class="text-lg font-extrabold font-(--font-heading) text-(--color-teal)">🌐 12+</p>
               <p class="text-[0.65rem] text-(--color-text-muted) font-(--font-mono)">AI COMMUNITIES</p>
             </div>
-            <div class="glass-static p-3 rounded-lg text-center">
+            <div class="glass-static p-3 rounded-lg text-center border border-(--color-border)">
               <p class="text-lg font-extrabold font-(--font-heading) text-(--color-amber)">⭐ Top 5%</p>
-              <p class="text-[0.65rem] text-(--color-text-muted) font-(--font-mono)">LINKEDIN MEMBER</p>
+              <p class="text-[0.65rem] text-(--color-text-muted) font-(--font-mono)">LINKEDIN ENGAGEMENT</p>
             </div>
           </div>
         </div>
@@ -410,18 +403,18 @@ const techStack = {
   </section>
   
   <!-- ═══ CTA ═══ -->
-  <section class="max-w-6xl mx-auto px-6 mb-12" aria-label="Contact Call to Action">
-    <div class="fade-in text-center py-16">
-      <h2 class="font-(--font-heading) text-3xl md:text-4xl font-extrabold mb-4 tracking-tight">
-        Let's build the future of AI <span class="gradient-text">together</span>
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 mb-12" aria-label="Contact Call to Action">
+    <div class="fade-in text-center py-12 sm:py-16">
+      <h2 class="font-(--font-heading) text-2xl sm:text-3xl md:text-4xl font-extrabold mb-4 tracking-tight">
+        Let's build production AI <span class="gradient-text">together</span>
       </h2>
-      <p class="text-(--color-text-secondary) mb-8 max-w-lg mx-auto">
-        Open to collaborations on Agentic AI, Production RAG, LLM Infrastructure & Enterprise AI.
+      <p class="text-(--color-text-secondary) text-sm sm:text-base mb-8 max-w-lg mx-auto">
+        Available for Senior / Staff Production AI Engineer roles · Agentic RAG · LLM Orchestration.
       </p>
       <div class="flex flex-wrap gap-4 justify-center">
-        <a href="mailto:me@akanksha.dev" class="btn-primary">
+        <a href="/contact" class="btn-primary">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-          me@akanksha.dev
+          Get in Touch / View Availability
         </a>
         <a href="https://linkedin.com/in/akankshadev" target="_blank" rel="noopener" class="btn-outline">
           Connect on LinkedIn
