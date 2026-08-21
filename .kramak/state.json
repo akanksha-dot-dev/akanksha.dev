@@ -1,0 +1,41 @@
+{
+  "phase": "executing",
+  "batchNumber": 1,
+  "active": null,
+  "queue": [
+    "WI-101",
+    "WI-102",
+    "WI-103",
+    "WI-104"
+  ],
+  "completed": [],
+  "failed": [],
+  "metrics": {
+    "totalCompleted": 0,
+    "totalFailed": 0,
+    "consecutiveFailures": 0,
+    "circuitBreakerTripped": false
+  },
+  "toolchain": {
+    "checkCommands": [
+      "export PATH=\"/home/ag-deb/.nvm/versions/node/v22.22.3/bin:$PATH\" && pnpm run build"
+    ],
+    "buildCommand": "pnpm run build",
+    "devCommand": "pnpm run dev",
+    "detected": true
+  },
+  "productPhase": "BUILD",
+  "projectStructure": {
+    "readme": "README.md",
+    "roadmap": "ROADMAP.md",
+    "architecture": "docs/STATUS.md",
+    "discovered": true
+  },
+  "concurrency": {
+    "budget": 1
+  },
+  "lastAudit": null,
+  "lastSession": null,
+  "escalation": null,
+  "nextAction": "Execute WI-101"
+}
