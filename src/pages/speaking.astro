@@ -85,7 +85,7 @@ function formatDate(dateStr: string) {
     <div class="max-w-4xl mx-auto px-4 sm:px-6 py-16">
       <div class="fade-in mb-10">
         <span class="badge mb-4">Tech Ecosystem & Thought Leadership</span>
-        <h1 class="font-(--font-heading) text-3xl sm:text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">
+        <h1 class="font-(--font-heading) text-3xl sm:text-4xl md:text-5xl font-extrabold mb-4 tracking-tight text-white">
           Speaking & <span class="gradient-text">Community</span>
         </h1>
         <p class="text-(--color-text-secondary) text-base sm:text-lg max-w-2xl leading-relaxed">
@@ -94,7 +94,7 @@ function formatDate(dateStr: string) {
       </div>
       
       <!-- Stats Bar -->
-      <div class="fade-in glass-static p-2 grid grid-cols-2 md:grid-cols-4 rounded-xl mb-14 border border-(--color-border)">
+      <div class="fade-in glass-static p-2 grid grid-cols-2 md:grid-cols-4 rounded-2xl mb-14 border border-(--color-border)">
         <div class="metric">
           <div class="metric-value">2</div>
           <div class="metric-label">Speaker Talks</div>
@@ -115,91 +115,63 @@ function formatDate(dateStr: string) {
       
       <!-- ─── Speaking Engagements ─── -->
       <div class="fade-in mb-16">
-        <h2 class="section-title mb-6">🎤 Speaking Engagements & Workshops</h2>
+        <h2 class="section-title mb-6 text-white">🎤 Speaking Engagements & Workshops</h2>
         
         <div class="space-y-6">
           {speakingEngagements.map(talk => (
             <div class="glass p-6 sm:p-8">
-              <div class="flex items-start gap-4 mb-4">
-                <span class="text-3xl p-2 rounded-xl bg-space-light/60 border border-(--color-border)">{talk.icon}</span>
+              <div class="flex items-start gap-4">
+                <span class="text-3xl p-2.5 rounded-xl bg-[#080E1E] border border-(--color-border)">{talk.icon}</span>
                 <div class="flex-1">
                   <div class="flex flex-wrap items-center gap-2 mb-2">
-                    <span class="badge-amber badge text-[0.65rem]">{talk.role}</span>
-                    <span class="text-(--color-text-muted) text-xs font-(--font-mono)">{formatDate(talk.date)}</span>
-                    <span class="text-(--color-text-muted) text-xs">·</span>
-                    <span class="text-(--color-text-muted) text-xs font-(--font-mono)">{talk.location}</span>
+                    <span class="badge-amber badge text-xs">{talk.role}</span>
+                    <span class="text-xs font-(--font-mono) text-(--color-text-muted)">{formatDate(talk.date)}</span>
+                    <span class="text-xs font-(--font-mono) text-(--color-text-muted)">· {talk.location}</span>
                   </div>
-                  <h3 class="font-(--font-heading) font-bold text-base sm:text-lg text-(--color-text-primary) mb-1">{talk.title}</h3>
-                  <p class="text-(--color-text-secondary) text-xs sm:text-sm mb-1">{talk.event} — {talk.organizer}</p>
-                  <p class="text-(--color-text-muted) text-xs font-(--font-mono)">Audience: {talk.audience}</p>
-                </div>
-              </div>
-              
-              {talk.coSpeakers && (
-                <div class="mb-4">
-                  <p class="text-[11px] text-(--color-text-muted) font-(--font-mono) uppercase tracking-wider mb-1.5 font-semibold">Co-speakers</p>
-                  <div class="flex flex-wrap gap-2">
-                    {talk.coSpeakers.map(s => <span class="badge-ghost badge text-[0.65rem]">{s}</span>)}
+                  
+                  <h3 class="font-(--font-heading) font-bold text-lg sm:text-xl text-white mb-1">
+                    {talk.title}
+                  </h3>
+                  
+                  <p class="text-xs text-(--color-text-muted) font-(--font-mono) mb-3">
+                    {talk.event} · Organized by {talk.organizer} · Audience: {talk.audience}
+                  </p>
+                  
+                  {talk.coSpeakers && (
+                    <p class="text-xs text-(--color-text-secondary) mb-3 font-(--font-mono)">
+                      <strong class="text-white">Co-Speakers:</strong> {talk.coSpeakers.join(', ')}
+                    </p>
+                  )}
+                  
+                  <!-- Topics Covered -->
+                  <div class="mb-4">
+                    <h4 class="text-xs font-(--font-mono) uppercase tracking-wider text-(--color-text-muted) mb-2">Key Topics</h4>
+                    <ul class="space-y-1 text-xs text-(--color-text-secondary)">
+                      {talk.topics.map(t => (
+                        <li class="flex items-start gap-2">
+                          <span class="text-(--color-teal) mt-0.5">•</span>
+                          <span>{t}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                </div>
-              )}
-              
-              <div class="mb-4">
-                <p class="text-[11px] text-(--color-text-muted) font-(--font-mono) uppercase tracking-wider mb-2 font-semibold">Topics Covered</p>
-                <ul class="space-y-1.5">
-                  {talk.topics.map(t => (
-                    <li class="flex items-start gap-2 text-xs sm:text-sm text-(--color-text-secondary)">
-                      <span class="text-(--color-teal) mt-1 text-[0.5rem]">●</span>
-                      <span>{t}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              
-              <div class="flex flex-wrap gap-3 pt-4 border-t border-(--color-border)">
-                {talk.videoUrl && (
-                  <a href={talk.videoUrl} target="_blank" rel="noopener" class="btn-primary text-xs py-2 px-4 inline-flex items-center gap-1.5">
-                    <span>▶ Watch Hackathon Session Recording</span>
-                    <span>↗</span>
-                  </a>
-                )}
-                {talk.codelabUrl && (
-                  <a href={talk.codelabUrl} target="_blank" rel="noopener" class="btn-outline text-xs py-2 px-4 inline-flex items-center gap-1.5">
-                    <span>📂 View Workshop Materials</span>
-                    <span>↗</span>
-                  </a>
-                )}
-                <a href={talk.linkedinUrl} target="_blank" rel="noopener" class="btn-outline text-xs py-2 px-4 inline-flex items-center gap-1.5">
-                  <span>💼 LinkedIn Profile</span>
-                  <span>↗</span>
-                </a>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-      
-      <!-- ─── Events Timeline ─── -->
-      <div class="fade-in mb-16">
-        <h2 class="section-title mb-2">📅 Tech Summits & Events Attended</h2>
-        <p class="section-subtitle mb-8">{eventsAttended.length} tech events across 2025–2026</p>
-        
-        <div class="relative pl-8 sm:pl-10 space-y-4">
-          <div class="timeline-line" style="left: 0.85rem;"></div>
-          
-          {eventsAttended.map((event, i) => (
-            <div class="fade-in relative">
-              <div class="timeline-dot" style={`top: 0.75rem; left: 0.35rem; width: 0.7rem; height: 0.7rem; ${i > 12 ? 'background: var(--color-text-muted); box-shadow: none;' : ''}`}></div>
-              <div class="glass p-4">
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-1.5">
-                  <h3 class="font-(--font-heading) font-semibold text-xs sm:text-sm text-(--color-text-primary)">{event.name}</h3>
-                  <span class="text-(--color-teal) text-[11px] font-(--font-mono) flex-shrink-0">{event.date}</span>
-                </div>
-                <p class="text-(--color-text-muted) text-xs mb-2">{event.org} · {event.location}</p>
-                <div class="flex flex-wrap gap-1.5">
-                  {event.topics.map(t => (
-                    <span class="badge text-[0.58rem] py-0.5">{t}</span>
-                  ))}
+                  
+                  <!-- Action Links -->
+                  <div class="flex flex-wrap gap-3 pt-3 border-t border-(--color-border)">
+                    {talk.videoUrl && (
+                      <a href={talk.videoUrl} target="_blank" rel="noopener" class="btn-primary text-xs py-1.5 px-3">
+                        ▶ Watch Hackathon Session Recording ↗
+                      </a>
+                    )}
+                    {talk.codelabUrl && (
+                      <a href={talk.codelabUrl} target="_blank" rel="noopener" class="btn-outline text-xs py-1.5 px-3">
+                        Workshop Materials ↗
+                      </a>
+                    )}
+                    <a href={talk.linkedinUrl} target="_blank" rel="noopener" class="text-xs font-(--font-mono) text-(--color-text-muted) hover:text-(--color-teal) flex items-center gap-1 transition-colors self-center">
+                      LinkedIn Post ↗
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -209,47 +181,61 @@ function formatDate(dateStr: string) {
       
       <!-- ─── Communities ─── -->
       <div class="fade-in mb-16">
-        <h2 class="section-title mb-5">🌐 Active AI Communities</h2>
-        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-          {communities.map(c => (
-            <div class="glass p-3.5 text-center">
-              <p class="text-(--color-text-secondary) text-xs sm:text-sm font-medium">{c}</p>
-            </div>
-          ))}
+        <h2 class="section-title mb-2 text-white">🌐 Active Community Memberships</h2>
+        <p class="section-subtitle mb-6">Regular participant across 12+ Delhi NCR tech communities</p>
+        
+        <div class="glass-static p-6 rounded-2xl border border-(--color-border) bg-[#080E1E]/50">
+          <div class="flex flex-wrap gap-2.5">
+            {communities.map(c => (
+              <span class="badge text-xs py-1.5 px-3">{c}</span>
+            ))}
+          </div>
         </div>
       </div>
       
-      <!-- ─── LinkedIn Stats ─── -->
+      <!-- ─── Events Attended ─── -->
       <div class="fade-in mb-16">
-        <h2 class="section-title mb-5">📊 Community Reach (2025–2026)</h2>
-        <div class="glass p-6 sm:p-8">
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <div class="text-center">
-              <p class="text-2xl font-extrabold font-(--font-heading) text-(--color-teal)">8,839</p>
-              <p class="text-[0.65rem] text-(--color-text-muted) font-(--font-mono)">REACTIONS</p>
-            </div>
-            <div class="text-center">
-              <p class="text-2xl font-extrabold font-(--font-heading) text-(--color-amber)">2,304</p>
-              <p class="text-[0.65rem] text-(--color-text-muted) font-(--font-mono)">NEW CONNECTIONS</p>
-            </div>
-            <div class="text-center">
-              <p class="text-2xl font-extrabold font-(--font-heading) text-(--color-teal)">334</p>
-              <p class="text-[0.65rem] text-(--color-text-muted) font-(--font-mono)">DAYS ACTIVE</p>
-            </div>
-            <div class="text-center">
-              <p class="text-2xl font-extrabold font-(--font-heading) text-(--color-amber)">Top 5%</p>
-              <p class="text-[0.65rem] text-(--color-text-muted) font-(--font-mono)">OF ALL MEMBERS</p>
-            </div>
+        <h2 class="section-title mb-2 text-white">📅 Tech Summits & Events Attended</h2>
+        <p class="section-subtitle mb-6">25+ events in 2025–2026 across Delhi NCR and virtual ecosystems</p>
+        
+        <div class="glass-static p-4 sm:p-6 rounded-2xl border border-(--color-border) bg-[#080E1E]/50">
+          <div class="divide-y divide-white/5 space-y-3">
+            {eventsAttended.map(e => (
+              <div class="pt-3 first:pt-0 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs">
+                <div>
+                  <span class="font-semibold text-white">{e.name}</span>
+                  <span class="text-(--color-text-muted) font-(--font-mono) ml-2">({e.org})</span>
+                  <div class="flex flex-wrap gap-1 mt-1">
+                    {e.topics.map(t => (
+                      <span class="text-[0.62rem] text-(--color-teal) font-mono bg-(--color-teal-glow) px-1.5 py-0.5 rounded">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div class="text-right sm:text-right shrink-0">
+                  <span class="text-(--color-text-muted) font-(--font-mono) text-[11px]">{e.date}</span>
+                  <span class="text-(--color-text-muted) text-[11px] block">{e.location}</span>
+                </div>
+              </div>
+            ))}
           </div>
-          <p class="text-(--color-text-muted) text-xs text-center mt-4 font-(--font-mono)">Source: Verified LinkedIn Member Insights</p>
         </div>
       </div>
       
       <!-- CTA -->
-      <div class="fade-in text-center">
-        <p class="text-(--color-text-secondary) text-sm mb-4">Interested in having me speak at your conference, meetup, or enterprise workshop?</p>
-        <a href="/contact" class="btn-primary">Invite Me to Speak →</a>
+      <div class="fade-in text-center py-6">
+        <h3 class="font-(--font-heading) text-xl sm:text-2xl font-bold mb-3 text-white">
+          Want Me to Speak at Your Event?
+        </h3>
+        <p class="text-(--color-text-secondary) text-sm mb-6 max-w-md mx-auto">
+          I speak on Production GenAI, Agentic RAG, LLM orchestration, and developer career transitions.
+        </p>
+        <a href="/contact" class="btn-primary">
+          Invite to Speak / Get in Touch
+        </a>
       </div>
     </div>
   </section>
+  
 </BaseLayout>

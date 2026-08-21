@@ -35,16 +35,16 @@ const skills = {
 
 const highlights = [
   { icon: '🏆', text: '1st Runner-Up — PromptWars Noida (Hack2skill × Google for Developers, Jun 2026)' },
-  { icon: '🎤', text: 'Speaker at INCEPT\'26 (GLA University) alongside CampusX founder Nitish Singh' },
+  { icon: '🎤', text: 'Keynote Speaker at INCEPT\'26 (GLA University) alongside CampusX founder Nitish Singh' },
   { icon: '📹', text: 'Session Leader at AI Mobile Hackathon — YouTube recording with live RAG demo' },
   { icon: '☁️', text: 'Google Cloud Summit India 2026 — Builder Connect participant at Yashobhoomi' },
   { icon: '🇺🇸', text: 'Cloud/AI/Data Security event at US Embassy, New Delhi' },
   { icon: '🏛️', text: 'India AI Impact Summit at Bharat Mandapam (Government of India)' },
   { icon: '👩‍💻', text: 'SheLeadsAI Symposium — Women in AI, Agentic AI in Enterprise' },
-  { icon: '📚', text: '300+ certifications across Coursera, LinkedIn Learning, Anthropic, ISRO, Udacity' },
+  { icon: '📚', text: '300+ verified certifications across Coursera, LinkedIn Learning, Anthropic, ISRO, Udacity' },
   { icon: '⭐', text: 'NPTEL Star, Domain Scholar & Discipline Star (2021-2022)' },
   { icon: '🌐', text: 'Active member of 12+ Delhi NCR AI communities (GDG, AWS UG, Microsoft UG)' },
-  { icon: '📊', text: 'LinkedIn Top 5% member — 8,839 reactions, 2,304 new connections in 2025' },
+  { icon: '📊', text: 'LinkedIn Top 5% member — 8,800+ professional network reach' },
   { icon: '🥇', text: '1st Place TEQIP-III Hackathon (2019) + MIT COVID-19 Challenge Team Lead (2020)' },
 ];
 ---
@@ -59,7 +59,7 @@ const highlights = [
       <!-- Header -->
       <div class="fade-in mb-10">
         <span class="badge mb-4">Origin & Engineering Craft</span>
-        <h1 class="font-(--font-heading) text-3xl sm:text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">
+        <h1 class="font-(--font-heading) text-3xl sm:text-4xl md:text-5xl font-extrabold mb-4 tracking-tight text-white">
           From <span class="gradient-text">Darbhanga</span> to <span class="gradient-text">Samsung SDS</span>
         </h1>
         <p class="text-(--color-text-secondary) text-base sm:text-lg leading-relaxed">
@@ -77,7 +77,7 @@ const highlights = [
           </p>
           
           <p>
-            As a <span class="text-(--color-text-primary) font-semibold">Production AI Engineer at Samsung SDS</span>, 
+            As a <strong class="text-white font-semibold">Production AI Engineer at Samsung SDS</strong>, 
             I architect the full GenAI stack: autonomous AI agents using Google ADK for content generation 
             and QA automation (<span class="text-(--color-teal) font-medium">60% reduction in manual effort</span>), 
             enterprise Graph RAG pipelines processing complex annual financial statements with advanced PDF layout extraction, and LLM 
@@ -86,7 +86,7 @@ const highlights = [
           </p>
           
           <p>
-            Prior to Samsung SDS, I spent 2 years at <span class="text-(--color-text-primary) font-semibold">HCLTech</span> 
+            Prior to Samsung SDS, I spent 2 years at <strong class="text-white font-semibold">HCLTech</strong> 
             shipping ML to production — profile matching, CV parsing, smart search — for enterprise recruitment 
             platforms. I deployed ML models for 10+ features, resolved 
             <span class="text-(--color-amber) font-medium">500+ production incidents</span>, and maintained 
@@ -95,7 +95,7 @@ const highlights = [
           </p>
           
           <p>
-            My journey is self-forged: I studied <span class="text-(--color-text-primary) font-semibold">Electrical & Electronics Engineering</span> 
+            My journey is self-forged: I studied <strong class="text-white font-semibold">Electrical & Electronics Engineering</strong> 
             at Darbhanga College of Engineering, Bihar. I taught myself to code through competitive hackathons — winning 
             1st place at TEQIP-III (2019), leading MIT COVID-19 Challenge teams (2020), and getting shortlisted 
             for AICTE Vishwakarma Awards. In 2026, I was 1st Runner-Up at PromptWars Noida (Hack2skill × Google 
@@ -103,7 +103,7 @@ const highlights = [
           </p>
           
           <p>
-            I've earned <span class="text-(--color-amber) font-semibold">300+ certifications</span> across 
+            I've earned <strong class="text-(--color-amber) font-semibold">300+ certifications</strong> across 
             Coursera (150+), LinkedIn Learning (89), Skillsoft (40+), plus flagship credentials from Udacity (AI Programming Nanodegree), 
             Anthropic (Claude Code + MCP), ISRO (Remote Sensing), IIT Kanpur (Full Stack), and Cisco.
           </p>
@@ -116,36 +116,40 @@ const highlights = [
           </p>
           
           <blockquote class="border-l-2 border-(--color-teal) pl-4 mt-6">
-            <p class="text-(--color-text-primary) italic font-(--font-heading) font-medium text-base sm:text-lg">
+            <p class="text-white italic font-(--font-heading) font-medium text-base sm:text-lg">
               "I care about AI that ships, not just AI that demos."
             </p>
           </blockquote>
         </div>
       </div>
       
-      <!-- Highlights -->
-      <div class="fade-in mb-14">
-        <h2 class="section-title mb-5">Highlights & Milestones</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 stagger">
+      <!-- Highlights Grid -->
+      <div class="fade-in mb-16">
+        <h2 class="section-title mb-6 text-white">🏆 Career Highlights & Milestones</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
           {highlights.map(h => (
-            <div class="glass p-4 flex items-start gap-3 fade-in">
-              <span class="text-xl flex-shrink-0">{h.icon}</span>
-              <p class="text-(--color-text-secondary) text-xs sm:text-sm leading-relaxed">{h.text}</p>
+            <div class="glass-static p-4 flex items-start gap-3 border border-(--color-border) bg-[#080E1E]/60 rounded-xl">
+              <span class="text-xl shrink-0 mt-0.5">{h.icon}</span>
+              <p class="text-xs sm:text-sm text-(--color-text-secondary) leading-relaxed">{h.text}</p>
             </div>
           ))}
         </div>
       </div>
       
-      <!-- Tech Stack Arsenal -->
-      <div class="fade-in mb-14">
-        <h2 class="section-title mb-5">Technical Arsenal</h2>
-        <div class="space-y-5">
+      <!-- Full Technical Matrix -->
+      <div class="fade-in mb-16">
+        <h2 class="section-title mb-2 text-white">⚡ Complete Technical Matrix</h2>
+        <p class="section-subtitle mb-6">Mastered tools, frameworks, and enterprise infrastructure</p>
+        
+        <div class="space-y-4">
           {Object.entries(skills).map(([category, items]) => (
-            <div class="glass-static p-4 rounded-xl border border-(--color-border)">
-              <h3 class="font-(--font-heading) font-semibold text-xs uppercase tracking-wider text-(--color-teal) mb-2.5">{category}</h3>
+            <div class="glass-static p-4 border border-(--color-border) bg-[#080E1E]/50 rounded-xl">
+              <h3 class="font-(--font-heading) font-bold text-xs uppercase tracking-wider text-(--color-teal) mb-2.5">
+                {category}
+              </h3>
               <div class="flex flex-wrap gap-1.5">
-                {items.map(skill => (
-                  <span class="badge text-[0.65rem]">{skill}</span>
+                {items.map(item => (
+                  <span class="badge text-xs py-1">{item}</span>
                 ))}
               </div>
             </div>
@@ -153,49 +157,18 @@ const highlights = [
         </div>
       </div>
       
-      <!-- Journey Timeline -->
-      <div class="fade-in mb-14">
-        <h2 class="section-title mb-5">The Journey</h2>
-        <div class="glass p-6 sm:p-8 font-(--font-mono) text-xs sm:text-sm text-(--color-text-secondary) space-y-2 leading-relaxed">
-          <p><span class="text-(--color-text-muted)">📍</span> <span class="text-(--color-text-primary) font-semibold">Darbhanga, Bihar</span></p>
-          <p class="text-(--color-text-muted) pl-5">↓  EEE student who taught herself to code through hackathons</p>
-          <p class="text-(--color-text-muted) pl-5">↓  Won TEQIP-III (1st), led MIT COVID-19 teams, AICTE regionals</p>
-          <p class="text-(--color-text-muted) pl-5">↓  DCA at 16, started 300+ certification marathon</p>
-          <p class="text-(--color-text-muted) pl-5">↓</p>
-          <p><span class="text-(--color-text-muted)">💼</span> <span class="text-(--color-text-primary) font-semibold">HCLTech, Noida</span> <span class="text-(--color-teal) font-medium">(Sep 2022–Sep 2024)</span></p>
-          <p class="text-(--color-text-muted) pl-5">↓  GET → Software Engineer (promoted in 1 year)</p>
-          <p class="text-(--color-text-muted) pl-5">↓  10+ ML features shipped, 500+ incidents resolved, 98% reliability</p>
-          <p class="text-(--color-text-muted) pl-5">↓</p>
-          <p><span class="text-(--color-text-muted)">🚀</span> <span class="text-(--color-text-primary) font-semibold">Samsung SDS, Gurugram</span> <span class="text-(--color-teal) font-medium">(Oct 2024–Present)</span></p>
-          <p class="text-(--color-text-muted) pl-5">↓  Google ADK agents, Graph RAG, LLM infrastructure</p>
-          <p class="text-(--color-text-muted) pl-5">↓  Leading team of 3, India-Korea cross-border collaboration</p>
-          <p class="text-(--color-text-muted) pl-5">↓  Speaker at INCEPT'26, 1st Runner-Up PromptWars</p>
-          <p class="text-(--color-text-muted) pl-5">↓</p>
-          <p><span class="text-(--color-text-muted)">🎯</span> <span class="text-(--color-amber) font-semibold">Available for: Senior / Staff AI Engineer Roles at top-tier teams</span></p>
-        </div>
-      </div>
-      
-      <!-- Philosophy -->
-      <div class="fade-in mb-14">
-        <h2 class="section-title mb-5">My Philosophy</h2>
-        <div class="glass p-6 sm:p-8">
-          <p class="text-(--color-text-secondary) text-sm sm:text-base leading-relaxed mb-4">
-            I believe long-term engineering success is 20% baseline knowledge and 80% communication, 
-            architectural trade-off reasoning, adaptability, and high-velocity delivery.
-          </p>
-          <p class="text-(--color-text-secondary) text-sm sm:text-base leading-relaxed">
-            That's why I invest equally in building resilient production systems, giving talks, and 
-            connecting with the global AI developer ecosystem.
-          </p>
-        </div>
-      </div>
-      
       <!-- CTA -->
-      <div class="fade-in text-center">
-        <a href="/contact" class="btn-primary">
-          Let's Discuss Senior AI Opportunities →
-        </a>
+      <div class="fade-in text-center py-6">
+        <div class="flex flex-wrap gap-4 justify-center">
+          <a href="/projects" class="btn-primary">
+            Inspect Architecture & Case Studies
+          </a>
+          <a href="/contact" class="btn-outline">
+            Get in Touch / View Availability
+          </a>
+        </div>
       </div>
     </div>
   </section>
+  
 </BaseLayout>
