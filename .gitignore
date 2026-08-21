@@ -30,3 +30,7 @@ Desktop.ini
 
 # Wrangler
 .wrangler/
+
+
+# Temporary files
+temp/
