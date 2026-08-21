@@ -57,15 +57,17 @@ const breadcrumbs = [
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:image" content={new URL(ogImage, Astro.site || 'https://akanksha.dev')} />
+  <meta property="og:site_name" content="Akanksha.dev" />
   
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@akankshadotdev" />
+  <meta name="twitter:creator" content="@akankshadotdev" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={new URL(ogImage, Astro.site || 'https://akanksha.dev')} />
   
-  <!-- Typography font loading (System + Google Fonts preconnect fallback) -->
+  <!-- Typography font loading -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
@@ -78,6 +80,7 @@ const breadcrumbs = [
   
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="alternate icon" href="/favicon.ico" />
   
   <!-- View Transitions -->
   <ClientRouter />
@@ -90,7 +93,7 @@ const breadcrumbs = [
     "name": "Akanksha",
     "url": "https://akanksha.dev",
     "jobTitle": "Production AI Engineer",
-    "description": "Production AI Engineer at Samsung SDS specializing in Agentic RAG systems, autonomous agents, and LLM infrastructure at enterprise scale.",
+    "description": "Production AI Engineer at Samsung SDS specializing in Agentic RAG systems, autonomous agents (Google ADK), and enterprise LLM orchestration.",
     "email": "me@akanksha.dev",
     "sameAs": [
       "https://linkedin.com/in/akankshadev",
@@ -101,9 +104,9 @@ const breadcrumbs = [
       "https://kaggle.com/akankshadotdev"
     ],
     "knowsAbout": [
-      "Generative AI", "RAG Systems", "Agentic AI", "LLM Engineering",
+      "Generative AI", "Agentic RAG", "Autonomous Agents", "LLM Orchestration",
       "Python", "Google ADK", "LangChain", "LangGraph", "FastAPI",
-      "Machine Learning", "NLP", "Production AI Systems", "Multi-Agent Systems"
+      "FAISS", "Graph RAG", "RAGAS Evaluation", "Docker", "AWS Bedrock"
     ],
     "worksFor": {
       "@type": "Organization",
@@ -120,10 +123,12 @@ const breadcrumbs = [
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": "https://akanksha.dev/#website",
     "name": "akanksha.dev",
     "url": "https://akanksha.dev",
-    "description": "Portfolio and blog of Akanksha — Production AI Engineer at Samsung SDS.",
-    "author": { "@id": "https://akanksha.dev/#person" }
+    "description": "Portfolio and developer platform of Akanksha — Production AI Engineer at Samsung SDS.",
+    "publisher": { "@id": "https://akanksha.dev/#person" },
+    "inLanguage": "en-US"
   })} />
   
   <!-- JSON-LD BreadcrumbList -->
@@ -140,7 +145,7 @@ const breadcrumbs = [
     })} />
   )}
   
-  <!-- Cloudflare Web Analytics (token injected via PUBLIC_CF_ANALYTICS_TOKEN env var) -->
+  <!-- Cloudflare Web Analytics -->
   {cfAnalyticsToken && (
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon={`{"token": "${cfAnalyticsToken}"}`}></script>
   )}
@@ -149,20 +154,21 @@ const breadcrumbs = [
 <body class="bg-(--color-space) text-(--color-text-primary) font-(--font-body) antialiased">
   
   <!-- Skip to Main Content (WCAG 2.2 AA) -->
-  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-(--color-teal) focus:text-(--color-space) focus:font-bold focus:rounded-lg focus:shadow-lg focus:outline-none">
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2.5 focus:bg-(--color-teal) focus:text-(--color-space) focus:font-bold focus:rounded-lg focus:shadow-2xl focus:outline-none">
     Skip to main content
   </a>
 
   <!-- ═══ NAVIGATION ═══ -->
   <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" aria-label="Primary Navigation">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
       <!-- Logo -->
-      <a href="/" class="text-xl font-bold font-(--font-heading) tracking-tight group" aria-label="Akanksha.dev Homepage">
-        <span class="text-(--color-teal) transition-colors">A</span><span class="text-(--color-text-primary) group-hover:text-(--color-teal) transition-colors">kanksha</span><span class="text-(--color-text-muted)">.dev</span>
+      <a href="/" class="text-xl font-bold font-(--font-heading) tracking-tight group flex items-center gap-1.5" aria-label="Akanksha.dev Homepage">
+        <span class="w-2.5 h-2.5 rounded-full bg-(--color-teal) shadow-[0_0_8px_rgba(0,229,176,0.8)]"></span>
+        <span class="text-(--color-teal) transition-colors">A</span><span class="text-(--color-text-primary) group-hover:text-(--color-teal) transition-colors">kanksha</span><span class="text-(--color-text-muted) font-mono text-xs">.dev</span>
       </a>
       
       <!-- Desktop Nav -->
-      <div class="hidden md:flex items-center gap-8">
+      <div class="hidden md:flex items-center gap-7">
         {navLinks.map(link => (
           <a 
             href={link.href} 
@@ -173,40 +179,61 @@ const breadcrumbs = [
           </a>
         ))}
         <!-- Search Button (Ctrl+K) -->
-        <button type="button" id="nav-search-btn" class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-(--color-surface) border border-(--color-border) hover:border-(--color-teal) transition-colors text-xs font-(--font-mono) text-(--color-text-secondary) cursor-pointer select-none" aria-label="Open Command Palette">
-          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-          <span>Search</span>
-          <span class="px-1.5 py-0.5 rounded bg-(--color-space) border border-(--color-border) text-[10px]">Ctrl+K</span>
+        <button 
+          type="button" 
+          id="nav-search-btn" 
+          class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-(--color-surface) border border-(--color-border) hover:border-(--color-teal) hover:bg-(--color-surface-hover) transition-all text-xs font-(--font-mono) text-(--color-text-secondary) cursor-pointer select-none" 
+          aria-label="Open Command Palette (Ctrl+K)"
+        >
+          <svg class="w-3.5 h-3.5 text-(--color-teal)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <span>Ask Agent</span>
+          <kbd class="px-1.5 py-0.5 rounded bg-(--color-space) border border-(--color-border) text-[10px] text-(--color-text-muted)">⌘K</kbd>
         </button>
       </div>
       
       <!-- Mobile Controls -->
-      <div class="flex items-center gap-4 md:hidden">
+      <div class="flex items-center gap-3 md:hidden">
         <!-- Mobile Search Button -->
-        <button type="button" id="mobile-search-btn" class="text-(--color-text-secondary) hover:text-(--color-teal) transition-colors cursor-pointer p-1" aria-label="Open search">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <button 
+          type="button" 
+          id="mobile-search-btn" 
+          class="text-(--color-text-secondary) hover:text-(--color-teal) transition-colors cursor-pointer p-2 rounded-lg bg-(--color-surface) border border-(--color-border)" 
+          aria-label="Open search and command palette"
+        >
+          <svg class="w-4 h-4 text-(--color-teal)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         </button>
         <!-- Mobile Menu Button -->
-        <button type="button" id="mobile-menu-btn" class="text-(--color-text-secondary) hover:text-(--color-teal) transition-colors p-1" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle navigation menu">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <button 
+          type="button" 
+          id="mobile-menu-btn" 
+          class="text-(--color-text-secondary) hover:text-(--color-teal) transition-colors p-2 rounded-lg bg-(--color-surface) border border-(--color-border) cursor-pointer" 
+          aria-expanded="false" 
+          aria-controls="mobile-menu" 
+          aria-label="Toggle navigation menu"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
       </div>
     </div>
     
-    <!-- Mobile Nav -->
-    <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
-      <div class="glass p-4 flex flex-col gap-4">
+    <!-- Mobile Nav Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden px-4 pb-4 transition-all duration-300">
+      <div class="glass p-5 flex flex-col gap-3.5 border border-(--color-border)">
         {navLinks.map(link => (
           <a 
             href={link.href} 
-            class:list={['nav-link text-lg', { active: currentPath === link.href }]}
+            class:list={['nav-link text-base py-1 px-2 rounded hover:bg-white/5', { active: currentPath === link.href }]}
             aria-current={currentPath === link.href ? 'page' : undefined}
           >
             {link.label}
           </a>
         ))}
+        <div class="pt-3 border-t border-(--color-border) flex items-center justify-between text-xs text-(--color-text-muted) font-mono">
+          <span>⚡ Status: Open to Roles</span>
+          <a href="/contact" class="text-(--color-teal) hover:underline">Get in touch →</a>
+        </div>
       </div>
     </div>
   </nav>
@@ -217,22 +244,26 @@ const breadcrumbs = [
   </main>
 
   <!-- ═══ FOOTER ═══ -->
-  <footer class="border-t border-(--color-border) mt-24" aria-label="Site Footer">
+  <footer class="border-t border-(--color-border) mt-24 relative z-10" aria-label="Site Footer">
     <div class="max-w-6xl mx-auto px-6 py-12">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
         <!-- Brand -->
-        <div>
-          <a href="/" class="text-xl font-bold font-(--font-heading)">
-            <span class="text-(--color-teal)">A</span>kanksha<span class="text-(--color-text-muted)">.dev</span>
+        <div class="md:col-span-2">
+          <a href="/" class="text-xl font-bold font-(--font-heading) flex items-center gap-1.5 mb-2">
+            <span class="text-(--color-teal)">A</span>kanksha<span class="text-(--color-text-muted) font-mono text-xs">.dev</span>
           </a>
-          <p class="text-(--color-text-secondary) text-sm mt-2 max-w-xs">
-            Production AI Engineer building enterprise AI systems that ship. RAG · Agents · LLMs.
+          <p class="text-(--color-text-secondary) text-sm max-w-sm leading-relaxed mb-4">
+            Production AI Engineer at Samsung SDS. Architecting Agentic RAG, autonomous agents, and enterprise LLM pipelines.
           </p>
+          <div class="flex items-center gap-2 text-xs font-(--font-mono) text-(--color-text-muted)">
+            <span class="pulse-dot"></span>
+            <span>Available for Senior / Staff AI Engineer Opportunities</span>
+          </div>
         </div>
         
         <!-- Quick Links -->
         <div>
-          <h4 class="font-(--font-heading) font-semibold text-sm uppercase tracking-wider text-(--color-text-muted) mb-4">Navigate</h4>
+          <h4 class="font-(--font-heading) font-semibold text-xs uppercase tracking-wider text-(--color-text-muted) mb-3">Navigate</h4>
           <div class="flex flex-col gap-2">
             {navLinks.map(link => (
               <a href={link.href} class="text-(--color-text-secondary) hover:text-(--color-teal) text-sm transition-colors">{link.label}</a>
@@ -242,41 +273,55 @@ const breadcrumbs = [
         
         <!-- Connect -->
         <div>
-          <h4 class="font-(--font-heading) font-semibold text-sm uppercase tracking-wider text-(--color-text-muted) mb-4">Connect</h4>
+          <h4 class="font-(--font-heading) font-semibold text-xs uppercase tracking-wider text-(--color-text-muted) mb-3">Connect</h4>
           <div class="flex flex-col gap-2">
-            <a href="https://linkedin.com/in/akankshadev" target="_blank" rel="noopener" class="text-(--color-text-secondary) hover:text-(--color-teal) text-sm transition-colors">LinkedIn</a>
-            <a href="https://github.com/akanksha-dot-dev" target="_blank" rel="noopener" class="text-(--color-text-secondary) hover:text-(--color-teal) text-sm transition-colors">GitHub</a>
-            <a href="https://x.com/akankshadotdev" target="_blank" rel="noopener" class="text-(--color-text-secondary) hover:text-(--color-teal) text-sm transition-colors">Twitter/X</a>
-            <a href="https://dev.to/akanksha-dev" target="_blank" rel="noopener" class="text-(--color-text-secondary) hover:text-(--color-teal) text-sm transition-colors">Dev.to</a>
-            <a href="mailto:me@akanksha.dev" class="text-(--color-text-secondary) hover:text-(--color-teal) text-sm transition-colors">me@akanksha.dev</a>
+            <a href="https://linkedin.com/in/akankshadev" target="_blank" rel="noopener" class="text-(--color-text-secondary) hover:text-(--color-teal) text-sm transition-colors flex items-center gap-1.5">
+              <span>LinkedIn</span>
+              <span class="text-[10px] text-(--color-text-muted)">↗</span>
+            </a>
+            <a href="https://github.com/akanksha-dot-dev" target="_blank" rel="noopener" class="text-(--color-text-secondary) hover:text-(--color-teal) text-sm transition-colors flex items-center gap-1.5">
+              <span>GitHub</span>
+              <span class="text-[10px] text-(--color-text-muted)">↗</span>
+            </a>
+            <a href="https://x.com/akankshadotdev" target="_blank" rel="noopener" class="text-(--color-text-secondary) hover:text-(--color-teal) text-sm transition-colors flex items-center gap-1.5">
+              <span>Twitter/X</span>
+              <span class="text-[10px] text-(--color-text-muted)">↗</span>
+            </a>
+            <a href="https://dev.to/akanksha-dev" target="_blank" rel="noopener" class="text-(--color-text-secondary) hover:text-(--color-teal) text-sm transition-colors flex items-center gap-1.5">
+              <span>Dev.to</span>
+              <span class="text-[10px] text-(--color-text-muted)">↗</span>
+            </a>
+            <a href="mailto:me@akanksha.dev" class="text-(--color-teal) hover:underline text-sm transition-colors font-mono mt-1">me@akanksha.dev</a>
           </div>
         </div>
       </div>
       
-      <div class="border-t border-(--color-border) mt-8 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-        <p class="text-(--color-text-muted) text-xs">
-          © {new Date().getFullYear()} Akanksha. Built with Astro. Deployed on Cloudflare Pages.
+      <div class="border-t border-(--color-border) pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-(--color-text-muted) text-xs font-(--font-mono)">
+          © {new Date().getFullYear()} Akanksha · Cyber-Physical AI Platform · Hosted on Cloudflare
         </p>
-        <div class="flex gap-4">
+        <div class="flex gap-4 items-center">
           <a href="/llms.txt" class="text-(--color-text-muted) hover:text-(--color-teal) text-xs transition-colors font-(--font-mono)">llms.txt</a>
+          <span class="text-(--color-border)">·</span>
           <a href="/sitemap-index.xml" class="text-(--color-text-muted) hover:text-(--color-teal) text-xs transition-colors font-(--font-mono)">sitemap.xml</a>
+          <span class="text-(--color-border)">·</span>
           <a href="https://github.com/akanksha-dot-dev/akanksha.dev" target="_blank" rel="noopener" class="text-(--color-text-muted) hover:text-(--color-teal) text-xs transition-colors font-(--font-mono)">source ↗</a>
         </div>
       </div>
     </div>
   </footer>
 
-  <!-- ═══ COMMAND PALETTE ═══ -->
-  <div id="command-palette" class="fixed inset-0 z-[100] hidden bg-[#05070F]/80 backdrop-blur-md flex items-start justify-center pt-[15vh] px-4" aria-modal="true" role="dialog" aria-label="Command Palette and Local AI Agent">
-    <div class="w-full max-w-2xl bg-[#091628]/95 border border-(--color-border) rounded-xl shadow-2xl overflow-hidden flex flex-col max-h-[70vh]">
+  <!-- ═══ COMMAND PALETTE 2.0 (Cmd+K) ═══ -->
+  <div id="command-palette" class="fixed inset-0 z-[100] hidden bg-[#05070F]/85 backdrop-blur-md flex items-start justify-center pt-[12vh] px-4" aria-modal="true" role="dialog" aria-label="Command Palette & Local AI Agent">
+    <div class="w-full max-w-2xl bg-[#091628]/95 border border-(--color-border) rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[75vh] glass-glow-teal">
       <!-- Search Input Header -->
-      <div class="flex items-center gap-3 px-4 py-3.5 border-b border-(--color-border)">
+      <div class="flex items-center gap-3 px-4 py-3.5 border-b border-(--color-border) bg-[#05070F]/50">
         <svg class="w-5 h-5 text-(--color-teal) shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         <input 
           type="text" 
           id="palette-search-input" 
           class="w-full bg-transparent border-0 outline-none text-sm font-(--font-mono) text-(--color-text-primary) placeholder-(--color-text-muted)"
-          placeholder="Ask Akanksha's AI (e.g. 'skills', 'samsung', 'resume') or search pages..."
+          placeholder="Ask Akanksha's AI Agent or search commands ('skills', 'rag', 'projects', 'resume')..."
           autocomplete="off"
           aria-label="Search prompt or navigation command"
         />
@@ -286,23 +331,23 @@ const breadcrumbs = [
       <!-- Scrollable content area -->
       <div class="flex-1 overflow-y-auto p-4 flex flex-col gap-4">
         <!-- AI Response (Hidden initially) -->
-        <div id="palette-ai-box" class="hidden glass-static p-4 border border-(--color-border) bg-[#05070F]/50 flex flex-col gap-2">
+        <div id="palette-ai-box" class="hidden glass-static p-4 border border-(--color-teal)/30 bg-[#05070F]/70 flex flex-col gap-2 rounded-xl">
           <div class="flex items-center justify-between text-[11px] font-(--font-mono) text-(--color-teal)">
             <span class="flex items-center gap-1.5">
-              <span class="relative flex h-1.5 w-1.5">
+              <span class="relative flex h-2 w-2">
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-(--color-teal) opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-(--color-teal)"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-(--color-teal)"></span>
               </span>
               Akanksha's Local AI Agent
             </span>
-            <span class="text-(--color-text-muted)" id="palette-ai-status">Ready</span>
+            <span class="text-(--color-text-muted)" id="palette-ai-status">Synthesizing...</span>
           </div>
-          <p id="palette-ai-response" class="text-sm text-(--color-text-secondary) leading-relaxed font-(--font-body) min-h-[2rem] whitespace-pre-wrap"></p>
+          <p id="palette-ai-response" class="text-xs sm:text-sm text-(--color-text-secondary) leading-relaxed font-(--font-body) min-h-[2rem] whitespace-pre-wrap font-normal"></p>
         </div>
 
-        <!-- Default Options / Command suggestions -->
+        <!-- Command suggestions -->
         <div id="palette-suggestions">
-          <p class="text-[10px] font-(--font-mono) text-(--color-text-muted) uppercase tracking-wider mb-2">Navigation & Actions</p>
+          <p class="text-[10px] font-(--font-mono) text-(--color-text-muted) uppercase tracking-wider mb-2">Instant Navigation & Actions</p>
           <div class="flex flex-col gap-1.5" id="palette-options-list">
             <!-- Dynamic commands go here -->
           </div>
@@ -310,18 +355,19 @@ const breadcrumbs = [
       </div>
       
       <!-- Footer instructions -->
-      <div class="px-4 py-2.5 bg-[#05070F]/80 border-t border-(--color-border) flex items-center justify-between text-[10px] font-(--font-mono) text-(--color-text-muted) select-none">
+      <div class="px-4 py-2.5 bg-[#05070F]/90 border-t border-(--color-border) flex items-center justify-between text-[10px] font-(--font-mono) text-(--color-text-muted) select-none">
         <div class="flex items-center gap-3">
           <span>↑↓ to navigate</span>
-          <span>↵ to select</span>
+          <span>↵ to execute</span>
+          <span>esc to dismiss</span>
         </div>
-        <span>Local Index Agent</span>
+        <span class="text-(--color-teal)">Zero-Latency Local Knowledge Index</span>
       </div>
     </div>
   </div>
 
   <!-- ═══ IDE STATUS BAR ═══ -->
-  <div class="fixed bottom-0 left-0 right-0 h-8 bg-[#05070F]/90 backdrop-blur-md border-t border-(--color-border) z-[49] flex items-center justify-between px-4 text-[10px] sm:text-xs font-(--font-mono) text-(--color-text-secondary) select-none">
+  <div class="fixed bottom-0 left-0 right-0 h-8 bg-[#05070F]/92 backdrop-blur-md border-t border-(--color-border) z-[49] flex items-center justify-between px-4 text-[10px] sm:text-xs font-(--font-mono) text-(--color-text-secondary) select-none">
     <div class="flex items-center gap-3">
       <span class="flex items-center gap-1.5 text-(--color-teal)">
         <span class="relative flex h-2 w-2">
@@ -331,50 +377,50 @@ const breadcrumbs = [
         system: online
       </span>
       <span class="text-(--color-text-muted)">|</span>
-      <span class="hover:text-(--color-teal) transition-colors cursor-pointer flex items-center gap-1">
-        main*
-      </span>
+      <a href="https://github.com/akanksha-dot-dev/akanksha.dev" target="_blank" rel="noopener" class="hover:text-(--color-teal) transition-colors flex items-center gap-1 text-(--color-text-secondary)">
+        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        <span>main*</span>
+      </a>
       <span class="text-(--color-text-muted) hidden sm:inline">|</span>
-      <span class="hidden sm:inline text-(--color-text-secondary)">⚡ Status: Open to Senior AI Engineer Roles</span>
+      <a href="/contact" class="hidden sm:inline text-(--color-text-secondary) hover:text-(--color-teal) transition-colors">
+        ⚡ <span class="text-(--color-teal)">Open to Senior AI Engineer Roles</span>
+      </a>
     </div>
     <div class="flex items-center gap-3">
-      <span class="hidden md:inline">Telemetry: Active</span>
+      <span class="hidden md:inline text-(--color-text-muted)" id="live-time-ticker">IST 00:00:00</span>
       <span class="text-(--color-text-muted) hidden md:inline">|</span>
-      <span id="latency-indicator">Latency: 18ms</span>
+      <span id="latency-indicator" class="text-(--color-teal)">Telemetry: 16ms</span>
       <span class="text-(--color-text-muted)">|</span>
-      <span>Astro Static</span>
+      <span class="text-(--color-text-muted)">Astro 7</span>
     </div>
   </div>
-
-  <!-- Adding extra padding to body so status bar doesn't overlay bottom content -->
-  <style>
-    body {
-      padding-bottom: 2.5rem;
-    }
-  </style>
 
   <!-- ═══ SCRIPTS ═══ -->
   <script>
     const kb: Record<string, string> = {
-      skills: "Akanksha's Core Tech Stack:\n• AI & Agents: Google ADK, LangChain, LangGraph, CrewAI, MCP\n• RAG & LLMs: Graph RAG, FAISS, Chroma DB, OpenAI, Llama 3, Mistral\n• Backend & Infra: Python, FastAPI, Django, PostgreSQL, Docker, Kubernetes\n• Cloud: AWS (Bedrock), Azure ML, Cloudflare Pages",
-      samsung: "Senior Executive Engineer @ Samsung SDS, Gurugram (Oct 2024 - Present):\n• Architecting Agentic RAG systems for financial document classification and extraction.\n• Designing autonomous agents with Google ADK and Custom Model Orchestration.\n• Serving enterprise workloads with 92% RAG evaluation accuracy.",
-      experience: "Professional Timeline:\n1. Samsung SDS (Oct 2024 - Present) | Senior Executive Engineer\n2. HCLTech (Sep 2022 - Sep 2024) | Software Engineer (FastAPI/Django REST APIs)\n3. Collegedunia (2021 - 2024) | Content Writer (Concurrent freelance developer posts)",
-      hcltech: "Software Engineer @ HCLTech (Sep 2022 - Sep 2024):\n• Built scalable backend services with Django & FastAPI.\n• Optimized database query bottlenecks, reducing queries by 40% with database index restructuring.\n• Set up CI/CD workflows and automated staging deployments.",
-      hackathons: "Key Competitions & Wins:\n• PromptWars Hackathon: 1st Runner-Up (Voice-AI Mandi Negotiator in Hindi/Bhojpuri/Tamil)\n• SPIU Bihar Hackathon: 2nd Place (Smart Solar Irrigation Grid Controller)\n• Corporate Hackathons: Competing & winning multiple local and internal challenges.",
-      certifications: "Technical Credentials:\n• 300+ total certifications completed.\n• 150+ Coursera courses (DeepLearning.AI, TensorFlow, Google Cloud Professional Developer).\n• 89 LinkedIn Learning path validations, 40+ Skillsoft, Anthropic, ISRO, Cisco.",
-      contact: "Reach out to Akanksha:\n• Professional Email: me@akanksha.dev\n• LinkedIn: linkedin.com/in/akankshadev\n• GitHub: github.com/akanksha-dot-dev\n• Twitter/X: x.com/akankshadotdev",
-      resume: "Resume Dossier:\n• Verified career metrics & claims on file.\n• [PDF Format] available. Type 'download' or select the download command to grab the latest file."
+      skills: "Akanksha's Technical Stack:\n• AI Agents & Orchestration: Google ADK, LangChain, LangGraph, CrewAI, MCP Protocol, Multi-Agent Systems\n• RAG & Search: Graph RAG, FAISS, Chroma DB, Hybrid Vector Search, RAGAS Evaluation Framework\n• LLMs & Inference: GPT-4, Llama-3, Mistral, PEFT/LoRA, Prompt Engineering\n• Backend & Infra: Python, FastAPI, Django, PostgreSQL, Docker, Kubernetes, CI/CD\n• Cloud: AWS (Bedrock, SageMaker), Azure ML, Cloudflare Workers",
+      rag: "RAG Architecture at Samsung SDS:\n• End-to-end Graph RAG pipeline processing complex annual financial statements\n• Advanced document extraction (GMFT, Partition PDF)\n• 92% evaluation accuracy on 500+ daily queries, 40% retrieval precision improvement over baseline.",
+      agents: "Agentic AI Orchestration:\n• Architecting autonomous AI agent loops with Google ADK for enterprise content generation and QA automation\n• 60% reduction in manual engineer effort\n• Multi-agent safety harnesses with verifiers and output guardrails.",
+      samsung: "Senior Executive Engineer @ Samsung SDS, Gurugram (Oct 2024 - Present):\n• Leading GenAI developer squad (3 engineers)\n• Architecting enterprise Graph RAG and Google ADK agentic workflows\n• Managing India-Korea cross-border engineering delivery.",
+      experience: "Professional Career Timeline:\n1. Samsung SDS (Oct 2024 – Present) | Production AI Engineer / Senior Executive Engineer\n2. HCLTech (Sep 2022 – Sep 2024) | Software Engineer (ML recruitment platform, 500+ incidents resolved, 98% reliability)\n3. Collegedunia (2021 – 2024) | Technical & SEO Writing\n4. TRTC Patna (2020 – 2021) | Hardware & Telecom Infrastructure Intern",
+      hcltech: "Software Engineer @ HCLTech (Sep 2022 – Sep 2024):\n• Built machine learning features for iTAP enterprise platform (CV parsing, profile matching, smart search)\n• Resolved 500+ production incidents, cutting system downtime by 30%\n• Maintained 98% service reliability on AWS and Azure.",
+      hackathons: "Competitions & National Awards:\n• 1st Runner-Up — PromptWars Noida (Hack2skill × Google for Developers, Jun 2026)\n• 1st Place — AI & ML Training Program (EdgeFX × DCE, 2021)\n• 1st Place — TEQIP-III Hackathon (Emerging Technologies, 2019)\n• 2nd Place — SPIU Bihar STEM & Robotics (2020)\n• Team Lead — MIT COVID-19 Challenge (Beat the Pandemic II, 2020)",
+      certifications: "300+ Verified Credentials:\n• Flagship: Udacity AI Programming Nanodegree, Google × Kaggle AI Agents Intensive, Anthropic Claude Code + MCP (5 certs), IIT Kanpur Full Stack, ISRO Remote Sensing\n• Platforms: 150+ Coursera (Google, IBM, Meta), 89 LinkedIn Learning, 40+ Skillsoft, Cisco\n• Academic: NPTEL Star, Domain Scholar & Discipline Star",
+      speaking: "Speaker Engagements:\n• INCEPT'26 (GLA University) — Industry talk on AI & Production Engineering alongside CampusX founder\n• AI Mobile Hackathon — Deep Dive Session Leader on Transformers & RAG (YouTube video available)\n• 25+ events attended in 2025-2026 across Google Cloud Summit, US Embassy Tech Event, India AI Impact Summit",
+      contact: "Get in Touch with Akanksha:\n• Email: me@akanksha.dev\n• LinkedIn: linkedin.com/in/akankshadev\n• GitHub: github.com/akanksha-dot-dev\n• Twitter/X: x.com/akankshadotdev\n• Location: Gurugram, India (Open to Remote / Hybrid)",
+      resume: "Resume Dossier:\n• Tailored for Senior/Staff Production AI Engineer roles.\n• Verified metrics on file. Download PDF directly from /contact or type 'download resume'."
     };
 
     const defaultCommands = [
       { name: "Go to Home", action: () => window.location.href = "/" },
       { name: "Go to About Page", action: () => window.location.href = "/about" },
-      { name: "Go to Projects", action: () => window.location.href = "/projects" },
-      { name: "Go to Experience", action: () => window.location.href = "/experience" },
+      { name: "Go to Projects & Architecture Deep-Dives", action: () => window.location.href = "/projects" },
+      { name: "Go to Experience (System Changelog)", action: () => window.location.href = "/experience" },
       { name: "Go to Speaking & Community", action: () => window.location.href = "/speaking" },
-      { name: "Go to Blog & Writings", action: () => window.location.href = "/blog" },
-      { name: "Go to Contact Page", action: () => window.location.href = "/contact" },
-      { name: "Download Resume PDF", action: () => window.open("/resume/akanksha_resume.pdf", "_blank") }
+      { name: "Go to Blog & Technical Insights", action: () => window.location.href = "/blog" },
+      { name: "Go to Contact & Conversion Page", action: () => window.location.href = "/contact" },
+      { name: "Download Resume Dossier (PDF)", action: () => window.open("/resume/akanksha_resume.pdf", "_blank") },
+      { name: "Email Akanksha Directly (me@akanksha.dev)", action: () => window.location.href = "mailto:me@akanksha.dev" }
     ];
 
     let selectedIndex = 0;
@@ -386,12 +432,12 @@ const breadcrumbs = [
       const aiBox = document.getElementById('palette-ai-box');
       if (!palette) return;
 
-      palette.classList.toggle('hidden');
-      if (!palette.classList.contains('hidden')) {
+      const isHidden = palette.classList.toggle('hidden');
+      if (!isHidden) {
         selectedIndex = 0;
         if (searchInput) {
           searchInput.value = '';
-          searchInput.focus();
+          setTimeout(() => searchInput.focus(), 50);
         }
         aiBox?.classList.add('hidden');
         renderSuggestions('');
@@ -410,7 +456,7 @@ const breadcrumbs = [
       );
 
       if (filtered.length === 0) {
-        optionsList.innerHTML = `<div class="text-xs text-(--color-text-muted) px-3 py-2 font-(--font-mono)">No commands found matching "${filter}"</div>`;
+        optionsList.innerHTML = `<div class="text-xs text-(--color-text-muted) px-3 py-2 font-(--font-mono)">No commands found matching "${filter}". Searching knowledge base...</div>`;
         return;
       }
 
@@ -419,12 +465,15 @@ const breadcrumbs = [
         item.type = 'button';
         item.className = `w-full text-left px-3 py-2 rounded-lg text-xs font-(--font-mono) flex items-center justify-between transition-all cursor-pointer ${
           idx === selectedIndex 
-            ? 'bg-(--color-teal) text-(--color-space) font-semibold' 
+            ? 'bg-(--color-teal) text-(--color-space) font-semibold shadow-[0_0_12px_rgba(0,229,176,0.4)]' 
             : 'text-(--color-text-secondary) hover:bg-white/5 hover:text-(--color-text-primary)'
         }`;
         item.innerHTML = `
-          <span>> ${cmd.name}</span>
-          <span class="${idx === selectedIndex ? 'text-(--color-space)/80' : 'text-(--color-text-muted)'} text-[10px]">Command</span>
+          <span class="flex items-center gap-2">
+            <span class="${idx === selectedIndex ? 'text-(--color-space)' : 'text-(--color-teal)'}">›</span>
+            ${cmd.name}
+          </span>
+          <span class="${idx === selectedIndex ? 'text-(--color-space)/80' : 'text-(--color-text-muted)'} text-[10px]">Action</span>
         `;
         item.addEventListener('click', () => {
           cmd.action();
@@ -442,6 +491,7 @@ const breadcrumbs = [
 
       if (!searchInput) return;
       const query = searchInput.value.toLowerCase().trim();
+      selectedIndex = 0;
       renderSuggestions(query);
 
       if (streamInterval) clearInterval(streamInterval);
@@ -461,21 +511,21 @@ const breadcrumbs = [
 
       if (!responseText) {
         if (query.includes('hi') || query.includes('hello') || query.includes('hey')) {
-          responseText = "Hello! I'm Akanksha's Local AI Agent. Try searching for 'skills', 'experience', 'samsung', 'hcltech', 'hackathons', 'certifications', or 'resume'.";
+          responseText = "Hello! I'm Akanksha's Local AI Agent. You can query my credentials, RAG architecture, agentic systems, Samsung SDS work, hackathons, speaking engagements, or resume dossier.";
         } else {
           const keys = Object.keys(kb);
           const partial = keys.find(k => k.startsWith(query) || query.startsWith(k));
           if (partial) {
             responseText = kb[partial];
           } else {
-            responseText = `Searching Akanksha's static data corpus for "${query}"...\nNo exact mapping found. Try querying 'skills', 'experience', 'samsung', or 'resume'.`;
+            responseText = `Searching Akanksha's static data corpus for "${query}"...\nNo exact match found. Try querying: 'skills', 'rag', 'agents', 'samsung', 'experience', 'hackathons', 'speaking', or 'resume'.`;
           }
         }
       }
 
       aiBox?.classList.remove('hidden');
       if (aiResponse) aiResponse.textContent = '';
-      if (aiStatus) aiStatus.textContent = 'Streaming...';
+      if (aiStatus) aiStatus.textContent = 'Streaming Response...';
 
       let i = 0;
       streamInterval = setInterval(() => {
@@ -485,12 +535,12 @@ const breadcrumbs = [
         i++;
         if (i >= responseText.length) {
           if (streamInterval) clearInterval(streamInterval);
-          if (aiStatus) aiStatus.textContent = 'Local Index Answered';
+          if (aiStatus) aiStatus.textContent = 'Index Response Complete';
         }
-      }, 10);
+      }, 8);
     }
 
-    // Global Key Listener (Registered once on window)
+    // Global Key Listener
     if (!(window as any).__AK_GLOBAL_KEYS_INIT__) {
       (window as any).__AK_GLOBAL_KEYS_INIT__ = true;
 
@@ -533,7 +583,7 @@ const breadcrumbs = [
     }
 
     // Page-level Initializer
-    function initPage() {
+    function initBasePage() {
       // Nav background on scroll
       const nav = document.getElementById('main-nav');
       window.addEventListener('scroll', () => {
@@ -552,26 +602,33 @@ const breadcrumbs = [
         menuBtn.setAttribute('aria-expanded', isHidden ? 'false' : 'true');
       });
 
-      // Scroll observer
+      // Scroll observer for fade-in animations
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
           }
         });
-      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+      }, { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
 
       document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-      // Latency ticker
-      const latencyEl = document.getElementById('latency-indicator');
-      if (latencyEl && !(window as any).__AK_LATENCY_TICKER__) {
-        (window as any).__AK_LATENCY_TICKER__ = true;
+      // Latency & Clock ticker
+      if (!(window as any).__AK_TELEMETRY_TIMER__) {
+        (window as any).__AK_TELEMETRY_TIMER__ = true;
+        
         setInterval(() => {
-          const lat = Math.floor(Math.random() * 10) + 14;
+          const lat = Math.floor(Math.random() * 8) + 14;
           const el = document.getElementById('latency-indicator');
-          if (el) el.textContent = `Latency: ${lat}ms`;
-        }, 4000);
+          if (el) el.textContent = `Telemetry: ${lat}ms`;
+
+          const timeEl = document.getElementById('live-time-ticker');
+          if (timeEl) {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('en-GB', { timeZone: 'Asia/Kolkata', hour12: false });
+            timeEl.textContent = `IST ${timeStr}`;
+          }
+        }, 3000);
       }
 
       // Palette event hooks
@@ -579,15 +636,22 @@ const breadcrumbs = [
       const closeBtn = document.getElementById('palette-close-btn');
       const navSearchBtn = document.getElementById('nav-search-btn');
       const mobileSearchBtn = document.getElementById('mobile-search-btn');
+      const paletteBackdrop = document.getElementById('command-palette');
 
       searchInput?.addEventListener('input', handleSearchInput);
       closeBtn?.addEventListener('click', togglePalette);
       navSearchBtn?.addEventListener('click', togglePalette);
       mobileSearchBtn?.addEventListener('click', togglePalette);
+      
+      paletteBackdrop?.addEventListener('click', (e) => {
+        if (e.target === paletteBackdrop) {
+          togglePalette();
+        }
+      });
     }
 
-    initPage();
-    document.addEventListener('astro:page-load', initPage);
+    initBasePage();
+    document.addEventListener('astro:page-load', initBasePage);
   </script>
 </body>
 </html>
