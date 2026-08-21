@@ -3,7 +3,8 @@
 /* ═══════════════════════════════════════════════════════════
    AKANKSHA.DEV — Design System v2
    Brand: Electric Teal + Warm Amber + Deep Space
-   Typography: Syne (headings) + DM Sans (body) + JetBrains Mono (code)
+   Typography: Syne (headings) + Plus Jakarta Sans (body) + JetBrains Mono (code)
+   WCAG 2.2 AA Contrast Compliant
    ═══════════════════════════════════════════════════════════ */
 
 @theme {
@@ -18,14 +19,14 @@
   --color-space-lighter: #0D2847;
   --color-surface: rgba(255, 255, 255, 0.04);
   --color-surface-hover: rgba(255, 255, 255, 0.08);
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-border-hover: rgba(0, 229, 176, 0.3);
-  --color-text-primary: #E2E8F0;
-  --color-text-secondary: #A0AEC0;
-  --color-text-muted: #718096;
-  --font-heading: 'Syne', system-ui, sans-serif;
-  --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --color-border: rgba(255, 255, 255, 0.10);
+  --color-border-hover: rgba(0, 229, 176, 0.4);
+  --color-text-primary: #F1F5F9;
+  --color-text-secondary: #CBD5E1;
+  --color-text-muted: #94A3B8;
+  --font-heading: 'Syne', system-ui, -apple-system, sans-serif;
+  --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 /* ─── Base ─────────────────────────────────────────────── */
@@ -41,6 +42,22 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   position: relative;
+}
+
+/* Focus Visible for Accessibility (WCAG 2.2 AA) */
+:focus-visible {
+  outline: 2px solid var(--color-teal);
+  outline-offset: 2px;
+}
+
+/* Reduced Motion Override (WCAG 2.2 AA) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Noise texture overlay for depth */
@@ -90,8 +107,8 @@ body::after {
   border-color: var(--color-border-hover);
   transform: translateY(-3px);
   box-shadow:
-    0 8px 32px rgba(0, 229, 176, 0.06),
-    0 0 0 1px rgba(0, 229, 176, 0.1);
+    0 8px 32px rgba(0, 229, 176, 0.08),
+    0 0 0 1px rgba(0, 229, 176, 0.15);
 }
 
 /* Static glass variant (no hover transform) */
@@ -363,33 +380,10 @@ body::after {
 }
 
 .nav-scrolled {
-  background: rgba(5, 7, 15, 0.85) !important;
+  background: rgba(5, 7, 15, 0.88) !important;
   backdrop-filter: blur(20px) saturate(150%);
   -webkit-backdrop-filter: blur(20px) saturate(150%);
   border-bottom: 1px solid var(--color-border);
-}
-
-/* ─── Hero typing cursor ───────────────────────────────── */
-
-.typing-cursor::after {
-  content: '|';
-  color: var(--color-teal);
-  animation: blink 1s step-end infinite;
-  font-weight: 300;
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
-/* ─── Glow ring for images/avatars ─────────────────────── */
-
-.glow-ring {
-  box-shadow:
-    0 0 0 3px var(--color-space),
-    0 0 0 5px rgba(0, 229, 176, 0.3),
-    0 0 20px rgba(0, 229, 176, 0.15);
 }
 
 /* ─── Status dot pulse ─────────────────────────────────── */
@@ -415,14 +409,6 @@ body::after {
 @keyframes pulse-ring {
   0% { transform: scale(0.8); opacity: 0.6; }
   100% { transform: scale(2.2); opacity: 0; }
-}
-
-/* ─── Divider ──────────────────────────────────────────── */
-
-.divider {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--color-border), transparent);
-  margin: 3rem 0;
 }
 
 /* ─── Responsive ───────────────────────────────────────── */

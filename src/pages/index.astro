@@ -75,12 +75,12 @@ const techStack = {
 <BaseLayout title="Akanksha — Production AI Engineer | RAG · Agents · LLMs">
   
   <!-- ═══ HERO ═══ -->
-  <section class="relative min-h-[92vh] flex items-center overflow-hidden">
+  <section class="relative min-h-[90vh] flex items-center overflow-hidden" aria-label="Introduction Hero">
     <div class="orb orb-teal" style="top: -200px; right: -100px;"></div>
     <div class="orb orb-amber" style="bottom: -150px; left: -200px;"></div>
     <div class="orb orb-purple" style="top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
     
-    <div class="max-w-6xl mx-auto px-6 py-20 relative z-10">
+    <div class="max-w-6xl mx-auto px-6 py-16 md:py-20 relative z-10">
       <div class="max-w-3xl">
         <!-- Status Badge -->
         <div class="fade-in mb-6">
@@ -91,12 +91,12 @@ const techStack = {
         </div>
         
         <!-- Name -->
-        <h1 class="fade-in font-(--font-heading) text-5xl md:text-[4.5rem] font-800 leading-[1.05] mb-5 tracking-tight">
+        <h1 class="fade-in font-(--font-heading) text-4xl sm:text-5xl md:text-[4.25rem] font-extrabold leading-[1.08] mb-5 tracking-tight">
           Hey, I'm <span class="gradient-text">Akanksha</span>
         </h1>
         
         <!-- Role -->
-        <p class="fade-in text-xl md:text-2xl text-(--color-text-secondary) mb-3 font-(--font-heading) font-600">
+        <p class="fade-in text-xl md:text-2xl text-(--color-text-secondary) mb-3 font-(--font-heading) font-semibold">
           Production AI Engineer
         </p>
         
@@ -106,10 +106,10 @@ const techStack = {
         </p>
         
         <!-- What I build -->
-        <div class="fade-in flex flex-wrap gap-x-6 gap-y-1 text-sm text-(--color-text-muted) mb-8 font-(--font-mono)">
-          <span>→ <span class="text-(--color-teal)">RAG pipelines</span> at 92% accuracy</span>
-          <span>→ <span class="text-(--color-amber)">Autonomous agents</span> with Google ADK</span>
-          <span>→ <span class="text-(--color-teal)">LLM infrastructure</span> at enterprise scale</span>
+        <div class="fade-in flex flex-wrap gap-x-6 gap-y-1.5 text-sm text-(--color-text-muted) mb-8 font-(--font-mono)">
+          <span>→ <span class="text-(--color-teal) font-medium">RAG pipelines</span> at 92% accuracy</span>
+          <span>→ <span class="text-(--color-amber) font-medium">Autonomous agents</span> with Google ADK</span>
+          <span>→ <span class="text-(--color-teal) font-medium">LLM infrastructure</span> at enterprise scale</span>
         </div>
         
         <!-- CTAs -->
@@ -128,7 +128,7 @@ const techStack = {
   </section>
   
   <!-- ═══ METRICS BAR ═══ -->
-  <section class="relative z-10 -mt-10 mb-16">
+  <section class="relative z-10 -mt-10 mb-16" aria-label="Key Career Metrics">
     <div class="max-w-4xl mx-auto px-6">
       <div class="glass-static p-1.5 grid grid-cols-2 md:grid-cols-4 rounded-xl">
         {metrics.map(m => (
@@ -142,7 +142,7 @@ const techStack = {
   </section>
   
   <!-- ═══ TECH STACK ═══ -->
-  <section class="mb-20">
+  <section class="mb-20" aria-label="Core Tech Stack Summary">
     <div class="max-w-5xl mx-auto px-6">
       <div class="flex flex-wrap gap-6 justify-center">
         {Object.entries(techStack).map(([category, tools]) => (
@@ -160,7 +160,7 @@ const techStack = {
   </section>
 
   <!-- ═══ INTERACTIVE SHOWCASE ═══ -->
-  <section class="max-w-6xl mx-auto px-6 mb-28 grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10">
+  <section class="max-w-6xl mx-auto px-6 mb-28 grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10" aria-label="Interactive Evaluator Showcase">
     <div class="flex flex-col gap-3">
       <div class="fade-in mb-2">
         <h2 class="section-title text-left mb-1">Evaluate <span class="gradient-text">My Stack</span></h2>
@@ -183,7 +183,7 @@ const techStack = {
   </section>
   
   <!-- ═══ FEATURED PROJECTS ═══ -->
-  <section class="max-w-6xl mx-auto px-6 mb-24">
+  <section class="max-w-6xl mx-auto px-6 mb-24" aria-label="Featured Engineering Projects">
     <div class="fade-in text-center mb-10">
       <h2 class="section-title">Featured <span class="gradient-text">Projects</span></h2>
       <p class="section-subtitle mb-8">Production-grade AI systems, not tutorial clones</p>
@@ -196,22 +196,22 @@ const techStack = {
           <span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping"></span>
           <span>The Naive AI Way (Tutorials)</span>
         </div>
-        <h3 class="font-(--font-heading) text-xl font-700 text-white">Why Demo-Level AI Fails in Production</h3>
+        <h3 class="font-(--font-heading) text-xl font-bold text-white">Why Demo-Level AI Fails in Production</h3>
         <ul class="flex flex-col gap-4 text-xs text-(--color-text-secondary) leading-relaxed">
           <li class="flex items-start gap-2.5">
-            <span class="text-red-500 text-sm">❌</span>
-            <div><strong>Naive Prompts:</strong> Brittle string concatenation that fails on complex inputs or injection attempts.</div>
+            <span class="text-red-400 text-sm font-bold">✕</span>
+            <div><strong class="text-white">Naive Prompts:</strong> Brittle string concatenation that fails on complex inputs or prompt injections.</div>
           </li>
           <li class="flex items-start gap-2.5">
-            <span class="text-red-500 text-sm">❌</span>
-            <div><strong>Blind RAG Retrieval:</strong> Fetching top-K vector chunks without semantic routing or validation, causing high hallucination rates.</div>
+            <span class="text-red-400 text-sm font-bold">✕</span>
+            <div><strong class="text-white">Blind RAG Retrieval:</strong> Fetching top-K vector chunks without semantic routing or validation, causing hallucinations.</div>
           </li>
           <li class="flex items-start gap-2.5">
-            <span class="text-red-500 text-sm">❌</span>
-            <div><strong>Zero Observability:</strong> Black-box agent runs with no trace logging, fallback paths, or accuracy evaluation harnesses.</div>
+            <span class="text-red-400 text-sm font-bold">✕</span>
+            <div><strong class="text-white">Zero Observability:</strong> Black-box agent runs with no trace logging, fallback paths, or accuracy evaluation harnesses.</div>
           </li>
         </ul>
-        <div class="mt-auto pt-4 border-t border-red-500/10 text-[10px] font-(--font-mono) text-red-400/80">
+        <div class="mt-auto pt-4 border-t border-red-500/10 text-[10px] font-(--font-mono) text-red-400/90">
           Average System accuracy: ~60-70%
         </div>
       </div>
@@ -227,7 +227,7 @@ const techStack = {
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
               </svg>
             </div>
-            <h3 class="font-(--font-heading) font-700 text-lg group-hover:text-(--color-teal) transition-colors">
+            <h3 class="font-(--font-heading) font-bold text-lg group-hover:text-(--color-teal) transition-colors">
               {featuredProjects[0].title}
             </h3>
             <p class="text-(--color-text-secondary) text-sm leading-relaxed flex-1">
@@ -251,7 +251,7 @@ const techStack = {
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
               </svg>
             </div>
-            <h3 class="font-(--font-heading) font-700 text-lg group-hover:text-(--color-teal) transition-colors">
+            <h3 class="font-(--font-heading) font-bold text-lg group-hover:text-(--color-teal) transition-colors">
               {featuredProjects[1].title}
             </h3>
             <p class="text-(--color-text-secondary) text-sm leading-relaxed flex-1">
@@ -278,7 +278,7 @@ const techStack = {
           </div>
           <div class="flex-1 flex flex-col gap-2">
             <div class="flex justify-between items-center">
-              <h3 class="font-(--font-heading) font-700 text-lg group-hover:text-(--color-teal) transition-colors">
+              <h3 class="font-(--font-heading) font-bold text-lg group-hover:text-(--color-teal) transition-colors">
                 {featuredProjects[2].title}
               </h3>
               <svg class="w-4 h-4 text-(--color-text-muted) group-hover:text-(--color-teal) transition-colors transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 sm:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -309,7 +309,7 @@ const techStack = {
   </section>
   
   <!-- ═══ SPEAKING & COMMUNITY ═══ -->
-  <section class="max-w-6xl mx-auto px-6 mb-24">
+  <section class="max-w-6xl mx-auto px-6 mb-24" aria-label="Speaking and Community Engagements">
     <div class="fade-in text-center mb-10">
       <h2 class="section-title">Speaking & <span class="gradient-text">Community</span></h2>
       <p class="section-subtitle mb-8">Active across 12+ Delhi NCR AI communities · 8,800+ LinkedIn reactions</p>
@@ -326,7 +326,7 @@ const techStack = {
                 <span class="badge-amber badge text-[0.6rem]">{event.role}</span>
                 <span class="text-(--color-text-muted) text-xs font-(--font-mono)">{event.date}</span>
               </div>
-              <h3 class="font-(--font-heading) font-600 text-sm mb-1">{event.title}</h3>
+              <h3 class="font-(--font-heading) font-semibold text-sm mb-1">{event.title}</h3>
               <p class="text-(--color-text-muted) text-xs">{event.topics}</p>
               {event.hasVideo && (
                 <a href={event.videoUrl} target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-(--color-teal) text-xs mt-2 hover:underline font-(--font-mono)">
@@ -352,7 +352,7 @@ const techStack = {
   </section>
   
   <!-- ═══ ABOUT PREVIEW ═══ -->
-  <section class="max-w-6xl mx-auto px-6 mb-24">
+  <section class="max-w-6xl mx-auto px-6 mb-24" aria-label="About Summary">
     <div class="glass p-8 md:p-12 relative overflow-hidden fade-in">
       <div class="orb orb-teal" style="top: -200px; right: -200px; width: 250px; height: 250px; opacity: 0.08;"></div>
       
@@ -375,7 +375,7 @@ const techStack = {
             </p>
             
             <blockquote class="border-l-2 border-(--color-teal) pl-4 mb-6">
-              <p class="text-(--color-text-primary) italic font-(--font-heading) font-500">
+              <p class="text-(--color-text-primary) italic font-(--font-heading) font-medium">
                 "I care about AI that ships, not just AI that demos."
               </p>
             </blockquote>
@@ -388,19 +388,19 @@ const techStack = {
           <!-- Quick stats sidebar -->
           <div class="hidden md:flex flex-col gap-3 min-w-[180px]">
             <div class="glass-static p-3 rounded-lg text-center">
-              <p class="text-lg font-800 font-(--font-heading) text-(--color-teal)">🏆 4</p>
+              <p class="text-lg font-extrabold font-(--font-heading) text-(--color-teal)">🏆 4</p>
               <p class="text-[0.65rem] text-(--color-text-muted) font-(--font-mono)">HACKATHON WINS</p>
             </div>
             <div class="glass-static p-3 rounded-lg text-center">
-              <p class="text-lg font-800 font-(--font-heading) text-(--color-amber)">🎤 2</p>
+              <p class="text-lg font-extrabold font-(--font-heading) text-(--color-amber)">🎤 2</p>
               <p class="text-[0.65rem] text-(--color-text-muted) font-(--font-mono)">SPEAKER TALKS</p>
             </div>
             <div class="glass-static p-3 rounded-lg text-center">
-              <p class="text-lg font-800 font-(--font-heading) text-(--color-teal)">🌐 12+</p>
+              <p class="text-lg font-extrabold font-(--font-heading) text-(--color-teal)">🌐 12+</p>
               <p class="text-[0.65rem] text-(--color-text-muted) font-(--font-mono)">AI COMMUNITIES</p>
             </div>
             <div class="glass-static p-3 rounded-lg text-center">
-              <p class="text-lg font-800 font-(--font-heading) text-(--color-amber)">⭐ Top 5%</p>
+              <p class="text-lg font-extrabold font-(--font-heading) text-(--color-amber)">⭐ Top 5%</p>
               <p class="text-[0.65rem] text-(--color-text-muted) font-(--font-mono)">LINKEDIN MEMBER</p>
             </div>
           </div>
@@ -410,9 +410,9 @@ const techStack = {
   </section>
   
   <!-- ═══ CTA ═══ -->
-  <section class="max-w-6xl mx-auto px-6 mb-12">
+  <section class="max-w-6xl mx-auto px-6 mb-12" aria-label="Contact Call to Action">
     <div class="fade-in text-center py-16">
-      <h2 class="font-(--font-heading) text-3xl md:text-4xl font-800 mb-4 tracking-tight">
+      <h2 class="font-(--font-heading) text-3xl md:text-4xl font-extrabold mb-4 tracking-tight">
         Let's build the future of AI <span class="gradient-text">together</span>
       </h2>
       <p class="text-(--color-text-secondary) mb-8 max-w-lg mx-auto">
