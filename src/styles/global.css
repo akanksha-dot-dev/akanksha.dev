@@ -1,29 +1,30 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════════════════════
-   AKANKSHA.DEV — Production AI Engineering Design System 3.0
+   AKANKSHA.DEV — Production AI Engineering Design System 4.0
    Brand: Electric Teal (#00F0B5) + Warm Amber (#F5A300) + Deep Space (#030712)
    Typography: Plus Jakarta Sans (headings + body) + JetBrains Mono (code/telemetry)
-   WCAG 2.2 AA Contrast Compliant
+   WCAG 2.2 AA Contrast Compliant · Modern Web Guidance Architecture
    ═══════════════════════════════════════════════════════════ */
 
 @theme {
   --color-teal: #00F0B5;
   --color-teal-dim: #00D29E;
   --color-teal-glow: rgba(0, 240, 181, 0.14);
-  --color-teal-glow-strong: rgba(0, 240, 181, 0.3);
+  --color-teal-glow-strong: rgba(0, 240, 181, 0.32);
   --color-amber: #F5A300;
   --color-amber-dim: #D48E00;
-  --color-amber-glow: rgba(245, 163, 0, 0.12);
+  --color-amber-glow: rgba(245, 163, 0, 0.14);
+  --color-amber-glow-strong: rgba(245, 163, 0, 0.3);
   --color-space: #030712;
   --color-space-light: #080E1E;
   --color-space-lighter: #0F1D38;
-  --color-surface: rgba(255, 255, 255, 0.035);
-  --color-surface-hover: rgba(255, 255, 255, 0.07);
-  --color-surface-active: rgba(255, 255, 255, 0.1);
+  --color-surface: rgba(8, 14, 30, 0.7);
+  --color-surface-hover: rgba(15, 29, 56, 0.85);
+  --color-surface-active: rgba(20, 38, 72, 0.9);
   --color-border: rgba(255, 255, 255, 0.08);
-  --color-border-hover: rgba(0, 240, 181, 0.4);
-  --color-border-amber: rgba(245, 163, 0, 0.4);
+  --color-border-hover: rgba(0, 240, 181, 0.45);
+  --color-border-amber: rgba(245, 163, 0, 0.45);
   --color-text-primary: #F8FAFC;
   --color-text-secondary: #CBD5E1;
   --color-text-muted: #94A3B8;
@@ -48,6 +49,29 @@ body {
   overflow-x: hidden;
   position: relative;
   padding-bottom: 2.75rem;
+}
+
+/* Top Scroll Progress Bar */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2.5px;
+  background: linear-gradient(90deg, var(--color-teal), #00F0B5, var(--color-amber));
+  z-index: 1000;
+  width: 0%;
+  transition: width 0.05s ease-out;
+  box-shadow: 0 0 10px rgba(0, 240, 181, 0.7);
+  pointer-events: none;
+}
+
+/* Typography line breaking rules (Modern Web Guidance) */
+h1, h2, h3, h4, .section-title {
+  text-wrap: balance;
+}
+
+p, .section-subtitle, article p {
+  text-wrap: pretty;
 }
 
 /* Custom Scrollbar */
@@ -83,7 +107,7 @@ body {
   }
 }
 
-/* Noise texture overlay for tactile depth */
+/* Tactile Fine Grain Texture */
 body::before {
   content: '';
   position: fixed;
@@ -114,16 +138,17 @@ body::after {
   color: #FFFFFF;
 }
 
-/* ─── Glass Card & Surfaces ────────────────────────────── */
+/* ─── Glass Cards & Modern Surfaces ──────────────────────── */
 
 .glass {
   background: var(--color-surface);
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
   border: 1px solid var(--color-border);
   border-radius: 1rem;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
 }
 
 .glass::after {
@@ -132,7 +157,7 @@ body::after {
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, transparent 60%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 60%);
 }
 
 .glass:hover {
@@ -140,25 +165,70 @@ body::after {
   border-color: var(--color-border-hover);
   transform: translateY(-2px);
   box-shadow:
-    0 12px 32px rgba(0, 0, 0, 0.4),
-    0 0 0 1px rgba(0, 240, 181, 0.2);
+    0 14px 36px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(0, 240, 181, 0.25),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
 }
 
 .glass-static {
   background: var(--color-surface);
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
   border: 1px solid var(--color-border);
   border-radius: 1rem;
   position: relative;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
 }
 
 .glass-glow-teal {
-  box-shadow: 0 0 24px var(--color-teal-glow), inset 0 0 12px var(--color-teal-glow);
+  box-shadow: 0 0 28px var(--color-teal-glow), inset 0 0 14px var(--color-teal-glow);
 }
 
 .glass-glow-amber {
-  box-shadow: 0 0 24px var(--color-amber-glow), inset 0 0 12px var(--color-amber-glow);
+  box-shadow: 0 0 28px var(--color-amber-glow), inset 0 0 14px var(--color-amber-glow);
+}
+
+/* ─── Modern HTML5 Dialog Component ─────────────────────── */
+
+dialog {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: auto;
+  max-width: 100vw;
+  max-height: 100vh;
+  overflow: visible;
+}
+
+dialog::backdrop {
+  background: rgba(3, 7, 18, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* ─── Soft Edge Content Fade (Modern Web Guidance) ──────── */
+
+.mask-edge-fade-bottom {
+  -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+}
+
+.mask-edge-fade-both {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+
+/* ─── SVG Animated Flow Dashes ─────────────────────────── */
+
+@keyframes flow-dash {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+.animate-flow-dash {
+  stroke-dasharray: 6 6;
+  animation: flow-dash 1.2s linear infinite;
 }
 
 /* ─── Gradient Text ────────────────────────────────────── */
@@ -190,7 +260,7 @@ body::after {
   position: absolute;
   border-radius: 50%;
   filter: blur(130px);
-  opacity: 0.12;
+  opacity: 0.14;
   pointer-events: none;
   will-change: transform;
 }

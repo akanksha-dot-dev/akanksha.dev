@@ -153,6 +153,9 @@ const breadcrumbs = [
 
 <body class="bg-(--color-space) text-(--color-text-primary) font-(--font-body) antialiased">
   
+  <!-- Top Scroll Progress Bar (Modern Web Guidance) -->
+  <div id="scroll-progress" aria-hidden="true"></div>
+
   <!-- Skip to Main Content (WCAG 2.2 AA) -->
   <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2.5 focus:bg-(--color-teal) focus:text-[#030712] focus:font-bold focus:rounded-lg focus:shadow-2xl focus:outline-none">
     Skip to main content
@@ -161,7 +164,7 @@ const breadcrumbs = [
   <!-- ═══ NAVIGATION ═══ -->
   <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" aria-label="Primary Navigation">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-      <!-- Logo: Clean brand mark without awkward spacing -->
+      <!-- Logo: Clean brand mark with pulsing status dot -->
       <a href="/" class="text-lg font-bold font-(--font-heading) tracking-tight group flex items-center gap-2" aria-label="Akanksha.dev Homepage">
         <span class="w-2.5 h-2.5 rounded-full bg-(--color-teal) shadow-[0_0_10px_rgba(0,240,181,0.8)]"></span>
         <span class="text-white tracking-tight">akanksha<span class="text-(--color-teal)">.dev</span></span>
@@ -178,6 +181,7 @@ const breadcrumbs = [
             {link.label}
           </a>
         ))}
+        
         <!-- Search Button (Ctrl+K) -->
         <button 
           type="button" 
@@ -312,7 +316,7 @@ const breadcrumbs = [
     </div>
   </footer>
 
-  <!-- ═══ COMMAND PALETTE 2.0 (Cmd+K) ═══ -->
+  <!-- ═══ COMMAND PALETTE 3.0 (Cmd+K) ═══ -->
   <div id="command-palette" class="fixed inset-0 z-[100] hidden bg-[#030712]/85 backdrop-blur-md flex items-start justify-center pt-[12vh] px-4" aria-modal="true" role="dialog" aria-label="Command Palette & Local AI Agent">
     <div class="w-full max-w-2xl bg-[#080E1E]/95 border border-(--color-border) rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[75vh] glass-glow-teal">
       <!-- Search Input Header -->
@@ -367,7 +371,7 @@ const breadcrumbs = [
     </div>
   </div>
 
-  <!-- ═══ SLEEK STATUS BAR ═══ -->
+  <!-- ═══ SLEEK STATUS BAR 4.0 ═══ -->
   <div class="fixed bottom-0 left-0 right-0 h-8 bg-[#030712]/92 backdrop-blur-md border-t border-(--color-border) z-[49] flex items-center justify-between px-4 text-[10px] sm:text-xs font-(--font-mono) text-(--color-text-secondary) select-none">
     <div class="flex items-center gap-3">
       <span class="flex items-center gap-1.5 text-(--color-teal)">
@@ -387,7 +391,26 @@ const breadcrumbs = [
         ⚡ <span class="text-(--color-teal)">Open to Senior AI Engineer Roles</span>
       </a>
     </div>
+    
     <div class="flex items-center gap-3">
+      <!-- Sound FX Toggle -->
+      <button 
+        type="button" 
+        id="audio-synth-toggle" 
+        class="hover:text-(--color-teal) transition-colors flex items-center gap-1 cursor-pointer"
+        title="Toggle subtle UI sound synthesis"
+        aria-label="Toggle UI sound synthesis"
+      >
+        <span id="audio-synth-icon">🔇</span>
+        <span class="hidden lg:inline text-(--color-text-muted)">audio</span>
+      </button>
+      <span class="text-(--color-text-muted) hidden lg:inline">|</span>
+      <!-- WebMCP agent indicator -->
+      <span class="hidden md:flex items-center gap-1 text-(--color-teal)/90" title="WebMCP declarative & imperative agent tools enabled">
+        <span class="w-1.5 h-1.5 rounded-full bg-(--color-teal)"></span>
+        <span>WebMCP: ready</span>
+      </span>
+      <span class="text-(--color-text-muted) hidden md:inline">|</span>
       <span class="hidden md:inline text-(--color-text-muted)" id="live-time-ticker">IST 00:00:00</span>
       <span class="text-(--color-text-muted) hidden md:inline">|</span>
       <span id="latency-indicator" class="text-(--color-teal)">Telemetry: 16ms</span>
@@ -396,8 +419,9 @@ const breadcrumbs = [
     </div>
   </div>
 
-  <!-- ═══ SCRIPTS ═══ -->
+  <!-- ═══ GLOBAL CLIENT SCRIPT ═══ -->
   <script>
+    // ─── 1. KNOWLEDGE BASE & TELEMETRY CORPUS ───
     const kb: Record<string, string> = {
       skills: "Akanksha's Technical Stack:\n• AI Agents & Orchestration: Google ADK, LangChain, LangGraph, CrewAI, MCP Protocol, Multi-Agent Systems\n• RAG & Search: Graph RAG, FAISS, Chroma DB, Hybrid Vector Search, RAGAS Evaluation Framework\n• LLMs & Inference: GPT-4, Llama-3, Mistral, PEFT/LoRA, Prompt Engineering\n• Backend & Infra: Python, FastAPI, Django, PostgreSQL, Docker, Kubernetes, CI/CD\n• Cloud: AWS (Bedrock, SageMaker), Azure ML, Cloudflare Workers",
       rag: "RAG Architecture at Samsung SDS:\n• End-to-end Graph RAG pipeline processing complex annual financial statements\n• Advanced document extraction (GMFT, Partition PDF)\n• 92% evaluation accuracy on 500+ daily queries, 40% retrieval precision improvement over baseline.",
@@ -424,6 +448,138 @@ const breadcrumbs = [
       { name: "Email Akanksha Directly (me@akanksha.dev)", action: () => window.location.href = "mailto:me@akanksha.dev" }
     ];
 
+    // ─── 2. WEB AUDIO SYNTHESIZER FOR SUBTLE HAPTIC FEEDBACK ───
+    let audioCtx: AudioContext | null = null;
+    let audioEnabled = false;
+
+    function getAudioContext(): AudioContext | null {
+      if (!audioCtx && typeof window !== 'undefined' && ('AudioContext' in window || 'webkitAudioContext' in (window as any))) {
+        const AudioCtor = window.AudioContext || (window as any).webkitAudioContext;
+        audioCtx = new AudioCtor();
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function playAudioCue(type: 'click' | 'success' | 'agent' | 'node') {
+      if (!audioEnabled) return;
+      try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        const now = ctx.currentTime;
+        if (type === 'click') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(800, now);
+          osc.frequency.exponentialRampToValueAtTime(400, now + 0.04);
+          gain.gain.setValueAtTime(0.05, now);
+          gain.gain.linearRampToValueAtTime(0.001, now + 0.04);
+          osc.start(now);
+          osc.stop(now + 0.04);
+        } else if (type === 'node') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(520, now);
+          osc.frequency.exponentialRampToValueAtTime(880, now + 0.08);
+          gain.gain.setValueAtTime(0.08, now);
+          gain.gain.linearRampToValueAtTime(0.001, now + 0.08);
+          osc.start(now);
+          osc.stop(now + 0.08);
+        } else if (type === 'success') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(440, now);
+          osc.frequency.setValueAtTime(660, now + 0.06);
+          osc.frequency.setValueAtTime(880, now + 0.12);
+          gain.gain.setValueAtTime(0.06, now);
+          gain.gain.linearRampToValueAtTime(0.001, now + 0.2);
+          osc.start(now);
+          osc.stop(now + 0.2);
+        } else if (type === 'agent') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(1200, now);
+          osc.frequency.exponentialRampToValueAtTime(600, now + 0.05);
+          gain.gain.setValueAtTime(0.04, now);
+          gain.gain.linearRampToValueAtTime(0.001, now + 0.05);
+          osc.start(now);
+          osc.stop(now + 0.05);
+        }
+      } catch {
+        // Ignore audio errors gracefully
+      }
+    }
+
+    // Expose sound trigger globally so other components can invoke it
+    (window as any).__AK_PLAY_SOUND__ = playAudioCue;
+
+    // ─── 3. WEBMCP PROTOCOL REGISTRATION (MODERN WEB GUIDANCE) ───
+    async function initWebMcpTools() {
+      const modelContext = (document as any).modelContext || (navigator as any).modelContext;
+      
+      const mcpTools = {
+        query_career_knowledge_base: {
+          name: "query_career_knowledge_base",
+          description: "Queries Akanksha's static data corpus for verified skills, experience, RAG pipelines, awards, and contact info.",
+          inputSchema: {
+            type: "object",
+            properties: {
+              query: { type: "string", description: "Search term e.g. 'rag', 'skills', 'agents', 'samsung'" }
+            },
+            required: ["query"]
+          },
+          execute(input: { query: string }) {
+            const q = (input.query || '').toLowerCase();
+            for (const [k, v] of Object.entries(kb)) {
+              if (q.includes(k) || k.includes(q)) return { result: v };
+            }
+            return { result: "No direct match. Available topics: skills, rag, agents, samsung, experience, hackathons, speaking, contact, resume." };
+          },
+          annotations: { readOnlyHint: true }
+        },
+        fetch_candidate_dossier: {
+          name: "fetch_candidate_dossier",
+          description: "Fetches structured candidate overview of Akanksha for hiring managers and recruiters.",
+          inputSchema: { type: "object", properties: {} },
+          execute() {
+            return {
+              name: "Akanksha",
+              role: "Production AI Engineer",
+              company: "Samsung SDS",
+              experience: "4+ years",
+              flagshipMetrics: {
+                graphRagAccuracy: "92%",
+                manualQaReduction: "60%",
+                certificationsCount: "300+",
+                hackathonWins: 4
+              },
+              email: "me@akanksha.dev",
+              linkedin: "https://linkedin.com/in/akankshadev",
+              openToRoles: "Senior / Staff Production AI Engineer"
+            };
+          },
+          annotations: { readOnlyHint: true }
+        }
+      };
+
+      // Store in window for browser subagents/extensions
+      (window as any).__AK_MCP_TOOLS__ = mcpTools;
+
+      if (modelContext && typeof modelContext.registerTool === 'function') {
+        try {
+          await modelContext.registerTool(mcpTools.query_career_knowledge_base);
+          await modelContext.registerTool(mcpTools.fetch_candidate_dossier);
+        } catch {
+          // Native WebMCP registration fallback
+        }
+      }
+    }
+
+    // ─── 4. COMMAND PALETTE LOGIC ───
     let selectedIndex = 0;
     let streamInterval: ReturnType<typeof setInterval> | null = null;
 
@@ -435,6 +591,7 @@ const breadcrumbs = [
 
       const isHidden = palette.classList.toggle('hidden');
       if (!isHidden) {
+        playAudioCue('agent');
         selectedIndex = 0;
         if (searchInput) {
           searchInput.value = '';
@@ -477,6 +634,7 @@ const breadcrumbs = [
           <span class="${idx === selectedIndex ? 'text-[#030712]/80' : 'text-(--color-text-muted)'} text-[10px]">Action</span>
         `;
         item.addEventListener('click', () => {
+          playAudioCue('click');
           cmd.action();
           togglePalette();
         });
@@ -537,11 +695,12 @@ const breadcrumbs = [
         if (i >= responseText.length) {
           if (streamInterval) clearInterval(streamInterval);
           if (aiStatus) aiStatus.textContent = 'Index Response Complete';
+          playAudioCue('success');
         }
       }, 8);
     }
 
-    // Global Key Listener
+    // ─── 5. GLOBAL LISTENERS & INITIALIZATION ───
     if (!(window as any).__AK_GLOBAL_KEYS_INIT__) {
       (window as any).__AK_GLOBAL_KEYS_INIT__ = true;
 
@@ -569,10 +728,12 @@ const breadcrumbs = [
               e.preventDefault();
               selectedIndex = (selectedIndex + 1) % items.length;
               renderSuggestions(searchInput?.value || '');
+              playAudioCue('click');
             } else if (e.key === 'ArrowUp') {
               e.preventDefault();
               selectedIndex = (selectedIndex - 1 + items.length) % items.length;
               renderSuggestions(searchInput?.value || '');
+              playAudioCue('click');
             } else if (e.key === 'Enter') {
               e.preventDefault();
               const activeItem = items[selectedIndex] as HTMLButtonElement | undefined;
@@ -583,17 +744,44 @@ const breadcrumbs = [
       });
     }
 
-    // Page-level Initializer
     function initBasePage() {
-      // Nav background on scroll
+      // Top Scroll Progress Bar
+      const progressBar = document.getElementById('scroll-progress');
       const nav = document.getElementById('main-nav');
+
       window.addEventListener('scroll', () => {
-        if (window.scrollY > 20) {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        if (progressBar) {
+          progressBar.style.width = `${pct}%`;
+        }
+
+        if (scrollTop > 20) {
           nav?.classList.add('nav-scrolled');
         } else {
           nav?.classList.remove('nav-scrolled');
         }
       }, { passive: true });
+
+      // Audio synthesizer setup from localStorage
+      const audioBtn = document.getElementById('audio-synth-toggle');
+      const audioIcon = document.getElementById('audio-synth-icon');
+      const savedAudio = localStorage.getItem('ak_audio_enabled');
+      if (savedAudio === 'true') {
+        audioEnabled = true;
+        if (audioIcon) audioIcon.textContent = '🔊';
+      }
+
+      audioBtn?.addEventListener('click', () => {
+        audioEnabled = !audioEnabled;
+        localStorage.setItem('ak_audio_enabled', audioEnabled ? 'true' : 'false');
+        if (audioIcon) audioIcon.textContent = audioEnabled ? '🔊' : '🔇';
+        if (audioEnabled) {
+          getAudioContext();
+          playAudioCue('success');
+        }
+      });
 
       // Mobile menu toggle
       const menuBtn = document.getElementById('mobile-menu-btn');
@@ -601,6 +789,7 @@ const breadcrumbs = [
       menuBtn?.addEventListener('click', () => {
         const isHidden = mobileMenu?.classList.toggle('hidden');
         menuBtn.setAttribute('aria-expanded', isHidden ? 'false' : 'true');
+        playAudioCue('click');
       });
 
       // Scroll observer for fade-in animations
@@ -649,6 +838,9 @@ const breadcrumbs = [
           togglePalette();
         }
       });
+
+      // Initialize WebMCP tools
+      initWebMcpTools();
     }
 
     initBasePage();
