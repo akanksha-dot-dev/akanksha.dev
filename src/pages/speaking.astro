@@ -12,10 +12,10 @@ const speakingEngagements = [
     audience: 'Mobile developers and AI enthusiasts',
     topics: [
       'Evolution of Intelligence: OpenAI history to Transformer architectures',
-      'Attention mechanisms and token prediction',
-      'Fine-tuning with Temperature, Top-P, Top-K parameters',
-      'RAG implementation and prompt engineering',
-      'Live demo: Training custom models with Teachable Machines',
+      'Attention mechanisms and token prediction algorithms',
+      'Fine-tuning with Temperature, Top-P, Top-K hyper-parameters',
+      'RAG implementation, Graph vector search, and prompt engineering',
+      'Live demo: Training custom models and deploying edge inferences',
     ],
     videoUrl: 'https://www.youtube.com/watch?v=-8xTRNfq-DE',
     codelabUrl: 'https://github.com/akanksha-dot-dev/AgenticAI-Workshop',
@@ -23,21 +23,21 @@ const speakingEngagements = [
     icon: '📹',
   },
   {
-    title: 'INCEPT\'26 — Industry Talk on AI, Career Growth & Software Engineering',
+    title: 'INCEPT\'26 — Industry Talk on AI, Career Growth & Production Software Engineering',
     event: 'INCEPT\'26',
-    organizer: 'Google Developers Groups - GLA University, Mathura',
+    organizer: 'Google Developer Groups - GLA University, Mathura',
     date: '2026-04-28',
     location: 'GLA University, Mathura',
-    role: 'Speaker',
-    audience: '100+ engineering students',
+    role: 'Keynote Speaker',
+    audience: '100+ engineering students and developers',
     topics: [
-      'Skills that matter in software engineering careers',
-      'How AI is transforming app development',
-      'Using AI tools for productivity, learning, and projects',
-      'What companies expect from future-ready engineers',
-      'Journey: College to corporate tech world',
+      'Skills that matter in modern AI software engineering careers',
+      'How Generative AI & autonomous agents are transforming development',
+      'Using AI tools for developer productivity and production observability',
+      'What enterprise companies expect from future-ready AI engineers',
+      'Journey breakdown: From tier-3 college to leading AI squads',
     ],
-    coSpeakers: ['Nitish Singh (Founder, CampusX)', 'Anand Gaur (Mobile Development)'],
+    coSpeakers: ['Nitish Singh (Founder, CampusX)', 'Anand Gaur (Mobile Tech Lead)'],
     linkedinUrl: 'https://www.linkedin.com/in/akankshadev',
     icon: '🎤',
   },
@@ -78,24 +78,23 @@ function formatDate(dateStr: string) {
 
 <BaseLayout title="Speaking & Community — Akanksha | Production AI Engineer" description="Speaker at INCEPT'26 and AI Mobile Hackathon. Active across 12+ Delhi NCR AI communities with 25+ events attended. YouTube recordings available.">
   
-  <section class="relative overflow-hidden">
+  <section class="relative overflow-hidden" aria-label="Speaking and Community Leadership">
     <div class="orb orb-teal" style="top: -100px; right: -200px;"></div>
     <div class="orb orb-amber" style="bottom: 400px; left: -200px;"></div>
     
-    <div class="max-w-4xl mx-auto px-6 py-16">
-      <div class="fade-in mb-12">
-        <span class="badge mb-4">Community</span>
-        <h1 class="font-(--font-heading) text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 py-16">
+      <div class="fade-in mb-10">
+        <span class="badge mb-4">Tech Ecosystem & Thought Leadership</span>
+        <h1 class="font-(--font-heading) text-3xl sm:text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">
           Speaking & <span class="gradient-text">Community</span>
         </h1>
-        <p class="text-(--color-text-secondary) text-lg max-w-2xl">
-          I believe in building in public and giving back. From speaking on stage to attending 
-          25+ community events — learning, contributing, and connecting with the AI ecosystem.
+        <p class="text-(--color-text-secondary) text-base sm:text-lg max-w-2xl leading-relaxed">
+          I believe in building in public and giving back to the developer ecosystem. From keynote sessions to mentoring hackathons and attending 25+ tech summits.
         </p>
       </div>
       
       <!-- Stats Bar -->
-      <div class="fade-in glass-static p-1.5 grid grid-cols-2 md:grid-cols-4 rounded-xl mb-16">
+      <div class="fade-in glass-static p-2 grid grid-cols-2 md:grid-cols-4 rounded-xl mb-14 border border-(--color-border)">
         <div class="metric">
           <div class="metric-value">2</div>
           <div class="metric-label">Speaker Talks</div>
@@ -106,39 +105,39 @@ function formatDate(dateStr: string) {
         </div>
         <div class="metric">
           <div class="metric-value">12+</div>
-          <div class="metric-label">Communities</div>
+          <div class="metric-label">AI Communities</div>
         </div>
         <div class="metric">
           <div class="metric-value">8.8K</div>
-          <div class="metric-label">LinkedIn Reactions</div>
+          <div class="metric-label">LinkedIn Reach</div>
         </div>
       </div>
       
       <!-- ─── Speaking Engagements ─── -->
       <div class="fade-in mb-16">
-        <h2 class="section-title mb-8">🎤 Speaking Engagements</h2>
+        <h2 class="section-title mb-6">🎤 Speaking Engagements & Workshops</h2>
         
         <div class="space-y-6">
           {speakingEngagements.map(talk => (
-            <div class="glass p-6 md:p-8">
+            <div class="glass p-6 sm:p-8">
               <div class="flex items-start gap-4 mb-4">
-                <span class="text-3xl">{talk.icon}</span>
+                <span class="text-3xl p-2 rounded-xl bg-space-light/60 border border-(--color-border)">{talk.icon}</span>
                 <div class="flex-1">
                   <div class="flex flex-wrap items-center gap-2 mb-2">
                     <span class="badge-amber badge text-[0.65rem]">{talk.role}</span>
                     <span class="text-(--color-text-muted) text-xs font-(--font-mono)">{formatDate(talk.date)}</span>
                     <span class="text-(--color-text-muted) text-xs">·</span>
-                    <span class="text-(--color-text-muted) text-xs">{talk.location}</span>
+                    <span class="text-(--color-text-muted) text-xs font-(--font-mono)">{talk.location}</span>
                   </div>
-                  <h3 class="font-(--font-heading) font-bold text-lg mb-1">{talk.title}</h3>
-                  <p class="text-(--color-text-secondary) text-sm mb-1">{talk.event} — {talk.organizer}</p>
-                  <p class="text-(--color-text-muted) text-xs">Audience: {talk.audience}</p>
+                  <h3 class="font-(--font-heading) font-bold text-base sm:text-lg text-(--color-text-primary) mb-1">{talk.title}</h3>
+                  <p class="text-(--color-text-secondary) text-xs sm:text-sm mb-1">{talk.event} — {talk.organizer}</p>
+                  <p class="text-(--color-text-muted) text-xs font-(--font-mono)">Audience: {talk.audience}</p>
                 </div>
               </div>
               
               {talk.coSpeakers && (
                 <div class="mb-4">
-                  <p class="text-xs text-(--color-text-muted) font-(--font-mono) uppercase tracking-wider mb-1">Co-speakers</p>
+                  <p class="text-[11px] text-(--color-text-muted) font-(--font-mono) uppercase tracking-wider mb-1.5 font-semibold">Co-speakers</p>
                   <div class="flex flex-wrap gap-2">
                     {talk.coSpeakers.map(s => <span class="badge-ghost badge text-[0.65rem]">{s}</span>)}
                   </div>
@@ -146,12 +145,12 @@ function formatDate(dateStr: string) {
               )}
               
               <div class="mb-4">
-                <p class="text-xs text-(--color-text-muted) font-(--font-mono) uppercase tracking-wider mb-2">Topics Covered</p>
-                <ul class="space-y-1">
+                <p class="text-[11px] text-(--color-text-muted) font-(--font-mono) uppercase tracking-wider mb-2 font-semibold">Topics Covered</p>
+                <ul class="space-y-1.5">
                   {talk.topics.map(t => (
-                    <li class="flex items-start gap-2">
+                    <li class="flex items-start gap-2 text-xs sm:text-sm text-(--color-text-secondary)">
                       <span class="text-(--color-teal) mt-1 text-[0.5rem]">●</span>
-                      <span class="text-(--color-text-secondary) text-sm">{t}</span>
+                      <span>{t}</span>
                     </li>
                   ))}
                 </ul>
@@ -159,17 +158,20 @@ function formatDate(dateStr: string) {
               
               <div class="flex flex-wrap gap-3 pt-4 border-t border-(--color-border)">
                 {talk.videoUrl && (
-                  <a href={talk.videoUrl} target="_blank" rel="noopener" class="btn-primary text-xs py-2 px-4">
-                    ▶ Watch Recording
+                  <a href={talk.videoUrl} target="_blank" rel="noopener" class="btn-primary text-xs py-2 px-4 inline-flex items-center gap-1.5">
+                    <span>▶ Watch Hackathon Session Recording</span>
+                    <span>↗</span>
                   </a>
                 )}
                 {talk.codelabUrl && (
-                  <a href={talk.codelabUrl} target="_blank" rel="noopener" class="btn-outline text-xs py-2 px-4">
-                    📂 View Code Repository
+                  <a href={talk.codelabUrl} target="_blank" rel="noopener" class="btn-outline text-xs py-2 px-4 inline-flex items-center gap-1.5">
+                    <span>📂 View Workshop Materials</span>
+                    <span>↗</span>
                   </a>
                 )}
-                <a href={talk.linkedinUrl} target="_blank" rel="noopener" class="btn-outline text-xs py-2 px-4">
-                  💼 LinkedIn Profile
+                <a href={talk.linkedinUrl} target="_blank" rel="noopener" class="btn-outline text-xs py-2 px-4 inline-flex items-center gap-1.5">
+                  <span>💼 LinkedIn Profile</span>
+                  <span>↗</span>
                 </a>
               </div>
             </div>
@@ -179,24 +181,24 @@ function formatDate(dateStr: string) {
       
       <!-- ─── Events Timeline ─── -->
       <div class="fade-in mb-16">
-        <h2 class="section-title mb-2">📅 Events Attended</h2>
-        <p class="section-subtitle">{eventsAttended.length} events across 2025-2026</p>
+        <h2 class="section-title mb-2">📅 Tech Summits & Events Attended</h2>
+        <p class="section-subtitle mb-8">{eventsAttended.length} tech events across 2025–2026</p>
         
-        <div class="relative pl-10 space-y-4">
+        <div class="relative pl-8 sm:pl-10 space-y-4">
           <div class="timeline-line" style="left: 0.85rem;"></div>
           
           {eventsAttended.map((event, i) => (
             <div class="fade-in relative">
               <div class="timeline-dot" style={`top: 0.75rem; left: 0.35rem; width: 0.7rem; height: 0.7rem; ${i > 12 ? 'background: var(--color-text-muted); box-shadow: none;' : ''}`}></div>
               <div class="glass p-4">
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-1 mb-2">
-                  <h3 class="font-(--font-heading) font-semibold text-sm">{event.name}</h3>
-                  <span class="text-(--color-text-muted) text-xs font-(--font-mono) flex-shrink-0">{event.date}</span>
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-1.5">
+                  <h3 class="font-(--font-heading) font-semibold text-xs sm:text-sm text-(--color-text-primary)">{event.name}</h3>
+                  <span class="text-(--color-teal) text-[11px] font-(--font-mono) flex-shrink-0">{event.date}</span>
                 </div>
                 <p class="text-(--color-text-muted) text-xs mb-2">{event.org} · {event.location}</p>
                 <div class="flex flex-wrap gap-1.5">
                   {event.topics.map(t => (
-                    <span class="badge text-[0.55rem] py-0.5">{t}</span>
+                    <span class="badge text-[0.58rem] py-0.5">{t}</span>
                   ))}
                 </div>
               </div>
@@ -207,11 +209,11 @@ function formatDate(dateStr: string) {
       
       <!-- ─── Communities ─── -->
       <div class="fade-in mb-16">
-        <h2 class="section-title mb-6">🌐 Community Memberships</h2>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+        <h2 class="section-title mb-5">🌐 Active AI Communities</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
           {communities.map(c => (
-            <div class="glass p-3 text-center">
-              <p class="text-(--color-text-secondary) text-sm font-medium">{c}</p>
+            <div class="glass p-3.5 text-center">
+              <p class="text-(--color-text-secondary) text-xs sm:text-sm font-medium">{c}</p>
             </div>
           ))}
         </div>
@@ -219,9 +221,9 @@ function formatDate(dateStr: string) {
       
       <!-- ─── LinkedIn Stats ─── -->
       <div class="fade-in mb-16">
-        <h2 class="section-title mb-6">📊 LinkedIn 2025 Wrap</h2>
-        <div class="glass p-6 md:p-8">
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <h2 class="section-title mb-5">📊 Community Reach (2025–2026)</h2>
+        <div class="glass p-6 sm:p-8">
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div class="text-center">
               <p class="text-2xl font-extrabold font-(--font-heading) text-(--color-teal)">8,839</p>
               <p class="text-[0.65rem] text-(--color-text-muted) font-(--font-mono)">REACTIONS</p>
@@ -239,14 +241,14 @@ function formatDate(dateStr: string) {
               <p class="text-[0.65rem] text-(--color-text-muted) font-(--font-mono)">OF ALL MEMBERS</p>
             </div>
           </div>
-          <p class="text-(--color-text-muted) text-xs text-center mt-4 font-(--font-mono)">Source: LinkedIn Year-in-Review 2025</p>
+          <p class="text-(--color-text-muted) text-xs text-center mt-4 font-(--font-mono)">Source: Verified LinkedIn Member Insights</p>
         </div>
       </div>
       
       <!-- CTA -->
       <div class="fade-in text-center">
-        <p class="text-(--color-text-secondary) mb-4">Interested in having me speak at your event?</p>
-        <a href="/contact" class="btn-primary">Get in Touch →</a>
+        <p class="text-(--color-text-secondary) text-sm mb-4">Interested in having me speak at your conference, meetup, or enterprise workshop?</p>
+        <a href="/contact" class="btn-primary">Invite Me to Speak →</a>
       </div>
     </div>
   </section>

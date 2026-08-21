@@ -9,104 +9,217 @@ const socials = [
   { name: 'HuggingFace', href: 'https://huggingface.co/akanksha-dev', icon: '🤗', description: 'Models & ML experiments' },
   { name: 'Kaggle', href: 'https://kaggle.com/akankshadotdev', icon: '📊', description: 'Data science competitions' },
 ];
+
+const topics = [
+  { id: 'role', label: '🎯 Senior AI Role / Hiring' },
+  { id: 'project', label: '🤝 Project Advisory / Consulting' },
+  { id: 'speaking', label: '🎤 Speaking / Workshop' },
+  { id: 'general', label: '💡 General Inquiry / Hello' },
+];
 ---
 
-<BaseLayout title="Contact — Akanksha | Production AI Engineer" description="Get in touch with Akanksha. Open to AI engineering roles, collaborations, speaking engagements, and conversations about production AI.">
+<BaseLayout title="Contact & Conversion — Akanksha | Production AI Engineer" description="Get in touch with Akanksha. Open to Senior/Staff Production AI Engineer roles, collaborations, speaking engagements, and enterprise AI advisory.">
   
-  <section class="relative overflow-hidden">
+  <section class="relative overflow-hidden" aria-label="Contact Conversion Form">
     <div class="orb orb-amber" style="top: -100px; right: -200px;"></div>
+    <div class="orb orb-teal" style="bottom: 200px; left: -200px;"></div>
     
-    <div class="max-w-4xl mx-auto px-6 py-16">
-      <div class="fade-in mb-12">
-        <span class="badge mb-4">Connect</span>
-        <h1 class="font-(--font-heading) text-4xl md:text-5xl font-extrabold mb-4">
-          Let's <span class="gradient-text">Talk</span>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 py-16">
+      <div class="fade-in mb-10">
+        <!-- Live Availability Badge -->
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-teal-500/30 bg-teal-500/10 text-teal-300 text-xs font-(--font-mono) mb-4">
+          <span class="w-2 h-2 rounded-full bg-teal-400 animate-pulse"></span>
+          <span>Open to Senior/Staff AI Engineer Roles · Q3/Q4 2026 · Replies within 24h</span>
+        </div>
+
+        <h1 class="font-(--font-heading) text-3xl sm:text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">
+          Let's <span class="gradient-text">Connect</span>
         </h1>
-        <p class="text-(--color-text-secondary) text-lg max-w-2xl">
-          Open to AI engineering roles, collaborations, speaking engagements, and conversations 
-          about production AI systems.
+        <p class="text-(--color-text-secondary) text-base sm:text-lg max-w-2xl leading-relaxed">
+          Whether you're looking to discuss a Senior/Staff AI Engineer role, invite me to speak at a conference, 
+          or explore enterprise RAG and Agentic systems — I'd love to hear from you.
         </p>
       </div>
-      
-      <!-- Email CTA -->
-      <div class="fade-in glass p-8 md:p-10 mb-10">
-        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-          <div class="flex-1">
-            <h2 class="font-(--font-heading) font-bold text-2xl mb-2">Email is best</h2>
-            <p class="text-(--color-text-secondary) text-sm mb-4">
-              For roles, collaborations, or speaking — I typically respond within 24 hours.
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
+        <!-- Main Form (7 cols) -->
+        <div class="lg:col-span-7 glass p-6 sm:p-8 fade-in relative" id="contact-form-container">
+          <h2 class="font-(--font-heading) font-bold text-lg sm:text-xl mb-4 text-(--color-text-primary)">
+            Send a Direct Message
+          </h2>
+          
+          <form id="contact-form" class="flex flex-col gap-4" novalidate>
+            <!-- Invisible Bot Defense (Honeypot) -->
+            <input type="text" name="_gotcha" id="form-gotcha" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            
+            <!-- Timestamp for speed-bot detection -->
+            <input type="hidden" id="form-render-timestamp" value="" />
+
+            <!-- Topic Selector -->
+            <div class="flex flex-col gap-1.5">
+              <label class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider">What is this regarding?</label>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2" id="topic-button-group">
+                {topics.map((t, idx) => (
+                  <button 
+                    type="button" 
+                    class:list={['topic-btn text-left p-2.5 rounded-xl border text-xs font-(--font-mono) transition-all cursor-pointer flex items-center gap-1.5', idx === 0 ? 'border-(--color-teal) bg-(--color-teal-glow) text-(--color-teal)' : 'border-(--color-border) bg-space-light/40 text-(--color-text-secondary) hover:border-white/20']}
+                    data-topic={t.label}
+                  >
+                    <span>{t.label}</span>
+                  </button>
+                ))}
+              </div>
+              <input type="hidden" id="selected-topic" value={topics[0].label} />
+            </div>
+
+            <!-- Name Field -->
+            <div class="flex flex-col gap-1">
+              <label for="contact-name" class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider">Your Name <span class="text-red-400">*</span></label>
+              <input 
+                type="text" 
+                id="contact-name" 
+                required 
+                placeholder="Alex Mercer"
+                class="w-full bg-space-light/60 border border-(--color-border) p-3 text-xs sm:text-sm rounded-xl text-(--color-text-primary) font-sans focus:outline-none focus:border-(--color-teal) focus:ring-1 focus:ring-(--color-teal)"
+              />
+              <span id="error-name" class="hidden text-[10px] font-(--font-mono) text-red-400">Please enter your name.</span>
+            </div>
+
+            <!-- Email Field -->
+            <div class="flex flex-col gap-1">
+              <label for="contact-email" class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider">Your Email <span class="text-red-400">*</span></label>
+              <input 
+                type="email" 
+                id="contact-email" 
+                required 
+                placeholder="alex@company.com"
+                class="w-full bg-space-light/60 border border-(--color-border) p-3 text-xs sm:text-sm rounded-xl text-(--color-text-primary) font-sans focus:outline-none focus:border-(--color-teal) focus:ring-1 focus:ring-(--color-teal)"
+              />
+              <span id="error-email" class="hidden text-[10px] font-(--font-mono) text-red-400">Please enter a valid email address.</span>
+            </div>
+
+            <!-- Message Field -->
+            <div class="flex flex-col gap-1">
+              <div class="flex justify-between items-center">
+                <label for="contact-message" class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider">Message <span class="text-red-400">*</span></label>
+                <span id="char-counter" class="text-[10px] font-(--font-mono) text-(--color-text-muted)">0 / 1000</span>
+              </div>
+              <textarea 
+                id="contact-message" 
+                rows="4" 
+                required 
+                maxlength="1000"
+                placeholder="Tell me about your role, team, or project details..."
+                class="w-full bg-space-light/60 border border-(--color-border) p-3 text-xs sm:text-sm rounded-xl text-(--color-text-primary) font-sans focus:outline-none focus:border-(--color-teal) focus:ring-1 focus:ring-(--color-teal) leading-relaxed"
+              ></textarea>
+              <span id="error-message" class="hidden text-[10px] font-(--font-mono) text-red-400">Please provide a brief message.</span>
+            </div>
+
+            <!-- Submit Button -->
+            <button 
+              type="submit" 
+              id="btn-submit-contact" 
+              class="btn-primary w-full py-3 text-sm font-semibold mt-2 cursor-pointer shadow-[0_0_16px_rgba(0,229,176,0.3)]"
+            >
+              🚀 Dispatch Message
+            </button>
+            <p class="text-[10px] font-(--font-mono) text-(--color-text-muted) text-center mt-1">
+              Direct delivery to me@akanksha.dev · Client-side verified · No tracking spam
             </p>
-            <div class="flex flex-wrap items-center gap-3">
-              <a href="mailto:me@akanksha.dev" class="btn-primary inline-flex">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </form>
+
+          <!-- Success State Box (Hidden initially) -->
+          <div id="contact-success-state" class="hidden flex flex-col items-center justify-center text-center gap-4 py-8 animate-fadeIn">
+            <div class="w-14 h-14 rounded-full bg-(--color-teal-glow) border border-(--color-teal) flex items-center justify-center text-2xl text-(--color-teal) shadow-lg">
+              ✓
+            </div>
+            <div>
+              <h3 class="font-(--font-heading) font-extrabold text-xl text-(--color-text-primary) mb-1">Message Prepared!</h3>
+              <p class="text-xs text-(--color-text-secondary) max-w-sm leading-relaxed" id="success-msg-desc">
+                Your message has been formatted. Click below to confirm dispatch via your default email client or copy the formatted note.
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-2.5 justify-center">
+              <a id="btn-success-mailto" href="#" class="btn-primary text-xs py-2 px-4">
+                ✉️ Open in Email App
+              </a>
+              <button type="button" id="btn-reset-form" class="btn-outline text-xs py-2 px-4 cursor-pointer">
+                Send Another Note
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar Info & Direct Channels (5 cols) -->
+        <div class="lg:col-span-5 flex flex-col gap-5">
+          <!-- Direct Email Box -->
+          <div class="glass p-6 fade-in flex flex-col gap-3.5">
+            <div class="flex items-center gap-2 text-(--color-teal)">
+              <span class="text-xl">📧</span>
+              <h3 class="font-(--font-heading) font-bold text-base">Direct Inbox</h3>
+            </div>
+            <p class="text-xs text-(--color-text-secondary) leading-relaxed">
+              Prefer writing directly from your client? Feel free to email me anytime:
+            </p>
+            <div class="flex flex-col gap-2">
+              <a href="mailto:me@akanksha.dev" class="text-sm font-(--font-mono) font-bold text-(--color-teal) hover:underline break-all">
                 me@akanksha.dev
               </a>
               <button 
                 type="button" 
-                id="btn-copy-email" 
-                class="btn-outline text-xs py-3 px-4 cursor-pointer"
-                aria-label="Copy email address to clipboard"
+                id="btn-copy-direct-email" 
+                class="btn-outline text-xs py-2 px-3 self-start cursor-pointer transition-all flex items-center gap-1.5"
               >
-                📋 Copy Address
+                <span>📋 Copy Email Address</span>
               </button>
-              <span id="copy-status" class="text-xs text-(--color-teal) font-(--font-mono) hidden" aria-live="polite">
+              <span id="copy-direct-status" class="text-[10px] text-(--color-teal) font-(--font-mono) hidden" aria-live="polite">
                 ✓ Copied to clipboard!
               </span>
             </div>
           </div>
-          <div class="text-6xl opacity-20 hidden sm:block select-none" aria-hidden="true">📧</div>
+
+          <!-- Resume Dossier Box -->
+          <div class="glass p-6 fade-in flex flex-col gap-3">
+            <div class="flex items-center gap-2 text-(--color-amber)">
+              <span class="text-xl">📄</span>
+              <h3 class="font-(--font-heading) font-bold text-base">Resume Dossier</h3>
+            </div>
+            <p class="text-xs text-(--color-text-secondary) leading-relaxed">
+              Updated for Senior/Staff Production AI Engineer roles (Agentic RAG, LLM Infrastructure, Multi-Agent Orchestration).
+            </p>
+            <a href="/resume/akanksha_resume.pdf" download="Akanksha_AI_Engineer_Resume.pdf" class="btn-outline text-xs py-2 px-4 self-start inline-flex items-center gap-1.5 mt-1">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              <span>Download PDF Dossier</span>
+            </a>
+          </div>
+
+          <!-- Quick FAQ / Expectations -->
+          <div class="glass-static p-5 rounded-2xl border border-(--color-border) text-xs font-(--font-mono) flex flex-col gap-2.5 bg-space-light/30">
+            <span class="text-(--color-text-muted) uppercase tracking-wider text-[10px]">Response Guarantee</span>
+            <div class="flex items-center gap-2 text-teal-300">
+              <span>⚡ Response Time:</span>
+              <span class="font-bold">&lt; 24-48 Hours</span>
+            </div>
+            <div class="flex items-center gap-2 text-(--color-text-secondary)">
+              <span>📍 Timezone:</span>
+              <span>IST (UTC +5:30) · Open to Global Sync</span>
+            </div>
+          </div>
         </div>
       </div>
-      
-      <!-- Resume Download -->
-      <div class="fade-in glass p-6 mb-10 flex flex-col md:flex-row items-start md:items-center gap-4">
-        <div class="flex-1">
-          <h3 class="font-(--font-heading) font-semibold text-base mb-1">📄 Download Resume Dossier</h3>
-          <p class="text-(--color-text-secondary) text-sm">
-            Latest resume tailored for AI Engineer roles — Production RAG, Agents, LLM Infrastructure.
-          </p>
-        </div>
-        <a href="/resume/akanksha_resume.pdf" download="Akanksha_AI_Engineer_Resume.pdf" class="btn-outline text-sm flex-shrink-0">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-          Download PDF
-        </a>
-      </div>
-      
-      <!-- Open To -->
+
+      <!-- Social Links Grid -->
       <div class="fade-in mb-12">
-        <h2 class="section-title mb-6">What I'm open to</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="glass p-5">
-            <h3 class="font-(--font-heading) font-semibold text-(--color-teal) mb-1">🎯 AI Engineering Roles</h3>
-            <p class="text-(--color-text-secondary) text-sm">GenAI, Agentic AI, RAG, LLM Engineer, FDE roles at companies pushing AI boundaries</p>
-          </div>
-          <div class="glass p-5">
-            <h3 class="font-(--font-heading) font-semibold text-(--color-teal) mb-1">🤝 Collaborations</h3>
-            <p class="text-(--color-text-secondary) text-sm">Open-source projects, research papers, AI product development</p>
-          </div>
-          <div class="glass p-5">
-            <h3 class="font-(--font-heading) font-semibold text-(--color-teal) mb-1">🎤 Speaking</h3>
-            <p class="text-(--color-text-secondary) text-sm">Conferences, meetups, workshops on production AI, RAG systems, agentic AI</p>
-          </div>
-          <div class="glass p-5">
-            <h3 class="font-(--font-heading) font-semibold text-(--color-teal) mb-1">💡 Mentorship</h3>
-            <p class="text-(--color-text-secondary) text-sm">Happy to chat with engineers transitioning into AI/ML careers</p>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Social Links -->
-      <div class="fade-in">
-        <h2 class="section-title mb-6">Find me elsewhere</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <h2 class="section-title mb-5">Professional Profiles</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5">
           {socials.map(social => (
-            <a href={social.href} target="_blank" rel="noopener" class="glass p-4 flex items-center gap-4 group">
-              <span class="text-2xl">{social.icon}</span>
+            <a href={social.href} target="_blank" rel="noopener" class="glass p-4 flex items-center gap-3.5 group">
+              <span class="text-2xl p-2 rounded-lg bg-space-light/50 border border-(--color-border)">{social.icon}</span>
               <div class="flex-1">
-                <p class="text-(--color-text-primary) font-semibold text-sm group-hover:text-(--color-teal) transition-colors">{social.name}</p>
-                <p class="text-(--color-text-muted) text-xs">{social.description}</p>
+                <p class="text-(--color-text-primary) font-semibold text-xs sm:text-sm group-hover:text-(--color-teal) transition-colors">{social.name}</p>
+                <p class="text-(--color-text-muted) text-[11px] truncate">{social.description}</p>
               </div>
-              <svg class="w-4 h-4 text-(--color-text-muted) group-hover:text-(--color-teal) transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-3.5 h-3.5 text-(--color-text-muted) group-hover:text-(--color-teal) transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
               </svg>
             </a>
@@ -115,35 +228,146 @@ const socials = [
       </div>
       
       <!-- Location -->
-      <div class="fade-in text-center mt-16">
-        <p class="text-(--color-text-muted) text-sm">
-          📍 Based in Gurugram, India · Open to remote &amp; hybrid roles
+      <div class="fade-in text-center mt-12">
+        <p class="text-(--color-text-muted) text-xs font-(--font-mono)">
+          📍 Based in Gurugram, India · Available for On-Site, Hybrid, and Remote Roles Globally
         </p>
       </div>
     </div>
   </section>
 
   <script>
-    function initContact() {
-      const btnCopy = document.getElementById('btn-copy-email');
-      const copyStatus = document.getElementById('copy-status');
-      
-      btnCopy?.addEventListener('click', async () => {
+    function initContactPage() {
+      // Record render timestamp for bot prevention
+      const tsInput = document.getElementById('form-render-timestamp') as HTMLInputElement | null;
+      if (tsInput) tsInput.value = Date.now().toString();
+
+      // Topic button selection
+      const topicButtons = document.querySelectorAll('.topic-btn');
+      const selectedTopicInput = document.getElementById('selected-topic') as HTMLInputElement | null;
+
+      topicButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          topicButtons.forEach(b => {
+            b.className = 'topic-btn text-left p-2.5 rounded-xl border text-xs font-(--font-mono) transition-all cursor-pointer flex items-center gap-1.5 border-(--color-border) bg-space-light/40 text-(--color-text-secondary) hover:border-white/20';
+          });
+          btn.className = 'topic-btn text-left p-2.5 rounded-xl border text-xs font-(--font-mono) transition-all cursor-pointer flex items-center gap-1.5 border-(--color-teal) bg-(--color-teal-glow) text-(--color-teal)';
+          const topic = btn.getAttribute('data-topic') || '';
+          if (selectedTopicInput) selectedTopicInput.value = topic;
+        });
+      });
+
+      // Character counter
+      const messageTextarea = document.getElementById('contact-message') as HTMLTextAreaElement | null;
+      const charCounter = document.getElementById('char-counter');
+      messageTextarea?.addEventListener('input', () => {
+        const len = messageTextarea.value.length;
+        if (charCounter) charCounter.textContent = `${len} / 1000`;
+      });
+
+      // Copy Direct Email
+      const btnCopyDirect = document.getElementById('btn-copy-direct-email');
+      const copyDirectStatus = document.getElementById('copy-direct-status');
+      btnCopyDirect?.addEventListener('click', async () => {
         try {
           await navigator.clipboard.writeText('me@akanksha.dev');
-          if (copyStatus) {
-            copyStatus.classList.remove('hidden');
-            setTimeout(() => {
-              copyStatus.classList.add('hidden');
-            }, 3000);
+          if (copyDirectStatus) {
+            copyDirectStatus.classList.remove('hidden');
+            setTimeout(() => copyDirectStatus.classList.add('hidden'), 2500);
           }
         } catch {
           window.location.href = 'mailto:me@akanksha.dev';
         }
       });
+
+      // Form validation & submission
+      const form = document.getElementById('contact-form') as HTMLFormElement | null;
+      const nameInput = document.getElementById('contact-name') as HTMLInputElement | null;
+      const emailInput = document.getElementById('contact-email') as HTMLInputElement | null;
+      const gotchaInput = document.getElementById('form-gotcha') as HTMLInputElement | null;
+
+      const errName = document.getElementById('error-name');
+      const errEmail = document.getElementById('error-email');
+      const errMessage = document.getElementById('error-message');
+
+      const formContainer = document.getElementById('contact-form');
+      const successState = document.getElementById('contact-success-state');
+      const btnSuccessMailto = document.getElementById('btn-success-mailto') as HTMLAnchorElement | null;
+      const btnResetForm = document.getElementById('btn-reset-form');
+
+      form?.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        // Spam bot checks
+        if (gotchaInput && gotchaInput.value) {
+          console.warn('Bot submission blocked via honeypot.');
+          return;
+        }
+
+        const renderTime = parseInt(tsInput?.value || '0', 10);
+        if (Date.now() - renderTime < 800) {
+          console.warn('Instant submission flagged as bot.');
+          return;
+        }
+
+        let valid = true;
+        const nameVal = nameInput?.value.trim() || '';
+        const emailVal = emailInput?.value.trim() || '';
+        const msgVal = messageTextarea?.value.trim() || '';
+        const topicVal = selectedTopicInput?.value || 'General Inquiry';
+
+        if (!nameVal) {
+          errName?.classList.remove('hidden');
+          valid = false;
+        } else {
+          errName?.classList.add('hidden');
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailVal || !emailRegex.test(emailVal)) {
+          errEmail?.classList.remove('hidden');
+          valid = false;
+        } else {
+          errEmail?.classList.add('hidden');
+        }
+
+        if (!msgVal) {
+          errMessage?.classList.remove('hidden');
+          valid = false;
+        } else {
+          errMessage?.classList.add('hidden');
+        }
+
+        if (!valid) return;
+
+        // Build mailto URL
+        const subject = encodeURIComponent(`[akanksha.dev] ${topicVal} from ${nameVal}`);
+        const body = encodeURIComponent(`Hi Akanksha,\n\nName: ${nameVal}\nEmail: ${emailVal}\nTopic: ${topicVal}\n\nMessage:\n${msgVal}\n\n--\nSent via akanksha.dev contact portal`);
+        const mailtoUrl = `mailto:me@akanksha.dev?subject=${subject}&body=${body}`;
+
+        if (btnSuccessMailto) {
+          btnSuccessMailto.href = mailtoUrl;
+        }
+
+        // Switch to success confirmation state
+        formContainer?.classList.add('hidden');
+        successState?.classList.remove('hidden');
+
+        // Automatically trigger mail client
+        setTimeout(() => {
+          window.location.href = mailtoUrl;
+        }, 400);
+      });
+
+      btnResetForm?.addEventListener('click', () => {
+        form?.reset();
+        if (charCounter) charCounter.textContent = '0 / 1000';
+        successState?.classList.add('hidden');
+        formContainer?.classList.remove('hidden');
+      });
     }
 
-    initContact();
-    document.addEventListener('astro:page-load', initContact);
+    initContactPage();
+    document.addEventListener('astro:page-load', initContactPage);
   </script>
 </BaseLayout>
