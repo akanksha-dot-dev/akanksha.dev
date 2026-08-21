@@ -197,7 +197,43 @@ Old version is kept as rollback option
 
 ---
 
+## Cloudflare Workers (Direct Wrangler CLI Deployment)
+
+You can also deploy directly to Cloudflare Workers with Static Assets using Wrangler:
+
+```bash
+# Authenticate wrangler (one-time setup)
+npx wrangler login
+
+# Build static bundle & deploy to Cloudflare Workers
+npm run deploy
+# or:
+pnpm run deploy
+```
+
+### Static Asset Serving Configuration (`wrangler.jsonc`)
+
+```jsonc
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "akanksha-dev",
+  "compatibility_date": "2025-06-13",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": "./dist"
+  }
+}
+```
+
+---
+
 ## Troubleshooting
+
+### "Missing entry-point to Worker script or to assets directory"
+→ Ensure `wrangler.jsonc` contains `"assets": { "directory": "./dist" }` and that `npm run build` has produced the `./dist` folder before deploying.
+
+### Stale `.wrangler` cache redirecting to missing paths
+→ Delete the local `.wrangler/` directory and re-run `npm run deploy`.
 
 ### Build fails with "Node.js version too old"
 → Add `NODE_VERSION=22` in Environment Variables (Step 2c)
@@ -235,10 +271,13 @@ Add this to your README.md to show deploy status:
 
 | Action | How |
 |--------|-----|
-| Deploy new version | `git push origin main` |
+| Deploy via Git CI/CD | `git push origin main` |
+| Deploy via Wrangler CLI | `npm run deploy` |
 | Preview a branch | Push any branch; check Cloudflare deployments |
 | Rollback | Cloudflare dashboard → Deployments → Click older build → "Rollback" |
 | Add env var | Cloudflare dashboard → Settings → Environment Variables |
 | Check build logs | Cloudflare dashboard → Deployments → Click build |
 | Run locally | `npm run dev` |
 | Build locally | `npm run build && npm run preview` |
+| Dry-run deploy check | `npx wrangler deploy --dry-run` |
+
