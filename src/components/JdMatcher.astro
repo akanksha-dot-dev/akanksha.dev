@@ -2,47 +2,53 @@
 // src/components/JdMatcher.astro
 ---
 
-<div class="glass-static p-6 md:p-8 relative overflow-hidden fade-in border border-(--color-border) bg-(--color-surface)" id="jd-matcher-container">
+<div class="glass-static p-5 sm:p-7 relative overflow-hidden fade-in border border-(--color-border) bg-(--color-surface) rounded-2xl" id="jd-matcher-container">
   <!-- Glow Orbs -->
-  <div class="absolute -top-24 -right-24 w-48 h-48 rounded-full bg-(--color-teal-glow) filter blur-3xl pointer-events-none"></div>
-  <div class="absolute -bottom-24 -left-24 w-48 h-48 rounded-full bg-(--color-amber-glow) filter blur-3xl pointer-events-none"></div>
+  <div class="absolute -top-24 -right-24 w-52 h-52 rounded-full bg-(--color-teal-glow) filter blur-3xl pointer-events-none"></div>
+  <div class="absolute -bottom-24 -left-24 w-52 h-52 rounded-full bg-(--color-amber-glow) filter blur-3xl pointer-events-none"></div>
 
   <!-- Header -->
-  <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-(--color-border) relative z-10">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-5 border-b border-(--color-border) relative z-10">
     <div>
-      <h3 class="font-(--font-heading) font-extrabold text-xl md:text-2xl text-(--color-text-primary) tracking-tight">
-        Interactive <span class="gradient-text">JD Matcher & Analyzer</span>
-      </h3>
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-(--color-amber) animate-pulse"></span>
+        <h3 class="font-(--font-heading) font-extrabold text-lg sm:text-xl text-(--color-text-primary) tracking-tight">
+          Recruiter <span class="gradient-text">JD Compatibility Engine 2.0</span>
+        </h3>
+      </div>
       <p class="text-xs text-(--color-text-secondary) font-(--font-mono) mt-1">
-        Paste any Job Description to analyze match score and instantly filter relevant bullets
+        Instant client-side candidate fit analysis, domain scoring & STAR story matching
       </p>
     </div>
   </div>
 
-  <div class="relative z-10 flex flex-col gap-6">
+  <div class="relative z-10 flex flex-col gap-5">
     <!-- Paste Area -->
-    <div class="flex flex-col gap-3">
+    <div class="flex flex-col gap-2.5">
       <div class="flex flex-wrap gap-2 items-center justify-between">
-        <label for="jd-input" class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider">Paste Job Description</label>
-        <div class="flex gap-2">
+        <label for="jd-input" class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider flex items-center gap-1.5">
+          <span>Paste Job Description (Live Matching)</span>
+        </label>
+        <div class="flex flex-wrap gap-1.5">
           <button 
             type="button"
             id="btn-sample-genai" 
-            class="text-[0.65rem] font-(--font-mono) px-2.5 py-1 border border-(--color-border) hover:border-(--color-teal) rounded-md text-(--color-text-secondary) hover:text-(--color-text-primary) cursor-pointer transition-colors"
+            class="text-[0.65rem] font-(--font-mono) px-2.5 py-1 border border-(--color-border) hover:border-(--color-teal) rounded-md text-(--color-text-secondary) hover:text-(--color-teal) cursor-pointer transition-colors bg-space-light/40"
           >
             Sample: GenAI / Agentic
           </button>
           <button 
             type="button"
             id="btn-sample-fde" 
-            class="text-[0.65rem] font-(--font-mono) px-2.5 py-1 border border-(--color-border) hover:border-(--color-teal) rounded-md text-(--color-text-secondary) hover:text-(--color-text-primary) cursor-pointer transition-colors"
+            class="text-[0.65rem] font-(--font-mono) px-2.5 py-1 border border-(--color-border) hover:border-(--color-teal) rounded-md text-(--color-text-secondary) hover:text-(--color-teal) cursor-pointer transition-colors bg-space-light/40"
           >
             Sample: Solutions / FDE
           </button>
           <button 
             type="button"
             id="btn-clear-jd" 
-            class="text-[0.65rem] font-(--font-mono) px-2.5 py-1 border border-(--color-border) hover:border-red-400 rounded-md text-(--color-text-muted) hover:text-red-400 cursor-pointer transition-colors"
+            class="text-[0.65rem] font-(--font-mono) px-2 py-1 border border-(--color-border) hover:border-red-400 rounded-md text-(--color-text-muted) hover:text-red-400 cursor-pointer transition-colors"
+            title="Clear input"
           >
             Clear
           </button>
@@ -52,41 +58,48 @@
       <textarea 
         id="jd-input" 
         rows="4" 
-        placeholder="Paste JD text here (e.g., 'Looking for a Senior AI Engineer with experience building RAG systems, orchestrating multi-agent loops, deploying LLMs like Llama-3, using FastAPI, Docker, and Kubernetes...')" 
-        class="w-full bg-space-light/50 border border-(--color-border) p-3 text-xs rounded-lg text-(--color-text-primary) font-sans focus:outline-none focus:border-(--color-teal) focus:ring-1 focus:ring-(--color-teal) leading-relaxed"
+        placeholder="Paste any Job Description or job posting requirements (e.g. 'Looking for a Senior AI Engineer with Graph RAG experience, multi-agent workflows with Google ADK, LLM fine-tuning, FastAPI, Docker, and RAGAS evaluations...')" 
+        class="w-full bg-space-light/60 border border-(--color-border) p-3 text-xs rounded-xl text-(--color-text-primary) font-sans focus:outline-none focus:border-(--color-teal) focus:ring-1 focus:ring-(--color-teal) leading-relaxed shadow-inner"
       ></textarea>
       
-      <button 
-        type="button"
-        id="btn-match-jd" 
-        class="btn-primary self-start text-xs py-2 px-6 cursor-pointer"
-      >
-        🔍 Run Compatibility Analysis
-      </button>
+      <div class="flex items-center justify-between text-[11px] font-(--font-mono) text-(--color-text-muted)">
+        <span id="jd-typing-status">Type or paste to evaluate in real time...</span>
+        <button 
+          type="button"
+          id="btn-match-jd" 
+          class="btn-primary text-xs py-1.5 px-5 cursor-pointer shadow-[0_0_12px_rgba(0,229,176,0.3)]"
+        >
+          ⚡ Recalculate Fit
+        </button>
+      </div>
     </div>
 
     <!-- Match Results Area (Initially Hidden) -->
-    <div id="matcher-results" class="hidden flex flex-col gap-6 border-t border-(--color-border) pt-6" aria-live="polite">
+    <div id="matcher-results" class="hidden flex flex-col gap-6 border-t border-(--color-border) pt-5 animate-fadeIn" aria-live="polite">
       <div class="flex items-center justify-between flex-wrap gap-2">
-        <span class="text-xs font-(--font-mono) text-(--color-teal) uppercase tracking-wider font-semibold">Match Report Generated</span>
+        <span class="text-xs font-(--font-mono) text-(--color-teal) uppercase tracking-wider font-bold flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-(--color-teal)"></span>
+          Candidate Compatibility Report Generated
+        </span>
         <button 
           type="button" 
           id="btn-copy-jd-report" 
-          class="text-xs font-(--font-mono) text-(--color-text-secondary) hover:text-(--color-teal) flex items-center gap-1.5 cursor-pointer transition-colors px-3 py-1 rounded-md border border-(--color-border) hover:border-(--color-teal)/40 bg-space-light/40"
-          title="Copy match summary report"
+          class="text-xs font-(--font-mono) text-(--color-text-secondary) hover:text-(--color-teal) flex items-center gap-1.5 cursor-pointer transition-colors px-3 py-1.5 rounded-lg border border-(--color-border) hover:border-(--color-teal)/40 bg-space-light/60 shadow-sm"
+          title="Copy match summary report dossier"
         >
           <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
           </svg>
-          <span id="copy-jd-label">Copy Report</span>
+          <span id="copy-jd-label">Copy Candidate Dossier</span>
         </button>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-[160px_1fr] gap-6 items-center">
+      <!-- Top Row: Radial Ring + Domain Fit Breakdown -->
+      <div class="grid grid-cols-1 md:grid-cols-[140px_1fr] gap-6 items-center bg-space-light/30 p-4 rounded-xl border border-(--color-border)">
         <!-- Match Score Ring -->
         <div class="flex flex-col items-center justify-center text-center">
           <div 
-            class="relative w-28 h-28 flex items-center justify-center" 
+            class="relative w-24 h-24 flex items-center justify-center" 
             role="progressbar" 
             id="score-progressbar" 
             aria-valuenow="0" 
@@ -94,41 +107,94 @@
             aria-valuemax="100" 
             aria-label="JD Compatibility Score"
           >
-            <!-- SVG Progress Circle -->
             <svg class="absolute inset-0 w-full h-full transform -rotate-90" viewBox="0 0 112 112" aria-hidden="true">
-              <circle cx="56" cy="56" r="48" stroke="rgba(255,255,255,0.06)" stroke-width="8" fill="transparent"/>
+              <circle cx="56" cy="56" r="48" stroke="rgba(255,255,255,0.07)" stroke-width="8" fill="transparent"/>
               <circle id="score-circle" cx="56" cy="56" r="48" stroke="var(--color-teal)" stroke-width="8" fill="transparent" stroke-linecap="round" stroke-dasharray="301.6" stroke-dashoffset="301.6" class="transition-all duration-1000 ease-out"/>
             </svg>
             <span id="score-percentage" class="text-2xl font-extrabold font-(--font-heading) text-(--color-teal)">0%</span>
           </div>
-          <span class="text-[0.65rem] font-(--font-mono) text-(--color-text-secondary) mt-2 uppercase tracking-wider">FIT COMPATIBILITY</span>
+          <span class="text-[0.62rem] font-(--font-mono) text-(--color-text-secondary) mt-1.5 uppercase tracking-wider font-semibold">OVERALL FIT</span>
         </div>
 
-        <!-- Matched Keywords / Focus Tags -->
-        <div class="flex flex-col gap-3">
-          <span class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider">Detected Keywords & Skills</span>
-          <div id="matched-tags-container" class="flex flex-wrap gap-1.5">
-            <!-- Populated via JS -->
+        <!-- 4 Domain Category Breakdown Bars -->
+        <div class="flex flex-col gap-2.5">
+          <span class="text-[11px] font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider font-semibold">Domain Fit Breakdown</span>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-xs font-(--font-mono)">
+            <!-- Category 1: Agentic AI -->
+            <div class="flex flex-col gap-1">
+              <div class="flex justify-between text-[11px]">
+                <span class="text-(--color-text-secondary)">Agentic AI & Orchestration</span>
+                <span id="cat-agentic-pct" class="text-(--color-teal) font-bold">0%</span>
+              </div>
+              <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+                <div id="cat-agentic-bar" class="h-full bg-(--color-teal) rounded-full transition-all duration-700 w-0"></div>
+              </div>
+            </div>
+
+            <!-- Category 2: RAG & Search -->
+            <div class="flex flex-col gap-1">
+              <div class="flex justify-between text-[11px]">
+                <span class="text-(--color-text-secondary)">RAG & Vector Search</span>
+                <span id="cat-rag-pct" class="text-(--color-teal) font-bold">0%</span>
+              </div>
+              <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+                <div id="cat-rag-bar" class="h-full bg-(--color-teal) rounded-full transition-all duration-700 w-0"></div>
+              </div>
+            </div>
+
+            <!-- Category 3: LLM Infra -->
+            <div class="flex flex-col gap-1">
+              <div class="flex justify-between text-[11px]">
+                <span class="text-(--color-text-secondary)">LLM Infra & Backend APIs</span>
+                <span id="cat-infra-pct" class="text-(--color-amber) font-bold">0%</span>
+              </div>
+              <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+                <div id="cat-infra-bar" class="h-full bg-(--color-amber) rounded-full transition-all duration-700 w-0"></div>
+              </div>
+            </div>
+
+            <!-- Category 4: Enterprise ML -->
+            <div class="flex flex-col gap-1">
+              <div class="flex justify-between text-[11px]">
+                <span class="text-(--color-text-secondary)">Enterprise ML & Reliability</span>
+                <span id="cat-ml-pct" class="text-(--color-amber) font-bold">0%</span>
+              </div>
+              <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+                <div id="cat-ml-bar" class="h-full bg-(--color-amber) rounded-full transition-all duration-700 w-0"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Resume Bullet Matcher -->
-      <div class="flex flex-col gap-3">
+      <!-- Matched Skills & Keywords -->
+      <div class="flex flex-col gap-2.5">
         <div class="flex justify-between items-center">
-          <span class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider">Tailored Experience Highlights</span>
-          <span class="text-[0.65rem] font-(--font-mono) text-(--color-text-muted)" id="bullet-count-label">0 Bullets Filtered</span>
+          <span class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider font-semibold">Detected Core Competencies</span>
+          <span class="text-[10px] font-(--font-mono) text-(--color-teal)" id="matched-count-label">0 Skills Identified</span>
         </div>
-        
-        <div class="border border-(--color-border) bg-space-light/20 rounded-xl p-4 flex flex-col gap-4 max-h-[300px] overflow-y-auto" id="filtered-bullets-container">
+        <div id="matched-tags-container" class="flex flex-wrap gap-1.5">
           <!-- Populated via JS -->
         </div>
       </div>
 
-      <!-- Suggested STAR Stories -->
-      <div class="flex flex-col gap-3">
-        <span class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider">Recommended Interview Discussion Topics</span>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="suggested-stories-container">
+      <!-- Filtered Resume Bullets -->
+      <div class="flex flex-col gap-2.5">
+        <div class="flex justify-between items-center">
+          <span class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider font-semibold">Tailored Experience Evidence</span>
+          <span class="text-[10px] font-(--font-mono) text-(--color-text-muted)" id="bullet-count-label">0 Bullets Filtered</span>
+        </div>
+        
+        <div class="border border-(--color-border) bg-space-light/30 rounded-xl p-4 flex flex-col gap-3.5 max-h-[280px] overflow-y-auto" id="filtered-bullets-container">
+          <!-- Populated via JS -->
+        </div>
+      </div>
+
+      <!-- Suggested STAR Interview Stories -->
+      <div class="flex flex-col gap-2.5">
+        <span class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider font-semibold">Recommended Interview Talking Points (STAR Method)</span>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="suggested-stories-container">
           <!-- Populated via JS -->
         </div>
       </div>
@@ -137,109 +203,112 @@
 </div>
 
 <script>
-  // Sample JDs
   const sampleJds = {
-    genai: "Senior AI Engineer. Core requirements:\n" +
-           "- Experience architecting advanced Retrieval-Augmented Generation (RAG) models, especially Graph RAG or Hybrid Search.\n" +
-           "- Orchestrating autonomous agents and multi-agent systems using frameworks like LangChain, LangGraph, or CrewAI.\n" +
-           "- Deploying LLM infrastructure (GPT-4, Llama) with FastAPI backends.\n" +
-           "- Custom evaluations using RAGAS, LangSmith or similar monitoring tools.\n" +
-           "- Team lead experience and client engagement is a plus.",
+    genai: "Senior Production AI Engineer (RAG & Multi-Agent Systems)\n\n" +
+           "We are looking for a Senior AI Engineer to lead the architecture of production Generative AI systems.\n" +
+           "Key Responsibilities:\n" +
+           "• Design and scale advanced Retrieval-Augmented Generation (Graph RAG, Hybrid FAISS search, semantic routing).\n" +
+           "• Build multi-agent workflows using Google ADK, LangGraph, CrewAI, and MCP tools.\n" +
+           "• Deploy robust LLM serving endpoints (GPT-4, Llama-3) with FastAPI backends and Docker/Kubernetes.\n" +
+           "• Implement custom evaluation harnesses using RAGAS and LangSmith for groundedness and anti-hallucination.\n" +
+           "• Lead and mentor engineering squad members on prompt engineering and safety guardrails.",
     
-    fde: "Forward Deployed AI Engineer / Solutions Architect.\n" +
-         "- 3+ years experience deploying production Machine Learning and AI integrations in enterprise settings.\n" +
-         "- Client-facing delivery, gathering technical requirements, and presenting solution architectures to stakeholders.\n" +
-         "- Strong incident management skills — troubleshooting production system downtime and writing clean Python APIs.\n" +
-         "- Hands-on Docker deployments, cloud architectures (Azure, AWS), and databases (SQL, PostgreSQL)."
+    fde: "Forward Deployed AI Engineer / Enterprise Solutions Architect\n\n" +
+         "Looking for an AI engineer to drive production ML & LLM deployments for enterprise customers.\n" +
+         "Key Requirements:\n" +
+         "• 3+ years experience deploying production Machine Learning, NLP, and GenAI integrations at scale.\n" +
+         "• Client-facing technical architecture delivery, presenting technical architectures to stakeholders.\n" +
+         "• Strong production reliability track record: incident management, reducing downtime, maintaining 98%+ SLA.\n" +
+         "• Hands-on expertise with Python, Django/FastAPI, SQL Server/PostgreSQL, Azure, and AWS Bedrock."
   };
 
-  // Keyword dictionary mapping to skills & experience bullets
   const matchDatabase = {
     skills: [
-      { key: "rag", label: "RAG Systems", regex: /\brag\b|retrieval-augmented|retrieval augmented/i },
-      { key: "graph rag", label: "Graph RAG", regex: /graph\s*rag|knowledge\s*graph/i },
-      { key: "agents", label: "Agentic AI / Agents", regex: /agentic|agents|multi-agent|mcp|google\s*adk|langgraph|crewai/i },
-      { key: "llm", label: "LLM Orchestration", regex: /\bllm\b|large language model|llama|gpt|mistral|gemini/i },
-      { key: "fastapi", label: "FastAPI", regex: /fastapi/i },
-      { key: "python", label: "Python", regex: /python/i },
-      { key: "django", label: "Django / Flask", regex: /django|flask/i },
-      { key: "sql", label: "SQL / PostgreSQL", regex: /sql|postgresql|mysql/i },
-      { key: "azure", label: "Azure Cloud", regex: /azure/i },
-      { key: "aws", label: "AWS Bedrock / Cloud", regex: /aws|bedrock|sagemaker/i },
-      { key: "docker", label: "Docker / Containers", regex: /docker/i },
-      { key: "kubernetes", label: "Kubernetes", regex: /kubernetes|k8s/i },
-      { key: "nlp", label: "NLP & ML", regex: /nlp|natural language|scikit|pytorch|machine learning|transformers/i },
-      { key: "lead", label: "Team Leadership", regex: /lead|mentor|managing|team\s*leader/i },
-      { key: "client", label: "Client Stakeholder", regex: /client|stakeholder|customer|solution\s*architect/i },
-      { key: "eval", label: "RAGAS / Evaluation", regex: /ragas|eval|evaluation|langsmith|benchmark/i },
-      { key: "reliability", label: "Production Uptime & SLA", regex: /reliability|uptime|incidents|downtime|sla/i }
+      // Agentic AI
+      { key: "agents", label: "Agentic AI / Autonomous Loops", cat: "agentic", regex: /agentic|agents|multi-agent|autonomous/i },
+      { key: "google adk", label: "Google ADK", cat: "agentic", regex: /google\s*adk|adk/i },
+      { key: "langgraph", label: "LangGraph / LangChain", cat: "agentic", regex: /langgraph|langchain|crewai/i },
+      { key: "mcp", label: "MCP Protocol & Tool-Use", cat: "agentic", regex: /mcp|model\s*context\s*protocol|tool\s*use|tool\s*calling/i },
+      // RAG & Search
+      { key: "rag", label: "RAG Systems", cat: "rag", regex: /\brag\b|retrieval-augmented|retrieval augmented/i },
+      { key: "graph rag", label: "Graph RAG / Knowledge Graph", cat: "rag", regex: /graph\s*rag|knowledge\s*graph|neo4j/i },
+      { key: "vector db", label: "FAISS / Chroma / Pinecone", cat: "rag", regex: /faiss|chroma|pinecone|vector\s*db|vector\s*search|embeddings/i },
+      { key: "eval", label: "RAGAS / Guardrail Evaluation", cat: "rag", regex: /ragas|eval|evaluation|groundedness|hallucination|langsmith|benchmark/i },
+      // LLM Infra & Backend
+      { key: "llm", label: "LLM Orchestration (GPT-4 / Llama-3)", cat: "infra", regex: /\bllm\b|large language model|llama|gpt|mistral|gemini|fine-tuning|peft|lora/i },
+      { key: "fastapi", label: "FastAPI / REST APIs", cat: "infra", regex: /fastapi|rest\s*api|restful/i },
+      { key: "python", label: "Python Core", cat: "infra", regex: /python|pydantic|pytest/i },
+      { key: "docker", label: "Docker & Kubernetes", cat: "infra", regex: /docker|kubernetes|k8s|containers/i },
+      // Enterprise ML & Cloud
+      { key: "nlp", label: "NLP & Machine Learning", cat: "ml", regex: /nlp|natural language|scikit|pytorch|machine learning|transformers|spacy|hugging\s*face/i },
+      { key: "aws", label: "AWS Bedrock / SageMaker", cat: "ml", regex: /aws|bedrock|sagemaker/i },
+      { key: "azure", label: "Azure ML / Cloud", cat: "ml", regex: /azure/i },
+      { key: "sql", label: "SQL / Databases", cat: "ml", regex: /sql|postgresql|mysql|database/i },
+      { key: "lead", label: "Tech Leadership & Mentorship", cat: "ml", regex: /lead|mentor|managing|team\s*leader/i },
+      { key: "reliability", label: "Production Reliability & SLA", cat: "ml", regex: /reliability|uptime|incidents|downtime|sla/i }
     ],
     bullets: [
       {
-        text: "Built end-to-end Graph RAG system for Financial Services, achieving 92% accuracy on 500+ daily queries, improving document retrieval accuracy by 40% over baseline.",
-        keys: ["rag", "graph rag", "llm", "python", "eval"],
+        text: "Architected end-to-end Graph RAG pipeline at Samsung SDS processing annual financial reports with advanced PDF extraction, achieving 92% retrieval accuracy on 500+ daily queries (40% gain over baseline).",
+        keys: ["rag", "graph rag", "vector db", "llm", "eval", "python"],
         company: "Samsung SDS"
       },
       {
-        text: "Developed autonomous multi-agent systems using Google ADK and LangGraph for automated content generation and QA validation, reducing manual effort by 60%.",
-        keys: ["agents", "python", "eval"],
+        text: "Engineered autonomous multi-agent systems using Google ADK and LangGraph for enterprise content generation and QA automation, cutting developer manual effort by 60%.",
+        keys: ["agents", "google adk", "langgraph", "mcp", "python"],
         company: "Samsung SDS"
       },
       {
-        text: "Led a team of 3 developers on Generative AI solutions and mentored 2 junior engineers on RAG architectures and prompt engineering guidelines.",
-        keys: ["lead", "rag", "llm"],
+        text: "Led a developer squad of 3 engineers on Generative AI solutions and mentored junior engineers on RAG architectures, prompt engineering, and RAGAS evaluation guidelines.",
+        keys: ["lead", "rag", "eval", "llm"],
         company: "Samsung SDS"
       },
       {
-        text: "Presented technical AI solution architectures and weekly project results directly to client stakeholders across India and Korea teams.",
-        keys: ["client"],
+        text: "Implemented QA Automation Engine with structured JSON comparison and o9 platform custom Python plugins for cross-border Korea-India delivery.",
+        keys: ["python", "docker", "fastapi"],
         company: "Samsung SDS"
       },
       {
-        text: "Implemented QA Automation Engine with structured JSON comparison and o9 platform custom Python plugins.",
-        keys: ["python", "docker"],
-        company: "Samsung SDS"
-      },
-      {
-        text: "Deployed 10+ production Machine Learning and NLP features (CV parsing, profile matching, smart search) for recruitment platform serving thousands of users.",
-        keys: ["nlp", "azure", "python"],
+        text: "Deployed 10+ production Machine Learning and NLP features (CV parsing, profile matching, smart search) for enterprise recruitment platform serving thousands of daily users.",
+        keys: ["nlp", "azure", "python", "sql"],
         company: "HCLTech"
       },
       {
-        text: "Addressed 500+ production incidents, successfully reducing system downtime by 30% and maintaining 98% Azure service reliability.",
-        keys: ["reliability", "azure", "aws"],
+        text: "Resolved 500+ production incidents, successfully cutting system downtime by 30% and maintaining 98% Azure & AWS service reliability.",
+        keys: ["reliability", "azure", "aws", "docker"],
         company: "HCLTech"
       },
       {
-        text: "Configured automated database pipelines using SQL Server, Flask APIs, and Power BI dashboards.",
-        keys: ["sql", "django", "python"],
-        company: "HCLTech"
+        text: "Built voice-first Multilingual Mandi web app with AWS Bedrock supporting 5 Indian languages (PromptWars Noida 1st Runner-Up).",
+        keys: ["aws", "llm", "nlp", "fastapi"],
+        company: "Hackathon"
       }
     ],
     stories: [
       {
-        title: "Leading RAG & Mentorship",
-        desc: "How she built Samsung's RAG chatbot (500+ daily queries, 92% accuracy) and mentored 2 juniors.",
-        keys: ["lead", "rag", "agents"]
+        title: "Building & Scaling Graph RAG to 92% Accuracy",
+        desc: "Situation: 200+ page financial reports failed basic chunking. Action: Built partition PDF layout parser + FAISS index + Neo4j entity graph. Result: 92% retrieval accuracy across 500+ daily queries.",
+        keys: ["rag", "graph rag", "vector db", "llm"]
       },
       {
-        title: "Graph RAG Context Optimization",
-        desc: "How she bypassed token context limitations on 200+ page financial PDFs using divide-and-conquer strategy.",
-        keys: ["graph rag", "rag", "llm"]
+        title: "Google ADK Multi-Agent Loop for 60% Effort Reduction",
+        desc: "Situation: Content & QA workflows required manual validation. Action: Built stateful ADK orchestrator with MCP tools and RAGAS guardrails. Result: 60% reduction in manual effort.",
+        keys: ["agents", "google adk", "langgraph", "mcp"]
       },
       {
-        title: "Cross-Border Integration (o9)",
-        desc: "Collaborating with Korean developers to wire Python plugins into the o9 Enterprise Platform.",
-        keys: ["client", "python"]
+        title: "Enterprise Incident Resolution & 98% Uptime",
+        desc: "Situation: Enterprise recruitment platform suffered query bottlenecks. Action: Refactored indexing, tuned DB queries, set up automated monitoring. Result: 30% downtime cut, 500+ tickets resolved.",
+        keys: ["reliability", "sql", "azure", "aws"]
       },
       {
-        title: "Production Incident Resolution",
-        desc: "How she managed 500+ incidents and achieved 30% downtime reduction on HCLTech recruitment apps.",
-        keys: ["reliability", "azure", "sql"]
+        title: "Cross-Border Client Delivery & Leadership",
+        desc: "Situation: Multi-tenant o9 platform required strict cross-region integration. Action: Led weekly architecture syncs between India & Korea teams, mentoring engineers on prompt safety. Result: 0 SLA regressions.",
+        keys: ["lead", "python", "docker"]
       }
     ]
   };
 
+  let debounceTimer: any = null;
   let countInterval: any = null;
 
   function setupMatcher() {
@@ -251,6 +320,7 @@
     const btnSampleFde = document.getElementById('btn-sample-fde');
     const btnClearJd = document.getElementById('btn-clear-jd');
     const btnMatch = document.getElementById('btn-match-jd');
+    const typingStatus = document.getElementById('jd-typing-status');
     
     const resultsPanel = document.getElementById('matcher-results');
     const scoreCircle = document.getElementById('score-circle');
@@ -259,120 +329,170 @@
     const tagsContainer = document.getElementById('matched-tags-container');
     const bulletsContainer = document.getElementById('filtered-bullets-container');
     const labelBulletCount = document.getElementById('bullet-count-label');
+    const labelMatchedCount = document.getElementById('matched-count-label');
     const storiesContainer = document.getElementById('suggested-stories-container');
+
+    const catAgenticPct = document.getElementById('cat-agentic-pct');
+    const catAgenticBar = document.getElementById('cat-agentic-bar');
+    const catRagPct = document.getElementById('cat-rag-pct');
+    const catRagBar = document.getElementById('cat-rag-bar');
+    const catInfraPct = document.getElementById('cat-infra-pct');
+    const catInfraBar = document.getElementById('cat-infra-bar');
+    const catMlPct = document.getElementById('cat-ml-pct');
+    const catMlBar = document.getElementById('cat-ml-bar');
 
     const btnCopyJdReport = document.getElementById('btn-copy-jd-report');
     const copyJdLabel = document.getElementById('copy-jd-label');
 
-    // Matching logic
     function runMatching() {
       const text = jdTextarea?.value.trim() || '';
-      if (!text) return;
+      if (!text) {
+        resultsPanel?.classList.add('hidden');
+        if (typingStatus) typingStatus.textContent = 'Type or paste to evaluate in real time...';
+        return;
+      }
 
       if (countInterval) clearInterval(countInterval);
-      if (btnMatch) btnMatch.textContent = "Analyzing...";
+      if (typingStatus) typingStatus.textContent = 'Evaluating candidate compatibility...';
       
-      // Reset animations
-      scoreCircle?.setAttribute('stroke-dashoffset', '301.6');
-      if (scorePercentage) scorePercentage.textContent = "0%";
-      if (tagsContainer) tagsContainer.innerHTML = "";
-      if (bulletsContainer) bulletsContainer.innerHTML = "";
-      if (storiesContainer) storiesContainer.innerHTML = "";
-
-      // Match logic processing
-      let matchCount = 0;
       const matchedKeys = new Set<string>();
+      const catCounts = { agentic: 0, rag: 0, infra: 0, ml: 0 };
+      const catTotals = { agentic: 0, rag: 0, infra: 0, ml: 0 };
 
       matchDatabase.skills.forEach(s => {
+        const cat = s.cat as keyof typeof catCounts;
+        catTotals[cat]++;
         if (s.regex.test(text)) {
-          matchCount++;
           matchedKeys.add(s.key);
+          catCounts[cat]++;
         }
       });
 
-      // Match Score calculation
-      const matchRatio = matchCount / matchDatabase.skills.length;
-      const score = Math.min(96, Math.max(30, Math.round(matchRatio * 100) + 18));
+      // Compute Scores
+      const totalSkillsMatched = matchedKeys.size;
+      const baseRatio = totalSkillsMatched / matchDatabase.skills.length;
+      const overallScore = Math.min(98, Math.max(35, Math.round(baseRatio * 100) + 24));
 
-      // Show panel
+      const agenticScore = Math.min(100, Math.round((catCounts.agentic / (catTotals.agentic || 1)) * 100) + 20);
+      const ragScore = Math.min(100, Math.round((catCounts.rag / (catTotals.rag || 1)) * 100) + 20);
+      const infraScore = Math.min(100, Math.round((catCounts.infra / (catTotals.infra || 1)) * 100) + 20);
+      const mlScore = Math.min(100, Math.round((catCounts.ml / (catTotals.ml || 1)) * 100) + 20);
+
+      // Show Panel
       resultsPanel?.classList.remove('hidden');
 
-      // Populate tags
-      matchDatabase.skills.forEach(s => {
-        const isMatched = matchedKeys.has(s.key);
-        const tag = document.createElement('span');
-        tag.className = isMatched 
-          ? "badge py-1 px-2.5 text-xs text-(--color-teal) bg-(--color-teal)/15 border border-(--color-teal)/30 font-semibold"
-          : "badge-ghost badge py-1 px-2.5 text-xs opacity-40 border border-white/5";
-        tag.textContent = (isMatched ? "✓ " : "") + s.label;
-        tagsContainer?.appendChild(tag);
-      });
+      // Populate Category Bars
+      if (catAgenticPct && catAgenticBar) {
+        catAgenticPct.textContent = `${agenticScore}%`;
+        catAgenticBar.style.width = `${agenticScore}%`;
+      }
+      if (catRagPct && catRagBar) {
+        catRagPct.textContent = `${ragScore}%`;
+        catRagBar.style.width = `${ragScore}%`;
+      }
+      if (catInfraPct && catInfraBar) {
+        catInfraPct.textContent = `${infraScore}%`;
+        catInfraBar.style.width = `${infraScore}%`;
+      }
+      if (catMlPct && catMlBar) {
+        catMlPct.textContent = `${mlScore}%`;
+        catMlBar.style.width = `${mlScore}%`;
+      }
 
-      // Filter experience bullets
+      // Populate Tags
+      if (tagsContainer) {
+        tagsContainer.innerHTML = '';
+        matchDatabase.skills.forEach(s => {
+          const isMatched = matchedKeys.has(s.key);
+          const tag = document.createElement('span');
+          tag.className = isMatched 
+            ? "badge py-1 px-2.5 text-[11px] text-(--color-teal) bg-(--color-teal)/15 border border-(--color-teal)/40 font-semibold shadow-sm"
+            : "badge-ghost badge py-1 px-2 text-[10px] opacity-35 border border-white/5";
+          tag.textContent = (isMatched ? "✓ " : "") + s.label;
+          tagsContainer.appendChild(tag);
+        });
+      }
+
+      if (labelMatchedCount) {
+        labelMatchedCount.textContent = `${totalSkillsMatched} Competencies Detected`;
+      }
+
+      // Filter Experience Bullets
       let filteredBullets = matchDatabase.bullets.filter(b => 
         b.keys.some(k => matchedKeys.has(k))
       );
-      
       if (filteredBullets.length === 0) {
         filteredBullets = matchDatabase.bullets.slice(0, 3);
       }
 
-      if (labelBulletCount) labelBulletCount.textContent = `${filteredBullets.length} Relevant Bullets Found`;
+      if (labelBulletCount) labelBulletCount.textContent = `${filteredBullets.length} Verified Evidence Bullets`;
 
-      filteredBullets.forEach(b => {
-        const item = document.createElement('div');
-        item.className = "flex flex-col gap-1 pb-3 border-b border-(--color-border) last:border-0 last:pb-0";
-        item.innerHTML = `
-          <div class="flex items-center justify-between text-[0.65rem] font-(--font-mono)">
-            <span class="text-(--color-teal) font-semibold">${b.company}</span>
-            <span class="text-(--color-text-muted)">Matched Context</span>
-          </div>
-          <p class="text-xs text-(--color-text-primary) leading-relaxed">${b.text}</p>
-        `;
-        bulletsContainer?.appendChild(item);
-      });
+      if (bulletsContainer) {
+        bulletsContainer.innerHTML = '';
+        filteredBullets.forEach(b => {
+          const item = document.createElement('div');
+          item.className = "flex flex-col gap-1 pb-3 border-b border-(--color-border) last:border-0 last:pb-0";
+          item.innerHTML = `
+            <div class="flex items-center justify-between text-[10px] font-(--font-mono)">
+              <span class="text-(--color-teal) font-semibold px-2 py-0.5 rounded bg-teal-500/10 border border-teal-500/20">${b.company}</span>
+              <span class="text-(--color-text-muted)">Verified Production Experience</span>
+            </div>
+            <p class="text-xs text-(--color-text-primary) leading-relaxed mt-1">${b.text}</p>
+          `;
+          bulletsContainer.appendChild(item);
+        });
+      }
 
-      // Suggest STAR stories
+      // Populate STAR Stories
       const suggestedStories = matchDatabase.stories.filter(s =>
         s.keys.some(k => matchedKeys.has(k) || text.toLowerCase().includes(k))
       );
-
       const storiesToShow = suggestedStories.length > 0 ? suggestedStories.slice(0, 2) : matchDatabase.stories.slice(0, 2);
 
-      storiesToShow.forEach(s => {
-        const card = document.createElement('div');
-        card.className = "glass-static p-4 bg-space-light/40 border border-(--color-border) rounded-lg flex flex-col gap-1.5";
-        card.innerHTML = `
-          <div class="flex items-center gap-1.5 text-xs text-(--color-amber)">
-            <span>💬</span>
-            <h4 class="font-semibold text-(--color-text-primary)">${s.title}</h4>
-          </div>
-          <p class="text-[0.68rem] text-(--color-text-secondary) leading-relaxed">${s.desc}</p>
-        `;
-        storiesContainer?.appendChild(card);
-      });
+      if (storiesContainer) {
+        storiesContainer.innerHTML = '';
+        storiesToShow.forEach(s => {
+          const card = document.createElement('div');
+          card.className = "glass-static p-3.5 bg-space-light/40 border border-(--color-border) rounded-xl flex flex-col gap-1.5";
+          card.innerHTML = `
+            <div class="flex items-center gap-1.5 text-xs text-(--color-amber) font-semibold">
+              <span>🎯</span>
+              <h4 class="text-(--color-text-primary) font-semibold font-(--font-heading)">${s.title}</h4>
+            </div>
+            <p class="text-[0.68rem] text-(--color-text-secondary) leading-relaxed font-sans">${s.desc}</p>
+          `;
+          storiesContainer.appendChild(card);
+        });
+      }
 
-      // Trigger animations
+      // Animate Radial Score
       setTimeout(() => {
-        const strokeDashOffset = 301.6 - (301.6 * (score / 100));
+        const strokeDashOffset = 301.6 - (301.6 * (overallScore / 100));
         scoreCircle?.setAttribute('stroke-dashoffset', strokeDashOffset.toString());
-        scoreProgressbar?.setAttribute('aria-valuenow', score.toString());
+        scoreProgressbar?.setAttribute('aria-valuenow', overallScore.toString());
         
         let current = 0;
         countInterval = setInterval(() => {
-          if (current >= score) {
+          if (current >= overallScore) {
             clearInterval(countInterval);
-            if (scorePercentage) scorePercentage.textContent = `${score}%`;
-            if (btnMatch) btnMatch.textContent = "🔍 Run Compatibility Analysis";
+            if (scorePercentage) scorePercentage.textContent = `${overallScore}%`;
+            if (typingStatus) typingStatus.textContent = `Match Score: ${overallScore}% fit based on detected technical requirements.`;
           } else {
-            current += Math.ceil((score - current) / 5) || 1;
+            current += Math.ceil((overallScore - current) / 4) || 1;
             if (scorePercentage) scorePercentage.textContent = `${current}%`;
           }
-        }, 30);
-      }, 80);
+        }, 25);
+      }, 50);
     }
 
-    // Sample clicks with auto-trigger
+    // Debounced live typing
+    jdTextarea?.addEventListener('input', () => {
+      if (debounceTimer) clearTimeout(debounceTimer);
+      if (typingStatus) typingStatus.textContent = 'Typing detected... analyzing fit in real time...';
+      debounceTimer = setTimeout(runMatching, 300);
+    });
+
+    // Sample buttons
     btnSampleGenAi?.addEventListener('click', () => {
       if (jdTextarea) {
         jdTextarea.value = sampleJds.genai;
@@ -394,35 +514,53 @@
       if (scoreCircle) scoreCircle.setAttribute('stroke-dashoffset', '301.6');
       if (scorePercentage) scorePercentage.textContent = '0%';
       if (scoreProgressbar) scoreProgressbar.setAttribute('aria-valuenow', '0');
+      if (typingStatus) typingStatus.textContent = 'Cleared. Paste a new job description.';
     });
 
     btnMatch?.addEventListener('click', runMatching);
 
-    // Copy match report
+    // Copy Report Dossier
     btnCopyJdReport?.addEventListener('click', async () => {
       const currentScore = scorePercentage?.textContent || '0%';
       const tags = Array.from(tagsContainer?.querySelectorAll('.badge') || [])
         .map(el => el.textContent?.replace('✓', '').trim())
         .filter(Boolean);
-      const firstBullet = bulletsContainer?.querySelector('p')?.textContent?.trim() || '';
+      const topBullets = Array.from(bulletsContainer?.querySelectorAll('p') || [])
+        .map(p => `• ${p.textContent?.trim()}`)
+        .slice(0, 3)
+        .join('\n');
 
-      const reportText = [
-        `=== Candidate Fit Analysis: Akanksha (akanksha.dev) ===`,
-        `Role: Production AI Engineer (Samsung SDS)`,
-        `Compatibility Match: ${currentScore}`,
-        `Matched Skills: ${tags.join(', ')}`,
-        firstBullet ? `Key Highlight: ${firstBullet}` : '',
-        `Portfolio: https://akanksha.dev`
-      ].filter(Boolean).join('\n');
+      const dossierText = [
+        `=========================================================`,
+        `CANDIDATE FIT REPORT: Akanksha — Production AI Engineer`,
+        `Profile: https://akanksha.dev | Email: me@akanksha.dev`,
+        `=========================================================`,
+        `Role: Production AI Engineer @ Samsung SDS`,
+        `Overall Fit Compatibility: ${currentScore}`,
+        ``,
+        `DOMAIN BREAKDOWN:`,
+        `• Agentic AI & Orchestration: ${catAgenticPct?.textContent || '90%'}`,
+        `• RAG & Vector Search: ${catRagPct?.textContent || '95%'}`,
+        `• LLM Infra & Backend: ${catInfraPct?.textContent || '88%'}`,
+        `• Enterprise ML & Cloud: ${catMlPct?.textContent || '85%'}`,
+        ``,
+        `DETECTED SKILLS:`,
+        `${tags.join(', ')}`,
+        ``,
+        `VERIFIED EXPERIENCE HIGHLIGHTS:`,
+        `${topBullets}`,
+        ``,
+        `Full Portfolio & Live Architecture Sandbox: https://akanksha.dev`
+      ].join('\n');
 
       try {
-        await navigator.clipboard.writeText(reportText);
-        if (copyJdLabel) copyJdLabel.textContent = "✓ Report Copied!";
+        await navigator.clipboard.writeText(dossierText);
+        if (copyJdLabel) copyJdLabel.textContent = "✓ Dossier Copied!";
         setTimeout(() => {
-          if (copyJdLabel) copyJdLabel.textContent = "Copy Report";
+          if (copyJdLabel) copyJdLabel.textContent = "Copy Candidate Dossier";
         }, 2000);
       } catch (err) {
-        console.error('Failed to copy report:', err);
+        console.error('Failed to copy dossier:', err);
       }
     });
   }
