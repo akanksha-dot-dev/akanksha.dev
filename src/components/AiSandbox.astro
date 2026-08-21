@@ -2,7 +2,7 @@
 // src/components/AiSandbox.astro
 ---
 
-<div class="glass-static p-6 md:p-8 relative overflow-hidden fade-in border border-(--color-border) bg-(--color-surface)">
+<div class="glass-static p-6 md:p-8 relative overflow-hidden fade-in border border-(--color-border) bg-(--color-surface)" id="ai-sandbox-container">
   <!-- Glow Orbs -->
   <div class="absolute -top-24 -left-24 w-48 h-48 rounded-full bg-(--color-teal-glow) filter blur-3xl pointer-events-none"></div>
   <div class="absolute -bottom-24 -right-24 w-48 h-48 rounded-full bg-(--color-amber-glow) filter blur-3xl pointer-events-none"></div>
@@ -10,7 +10,7 @@
   <!-- Header -->
   <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-(--color-border) relative z-10">
     <div>
-      <h3 class="font-(--font-heading) font-800 text-xl md:text-2xl text-(--color-text-primary) tracking-tight">
+      <h3 class="font-(--font-heading) font-extrabold text-xl md:text-2xl text-(--color-text-primary) tracking-tight">
         Interactive <span class="gradient-text">AI Sandbox</span>
       </h3>
       <p class="text-xs text-(--color-text-secondary) font-(--font-mono) mt-1">
@@ -19,16 +19,24 @@
     </div>
     
     <!-- Tab Switches -->
-    <div class="flex p-1 bg-space-light/50 border border-(--color-border) rounded-lg self-start">
+    <div class="flex p-1 bg-space-light/50 border border-(--color-border) rounded-lg self-start" role="tablist" aria-label="Pipeline Simulator Tabs">
       <button 
+        type="button"
         id="btn-rag-tab" 
-        class="px-3 py-1.5 text-xs font-(--font-mono) font-600 rounded-md transition-all cursor-pointer bg-(--color-teal-glow) text-(--color-teal)"
+        role="tab"
+        aria-selected="true"
+        aria-controls="rag-panel"
+        class="px-3 py-1.5 text-xs font-(--font-mono) font-semibold rounded-md transition-all cursor-pointer bg-(--color-teal-glow) text-(--color-teal)"
       >
         Graph-RAG.log
       </button>
       <button 
+        type="button"
         id="btn-agent-tab" 
-        class="px-3 py-1.5 text-xs font-(--font-mono) font-600 rounded-md transition-all cursor-pointer text-(--color-text-secondary) hover:text-(--color-text-primary)"
+        role="tab"
+        aria-selected="false"
+        aria-controls="agent-panel"
+        class="px-3 py-1.5 text-xs font-(--font-mono) font-semibold rounded-md transition-all cursor-pointer text-(--color-text-secondary) hover:text-(--color-text-primary)"
       >
         Agent-Loop.exe
       </button>
@@ -37,11 +45,11 @@
 
   <div class="relative z-10 min-h-[380px] flex flex-col">
     <!-- ═══ RAG VISUALIZER PANEL ═══ -->
-    <div id="rag-panel" class="flex flex-col gap-6 flex-1">
+    <div id="rag-panel" role="tabpanel" aria-labelledby="btn-rag-tab" class="flex flex-col gap-6 flex-1">
       <div class="grid grid-cols-1 md:grid-cols-[1fr_250px] gap-6 items-start">
         <!-- Main Area -->
         <div class="flex flex-col gap-4">
-          <label class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider">Query Input</label>
+          <label for="rag-query-select" class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider">Query Input</label>
           <div class="flex gap-2">
             <select 
               id="rag-query-select" 
@@ -52,8 +60,9 @@
               <option value="agents">"Explain Google ADK multi-agent state mapping patterns"</option>
             </select>
             <button 
+              type="button"
               id="btn-run-rag" 
-              class="btn-primary text-xs py-2 px-4 whitespace-nowrap cursor-pointer hover:scale-102 transition-transform"
+              class="btn-primary text-xs py-2 px-4 whitespace-nowrap cursor-pointer hover:scale-[1.02] transition-transform"
             >
               ▶ Run RAG Pipeline
             </button>
@@ -86,7 +95,7 @@
           <!-- Typewriter Output Box -->
           <div class="border border-(--color-border) bg-space-light/40 p-4 rounded-xl flex-1 flex flex-col gap-2 min-h-[140px]">
             <span class="text-[0.65rem] font-(--font-mono) text-(--color-text-muted) uppercase tracking-wider block">Generated Synthesis (Streamed)</span>
-            <div id="rag-output-text" class="text-sm text-(--color-text-primary) leading-relaxed font-sans font-400">
+            <div id="rag-output-text" class="text-sm text-(--color-text-primary) leading-relaxed font-sans font-normal" aria-live="polite">
               Select a query above and run the pipeline to visualize document processing in real-time.
             </div>
           </div>
@@ -98,7 +107,7 @@
           
           <div class="glass-static p-3 flex items-center justify-between border border-(--color-border) bg-space-light/30">
             <span class="text-xs font-(--font-mono) text-(--color-text-secondary)">Semantic Router Node</span>
-            <label class="relative inline-flex items-center cursor-pointer">
+            <label class="relative inline-flex items-center cursor-pointer" aria-label="Toggle Semantic Router Node">
               <input type="checkbox" id="toggle-router" class="sr-only peer" checked>
               <div class="w-8 h-4 bg-red-500/20 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3.5 after:w-3.5 after:transition-all peer-checked:bg-(--color-teal)"></div>
             </label>
@@ -123,11 +132,11 @@
     </div>
 
     <!-- ═══ AGENT ORCHESTRATION PANEL ═══ -->
-    <div id="agent-panel" class="hidden flex flex-col gap-6 flex-1">
+    <div id="agent-panel" role="tabpanel" aria-labelledby="btn-agent-tab" class="hidden flex flex-col gap-6 flex-1">
       <div class="grid grid-cols-1 md:grid-cols-[1fr_250px] gap-6 items-start">
         <!-- Main Area -->
         <div class="flex flex-col gap-4">
-          <label class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider">Select Agent Objective</label>
+          <label for="agent-task-select" class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider">Select Agent Objective</label>
           <div class="flex gap-2">
             <select 
               id="agent-task-select" 
@@ -138,8 +147,9 @@
               <option value="jira">"Extract work logs and generate JIRA story sprint reports"</option>
             </select>
             <button 
+              type="button"
               id="btn-run-agent" 
-              class="btn-primary text-xs py-2 px-4 whitespace-nowrap cursor-pointer hover:scale-102 transition-transform"
+              class="btn-primary text-xs py-2 px-4 whitespace-nowrap cursor-pointer hover:scale-[1.02] transition-transform"
             >
               🚀 Initialize Agent
             </button>
@@ -153,7 +163,7 @@
               <span class="w-2.5 h-2.5 rounded-full bg-green-500/80"></span>
               <span class="text-[0.65rem] text-(--color-text-muted) ml-2">akanksha@agent-node:~</span>
             </div>
-            <div id="agent-terminal" class="text-xs text-green-400/90 leading-relaxed overflow-y-auto max-h-[180px] space-y-1">
+            <div id="agent-terminal" class="text-xs text-green-400/90 leading-relaxed overflow-y-auto max-h-[180px] space-y-1" aria-live="polite">
               <span class="text-(--color-text-muted)">Ready to initialize. Select an objective and launch the agent.</span>
             </div>
           </div>
@@ -165,7 +175,7 @@
           
           <div class="glass-static p-3 flex items-center justify-between border border-(--color-border) bg-space-light/30">
             <span class="text-xs font-(--font-mono) text-(--color-text-secondary)">RAGAS Guardrails Node</span>
-            <label class="relative inline-flex items-center cursor-pointer">
+            <label class="relative inline-flex items-center cursor-pointer" aria-label="Toggle RAGAS Guardrails Node">
               <input type="checkbox" id="toggle-guardrails" class="sr-only peer" checked>
               <div class="w-8 h-4 bg-red-500/20 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3.5 after:w-3.5 after:transition-all peer-checked:bg-(--color-teal)"></div>
             </label>
@@ -208,10 +218,12 @@
       step2: "Chroma search matches: 4. Nearest distance: 0.28 (FAISS index)",
       step3: "Entities matched: [Net Income], [Samsung SDS], [Quarter Earnings]. Graph connected.",
       step4: "LLM synthesis initialized (GPT-4 - context limit dynamic optimization)",
-      output: "Based on Samsung SDS's official financial disclosure for FY25 Q4: \n\n" +
-              "• **Net Income:** Stood at a robust figure showing an 11.2% year-on-year growth, driven primarily by enterprise Generative AI integrations and cloud service deployments. \n" +
-              "• **Retrieval Precision:** Bypassed traditional context windows using a divide-and-conquer strategy, achieving an average evaluation context recall of **92%** across complex financial tables. \n" +
-              "• **Pipeline Latency:** Graph RAG extraction routing resolved in **240ms** with FAISS embeddings indexing.",
+      output: "<p class='mb-2'>Based on Samsung SDS's official financial disclosure for FY25 Q4:</p>" +
+              "<ul class='space-y-1.5'>" +
+              "<li>• <strong>Net Income:</strong> Stood at a robust figure showing an 11.2% year-on-year growth, driven primarily by enterprise Generative AI integrations and cloud service deployments.</li>" +
+              "<li>• <strong>Retrieval Precision:</strong> Bypassed traditional context windows using a divide-and-conquer strategy, achieving an average evaluation context recall of <strong class='text-teal-300'>92%</strong> across complex financial tables.</li>" +
+              "<li>• <strong>Pipeline Latency:</strong> Graph RAG extraction routing resolved in <strong class='text-teal-300'>240ms</strong> with FAISS embeddings indexing.</li>" +
+              "</ul>",
       latency: "240 ms",
       matches: "4 text chunks",
       score: "0.93 / 1.0 (Groundedness)"
@@ -221,10 +233,12 @@
       step2: "Indexed 420 vector nodes. Retrieved top 8 chunks (dot product similarity).",
       step3: "Synthesized entity-relation mappings. Context graph built spanning 12 nodes.",
       step4: "LLM synthesis initialized (Llama-3 - custom system prompts)",
-      output: "Processing the full 200-page financial report yielded the following compliance metrics: \n\n" +
-              "• **Baseline vs Graph RAG:** Standard vector embeddings returned incomplete cross-references due to fragmented pages. Graph RAG improved information retrieval relevance by **40%**. \n" +
-              "• **Accuracy Evaluation:** The retrieval pipeline scored **92% accuracy** in comparison with manual auditor auditing logs. \n" +
-              "• **Processing Performance:** Dynamic token distribution managed to fit high-density tables without exceeding limits, keeping LLM input prompt cost optimized.",
+      output: "<p class='mb-2'>Processing the full 200-page financial report yielded the following compliance metrics:</p>" +
+              "<ul class='space-y-1.5'>" +
+              "<li>• <strong>Baseline vs Graph RAG:</strong> Standard vector embeddings returned incomplete cross-references due to fragmented pages. Graph RAG improved information retrieval relevance by <strong class='text-teal-300'>40%</strong>.</li>" +
+              "<li>• <strong>Accuracy Evaluation:</strong> The retrieval pipeline scored <strong class='text-teal-300'>92% accuracy</strong> in comparison with manual auditor auditing logs.</li>" +
+              "<li>• <strong>Processing Performance:</strong> Dynamic token distribution managed to fit high-density tables without exceeding limits, keeping LLM input prompt cost optimized.</li>" +
+              "</ul>",
       latency: "380 ms",
       matches: "8 nodes",
       score: "0.91 / 1.0 (Relevance)"
@@ -234,10 +248,12 @@
       step2: "Vector query matched 3 sections on state orchestration.",
       step3: "Resolved connections: [Agent State] -> [Tool Invocation] -> [Guardrail Verify].",
       step4: "LLM synthesis initialized (Mistral Large - fine-tuned variants)",
-      output: "Under the Google Agent Development Kit (ADK) framework: \n\n" +
-              "• **State Mapping:** Autonomous agents use a state-based orchestration container, where agent tasks are routed dynamically according to runtime inputs. \n" +
-              "• **MCP Protocol:** Integration with Model Context Protocol (MCP) enables plug-and-play tool execution (e.g., executing DB scripts, API validation). \n" +
-              "• **Efficiency Gain:** Automating the creation and evaluation pipelines using this multi-agent loop achieves a **60% reduction in manual developer efforts**.",
+      output: "<p class='mb-2'>Under the Google Agent Development Kit (ADK) framework:</p>" +
+              "<ul class='space-y-1.5'>" +
+              "<li>• <strong>State Mapping:</strong> Autonomous agents use a state-based orchestration container, where agent tasks are routed dynamically according to runtime inputs.</li>" +
+              "<li>• <strong>MCP Protocol:</strong> Integration with Model Context Protocol (MCP) enables plug-and-play tool execution (e.g., executing DB scripts, API validation).</li>" +
+              "<li>• <strong>Efficiency Gain:</strong> Automating the creation and evaluation pipelines using this multi-agent loop achieves a <strong class='text-teal-300'>60% reduction in manual developer efforts</strong>.</li>" +
+              "</ul>",
       latency: "190 ms",
       matches: "3 modules",
       score: "0.95 / 1.0 (Recall)"
@@ -278,7 +294,16 @@
     ]
   };
 
+  let activeTimers: any[] = [];
+  function clearAllTimers() {
+    activeTimers.forEach(t => clearTimeout(t));
+    activeTimers = [];
+  }
+
   function setupSandbox() {
+    const container = document.getElementById('ai-sandbox-container');
+    if (!container) return;
+
     // --- Tabs Switch ---
     const btnRagTab = document.getElementById('btn-rag-tab');
     const btnAgentTab = document.getElementById('btn-agent-tab');
@@ -286,21 +311,27 @@
     const agentPanel = document.getElementById('agent-panel');
 
     btnRagTab?.addEventListener('click', () => {
-      btnRagTab.className = "px-3 py-1.5 text-xs font-(--font-mono) font-600 rounded-md transition-all cursor-pointer bg-(--color-teal-glow) text-(--color-teal)";
-      btnAgentTab!.className = "px-3 py-1.5 text-xs font-(--font-mono) font-600 rounded-md transition-all cursor-pointer text-(--color-text-secondary) hover:text-(--color-text-primary)";
+      clearAllTimers();
+      btnRagTab.className = "px-3 py-1.5 text-xs font-(--font-mono) font-semibold rounded-md transition-all cursor-pointer bg-(--color-teal-glow) text-(--color-teal)";
+      btnRagTab.setAttribute('aria-selected', 'true');
+      btnAgentTab!.className = "px-3 py-1.5 text-xs font-(--font-mono) font-semibold rounded-md transition-all cursor-pointer text-(--color-text-secondary) hover:text-(--color-text-primary)";
+      btnAgentTab!.setAttribute('aria-selected', 'false');
       ragPanel?.classList.remove('hidden');
       agentPanel?.classList.add('hidden');
     });
 
     btnAgentTab?.addEventListener('click', () => {
-      btnAgentTab.className = "px-3 py-1.5 text-xs font-(--font-mono) font-600 rounded-md transition-all cursor-pointer bg-(--color-teal-glow) text-(--color-teal)";
-      btnRagTab!.className = "px-3 py-1.5 text-xs font-(--font-mono) font-600 rounded-md transition-all cursor-pointer text-(--color-text-secondary) hover:text-(--color-text-primary)";
+      clearAllTimers();
+      btnAgentTab.className = "px-3 py-1.5 text-xs font-(--font-mono) font-semibold rounded-md transition-all cursor-pointer bg-(--color-teal-glow) text-(--color-teal)";
+      btnAgentTab.setAttribute('aria-selected', 'true');
+      btnRagTab!.className = "px-3 py-1.5 text-xs font-(--font-mono) font-semibold rounded-md transition-all cursor-pointer text-(--color-text-secondary) hover:text-(--color-text-primary)";
+      btnRagTab!.setAttribute('aria-selected', 'false');
       agentPanel?.classList.remove('hidden');
       ragPanel?.classList.add('hidden');
     });
 
     // --- RAG Simulation Execution ---
-    const selectQuery = document.getElementById('rag-query-select') as HTMLSelectElement;
+    const selectQuery = document.getElementById('rag-query-select') as HTMLSelectElement | null;
     const btnRunRag = document.getElementById('btn-run-rag');
     const outRagText = document.getElementById('rag-output-text');
     const steps = document.querySelectorAll('.rag-step-box');
@@ -316,12 +347,13 @@
 
     let ragRunning = false;
     btnRunRag?.addEventListener('click', () => {
-      if (ragRunning) return;
+      if (ragRunning || !selectQuery) return;
       ragRunning = true;
+      clearAllTimers();
       btnRunRag.textContent = "Processing...";
       
       const val = selectQuery.value;
-      const toggleRouter = document.getElementById('toggle-router') as HTMLInputElement;
+      const toggleRouter = document.getElementById('toggle-router') as HTMLInputElement | null;
       const isRouterOn = toggleRouter?.checked !== false;
       
       const data = isRouterOn ? ragDatabase[val as keyof typeof ragDatabase] : {
@@ -329,67 +361,56 @@
         step2: "Chroma search matches: 15 (high noise ratio).",
         step3: "ROUTER DISABLED: Bypassing context graph. Appending all chunks.",
         step4: "LLM synthesis initialized (Context limit exceeded warning)",
-        output: "⚠️ **Warning: Hallucination detected.** \n\nContext lost due to high noise ratio and missing Semantic Router. The LLM has generalized the output and missed key metrics. \n\nTurn the Semantic Router Node back on to restore 92% precision and proper vector routing.",
+        output: "<p class='text-amber-400 font-semibold mb-2'>⚠️ Warning: Hallucination detected.</p>" +
+                "<p class='text-xs leading-relaxed'>Context lost due to high noise ratio and missing Semantic Router. The LLM has generalized the output and missed key metrics.</p>" +
+                "<p class='text-xs text-teal-300 mt-2'>Turn the Semantic Router Node back on to restore 92% precision and proper vector routing.</p>",
         latency: "1250 ms",
         matches: "15 (noisy)",
         score: "0.31 / 1.0 (Fail)"
       };
       
       // Clear previous outputs
-      outRagText!.textContent = "Connecting to pipeline container, starting segment parser...";
+      if (outRagText) outRagText.textContent = "Connecting to pipeline container, starting segment parser...";
       steps.forEach(s => s.classList.remove('active-step'));
       stepLogs.forEach(sl => { if (sl) sl.textContent = "Queued..."; });
-      logLatency!.textContent = "0.00 ms";
-      logMatches!.textContent = "-";
-      logScore!.textContent = "-";
+      if (logLatency) logLatency.textContent = "0.00 ms";
+      if (logMatches) logMatches.textContent = "-";
+      if (logScore) logScore.textContent = "-";
 
       // Step-by-step trigger
-      setTimeout(() => {
-        steps[0].classList.add('active-step');
-        stepLogs[0]!.textContent = data.step1;
-      }, 300);
+      activeTimers.push(setTimeout(() => {
+        steps[0]?.classList.add('active-step');
+        if (stepLogs[0]) stepLogs[0].textContent = data.step1;
+      }, 300));
 
-      setTimeout(() => {
-        steps[1].classList.add('active-step');
-        stepLogs[1]!.textContent = data.step2;
-      }, 1000);
+      activeTimers.push(setTimeout(() => {
+        steps[1]?.classList.add('active-step');
+        if (stepLogs[1]) stepLogs[1].textContent = data.step2;
+      }, 900));
 
-      setTimeout(() => {
-        steps[2].classList.add('active-step');
-        stepLogs[2]!.textContent = data.step3;
-      }, 1700);
+      activeTimers.push(setTimeout(() => {
+        steps[2]?.classList.add('active-step');
+        if (stepLogs[2]) stepLogs[2].textContent = data.step3;
+      }, 1500));
 
-      setTimeout(() => {
-        steps[3].classList.add('active-step');
-        stepLogs[3]!.textContent = data.step4;
+      activeTimers.push(setTimeout(() => {
+        steps[3]?.classList.add('active-step');
+        if (stepLogs[3]) stepLogs[3].textContent = data.step4;
         
-        // Populate stats
-        logLatency!.textContent = data.latency;
-        logMatches!.textContent = data.matches;
-        logScore!.textContent = data.score;
-      }, 2400);
+        if (logLatency) logLatency.textContent = data.latency;
+        if (logMatches) logMatches.textContent = data.matches;
+        if (logScore) logScore.textContent = data.score;
+      }, 2100));
 
-      setTimeout(() => {
-        // Stream text output
-        outRagText!.textContent = "";
-        let i = 0;
-        const txt = data.output;
-        function typeWriter() {
-          if (i < txt.length) {
-            outRagText!.innerHTML += txt.charAt(i) === '\n' ? '<br>' : txt.charAt(i);
-            i++;
-            setTimeout(typeWriter, 12);
-          } else {
-            btnRunRag.textContent = "▶ Run RAG Pipeline";
-            ragRunning = false;
-          }
-        }
-        typeWriter();
-      }, 3000);
+      activeTimers.push(setTimeout(() => {
+        if (outRagText) outRagText.innerHTML = data.output;
+        btnRunRag.textContent = "▶ Run RAG Pipeline";
+        ragRunning = false;
+      }, 2700));
     });
 
     // --- Agent Simulation Execution ---
-    const selectAgentTask = document.getElementById('agent-task-select') as HTMLSelectElement;
+    const selectAgentTask = document.getElementById('agent-task-select') as HTMLSelectElement | null;
     const btnRunAgent = document.getElementById('btn-run-agent');
     const terminal = document.getElementById('agent-terminal');
     const labelState = document.getElementById('agent-state-label');
@@ -398,32 +419,32 @@
 
     let agentRunning = false;
     btnRunAgent?.addEventListener('click', () => {
-      if (agentRunning) return;
+      if (agentRunning || !selectAgentTask) return;
       agentRunning = true;
+      clearAllTimers();
       btnRunAgent.textContent = "Running...";
       
       const val = selectAgentTask.value;
-      const toggleGuard = document.getElementById('toggle-guardrails') as HTMLInputElement;
+      const toggleGuard = document.getElementById('toggle-guardrails') as HTMLInputElement | null;
       const isGuardOn = toggleGuard?.checked !== false;
       
       let logs = [...agentDatabase[val as keyof typeof agentDatabase]];
       
       if (!isGuardOn) {
-         logs = logs.slice(0, 5); // Take up to GENERATING / TESTING
-         logs.push({ delay: 3500, text: "[Verifier] NODE DISABLED. Bypassing RAGAS framework checks...", state: "SKIPPED", tool: "N/A", guard: "OFFLINE" });
-         logs.push({ delay: 4200, text: "[Warning] Unverified output generated. Hallucination risk: HIGH.", state: "UNSAFE", tool: "N/A", guard: "OFFLINE" });
-         logs.push({ delay: 4800, text: "[Error] Pipeline produced degraded output. Turn Guardrails back on.", state: "FAILED", tool: "N/A", guard: "OFFLINE" });
+        logs = logs.slice(0, 5);
+        logs.push({ delay: 3200, text: "[Verifier] NODE DISABLED. Bypassing RAGAS framework checks...", state: "SKIPPED", tool: "N/A", guard: "OFFLINE" });
+        logs.push({ delay: 3800, text: "[Warning] Unverified output generated. Hallucination risk: HIGH.", state: "UNSAFE", tool: "N/A", guard: "OFFLINE" });
+        logs.push({ delay: 4400, text: "[Error] Pipeline produced degraded output. Turn Guardrails back on.", state: "FAILED", tool: "N/A", guard: "OFFLINE" });
       }
       
-      terminal!.innerHTML = '<span class="text-white/40">> Launching Docker instance for Agent Node...</span>';
-      labelState!.textContent = "INIT";
-      countTools!.textContent = "0 Called";
-      statusGuard!.textContent = "WAITING";
+      if (terminal) terminal.innerHTML = '<span class="text-white/40">> Launching Docker container for Agent Node...</span>';
+      if (labelState) labelState.textContent = "INIT";
+      if (countTools) countTools.textContent = "0 Called";
+      if (statusGuard) statusGuard.textContent = "WAITING";
 
-      logs.forEach(l => {
-        setTimeout(() => {
+      logs.forEach((l, idx) => {
+        activeTimers.push(setTimeout(() => {
           const block = document.createElement('div');
-          // Highlight colors based on log categories
           if (l.text.startsWith('[Action]')) {
             block.className = 'text-sky-300';
           } else if (l.text.startsWith('[Tool Output]')) {
@@ -432,6 +453,8 @@
             block.className = 'text-amber-400';
           } else if (l.text.startsWith('[Success]')) {
             block.className = 'text-green-400 font-bold';
+          } else if (l.text.startsWith('[Warning]') || l.text.startsWith('[Error]')) {
+            block.className = 'text-red-400 font-semibold';
           } else {
             block.className = 'text-white/90';
           }
@@ -439,22 +462,20 @@
           terminal?.appendChild(block);
           terminal?.scrollTo({ top: terminal.scrollHeight, behavior: 'smooth' });
 
-          // Update sidebar indicators
-          labelState!.textContent = l.state;
-          countTools!.textContent = l.tool;
-          statusGuard!.textContent = l.guard;
+          if (labelState) labelState.textContent = l.state;
+          if (countTools) countTools.textContent = l.tool;
+          if (statusGuard) statusGuard.textContent = l.guard;
 
-          // Finished check
-          if (l.state === "SUCCESS") {
+          // Crucial: Reset button on terminal state (SUCCESS, FAILED, or final index)
+          if (l.state === "SUCCESS" || l.state === "FAILED" || l.state === "UNSAFE" || idx === logs.length - 1) {
             btnRunAgent.textContent = "🚀 Initialize Agent";
             agentRunning = false;
           }
-        }, l.delay);
+        }, l.delay));
       });
     });
   }
 
-  // Support both classic and Astro View Transitions
   setupSandbox();
   document.addEventListener('astro:page-load', setupSandbox);
 </script>
