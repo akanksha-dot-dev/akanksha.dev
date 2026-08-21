@@ -399,12 +399,15 @@ const categories = ['All', ...new Set(projects.map(p => p.category))];
 
   <script define:vars={{ projects }}>
     function initProjectsPage() {
+      const playSound = (window as any).__AK_PLAY_SOUND__ || (() => {});
+
       // Category filter handling
       const filterButtons = document.querySelectorAll('.filter-btn');
       const projectCards = document.querySelectorAll('.project-card');
 
       filterButtons.forEach(btn => {
         btn.addEventListener('click', () => {
+          playSound('click');
           filterButtons.forEach(b => {
             b.classList.remove('border-(--color-teal)', 'bg-(--color-teal-glow)', 'text-(--color-teal)');
             b.classList.add('bg-white/5', 'border-(--color-border)', 'text-(--color-text-secondary)');
@@ -418,9 +421,9 @@ const categories = ['All', ...new Set(projects.map(p => p.category))];
           projectCards.forEach(card => {
             const cardCat = card.getAttribute('data-category');
             if (category === 'All' || cardCat === category) {
-              card.style.display = 'flex';
+              (card as HTMLElement).style.display = 'flex';
             } else {
-              card.style.display = 'none';
+              (card as HTMLElement).style.display = 'none';
             }
           });
         });
@@ -439,6 +442,7 @@ const categories = ['All', ...new Set(projects.map(p => p.category))];
       const modalGithub = document.getElementById('modal-github-link');
 
       function closeModal() {
+        playSound('click');
         modal?.classList.add('hidden');
       }
 
@@ -455,6 +459,7 @@ const categories = ['All', ...new Set(projects.map(p => p.category))];
 
       document.querySelectorAll('.btn-inspect-arch').forEach(btn => {
         btn.addEventListener('click', () => {
+          playSound('node');
           const id = btn.getAttribute('data-project-id');
           const proj = projects.find(p => p.id === id);
           if (!proj || !proj.caseStudy) return;

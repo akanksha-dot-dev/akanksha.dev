@@ -271,10 +271,13 @@ const topics = [
 
       const btnCopyEmail = document.getElementById('btn-copy-email');
       const copyEmailLabel = document.getElementById('copy-email-label');
+      const playSound = (window as any).__AK_PLAY_SOUND__ || (() => {});
 
       // Copy raw email
       btnCopyEmail?.addEventListener('click', () => {
+        playSound('click');
         navigator.clipboard.writeText('me@akanksha.dev').then(() => {
+          playSound('success');
           if (copyEmailLabel) copyEmailLabel.textContent = 'Email Copied!';
           setTimeout(() => {
             if (copyEmailLabel) copyEmailLabel.textContent = 'Copy Email Address';
@@ -285,6 +288,7 @@ const topics = [
       // Topic Selection
       topicButtons.forEach(btn => {
         btn.addEventListener('click', () => {
+          playSound('click');
           topicButtons.forEach(b => {
             b.classList.remove('border-(--color-teal)', 'bg-(--color-teal-glow)', 'text-(--color-teal)');
             b.classList.add('border-(--color-border)', 'bg-[#080E1E]/40', 'text-(--color-text-secondary)');
@@ -350,7 +354,12 @@ const topics = [
           errMessage?.classList.add('hidden');
         }
 
-        if (hasError) return;
+        if (hasError) {
+          playSound('click');
+          return;
+        }
+
+        playSound('success');
 
         // Build mailto link
         const subject = encodeURIComponent(`[akanksha.dev] ${topic} from ${name}`);
@@ -363,7 +372,9 @@ const topics = [
 
         // Copy formatted note button
         btnCopyFormattedMsg?.addEventListener('click', () => {
+          playSound('click');
           navigator.clipboard.writeText(bodyText).then(() => {
+            playSound('success');
             if (btnCopyFormattedMsg) btnCopyFormattedMsg.textContent = 'Copied to Clipboard!';
             setTimeout(() => {
               if (btnCopyFormattedMsg) btnCopyFormattedMsg.textContent = 'Copy Formatted Note';
@@ -381,6 +392,7 @@ const topics = [
 
       // Reset
       btnResetForm?.addEventListener('click', () => {
+        playSound('click');
         form?.reset();
         successState?.classList.add('hidden');
         form?.classList.remove('hidden');
