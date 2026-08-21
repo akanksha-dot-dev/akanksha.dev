@@ -411,9 +411,26 @@ body::after {
   100% { transform: scale(2.2); opacity: 0; }
 }
 
-/* ─── Responsive ───────────────────────────────────────── */
+/* ─── Responsive & Accessibility ───────────────────────── */
+
+pre, code, .font-mono, #agent-terminal {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
 
 @media (max-width: 768px) {
   .metric-value { font-size: 1.5rem; }
   .section-title { font-size: 1.5rem; }
+}
+
+@media (max-width: 640px) {
+  .btn-primary, .btn-outline {
+    min-height: 44px;
+    padding: 0.65rem 1.25rem;
+  }
+
+  /* Safe touch targets for interactive controls */
+  button, select, input[type="checkbox"] + div {
+    touch-action: manipulation;
+  }
 }
