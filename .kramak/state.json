@@ -3,12 +3,15 @@
   "batchNumber": 4,
   "active": null,
   "queue": [
-    "WI-402",
     "WI-403",
     "WI-404",
     "WI-405"
   ],
   "completed": [
+    {
+      "id": "WI-402",
+      "completedAt": "2026-08-21T13:12:45Z"
+    },
     {
       "id": "WI-401",
       "completedAt": "2026-08-21T13:11:41Z"

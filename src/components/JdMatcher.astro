@@ -1,27 +1,27 @@
 ---
-// src/components/JdMatcher.astro — Recruiter JD Compatibility & Competency Engine 3.0 (Full-Width Responsive)
+// src/components/JdMatcher.astro — Recruiter JD Compatibility & Competency Radar Engine 4.0
 ---
 
-<div class="glass-static p-6 sm:p-8 relative overflow-hidden fade-in border border-(--color-border) bg-(--color-surface) rounded-2xl w-full" id="jd-matcher-container">
+<div class="glass-static p-6 sm:p-8 relative overflow-hidden fade-in border border-(--color-border) bg-(--color-surface) rounded-2xl w-full shadow-2xl" id="jd-matcher-container">
   <!-- Subtle Ambient Glow -->
-  <div class="absolute -top-24 -right-24 w-64 h-64 rounded-full bg-(--color-teal-glow) filter blur-3xl pointer-events-none"></div>
-  <div class="absolute -bottom-24 -left-24 w-64 h-64 rounded-full bg-(--color-amber-glow) filter blur-3xl pointer-events-none"></div>
+  <div class="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-(--color-teal-glow) filter blur-3xl pointer-events-none"></div>
+  <div class="absolute -bottom-24 -left-24 w-72 h-72 rounded-full bg-(--color-amber-glow) filter blur-3xl pointer-events-none"></div>
 
   <!-- Header -->
   <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-5 border-b border-(--color-border) relative z-10">
     <div>
       <div class="flex items-center gap-2">
-        <span class="w-2.5 h-2.5 rounded-full bg-(--color-amber) animate-pulse"></span>
+        <span class="w-2.5 h-2.5 rounded-full bg-(--color-amber) animate-pulse shadow-[0_0_8px_rgba(245,163,0,0.8)]"></span>
         <h3 class="font-(--font-heading) font-extrabold text-lg sm:text-xl text-white tracking-tight">
           Recruiter <span class="gradient-text">JD Compatibility Engine</span>
         </h3>
       </div>
       <p class="text-xs text-(--color-text-secondary) font-(--font-mono) mt-1">
-        Instant client-side candidate fit analysis, 4-domain scoring & STAR story matching
+        Instant client-side candidate fit analysis, 4-domain radar scoring & STAR story matching
       </p>
     </div>
 
-    <!-- Quick Actions / Dossier Export (Visible anytime) -->
+    <!-- Quick Actions / Dossier Export -->
     <div class="flex items-center gap-2 self-start sm:self-auto">
       <button 
         type="button" 
@@ -38,26 +38,40 @@
   </div>
 
   <div class="relative z-10 flex flex-col gap-6">
-    <!-- Paste Area -->
+    <!-- Paste Area & Role Presets -->
     <div class="flex flex-col gap-3">
       <div class="flex flex-wrap gap-2 items-center justify-between">
         <label for="jd-input" class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider font-semibold flex items-center gap-1.5">
-          <span>Paste Job Description or Select Role Preset:</span>
+          <span>Target Role Presets or Custom JD:</span>
         </label>
         <div class="flex flex-wrap gap-2">
           <button 
             type="button"
-            id="btn-sample-genai" 
-            class="text-xs font-(--font-mono) px-3 py-1.5 border border-(--color-border) hover:border-(--color-teal) rounded-lg text-(--color-text-secondary) hover:text-(--color-teal) cursor-pointer transition-colors bg-[#080E1E]"
+            id="btn-preset-senior" 
+            class="text-xs font-(--font-mono) px-3 py-1.5 border border-(--color-teal)/40 bg-(--color-teal-glow) text-(--color-teal) rounded-lg hover:border-(--color-teal) cursor-pointer transition-all font-semibold"
           >
-            Sample: Senior GenAI / Agentic
+            Senior AI Engineer
           </button>
           <button 
             type="button"
-            id="btn-sample-fde" 
+            id="btn-preset-staff" 
             class="text-xs font-(--font-mono) px-3 py-1.5 border border-(--color-border) hover:border-(--color-teal) rounded-lg text-(--color-text-secondary) hover:text-(--color-teal) cursor-pointer transition-colors bg-[#080E1E]"
           >
-            Sample: Solutions / FDE
+            Staff RAG & Agent Architect
+          </button>
+          <button 
+            type="button"
+            id="btn-preset-eval" 
+            class="text-xs font-(--font-mono) px-3 py-1.5 border border-(--color-border) hover:border-(--color-teal) rounded-lg text-(--color-text-secondary) hover:text-(--color-teal) cursor-pointer transition-colors bg-[#080E1E]"
+          >
+            AI Eval & Reliability Lead
+          </button>
+          <button 
+            type="button"
+            id="btn-preset-fde" 
+            class="text-xs font-(--font-mono) px-3 py-1.5 border border-(--color-border) hover:border-(--color-teal) rounded-lg text-(--color-text-secondary) hover:text-(--color-teal) cursor-pointer transition-colors bg-[#080E1E]"
+          >
+            Solutions / FDE
           </button>
           <button 
             type="button"
@@ -90,13 +104,13 @@
     </div>
 
     <!-- Match Results Area -->
-    <div id="matcher-results" class="flex flex-col gap-6 border-t border-(--color-border) pt-6 animate-fadeIn" aria-live="polite">
-      <!-- Top Row: Radial Ring + 4-Domain Breakdown (Spacious Grid) -->
-      <div class="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-6 items-center bg-[#080E1E]/60 p-6 rounded-2xl border border-(--color-border)">
-        <!-- Match Score Ring -->
-        <div class="flex flex-col items-center justify-center text-center">
+    <div id="matcher-results" class="flex flex-col gap-6 border-t border-(--color-border) pt-6" aria-live="polite">
+      <!-- Top Row: Radial Ring + 4-Domain Competency Radar Breakdown -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center bg-[#080E1E]/60 p-6 rounded-2xl border border-(--color-border)">
+        <!-- Match Score Ring (4 cols) -->
+        <div class="md:col-span-4 flex flex-col items-center justify-center text-center p-2">
           <div 
-            class="relative w-28 h-28 flex items-center justify-center" 
+            class="relative w-32 h-32 flex items-center justify-center" 
             role="progressbar" 
             id="score-progressbar" 
             aria-valuenow="0" 
@@ -108,19 +122,22 @@
               <circle cx="56" cy="56" r="48" stroke="rgba(255,255,255,0.07)" stroke-width="8" fill="transparent"/>
               <circle id="score-circle" cx="56" cy="56" r="48" stroke="var(--color-teal)" stroke-width="8" fill="transparent" stroke-linecap="round" stroke-dasharray="301.6" stroke-dashoffset="301.6" class="transition-all duration-1000 ease-out"/>
             </svg>
-            <span id="score-percentage" class="text-3xl font-extrabold font-(--font-heading) text-(--color-teal)">0%</span>
+            <div class="flex flex-col items-center justify-center">
+              <span id="score-percentage" class="text-3xl font-extrabold font-(--font-heading) text-(--color-teal)">0%</span>
+              <span class="text-[9px] font-mono text-teal-400 font-semibold uppercase">MATCH FIT</span>
+            </div>
           </div>
           <span class="text-xs font-(--font-mono) text-(--color-text-secondary) mt-2 uppercase tracking-wider font-semibold">OVERALL FIT SCORE</span>
         </div>
 
-        <!-- 4 Domain Category Breakdown Bars -->
-        <div class="flex flex-col gap-3">
-          <div class="flex justify-between items-center">
-            <span class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider font-semibold">Domain Fit Breakdown</span>
-            <span class="text-[11px] font-(--font-mono) text-(--color-teal)">4 Competency Spheres</span>
+        <!-- 4-Domain Fit Radar Bars (8 cols) -->
+        <div class="md:col-span-8 flex flex-col gap-3.5">
+          <div class="flex justify-between items-center pb-2 border-b border-white/5">
+            <span class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider font-semibold">4-Domain Fit Radar</span>
+            <span class="text-[11px] font-(--font-mono) text-(--color-teal)">Verified Competencies</span>
           </div>
           
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-xs font-(--font-mono)">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3.5 text-xs font-(--font-mono)">
             <!-- Category 1: Agentic AI -->
             <div class="flex flex-col gap-1.5">
               <div class="flex justify-between text-xs">
@@ -188,7 +205,7 @@
             <span class="text-xs font-(--font-mono) text-(--color-text-muted)" id="bullet-count-label">0 Bullets Filtered</span>
           </div>
           
-          <div class="border border-(--color-border) bg-[#080E1E]/60 rounded-xl p-4 flex flex-col gap-3.5 max-h-[300px] overflow-y-auto" id="filtered-bullets-container">
+          <div class="border border-(--color-border) bg-[#080E1E]/60 rounded-xl p-4 flex flex-col gap-3.5 max-h-[320px] overflow-y-auto" id="filtered-bullets-container">
             <!-- Populated via JS -->
           </div>
         </div>
@@ -199,7 +216,7 @@
             <span class="text-xs font-(--font-mono) text-(--color-text-secondary) uppercase tracking-wider font-semibold">Recommended Interview Talking Points (STAR)</span>
             <span class="text-xs font-(--font-mono) text-(--color-amber)">Interview Prep</span>
           </div>
-          <div class="flex flex-col gap-3 max-h-[300px] overflow-y-auto" id="suggested-stories-container">
+          <div class="flex flex-col gap-3 max-h-[320px] overflow-y-auto" id="suggested-stories-container">
             <!-- Populated via JS -->
           </div>
         </div>
@@ -210,15 +227,30 @@
 
 <script>
   const sampleJds = {
-    genai: "Senior Production AI Engineer (RAG & Multi-Agent Systems)\n\n" +
-           "We are looking for a Senior AI Engineer to lead the architecture of production Generative AI systems.\n" +
-           "Key Responsibilities:\n" +
-           "• Design and scale advanced Retrieval-Augmented Generation (Graph RAG, Hybrid FAISS search, semantic routing).\n" +
-           "• Build multi-agent workflows using Google ADK, LangGraph, CrewAI, and MCP tools.\n" +
-           "• Deploy robust LLM serving endpoints (GPT-4, Llama-3) with FastAPI backends and Docker/Kubernetes.\n" +
-           "• Implement custom evaluation harnesses using RAGAS and LangSmith for groundedness and anti-hallucination.\n" +
-           "• Lead and mentor engineering squad members on prompt engineering and safety guardrails.",
+    senior: "Senior Production AI Engineer (RAG & Multi-Agent Systems)\n\n" +
+            "We are looking for a Senior AI Engineer to lead the architecture of production Generative AI systems.\n" +
+            "Key Responsibilities:\n" +
+            "• Design and scale advanced Retrieval-Augmented Generation (Graph RAG, Hybrid FAISS search, semantic routing).\n" +
+            "• Build multi-agent workflows using Google ADK, LangGraph, CrewAI, and MCP tools.\n" +
+            "• Deploy robust LLM serving endpoints (GPT-4, Llama-3) with FastAPI backends and Docker/Kubernetes.\n" +
+            "• Implement custom evaluation harnesses using RAGAS and LangSmith for groundedness and anti-hallucination.\n" +
+            "• Lead and mentor engineering squad members on prompt engineering and safety guardrails.",
     
+    staff: "Staff AI Architect (Enterprise LLM Orchestration & Autonomous Agents)\n\n" +
+           "Seeking a Staff-level AI Architect to define company-wide GenAI pipelines.\n" +
+           "Requirements:\n" +
+           "• 4+ years architectural experience in enterprise RAG and autonomous agent loops.\n" +
+           "• Deep expertise with Knowledge Graphs (Neo4j), vector databases (FAISS, Chroma), and layout-aware document extraction.\n" +
+           "• Proven track record in agent safety harnesses, prompt injection defense, and sub-300ms SLA optimization.\n" +
+           "• Cross-border squad leadership and technical roadmap ownership.",
+
+    eval: "AI Evaluation & Reliability Lead\n\n" +
+          "Looking for an AI engineer focused on LLM benchmark validation, RAG evaluation, and production reliability.\n" +
+          "Key Skills:\n" +
+          "• Automated RAGAS evaluation (faithfulness, answer relevance, context recall).\n" +
+          "• High-reliability enterprise backend architectures (FastAPI, Docker, CI/CD pipelines).\n" +
+          "• 98%+ SLA reliability management, incident response, and performance monitoring.",
+
     fde: "Forward Deployed AI Engineer / Enterprise Solutions Architect\n\n" +
          "Looking for an AI engineer to drive production ML & LLM deployments for enterprise customers.\n" +
          "Key Requirements:\n" +
@@ -250,7 +282,7 @@
       { key: "aws", label: "AWS Bedrock / SageMaker", cat: "ml", regex: /aws|bedrock|sagemaker/i },
       { key: "azure", label: "Azure ML / Cloud", cat: "ml", regex: /azure/i },
       { key: "sql", label: "SQL / Databases", cat: "ml", regex: /sql|postgresql|mysql|database/i },
-      { key: "lead", label: "Tech Leadership & Mentorship", cat: "ml", regex: /lead|mentor|managing|team\s*leader/i },
+      { key: "lead", label: "Tech Leadership & Mentorship", cat: "ml", regex: /lead|mentor|managing|team\s*leader|architect/i },
       { key: "reliability", label: "Production Reliability & SLA", cat: "ml", regex: /reliability|uptime|incidents|downtime|sla/i }
     ],
     bullets: [
@@ -321,9 +353,13 @@
     const container = document.getElementById('jd-matcher-container');
     if (!container) return;
 
+    const playSound = (window as any).__AK_PLAY_SOUND__ || (() => {});
+
     const jdTextarea = document.getElementById('jd-input') as HTMLTextAreaElement | null;
-    const btnSampleGenAi = document.getElementById('btn-sample-genai');
-    const btnSampleFde = document.getElementById('btn-sample-fde');
+    const btnPresetSenior = document.getElementById('btn-preset-senior');
+    const btnPresetStaff = document.getElementById('btn-preset-staff');
+    const btnPresetEval = document.getElementById('btn-preset-eval');
+    const btnPresetFde = document.getElementById('btn-preset-fde');
     const btnClearJd = document.getElementById('btn-clear-jd');
     const btnMatch = document.getElementById('btn-match-jd');
     const typingStatus = document.getElementById('jd-typing-status');
@@ -349,6 +385,17 @@
 
     const btnCopyJdReport = document.getElementById('btn-copy-jd-report');
     const copyJdLabel = document.getElementById('copy-jd-label');
+
+    function setActivePreset(activeBtn: HTMLElement | null) {
+      [btnPresetSenior, btnPresetStaff, btnPresetEval, btnPresetFde].forEach(b => {
+        b?.classList.remove('border-(--color-teal)/40', 'bg-(--color-teal-glow)', 'text-(--color-teal)', 'font-semibold');
+        b?.classList.add('border-(--color-border)', 'text-(--color-text-secondary)', 'bg-[#080E1E]');
+      });
+      if (activeBtn) {
+        activeBtn.classList.remove('border-(--color-border)', 'text-(--color-text-secondary)', 'bg-[#080E1E]');
+        activeBtn.classList.add('border-(--color-teal)/40', 'bg-(--color-teal-glow)', 'text-(--color-teal)', 'font-semibold');
+      }
+    }
 
     function runMatching() {
       const text = jdTextarea?.value.trim() || '';
@@ -376,12 +423,12 @@
       // Compute Scores
       const totalSkillsMatched = matchedKeys.size;
       const baseRatio = totalSkillsMatched / matchDatabase.skills.length;
-      const overallScore = Math.min(98, Math.max(35, Math.round(baseRatio * 100) + 24));
+      const overallScore = Math.min(98, Math.max(45, Math.round(baseRatio * 100) + 35));
 
-      const agenticScore = Math.min(100, Math.round((catCounts.agentic / (catTotals.agentic || 1)) * 100) + 20);
-      const ragScore = Math.min(100, Math.round((catCounts.rag / (catTotals.rag || 1)) * 100) + 20);
-      const infraScore = Math.min(100, Math.round((catCounts.infra / (catTotals.infra || 1)) * 100) + 20);
-      const mlScore = Math.min(100, Math.round((catCounts.ml / (catTotals.ml || 1)) * 100) + 20);
+      const agenticScore = Math.min(100, Math.round((catCounts.agentic / (catTotals.agentic || 1)) * 100) + 25);
+      const ragScore = Math.min(100, Math.round((catCounts.rag / (catTotals.rag || 1)) * 100) + 25);
+      const infraScore = Math.min(100, Math.round((catCounts.infra / (catTotals.infra || 1)) * 100) + 25);
+      const mlScore = Math.min(100, Math.round((catCounts.ml / (catTotals.ml || 1)) * 100) + 25);
 
       // Populate Category Bars
       if (catAgenticPct && catAgenticBar) {
@@ -415,10 +462,11 @@
         if (currentVal >= overallScore) {
           currentVal = overallScore;
           clearInterval(countInterval);
+          playSound('success');
         }
         if (scorePercentage) scorePercentage.textContent = `${currentVal}%`;
         if (scoreProgressbar) scoreProgressbar.setAttribute('aria-valuenow', `${currentVal}`);
-      }, 15);
+      }, 12);
 
       // Populate Matched Tags
       if (tagsContainer) {
@@ -429,7 +477,7 @@
           matchDatabase.skills.forEach(s => {
             if (matchedKeys.has(s.key)) {
               const span = document.createElement('span');
-              span.className = 'badge text-xs py-1 px-2.5 border-teal-500/40 bg-teal-500/15 text-teal-300 animate-fadeIn';
+              span.className = 'badge text-xs py-1 px-2.5 border-teal-500/40 bg-teal-500/15 text-teal-300';
               span.textContent = `✔ ${s.label}`;
               tagsContainer.appendChild(span);
             }
@@ -454,7 +502,7 @@
 
         matchingBullets.forEach(b => {
           const item = document.createElement('div');
-          item.className = 'flex items-start gap-2.5 text-xs leading-relaxed text-(--color-text-secondary) font-sans animate-fadeIn';
+          item.className = 'flex items-start gap-2.5 text-xs leading-relaxed text-(--color-text-secondary) font-sans';
           const companyBadgeClass = b.company === 'Samsung SDS' ? 'text-teal-300 border-teal-500/30 bg-teal-500/10' : 'text-amber-300 border-amber-500/30 bg-amber-500/10';
           item.innerHTML = `
             <span class="text-teal-400 font-bold shrink-0 mt-0.5">▸</span>
@@ -482,7 +530,7 @@
 
         displayStories.forEach(st => {
           const card = document.createElement('div');
-          card.className = 'glass-static p-3.5 rounded-xl border border-(--color-border) bg-[#080E1E]/80 text-xs flex flex-col gap-1.5 animate-fadeIn';
+          card.className = 'glass-static p-3.5 rounded-xl border border-(--color-border) bg-[#080E1E]/80 text-xs flex flex-col gap-1.5';
           card.innerHTML = `
             <h4 class="font-bold text-white text-xs font-(--font-heading) flex items-center gap-1.5">
               <span class="text-amber-400">★</span> ${st.title}
@@ -503,16 +551,41 @@
       debounceTimer = setTimeout(runMatching, 250);
     });
 
-    btnMatch?.addEventListener('click', runMatching);
+    btnMatch?.addEventListener('click', () => {
+      playSound('click');
+      runMatching();
+    });
 
-    btnSampleGenAi?.addEventListener('click', () => {
+    btnPresetSenior?.addEventListener('click', () => {
+      playSound('click');
+      setActivePreset(btnPresetSenior);
       if (jdTextarea) {
-        jdTextarea.value = sampleJds.genai;
+        jdTextarea.value = sampleJds.senior;
         runMatching();
       }
     });
 
-    btnSampleFde?.addEventListener('click', () => {
+    btnPresetStaff?.addEventListener('click', () => {
+      playSound('click');
+      setActivePreset(btnPresetStaff);
+      if (jdTextarea) {
+        jdTextarea.value = sampleJds.staff;
+        runMatching();
+      }
+    });
+
+    btnPresetEval?.addEventListener('click', () => {
+      playSound('click');
+      setActivePreset(btnPresetEval);
+      if (jdTextarea) {
+        jdTextarea.value = sampleJds.eval;
+        runMatching();
+      }
+    });
+
+    btnPresetFde?.addEventListener('click', () => {
+      playSound('click');
+      setActivePreset(btnPresetFde);
       if (jdTextarea) {
         jdTextarea.value = sampleJds.fde;
         runMatching();
@@ -520,6 +593,8 @@
     });
 
     btnClearJd?.addEventListener('click', () => {
+      playSound('click');
+      setActivePreset(null);
       if (jdTextarea) {
         jdTextarea.value = '';
         runMatching();
@@ -528,6 +603,7 @@
 
     // Copy Dossier Markdown
     btnCopyJdReport?.addEventListener('click', () => {
+      playSound('click');
       const score = scorePercentage?.textContent || '0%';
       const text = `## Akanksha.dev — Candidate Match Dossier\n` +
                    `**Role Alignment Score:** ${score}\n\n` +
@@ -539,6 +615,7 @@
 
       navigator.clipboard.writeText(text).then(() => {
         if (copyJdLabel) copyJdLabel.textContent = 'Dossier Copied!';
+        playSound('success');
         setTimeout(() => {
           if (copyJdLabel) copyJdLabel.textContent = 'Copy Candidate Dossier';
         }, 2000);
@@ -547,7 +624,7 @@
 
     // Load initial sample so recruiters immediately see values
     if (jdTextarea && !jdTextarea.value) {
-      jdTextarea.value = sampleJds.genai;
+      jdTextarea.value = sampleJds.senior;
       runMatching();
     }
   }
