@@ -1,7 +1,9 @@
-# Vanity redirects
-/resume  /contact  302
-/cv  /contact  302
-/hire  /contact  302
-/github  https://github.com/akanksha-dot-dev  301
-/linkedin  https://linkedin.com/in/akankshadev  301
-/twitter  https://x.com/akankshadotdev  301
+# Resume and vanity redirects
+/resume      /resume/akanksha_resume.pdf  302
+/resume.pdf  /resume/akanksha_resume.pdf  302
+/cv          /resume/akanksha_resume.pdf  302
+/hire        /contact                     302
+/github      https://github.com/akanksha-dot-dev  301
+/linkedin    https://linkedin.com/in/akankshadev  301
+/twitter     https://x.com/akankshadotdev         301
+
