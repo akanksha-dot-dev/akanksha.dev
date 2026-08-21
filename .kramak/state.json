@@ -1,11 +1,13 @@
 {
-  "phase": "executing",
+  "phase": "complete",
   "batchNumber": 4,
   "active": null,
-  "queue": [
-    "WI-405"
-  ],
+  "queue": [],
   "completed": [
+    {
+      "id": "WI-405",
+      "completedAt": "2026-08-21T13:16:12Z"
+    },
     {
       "id": "WI-404",
       "completedAt": "2026-08-21T13:14:50Z"
